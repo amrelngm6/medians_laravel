@@ -113,7 +113,6 @@ function fetchData() {
                         handleResponse(res)
                     }
                 } catch (error) {
-                    console.log(error)        
                     jQuery('#chat_content').html(xhr.responseText);
                 }
             } else {
