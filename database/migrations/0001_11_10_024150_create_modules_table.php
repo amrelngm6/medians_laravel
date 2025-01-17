@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('path');
             $table->string('provider');
             $table->boolean('is_enabled')->default(true);
-            $table->boolean('has_settngs');
+            $table->boolean('has_settings');
             $table->boolean('business_access');
             $table->boolean('limited_features');
             $table->timestamps();

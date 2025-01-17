@@ -19,7 +19,7 @@ class Module extends Model
         'name',
         'provider',
         'path',
-        'has_settngs',
+        'has_settings',
         'business_access', 
         'limited_features',
         'is_enabled'
@@ -49,7 +49,7 @@ class Module extends Model
 
     public static function getActiveHasSetting()
     {
-        return Module::where('is_enabled', true)->where('has_settngs', true)->get();
+        return Module::where('is_enabled', true)->where('has_settings', true)->get();
     }
 
 }

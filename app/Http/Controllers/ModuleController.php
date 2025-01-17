@@ -96,7 +96,7 @@ class ModuleController extends Controller
                 'name' => $value['name'],
                 'path' => $value['path'],
                 'provider' => $value['provider'], 
-                'has_settngs' => $value['has_settngs'] ?? null,
+                'has_settings' => $value['has_settings'] ?? null,
                 'business_access' => $value['business_access'] ?? null,
                 'limited_features' => $value['limited_features'] ?? null,
                 'is_enabled' => true
