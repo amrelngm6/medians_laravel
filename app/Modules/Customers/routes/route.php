@@ -16,13 +16,6 @@ Route::prefix('clients')->middleware(['web', 'auth:staff'])->group(function () {
     Route::put('{id}', [ClientController::class, 'update']);
     Route::delete('{id}', [ClientController::class, 'destroy']);
 
-    Route::prefix('{customerId}/tasks')->group(function () {
-        Route::get('/', [TaskController::class, 'index']);
-        Route::post('/', [TaskController::class, 'store']);
-        Route::get('{id}', [TaskController::class, 'show']);
-        Route::put('{id}', [TaskController::class, 'update']);
-        Route::delete('{id}', [TaskController::class, 'destroy']);
-    });
 });
 
 Route::prefix('settings')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
@@ -42,11 +35,4 @@ Route::prefix('staff')->middleware(['web', 'auth:staff'])->group(function () {
     Route::view('/edit_modal/{id}', 'includes.modals.edit-staff-modal')->name('Staff.edit');  
     Route::view('/edit_modal/{id}', 'includes.modals.edit-staff-modal')->name('Staff.edit_modal');
 
-    Route::prefix('{staffId}/tasks')->group(function () {
-        Route::get('/', [TaskController::class, 'index']);
-        Route::post('/', [TaskController::class, 'store']);
-        Route::get('{id}', [TaskController::class, 'show']);
-        Route::put('{id}', [TaskController::class, 'update']);
-        Route::delete('{id}', [TaskController::class, 'destroy']);
-    });
 });
