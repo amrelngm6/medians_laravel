@@ -8,6 +8,8 @@ use App\Modules\WhatsApp\Services\MessageService;
 use App\Modules\WhatsApp\Services\MessageRepository;
 use App\Http\Controllers\Controller;
 use App\Models\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class MessageController extends Controller
 {
