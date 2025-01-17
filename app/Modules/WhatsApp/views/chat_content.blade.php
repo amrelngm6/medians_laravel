@@ -41,7 +41,7 @@
                             <!--begin::Card body-->
                             <div class="card-body" id="chat_messenger_body">
                                 <!--begin::Messages-->
-                                <div class="scroll-y me-n5 pe-5 h-300px h-lg-auto" style="max-height: 224px;">
+                                <div class="scroll-y me-n5 pe-5 h-300px h-lg-auto" id="chat-container" style="max-height: 224px;">
                                     @foreach ($conversation->messages as $message)
                                     @include('whatsapp::messageComponent')
                                     @endforeach
@@ -82,3 +82,10 @@
                             <!--end::Card footer-->
                         </div>
                         <!--end::Messenger-->
+                        <script>
+                            jQuery(document).ready(function(){
+
+                                const chatContainer = document.getElementById('chat-container');
+                                  chatContainer.scrollTop = chatContainer.scrollHeight;
+                            })
+                        </script>
