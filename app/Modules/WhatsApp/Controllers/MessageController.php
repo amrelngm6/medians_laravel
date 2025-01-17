@@ -151,9 +151,9 @@ class MessageController extends Controller
         $verifyToken = 'medians_wp'; // Your verification token stored in the .env file
 
         // Get query parameters
-        $mode = $request->query('hub.mode');
-        $token = $request->query('hub.verify_token');
-        $challenge = $request->query('hub.challenge');
+        $mode = $request->query('hub_mode');
+        $token = $request->query('hub_verify_token');
+        $challenge = $request->query('hub_challenge');
 
         // Verify token and mode
         if ($mode && $token) {
