@@ -58,7 +58,7 @@ Route::get('webhooks/medians_wp', function () {
 
 Route::post('webhooks/medians_wp', function () {
     echo 'medians_wp';
-})->name('webhooks_wp');
+})->name('webhooks_wp2');
 
 // Staff Login / Signup
 Route::prefix('staff')->group(function() {
