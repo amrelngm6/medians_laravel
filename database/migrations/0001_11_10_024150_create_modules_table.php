@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('path');
             $table->string('provider');
             $table->boolean('is_enabled')->default(true);
-            $table->boolean('has_settings')->default(false);
+            $table->boolean('has_settings')->default(0);
             $table->boolean('business_access')->default(true);
             $table->boolean('limited_features')->default(true);
             $table->timestamps();
