@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function loadModuleProviders(): void
     {
-        if (Schema::hasTable('mytable')  )
+        if (Schema::hasTable('modules')  )
         {
             $modules = DB::table('modules')
                 ->where('is_enabled', true)
