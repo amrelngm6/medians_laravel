@@ -54,7 +54,7 @@ Route::get('', function () {
 })->name('index');
 
 Route::get('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
-Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
+Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks2');
 
 
 // Staff Login / Signup
