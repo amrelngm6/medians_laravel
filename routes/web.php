@@ -11,6 +11,10 @@ use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
 
 
+Route::middleware('web', 'api')->group(function () {
+    Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks2');
+});
+
 Route::get('', function () {
 
 
@@ -53,9 +57,6 @@ Route::get('', function () {
     // return view('dashboard.analytics');
 })->name('index');
 
-Route::middleware('web', 'api')->group(function () {
-    Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks2');
-});
 
 // Route::get('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
 
