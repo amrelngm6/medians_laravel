@@ -53,10 +53,7 @@ Route::get('', function () {
     // return view('dashboard.analytics');
 })->name('index');
 
-Route::get('webhooks/medians_wp', function () {
-    echo 'medians_wp';
-})->name('webhooks_wp');
-
+Route::get('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
 Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
 
 
