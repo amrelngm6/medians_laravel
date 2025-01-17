@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\RoleLoader;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 
 
@@ -42,14 +43,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function loadModuleProviders(): void
     {
-        
-        $modules = DB::table('modules')
-            ->where('is_enabled', true)
-            ->pluck('provider');
-            
-        foreach ($modules as $providerClass) {
-            if (class_exists($providerClass)) {
-                $this->app->register($providerClass);
+        if (Schema::hasTable('mytable')  )
+        {
+            $modules = DB::table('modules')
+                ->where('is_enabled', true)
+                ->pluck('provider');
+                
+            foreach ($modules as $providerClass) {
+                if (class_exists($providerClass)) {
+                    $this->app->register($providerClass);
+                }
             }
         }
         
