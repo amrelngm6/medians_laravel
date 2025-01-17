@@ -87,8 +87,7 @@
                         <script>
                             jQuery(document).ready(function(){
                                 handleScroll()
-                                setTimeout(async  function() {
-                                                          
+                                setInterval(async () => {
                                     let res = await fetch("{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}");
                                     res.text().then(a=> {
                                         let resContent = jQuery(a)
