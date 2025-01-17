@@ -183,7 +183,7 @@ class MessageController extends Controller
 
         $this->saveConversation($jsonData);
         
-        $this->saveMessage($jsonData, $time);
+        $this->saveMessage($jsonData, $message, $time);
 
         $this->saveContact($jsonData);
         
@@ -208,7 +208,7 @@ class MessageController extends Controller
     /**
      * Save message
      */
-    private function saveMessage($jsonData, $time = null)
+    private function saveMessage($jsonData, $message, $time = null)
     {
         
         $MessageRepository = new MessageRepository;
