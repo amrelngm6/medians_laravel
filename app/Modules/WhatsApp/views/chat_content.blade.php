@@ -84,12 +84,14 @@
                         <!--end::Messenger-->
                         <script>
                             jQuery(document).ready(function(){
-                                const chatContainer = document.getElementById('chat-container');
-                                chatContainer.scrollTop = chatContainer.scrollHeight;
-
-                                jQuery('')
+                                handleScroll()
+                                setTimeout()
                             })
-
+function handleScroll()
+{
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
 // Function to fetch and update table data
 // function fetchData(startDate = '', endDate = '') {
 function fetchData() {
@@ -113,7 +115,9 @@ function fetchData() {
                         handleResponse(res)
                     }
                 } catch (error) {
-                    jQuery('#chat_content').html(xhr.responseText);
+                    let resContent = jQuery(xhr.responseText)
+                    jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
+                    handleScroll()
                 }
             } else {
                 jQuery('#message-content').val('');
