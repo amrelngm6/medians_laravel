@@ -80,12 +80,19 @@
                                 <!--end::Toolbar-->
                             </form>
                             <!--end::Card footer-->
+                            
+                            <a id="reload-content" href="{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}"
+                                        data-element="#chat_content"
+                                        class="ajax-load"></a>
                         </div>
                         <!--end::Messenger-->
                         <script>
                             jQuery(document).ready(function(){
                                 handleScroll()
-                                setTimeout(fetchData, 5000)
+                                setTimeout(function(){
+                                    jQuery('#reload-content').click()
+                                }, 5000)
+                                    
                             })
 function handleScroll()
 {
