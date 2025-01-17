@@ -120,6 +120,8 @@ function fetchData() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.responseText)
             {
+                jQuery('#message-content').val('');
+
                 try {
                     let res =JSON.parse(xhr.responseText)
                     if (res.errors) {
