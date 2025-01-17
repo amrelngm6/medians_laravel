@@ -168,10 +168,10 @@ class MessageController extends Controller
             $message = isset($jsonData->entry[0]->changes[0]->value->messages[0]) ? $jsonData->entry[0]->changes[0]->value->messages[0] : null;
         }
 
-        $time = isset($message->timestamp) ? $message->timestamp : time();
         $jsonFileData = isset($message) ? json_encode($message, JSON_PRETTY_PRINT) : $dataToSave;
 
         // file_put_contents('uploads/chat/'.$time.'.json', $jsonFileData);
+        $time = isset($message->timestamp) ? $message->timestamp : time();
         Storage::put($time.'.json', $jsonFileData);
         
 
@@ -181,10 +181,9 @@ class MessageController extends Controller
             $MessageRepository->readMessage($jsonData->entry[0]->changes[0]->value->statuses[0]->id);
         }
 
-
         $this->saveConversation($jsonData);
-
-        $this->saveMessage($jsonData);
+        
+        $this->saveMessage($jsonData, $time);
 
         $this->saveContact($jsonData);
         
@@ -209,7 +208,7 @@ class MessageController extends Controller
     /**
      * Save message
      */
-    private function saveMessage($jsonData)
+    private function saveMessage($jsonData, $time = null)
     {
         
         $MessageRepository = new MessageRepository;
