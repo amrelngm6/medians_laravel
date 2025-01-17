@@ -36,13 +36,13 @@ class MessageRepository
 
 
 
-    public function saveMessage(Array $data, String $senderID)
+    public function saveMessage(Array $data)
     {
 
         return Message::create([
+            'receiver_id' => $data['receiver_id'],
+            'sender_id' => $data['sender_id'],
             'message_id' => $data['message_id'],
-            'sender_id' => $senderID,
-            'receiver_id' => $data['to'],
             'reply_message_id'=> isset($data['reply_message_id']) ? $data['reply_message_id'] : '',
             'message_time'=> isset($data['message_time']) ? $data['message_time'] : '',
             'conversation_id' => isset($data['conversation_id']) ? $data['conversation_id'] : '',
@@ -52,6 +52,9 @@ class MessageRepository
             'media_id'=> isset($data['media_id']) ? $data['media_id'] : '',
             'media_path'=> isset($data['media_path']) ? $data['media_path'] : '',
             'inserted_by'=> isset($data['inserted_by']) ? $data['inserted_by'] : 0,
+            'sent' => 1,
+            'read' => 0,
+            'sent_at' => null,
         ]);
     }
 

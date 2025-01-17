@@ -4,11 +4,13 @@ namespace App\Modules\WhatsApp\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Modules\WhatsApp\Services\ConversationService;
 use App\Modules\WhatsApp\Services\MessageService;
 use App\Modules\WhatsApp\Services\MessageRepository;
 use App\Http\Controllers\Controller;
 use App\Models\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 
 class MessageController extends Controller
@@ -149,18 +151,106 @@ class MessageController extends Controller
 	{
         $mode = $request->query('hub_mode');
         
-        $rawData = file_get_contents('php://input');
-        $jsonData = json_decode($rawData, true);
-        Log::error('webhook Data. ' . json_encode($jsonData ?? []));
-
-        if ($mode != 'subscribe')
+        if ($mode == 'subscribe')
         {
-            // Log::error('webhook Request. ' . json_encode($request->all() ?? []));
-            
-            return;
+            return $this->subscribe($request);
         }
         
-        $verifyToken = 'medians_wp'; // Your verification token stored in the .env file
+        
+        $rawData = file_get_contents('php://input');
+        $jsonData = json_decode($rawData, true);
+        if ($jsonData)
+        {
+            $jsonData = json_decode(json_encode($jsonData, JSON_PRETTY_PRINT));
+        }
+        
+        if (isset($jsonData->entry[0]->changes[0]->value->messaging_product)){
+            $message = isset($jsonData->entry[0]->changes[0]->value->messages[0]) ? $jsonData->entry[0]->changes[0]->value->messages[0] : null;
+        }
+
+        $time = isset($message->timestamp) ? $message->timestamp : time();
+        $jsonFileData = isset($message) ? json_encode($message, JSON_PRETTY_PRINT) : $dataToSave;
+
+        // file_put_contents('uploads/chat/'.$time.'.json', $jsonFileData);
+        Storage::put($time.'.json', $jsonFileData);
+        
+
+        $repo = new MessageRepository;
+        if (isset($jsonData->entry[0]->changes[0]->value->statuses[0]->status) && $jsonData->entry[0]->changes[0]->value->statuses[0]->status == 'read')
+        {
+            $MessageRepository->readMessage($jsonData->entry[0]->changes[0]->value->statuses[0]->id);
+        }
+
+
+        $this->saveConversation($jsonData);
+
+        $this->saveMessage($jsonData);
+
+        $this->saveContact($jsonData);
+        
+
+    }
+
+    /**
+     * Save conversation
+     * 
+     */
+    public function saveConversation($jsonData)
+    {
+        $ConversationService = new ConversationService;
+        $arr = [
+            'wa_id'=> $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '',
+            'user_id'=> 0,
+            'conversation_id'=> $jsonData->entry[0]->id ?? ''
+        ];
+        return $ConversationService->saveConversation( $arr);
+    }
+
+    /**
+     * Save message
+     */
+    private function saveMessage($jsonData)
+    {
+        
+        $MessageRepository = new MessageRepository;
+
+
+        $data = array();
+        $date['message_time'] = $time;
+        $data['conversation_id'] = $jsonData->entry[0]->id ?? 0;
+        $data['name'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->profile->name ?? '';
+        $data['sender_id'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
+        $data['to'] = $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '';
+        $data['message_id'] = isset($message->id) ? $message->id : '';
+        $data['message_json'] = serialize($jsonFileData);
+        $data = $this->messageTypeHandler($data, $message);
+        isset($data['media_id']) ? $this->loadMedia( $data['media_id']) : '';
+        return $MessageRepository->saveMessage($data);
+    }
+
+    /**
+     * Save contact info 
+     * 
+     */
+    public function saveContact($jsonData)
+    {
+        $MessageRepository = new MessageRepository;
+
+        $contact = array();
+        $contact['name'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->profile->name ?? '';
+        $contact['wa_id'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
+        $contact['phone_number'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
+        return $MessageRepository->saveContact($contact);
+    }
+
+    /**
+     * Verif the subscription for webhook
+     */
+    public function subscribe(Request $request)
+    {
+
+        $verifyToken = 'medians_wp'; 
+
         // Get query parameters
         $token = $request->query('hub_verify_token');
         $challenge = $request->query('hub_challenge');
@@ -179,5 +269,63 @@ class MessageController extends Controller
         Log::error('Invalid request for webhook verification. ' . json_encode($request->all()));
         return response('Bad Request', 400);
     }
+
+
+    
+
+    /**
+     * Messages type handler
+     * 
+     */
+    public function messageTypeHandler($data, $message)
+    {
+ 
+        $date['reply_message_id'] = isset($message->context->id) 
+            ? $message->context->id 
+            : (isset($message->reaction->message_id) ? $message->reaction->message_id : null);
+            
+        switch ($message->type) {
+            case 'document':
+                $data['media_id'] = isset($message->document->id) ? $message->document->id : '';
+                $data['message_text'] = isset($message->document->caption) ? str_replace("\\","\\\\", $message->document->caption) : '';
+                break;
+                
+            case 'audio':
+                $data['media_id'] = isset($message->audio->id) ? $message->audio->id : '';
+                $data['message_text'] = isset($message->audio->caption) ? str_replace("\\","\\\\", $message->audio->caption) : '';
+                break;
+                
+            case 'video':
+                $data['media_id'] = isset($message->video->id) ? $message->video->id : '';
+                $data['message_text'] = isset($message->video->caption) ? str_replace("\\","\\\\", $message->video->caption) : '';
+                break;
+                
+            case 'image':
+                $data['media_id'] = isset($message->image->id) ? $message->image->id : '';
+                $data['message_text'] = isset($message->image->caption) ? str_replace("\\","\\\\", $message->image->caption) : '';
+                break;
+                
+            case 'sticker':
+                $data['media_id'] = isset($message->sticker->id) ? $message->sticker->id : '';
+                break;
+                
+            case 'reaction':
+                $data['message_text'] = isset($message->reaction->emoji) ? str_replace("\\","\\\\", $message->reaction->emoji) : '';
+                $date['reply_message_id'] = isset($message->reaction->message_id) ? $message->reaction->message_id : null;
+                break;
+                
+            default:
+                $data['message_text'] = isset($message->text->body) ? str_replace("\\","\\\\", $message->text->body) : '';
+                break;
+        }
+            
+        $data['message_type'] = isset($message->type) ? $message->type : '';
+        $data['message_time'] = isset($message->timestamp) ? $message->timestamp : '';
+        $data['media_path'] = isset($data['media_id']) ?  $this->loadMedia($data['media_id']) : '';
+
+        return $data;
+    }
+    
+    
 
 }
