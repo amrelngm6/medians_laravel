@@ -85,9 +85,7 @@
                         <script>
                             jQuery(document).ready(function(){
                                 handleScroll()
-                                setTimeout(function(){
-                                    if ()
-                                })
+                                setTimeout(fetchData, 5000)
                             })
 function handleScroll()
 {
