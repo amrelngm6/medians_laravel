@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('task_timers', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->id()->primary();
             $table->integer('task_id');
             $table->date('date');
             $table->dateTime('start_time')->nullable();

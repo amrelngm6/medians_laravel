@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('custom_fields', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('title')->nullable();
             $table->string('placeholder')->nullable();
             $table->string('name');

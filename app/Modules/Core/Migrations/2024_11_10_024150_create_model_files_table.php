@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('model_files', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
-            $table->morphs('model');
+            $table->id();
             $table->string('file_name', 191);
+            $table->morphs('model');
             $table->string('path', 191);
-            $table->integer('size', 191);
+            $table->integer('size');
             $table->string('filetype', 40)->nullable();
             $table->integer('visible_to_customer')->default(0);
-            $table->text('external_link')->nullable();
-            $table->text('thumbnail_link')->nullable()->comment('For external usage');
+            $table->string('external_link')->nullable();
+            $table->string('thumbnail_link')->nullable()->comment('For external usage');
             $table->string('mime_type', 191);
             $table->morphs('user');
             $table->integer('business_id')->default(0);

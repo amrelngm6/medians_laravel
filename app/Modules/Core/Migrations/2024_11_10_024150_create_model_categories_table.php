@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('model_categories', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->id()->primary();
             $table->string('model_type', 20);
             $table->integer('model_id');
             $table->integer('category_id');

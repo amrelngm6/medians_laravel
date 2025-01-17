@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('event_id');
             $table->string('receiver_type')->nullable();
             $table->integer('receiver_id')->nullable();

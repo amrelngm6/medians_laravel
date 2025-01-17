@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('otp', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->id()->primary();
             $table->string('code', 191);
             $table->morphs('user');
             $table->timestamp('expires_at')->nullable();

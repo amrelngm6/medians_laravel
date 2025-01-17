@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('estimate_requests', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->id()->primary();
             $table->integer('estimate_id')->nullable();
             $table->longText('message');
             $table->dateTime('date')->nullable();

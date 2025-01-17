@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('task_checklists', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->id()->primary();
             $table->integer('task_id');
             $table->text('description');
             $table->integer('finished')->default(0);
