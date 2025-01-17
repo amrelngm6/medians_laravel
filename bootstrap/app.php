@@ -14,7 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'webhooks/*',
             'webhooks/medians_wp',
-            'https://crm.mediansai.com/webhooks/medians_wp'
         ]);
         \Log::info('CSRF Middleware Loaded: Excluded Routes', ['excluded' => ['webhooks/*', 'webhooks/medians_wp']]);
         // Set Language based on URL
