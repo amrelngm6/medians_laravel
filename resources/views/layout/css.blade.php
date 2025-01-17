@@ -13,6 +13,8 @@
     <link href="/assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/animate.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
     <!-- CORE CSS FRAMEWORK - END -->
 
     <!-- PAGE CSS - END -->
@@ -20,6 +22,7 @@
     <!-- PAGE CSS - END -->
      
     <!-- CORE CSS TEMPLATE - START -->
+    <link href="{{ asset('assets/css/tailwind.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <!-- CORE CSS TEMPLATE - END -->

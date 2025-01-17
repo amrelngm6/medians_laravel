@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Projects\Models;
+namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,11 +21,11 @@ class ModelMember extends Model
     
     public function model()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
 
     public function user()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
 }

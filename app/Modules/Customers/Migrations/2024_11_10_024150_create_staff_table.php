@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('last_name', 191)->nullable();
             $table->string('picture', 191)->nullable();
             $table->string('email', 100)->nullable();
-            $table->string('job', 100)->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('position', 100)->nullable();
+            $table->string('password', 150)->nullable();
             $table->text('about')->nullable();
             $table->integer('role_id');
             

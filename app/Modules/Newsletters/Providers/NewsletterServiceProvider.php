@@ -3,6 +3,7 @@
 namespace App\Modules\Newsletters\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Module;
 
 class NewsletterServiceProvider extends ServiceProvider
 {

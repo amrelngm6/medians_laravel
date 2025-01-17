@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('currencies', function (Blueprint $table) {
-            $table->integer('currency_id')->primary();
+            $table->bigIncrements('currency_id')->primary();
             $table->string('symbol', 10);
             $table->string('name', 100);
             $table->boolean('is_default')->default(false);

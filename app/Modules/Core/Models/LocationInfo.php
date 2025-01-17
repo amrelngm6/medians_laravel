@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Projects\Models;
+namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,9 +9,10 @@ class LocationInfo extends Model
 
     protected $table = 'location_info';
 
+    protected $primaryKey = 'location_id';
+    
     protected $fillable = [
         'business_id',
-        'location_id',
         'model_id',
         'model_type',
         'country', 
@@ -20,6 +21,7 @@ class LocationInfo extends Model
         'state', 
         'address', 
         'zone', 
+        'website', 
         'longitude', 
         'latitude', 
     ];

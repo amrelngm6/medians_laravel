@@ -13,9 +13,8 @@ return new class extends Migration
     {
         
         Schema::create('tasks', function (Blueprint $table) {
-            $table->integer('task_id')->primary();
-            $table->integer('model_id')->nullable();
-            $table->string('model_type', 30)->nullable();
+            $table->bigIncrements('task_id')->primary();
+            $table->morphs('model');
             $table->mediumText('name')->nullable();
             $table->text('description')->nullable();
             $table->integer('priority')->nullable();
@@ -30,6 +29,7 @@ return new class extends Migration
             $table->integer('status')->default(0);
             $table->integer('created_by');
             $table->integer('business_id')->default(0);
+            $table->integer('milestone_id')->default(0);
             $table->timestamps();
         });
     }

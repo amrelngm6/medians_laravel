@@ -12,18 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->integer('ticket_id')->primary();
-            $table->integer('client_id');
-            $table->integer('contact_id')->default(0);
-            $table->integer('department');
-            $table->integer('priority');
-            $table->string('subject', 191);
+            $table->id();
+            $table->string('subject', 255);
             $table->text('message')->nullable();
-            $table->integer('project_id')->nullable()->default(0);
-            $table->integer('client_seen')->default(0);
-            $table->integer('staff_seen')->default(0);
+            $table->morphs('model');
+            $table->morphs('client');
+            $table->integer('category_id');
+            $table->integer('priority_id');
             $table->integer('assigned_to')->default(0);
-            $table->integer('status')->default(0);
+            $table->integer('status_id')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

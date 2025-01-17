@@ -3,6 +3,7 @@
 namespace App\Modules\Notes\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 
 use App\Modules\Core\Models\ModelCategory;
 use App\Modules\Core\Models\ModelField;
@@ -14,47 +15,58 @@ class Note extends Model
     
     protected $table = 'notes';
 
-    protected $fillable = ['business_id', 'name', 'description', 'model_id', 'model_type', 'created_by'];
+    protected $fillable = ['business_id', 'user_id', 'user_type',  'description', 'model_id', 'model_type'];
 
-    /**
-     * Load related Tasks as Morph
-     */
-    public function tasks()
-    {
-        return $this->morphMany(Task::class, 'model');
-    }
+    public $appends = ['user_url','url'];
 
-    /**
-     * Load assigneed Team members
-     */
-    public function team()
+    public function getUrlAttribute()
     {
-        return $this->morphMany(ModelMember::class, 'model');
+        $name = basename($this->model_type).'.tabs.notes';
+        return Route::has($name) ? route($name, $this->model_id) : '#';
     }
 
-    
-    /**
-     * Load related Files as Morph
-     */
-    public function files()
+    public function getUserUrlAttribute()
     {
-        return $this->morphMany(ModelFile::class, 'model');
+        $name = basename($this->user_type).'.tabs.notes';
+        return Route::has($name) ? route($name, $this->user_id) : '#';
     }
-    
+
+
     /**
-     * Load related fields as Morph
+     * Note related Tasks as Morph
      */
-    public function fields()
+    public function user()
     {
-        return $this->morphMany(ModelField::class, 'model');
+        return $this->morphTo();
     }
-    
+
     /**
-     * Load related category as Morph
+     * Note related category as Morph
      */
     public function model()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
+    }
+
+    /**
+     * Load Items of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
+    /**
+     * Note related category as Morph
+     */
+    public function canView($id, $class)
+    {
+        if (!$this->is_private || $this->staff_access)
+            return true;
+        
+        if ($this->is_private && $this->user_id == $id && $this->user_id == $class)
+            return true;
+
     }
 
 

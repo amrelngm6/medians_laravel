@@ -3,6 +3,7 @@
 namespace App\Modules\Priorities\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Module;
 
 class PriorityServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,9 @@ class PriorityServiceProvider extends ServiceProvider
         // Load routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
 
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../views', 'priority');
+
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
     }
@@ -18,5 +22,6 @@ class PriorityServiceProvider extends ServiceProvider
     public function register()
     {
         // Register services here
+        $this->app->register(EventServiceProvider::class);
     }
 }

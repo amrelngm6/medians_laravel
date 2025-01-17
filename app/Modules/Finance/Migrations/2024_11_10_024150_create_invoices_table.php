@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->integer('invoice_id')->primary();
+            $table->bigIncrements('invoice_id')->primary();
             $table->integer('client_id');
             $table->date('date');
             $table->date('due_date')->nullable();

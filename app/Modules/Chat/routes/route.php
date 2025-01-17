@@ -13,6 +13,12 @@ Route::prefix('chat')->group(function () {
         Route::get('{id}', [RoomController::class, 'show']);
         Route::put('{id}', [RoomController::class, 'update']);
         Route::delete('{id}', [RoomController::class, 'destroy']);
+        
+        Route::post('{roomId}/participants', [ParticipantController::class, 'store']);
+        Route::delete('{roomId}/participants/{participantId}', [ParticipantController::class, 'destroy']);
+        
+        Route::post('{roomId}/messages', [MessageController::class, 'store']);
+        Route::delete('{roomId}/messages/{messageId}', [MessageController::class, 'destroy']);
     });
     
     Route::prefix('messages')->group(function () {

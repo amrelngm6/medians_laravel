@@ -4,21 +4,21 @@ namespace App\Modules\Actions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Modules\Core\Models\ModelFile;
+use App\Modules\Uploads\Models\Upload;
 
 class Comment extends Model
 {
     
     protected $table = 'comments';
 
-    protected $fillable = ['business_id', 'message', 'user_id', 'user_type', 'model_id', 'model_type', 'status'];
+    protected $fillable = ['business_id', 'message', 'user_id', 'user_type', 'model_id', 'model_type', 'status_id'];
 
     /**
      * Load related Tasks as Morph
      */
     public function model()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
 
     /**
@@ -26,10 +26,19 @@ class Comment extends Model
      */    
     public function user()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
 
+    
+    /**
+     * Load assigneed Team members
+     */    
+    public function file()
+    {
+        return $this->hasOne(Upload::class,'model_id','id')->where('model_type',get_class($this));
+    }
 
+    
     
 
 

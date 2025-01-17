@@ -1,3 +1,5 @@
+<?php $user = auth()->user(); ?>
+
         <div class='page-topbar'>
             <div class='logo-area'>
 
@@ -327,8 +329,8 @@
                         </li>
                         <li class="profile showopacity">
                             <a href="#" data-toggle="dropdown" class="toggle">
-                                <img src="/data/profile/profile-crm.jpg" alt="user-image" class="img-circle img-inline">
-                                <span>Adam Smith <i class="fa fa-angle-down"></i></span>
+                                <img src="{{$user->picture ?? '/data/profile/profile-crm.jpg'}}" alt="user-image" class="img-circle img-inline">
+                                <span>{{$user->name ?? ''}} <i class="fa fa-angle-down"></i></span>
                             </a>
                             <div class="dropdown-menu animated fadeIn simplebar-content" style="padding: 0px;">
                                 <div class="card pb-0 ">

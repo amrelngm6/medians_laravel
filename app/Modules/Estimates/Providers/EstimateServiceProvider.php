@@ -3,6 +3,7 @@
 namespace App\Modules\Estimates\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Modules\Estimates\Services\EstimateService;
 
 class EstimateServiceProvider extends ServiceProvider
 {
@@ -11,12 +12,17 @@ class EstimateServiceProvider extends ServiceProvider
         // Load routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
 
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../views', 'estimate');
+
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
     }
 
     public function register()
     {
-        // Register services here
+        $this->app->singleton(EstimateService::class, function ($app) {
+            return new EstimateService();
+        });
     }
 }

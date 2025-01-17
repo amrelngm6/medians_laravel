@@ -3,6 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\RoleLoader;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->loadModuleProviders();
+
         $this->app->bind(MessageRepositoryInterface::class, EloquentMessageRepository::class);
     }
 
@@ -19,5 +26,32 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.debug')) {
+            DB::listen(function ($query) {
+                \Log::info("Query Executed: {$query->sql}, Bindings: " . json_encode($query->bindings));
+            });
+        }
+        
+        $roleLoader = app(RoleLoader::class);
+        $roleLoader->loadRolesFromModules();
+
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function loadModuleProviders(): void
+    {
+        
+        $modules = DB::table('modules')
+            ->where('is_enabled', true)
+            ->pluck('provider');
+            
+        foreach ($modules as $providerClass) {
+            if (class_exists($providerClass)) {
+                $this->app->register($providerClass);
+            }
+        }
+        
     }
 }

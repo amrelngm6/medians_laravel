@@ -23,4 +23,11 @@ class TaskChecklist extends Model
         'created_by'
     ];
 
+    /**
+     * Tasks Items of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
 }

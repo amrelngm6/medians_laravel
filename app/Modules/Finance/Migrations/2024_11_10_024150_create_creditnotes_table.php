@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('credit_notes', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->bigIncrements('id')->primary();
             $table->integer('client_id');
             $table->string('model_type', 191)->nullable();
             $table->integer('model_id')->nullable();

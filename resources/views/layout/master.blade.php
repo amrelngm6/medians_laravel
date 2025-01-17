@@ -14,7 +14,7 @@
 <!-- END HEAD -->
 
 <!-- BEGIN BODY -->
-<body class="@if(app()->getLocale() === 'ar') rtl @endif">
+<body class="@if(app()->getLocale() === 'ar') rtl @endif" data-theme="light">
     
     <!-- START TOPBAR -->
     @include('layout.header')
@@ -45,7 +45,7 @@
     <!-- scripts start-->
     @include('layout.script')
     <!-- scripts end-->
-     
+     <input type="hidden" id="csrf-input" value="{{@csrf_token()}}" />
 </body>
 
 </html>

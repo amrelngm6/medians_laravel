@@ -50,7 +50,7 @@
    
 @section('script')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-    <script src="{{asset('assets/plugins/calendar/moment.min.js')}}"></script>
+    
     <script src="{{asset('assets/plugins/calendar/fullcalendar.min.js')}}"></script>
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

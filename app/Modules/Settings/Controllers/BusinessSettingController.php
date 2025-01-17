@@ -4,7 +4,7 @@ namespace App\Modules\Settings\Controllers;
 
 use App\Http\Controllers\Controller;
 
-class SystemSettingController extends Controller
+class BusinessSettingController extends Controller
 {
     public function index()
     {
@@ -13,21 +13,21 @@ class SystemSettingController extends Controller
 
     public function store()
     {
-        // Store a new SystemSetting
+        // Store a new BusinessSetting
     }
 
     public function show($id)
     {
-        // Display a single SystemSetting
+        // Display a single BusinessSetting
     }
 
     public function update($id)
     {
-        // Update the specified SystemSetting
+        // Update the specified BusinessSetting
     }
 
     public function destroy($id)
     {
-        // Delete the specified SystemSetting
+        // Delete the specified BusinessSetting
     }
 }

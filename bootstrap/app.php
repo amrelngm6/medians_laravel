@@ -12,8 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         // Set Language based on URL
+        $middleware->web(append: \App\Http\Middleware\AuthMiddleware::class);
         $middleware->web(append: \App\Http\Middleware\SetLocale::class);
-
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

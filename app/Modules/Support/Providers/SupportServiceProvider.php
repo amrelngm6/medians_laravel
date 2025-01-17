@@ -3,6 +3,7 @@
 namespace App\Modules\Support\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Module;
 
 class SupportServiceProvider extends ServiceProvider
 {

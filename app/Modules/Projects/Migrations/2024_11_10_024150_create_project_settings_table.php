@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_settings', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->bigIncrements('id')->primary();
             $table->integer('project_id');
             $table->string('code', 100);
             $table->text('value')->nullable();

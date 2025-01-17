@@ -8,6 +8,10 @@ use App\Modules\Core\Models\ModelCategory;
 use App\Modules\Core\Models\ModelField;
 use App\Modules\Core\Models\ModelFile;
 use App\Modules\Core\Models\ModelMember;
+use App\Modules\Core\Models\Status;
+use App\Modules\Customers\Models\Client;
+use App\Modules\Actions\Models\Comment;
+use App\Modules\Tasks\Models\Task;
 
 class Project extends Model
 {
@@ -15,12 +19,19 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $primaryKey = 'project_id';
-    
 
-    protected $fillable = ['business_id', 'name', 'description', 'client_id', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status'];
+    protected $fillable = ['business_id', 'name', 'description', 'client_id', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status_id', 'created_by'];
 
     /**
-     * Load related Tasks as Morph
+     * Project related Tasks as Morph
+     */
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'client_id', 'client_id');
+    }
+
+    /**
+     * Project related Tasks as Morph
      */
     public function tasks()
     {
@@ -28,7 +39,7 @@ class Project extends Model
     }
 
     /**
-     * Load assigneed Team members
+     * Project assigneed Team members
      */
     public function team()
     {
@@ -37,7 +48,16 @@ class Project extends Model
 
     
     /**
-     * Load related Files as Morph
+     * Project related Files as Morph
+     */
+    public function activities()
+    {
+        return $this->morphMany(ModelFile::class, 'model');
+    }
+    
+    
+    /**
+     * Project related Files as Morph
      */
     public function files()
     {
@@ -45,20 +65,45 @@ class Project extends Model
     }
     
     /**
-     * Load related fields as Morph
+     * Project related fields as Morph
      */
     public function fields()
     {
         return $this->morphMany(ModelField::class, 'model');
     }
     
+    
     /**
-     * Load related category as Morph
+     * Project related comments as Morph
+     */
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'model');
+    }
+    
+    /**
+     * Project related category as Morph
      */
     public function category()
     {
         return $this->morphOne(ModelCategory::class, 'model');
     }
+    
+    /**
+     * Project related status as Morph
+     */
+    public function countByStatus($status)
+    {
+        $statusId = Status::where('name',$status)->first()->status_id ?? 0;
+        return $this->where('status_id', $statusId)->where('business_id', $this->business_id)->count();
+    }
 
+    /**
+     * Project Items of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
 
 }

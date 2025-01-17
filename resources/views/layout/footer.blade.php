@@ -172,6 +172,5 @@
     <div class="chatapi-windows "></div>
 <!-- SIDE CHAT END-->
 
-<div id="modals"></div>
 
 <!-- Footer Section ends-->

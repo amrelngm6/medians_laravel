@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('priorities', function (Blueprint $table) {
-            $table->integer('priority_id')->primary();
+            $table->bigIncrements('priority_id')->primary();
             $table->string('model', 191);
             $table->string('name', 50);
             $table->string('color', 50);

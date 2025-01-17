@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SystemSetting extends Model
 {
     
-    protected $table = 'system_setting';
+    protected $table = 'system_settings';
 
     protected $fillable = ['code', 'value', 'created_by'];
 

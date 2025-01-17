@@ -2,51 +2,97 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use App\Models\User;
+use App\Modules\Core\Models\Role;
+use App\Models\Auth;
+use App\Services\UserService;
 
 
 class UserController extends Controller
 {
+    
+    /** Page Tabs route prefix */
+    public $tabsPrefix = 'User.tabs';
 
-    public function signupPage()
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
-        return view('pages.signup');
+        $this->userService = $userService;
     }
 
-    // Registration (Signup) function
-    public function register(Request $request)
+
+    /**
+     * Display a listing of Users.
+     */
+    public function index(Request $request)
     {
+
+        // Optionally apply filters and pagination
+        $Users = User::get();
+
+        return view('users.index', compact('Users'));
+
+    }
+
+    
+    /**
+     * Show the form for creating a new user.
+     */
+    public function create()
+    {
+        $statusList = $this->userService->loadStatusList(); 
+
+        $rolesList = $this->userService->loadRoles(); 
+
+        return view('includes.modals.new-user-modal', compact('statusList', 'rolesList'));
+    }
+    
+
+    
+    /**
+     * Store a newly created user in the database.
+     */
+    public function store(Request $request)
+    {
+
+        // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:5',
+            'file' => 'image|max:2048',
+            'email' => 'required|email|unique:users,email',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return $this->hasError($validator->errors(), 'Validation Error');
         }
+        
+        // Create and save the user
+        $user = $this->userService->createUser($request->only( 'name', 'email', 'role_id', 'status'));
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $handlePicture = $this->userService->handleUploads($request, 'avatar', $user);
 
-        return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+        $handleRole = $this->userService->handleRole($request, $user);
+        
+        return response()->json([
+            'success' => true,
+            'result' => 'User created successfully',
+        ], 200);
     }
+
+
 
     // Login function
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('staff')->attempt($credentials)) {
-            return response()->json(['message' => 'Login successful', 'redirect' => '/dashboard' ], 200);
+        if (Auth::guard('superadmin')->attempt($credentials)) {
+            return response()->json(['result' => 'Login successful', 'redirect' => '/dashboard' ], 200);
         } else {
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
@@ -55,7 +101,8 @@ class UserController extends Controller
     // Logout function
     public function logout()
     {
-        Auth::logout();
-        return response()->json(['message' => 'Logged out successfully'], 200);
+        Auth::guard('staff')->logout();
+        Auth::guard('superadmin')->logout();
+        return response()->json(['result' => 'Logged out successfully'], 200);
     }
 }

@@ -13,6 +13,9 @@ class UploadServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../views', 'uploads');
     }
 
     public function register()

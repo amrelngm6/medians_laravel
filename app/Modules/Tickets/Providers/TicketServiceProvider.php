@@ -3,6 +3,7 @@
 namespace App\Modules\Tickets\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Module;
 
 class TicketServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,10 @@ class TicketServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+        
+
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../views'  ,'tickets');
     }
 
     public function register()

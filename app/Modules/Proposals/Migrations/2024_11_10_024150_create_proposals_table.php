@@ -13,7 +13,7 @@ return new class extends Migration
     {
         
         Schema::create('proposals', function (Blueprint $table) {
-            $table->integer('estimate_id')->primary();
+            $table->bigIncrements('estimate_id')->primary();
             $table->string('model_type')->nullable();
             $table->integer('model_id')->nullable();
             $table->integer('client_id');

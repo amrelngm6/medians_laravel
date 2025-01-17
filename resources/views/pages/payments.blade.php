@@ -1148,7 +1148,7 @@
     <script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
 
-    <script src="{{asset('assets/plugins/calendar/moment.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
+    
+    
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

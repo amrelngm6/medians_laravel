@@ -11,7 +11,25 @@ class CustomField extends Model
     
     protected $table = 'custom_fields';
 
-    protected $fillable = ['business_id', 'title', 'code', 'value', 'model_id', 'model_type'];
+    protected $fillable = [
+        'business_id', 
+        'title', 
+        'placeholder', 
+        'name', 
+        'sort', 
+        'type', 
+        'class', 
+        'default_value', 
+        'help_text', 
+        'options', 
+        'is_required', 
+        'is_disabled', 
+        'show_at_table', 
+        'show_at_overview', 
+        'model', 
+        'user_type',
+        'user_id'
+    ];
 
     /**
      * Load related Tasks as Morph
@@ -19,6 +37,15 @@ class CustomField extends Model
     public function model()
     {
         return $this->belongsTo();
+    }
+    
+    
+    /**
+     * Load Items of Business Scope
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
     }
 
 }

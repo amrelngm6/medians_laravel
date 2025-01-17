@@ -31,6 +31,7 @@ return [
     | indicate that via the expire_on_close configuration option.
     |
     */
+    'guard' => null, // Let the guard be explicitly defined per route or middleware
 
     'lifetime' => env('SESSION_LIFETIME', 120),
 
@@ -129,7 +130,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+        'laravel_staff_session'
     ),
 
     /*

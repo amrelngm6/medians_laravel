@@ -2,60 +2,62 @@
 
 namespace App\Modules\Uploads\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-use App\Modules\Core\Models\ModelCategory;
-use App\Modules\Core\Models\ModelField;
 use App\Modules\Core\Models\ModelFile;
-use App\Modules\Core\Models\ModelMember;
+use Illuminate\Support\Facades\Storage;
+use App\Modules\Actions\Models\Comment;
 
-class Upload extends Model
+class Upload extends ModelFile
 {
-    
-    protected $table = 'uploads';
-
-    protected $fillable = ['business_id', 'name', 'message', 'staff_access', 'client_access', 'is_private', 'model_id', 'model_type', 'created_by'];
-
     /**
-     * Load related Tasks as Morph
+     * Get size of uploads by file type
      */
-    public function tasks()
+    public function groupFilesSize()
     {
-        return $this->morphMany(Task::class, 'model');
+        $sizes = $this->whereIn('filetype', ['pdf', 'doc', 'docx', 'xlsx', 'xlx', 'txt', 'ppt', 'psd', 'rar' ])->get()->groupBy('filetype')->map(function ($item) {
+            $sum = $item->sum('size');
+            $mb = $sum ? number_format($sum / 1000000, 2) : 0;
+            $gb = $mb ? number_format($mb / 1000, 3) : 0;
+            return ['mb'=>$mb, 'gb'=>$gb];
+        });
+        return $sizes;
     }
 
-    /**
-     * Load assigneed Team members
-     */
-    public function team()
+    public function fileSizeText()
     {
-        return $this->morphMany(ModelMember::class, 'model');
+        $size = $this->size;
+        
+        if (empty($size))
+            return 0;
+
+        if (($size = $this->size / 1000) && $size < 1000)
+            return number_format($size, 2) .' KB';
+
+        if (($size = $size / 1000) && $size < 1000)
+            return number_format($size, 2) .' MB';
+        
+        if (($size = $size / 1000) && $size)
+            return number_format($size, 2) .' GB';
+
+        return $size;
     }
 
-    
-    /**
-     * Load related Files as Morph
-     */
-    public function files()
+
+    // Additional model logic if needed
+    public function scopeForBusiness($query, $business)
     {
-        return $this->morphMany(ModelFile::class, 'model');
-    }
-    
-    /**
-     * Load related fields as Morph
-     */
-    public function fields()
-    {
-        return $this->morphMany(ModelField::class, 'model');
-    }
-    
-    /**
-     * Load related category as Morph
-     */
-    public function model()
-    {
-        return $this->belongsTo();
+        return $query->where('business_id', $business);
     }
 
+    public function scopeProject($query, $model_id, $model_type)
+    {
+        $project = (new $model_type)->find($model_id);
+        $query = $query->where('model_id', $model_id)->where('model_type', $model_type) ;
+
+        $commentsIds = array_map( function($arr) {return $arr[0]['id'];}, array_filter($project->tasks->pluck('comments')->toArray()));
+        if ($commentsIds) {
+            $query = $query->orWhere('model_type', Comment::class)->whereIn('model_id', $commentsIds);
+        }
+        return $query;
+    }
 
 }

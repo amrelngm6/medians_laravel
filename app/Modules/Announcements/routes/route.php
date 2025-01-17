@@ -3,10 +3,25 @@
 use Illuminate\Support\Facades\Route;
 use App\Modules\Announcements\Controllers\AnnouncementController;
 
-Route::prefix('announcements')->group(function () {
-    Route::get('/', [AnnouncementController::class, 'index']);
-    Route::post('/', [AnnouncementController::class, 'store']);
-    Route::get('{id}', [AnnouncementController::class, 'show']);
-    Route::put('{id}', [AnnouncementController::class, 'update']);
-    Route::delete('{id}', [AnnouncementController::class, 'destroy']);
+Route::prefix('announcements')->middleware(['web', 'auth:staff'])->group(function () {
+    Route::get('/', [AnnouncementController::class, 'index'])->name('Announcement');
+    Route::post('/', [AnnouncementController::class, 'store'])->name('Announcement.store');
+    Route::post('/store_lead/{leadId}', [AnnouncementController::class, 'store_lead'])->name('Announcement.store_lead');
+    Route::delete('{id}', [AnnouncementController::class, 'destroy'])->name('Announcement.delete');
 });
+
+// Add Tab menu to Lead Page
+Route::prefix('leads')->middleware(['web', 'auth:staff'])->group(function () {
+    Route::get('/{id}/announcements', [AnnouncementController::class, 'lead'])->name('Lead.tabs.announcements');
+});
+
+// Add Tab menu to Staff Page
+Route::prefix('staff')->middleware(['web', 'auth:staff'])->group(function () {
+    Route::get('/{id}/announcements', [AnnouncementController::class, 'staff'])->name('Staff.tabs.announcements');
+});
+
+// Add Tab menu to projects Page
+Route::prefix('projects')->middleware(['web', 'auth:staff'])->group(function () {
+    Route::get('/{id}/announcements', [AnnouncementController::class, 'project'])->name('Projects.tabs.announcements');
+});
+

@@ -6,6 +6,7 @@ namespace App\Modules\Customers\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Modules\Core\Models\Business;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Customers\Models\Customer;
 
@@ -24,6 +25,7 @@ class Client extends Authenticatable
         'last_name',
         'picture',
         'email',
+        'phone',
         'password',
         'about',
         'lead_id',
@@ -32,10 +34,20 @@ class Client extends Authenticatable
         'created_by'
     ];
 
+    public $appends = ['name'];
+
+    public function getNameAttribute() : String {
+        return $this->first_name.' '.$this->last_name;
+    }
 
     public function customers()
     {
         return $this->hasMany(Customer::class, 'client_id', 'client_id');
+    }
+
+    public function id()
+    {
+        return $this->client_id;
     }
 
     /**
@@ -63,5 +75,22 @@ class Client extends Authenticatable
         return $this->morphOne(LocationInfo::class, 'model');
     }
 
+    
+    /**
+     * Business of Client
+     */
+    public function business()
+    {
+        return $this->hasOne(Business::class, 'business_id', 'business_id');
+    }
+    
+    
+    /**
+     * Load Items of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
 
 }

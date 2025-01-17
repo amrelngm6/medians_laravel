@@ -1991,8 +1991,8 @@
 
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/calendar/moment.min.js')}}"></script>
-<script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
+
+
 
 <script src="{{asset('assets/plugins/chartjs-chart/Chart.min.js')}}"></script>
 <script src="{{asset('assets/js/chart-chartjs.js')}}"></script>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('model_type');
             $table->integer('model_id');
             $table->integer('business_id');
+            $table->integer('status_id');
             $table->timestamps();
         });
     }

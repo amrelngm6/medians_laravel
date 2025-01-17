@@ -2,7 +2,7 @@
 @section('title', 'Prohect Tasks')
 @section('css')
 <link href="/assets/plugins/datatables/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
-<link href="/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @section('main-content')
@@ -70,8 +70,8 @@
 @section('script')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
     <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-    <script src="{{asset('assets/plugins/calendar/moment.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
+    
+    
 
     <script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>

@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('model_type')->nullable();
-            $table->integer('model_id')->nullable();
-            $table->string('name', 191);
-            $table->text('message')->nullable();
-            $table->boolean('staff_access')->nullable();
-            $table->boolean('client_access')->nullable();
-            $table->boolean('is_private')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->bigIncrements('id')->primary();
+            $table->morphs('model');
+            $table->morphs('user');
+            $table->string('name', 191)->nullable();
+            $table->text('description')->nullable();
+            $table->date('start')->nullable();
+            $table->date('end')->nullable();
+            $table->boolean('is_private')->default(0);
+            $table->boolean('staff_access')->default(0);
+            $table->boolean('client_access')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('notes');
     }
 };

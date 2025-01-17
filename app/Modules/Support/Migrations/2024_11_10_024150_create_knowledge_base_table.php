@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('knowledge_base', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->bigIncrements('id')->primary();
             $table->integer('category_id');
             $table->mediumText('subject');
             $table->longText('description');

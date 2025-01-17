@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('estimate_requests', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->bigIncrements('id')->primary();
             $table->integer('estimate_id')->nullable();
             $table->longText('message');
             $table->dateTime('date')->nullable();
             $table->integer('user_id')->default(0);
             $table->string('user_type', 191);
-            $table->integer('status')->default(0);
+            $table->integer('status_id')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

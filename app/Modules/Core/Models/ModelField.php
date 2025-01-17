@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Modules\Projects\Models;
+namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\CustomFields\Models\CustomField;
 
 class ModelField extends Model
 {
 
-    protected $table = 'model_field';
+    protected $table = 'model_fields';
 
     protected $fillable = [
 
@@ -18,8 +19,12 @@ class ModelField extends Model
         'title', 
         'code', 
         'value', 
-        'type', 
-        'created_by'
+        'business_id', 
     ];
+
+    public function field()
+    {
+        return $this->hasOne(CustomField::class, 'id', 'field_id');
+    }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Modules\Events\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Module;
 
 class EventServiceProvider extends ServiceProvider
 {

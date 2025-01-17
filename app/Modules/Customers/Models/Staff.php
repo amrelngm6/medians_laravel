@@ -5,13 +5,21 @@ namespace App\Modules\Customers\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
+use App\Modules\Core\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
+use App\Modules\Core\Models\Business;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Customers\Models\Customer;
-use App\Modules\Customers\Models\Task;
+use App\Modules\Packages\Models\Package;
+use App\Modules\Packages\Models\PackageSubscription;
+use App\Modules\Packages\Models\PackageFeatures;
 
 class Staff extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
+
+    // protected $guard_name = 'staff'; 
 
     protected $table = 'staff';
 
@@ -24,13 +32,60 @@ class Staff extends Authenticatable
         'last_name',
         'picture',
         'email',
+        'phone',
         'password',
-        'job',
+        'position',
         'about',
         'role_id',
         'status',
         'created_by'
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    
+    public $appends = ['name','id'];
+
+    public function getNameAttribute() : String {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function getIdAttribute() : String {
+        return $this->staff_id;
+    }
+
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    public function id()
+    {
+        return $this->staff_id;
+    }
+
 
     public function customers()
     {
@@ -39,7 +94,7 @@ class Staff extends Authenticatable
     
     
     /**
-     * Load Staff tasks
+     * Staff tasks
      */
     public function tasks()
     {
@@ -48,28 +103,56 @@ class Staff extends Authenticatable
 
     
     /**
-     * Load Main Contact
+     * Role of the Staff
      */
-    public function contact()
+    public function role()
     {
-        return $this->morphOne(Contact::class, 'model');
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     /**
-     * Load All Contacts of Client
+     * All Contacts of Client
      */
-    public function contacts()
+    public function subscription()
     {
-        return $this->morphMany(Contact::class, 'model');
+        return $this->hasOne(PackageSubscription::class, 'business_id', 'business_id');
     }
 
     
     /**
-     * Load Main Location info
+     * Main Location info
      */
     public function location_info()
     {
         return $this->morphOne(LocationInfo::class, 'model');
     }
+
+    
+    /**
+     * Roles of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
+    
+    /**
+     * Roles of Business
+     */
+    public function business()
+    {
+        return $this->hasOne(Business::class, 'business_id', 'business_id');
+    }
+    
+    
+    /**
+     * Roles of Business
+     */
+    public function scopeActiveForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId)->where('status', 1);
+    }
+
 }
 

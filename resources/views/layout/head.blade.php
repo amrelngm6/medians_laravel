@@ -7,5 +7,5 @@
       <meta name="author" content="Medians">
       <link rel="icon" href="{{('../assets/images/logo/favicon.png')}}" type="image/x-icon">
       <link rel="shortcut icon" href="{{('../assets/images/logo/favicon.png')}}" type="image/x-icon">
-      <title>@yield('title') | Ra-admin - Premium Admin Template</title>
+      <title>@yield('title', 'Medians') | SaaS AI CRM System</title>
 

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
+        'guard' => 'superadmin',
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
@@ -36,17 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+        'staff' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'staffs',
         ],
         'superadmin' => [
             'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'staff' => [
-            'driver' => 'session',
-            'provider' => 'staff',
+            'provider' => 'superadmins',
         ]
     ],
 
@@ -68,22 +68,20 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => env('AUTH_MODEL', App\Models\User::class),
+        // ],
+
+        'staffs' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' =>  App\Modules\Customers\Models\Staff::class,
         ],
 
-        'superadmin' => [
+        'superadmins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-
-        'staff' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Modules\Customers\Models\Staff::class),
-            // 'driver' => 'database',
-            // 'table' => 'staff',
-        ],
+        ]
     ],
 
     /*
@@ -112,6 +110,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        // 'staff' => [
+        //     'provider' => 'staff',
+        //     'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        // ],
     ],
 
     /*

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('location_info', function (Blueprint $table) {
-            $table->integer('location_id')->primary();
+            $table->bigIncrements('location_id')->primary();
             $table->integer('model_id')->nullable();
             $table->string('model_type')->nullable();
             $table->string('country', 10)->default('0');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('zip', 15)->nullable();
             $table->string('state', 50)->nullable();
             $table->string('address', 191)->nullable();
+            $table->string('website', 191)->nullable();
             $table->string('zone', 191)->nullable();
             $table->string('longitude', 191)->nullable();
             $table->string('latitude', 191)->nullable();

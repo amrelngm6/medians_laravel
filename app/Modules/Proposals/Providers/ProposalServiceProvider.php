@@ -3,6 +3,7 @@
 namespace App\Modules\Proposals\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Module;
 
 class ProposalServiceProvider extends ServiceProvider
 {

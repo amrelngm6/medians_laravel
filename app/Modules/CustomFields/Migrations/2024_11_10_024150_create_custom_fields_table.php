@@ -14,11 +14,21 @@ return new class extends Migration
         Schema::create('custom_fields', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->nullable();
-            $table->string('code');
-            $table->string('value')->nullable();
-            $table->string('model_type');
-            $table->integer('model_id');
-            $table->integer('business_id');
+            $table->string('placeholder')->nullable();
+            $table->string('name');
+            $table->integer('sort')->nullable();
+            $table->string('type');
+            $table->string('class')->nullable();
+            $table->string('default_value')->nullable();
+            $table->string('help_text')->nullable();
+            $table->text('options')->nullable();
+            $table->boolean('is_required')->nullable();
+            $table->boolean('is_disabled')->nullable();
+            $table->boolean('show_at_table')->nullable();
+            $table->boolean('show_at_overview')->nullable();
+            $table->string('model');
+            $table->morphs('user');
+            $table->integer('business_id')->default(0);
             $table->timestamps();
         });
     }

@@ -12,50 +12,33 @@ use App\Modules\Core\Models\ModelMember;
 class Announcement extends Model
 {
     
-    protected $table = 'announcements';
-
-    protected $fillable = ['business_id', 'name', 'message', 'staff_access', 'client_access', 'is_private', 'model_id', 'model_type', 'created_by'];
+    protected $table = 'Announcements';
+    
+    protected $fillable = ['business_id', 'name', 'description','start', 'end', 'client_access', 'staff_access', 'is_private', 'user_id', 'user_type',  'model_id', 'model_type'];
 
     /**
      * Load related Tasks as Morph
      */
-    public function tasks()
+    public function user()
     {
-        return $this->morphMany(Task::class, 'model');
+        return $this->morphTo();
     }
 
-    /**
-     * Load assigneed Team members
-     */
-    public function team()
-    {
-        return $this->morphMany(ModelMember::class, 'model');
-    }
-
-    
-    /**
-     * Load related Files as Morph
-     */
-    public function files()
-    {
-        return $this->morphMany(ModelFile::class, 'model');
-    }
-    
-    /**
-     * Load related fields as Morph
-     */
-    public function fields()
-    {
-        return $this->morphMany(ModelField::class, 'model');
-    }
-    
     /**
      * Load related category as Morph
      */
     public function model()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
 
 
+    /**
+     * Load Items of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+    
 }

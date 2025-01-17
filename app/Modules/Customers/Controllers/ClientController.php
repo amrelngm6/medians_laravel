@@ -29,7 +29,7 @@ class ClientController extends Controller
 
         $clients = $clients->paginate(10); // Paginate results
 
-        return view('customers.clients', compact('clients'));
+        return view('customers.client.clients', compact('clients'));
 
     }
 
@@ -38,7 +38,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('customers.client_create');
+        return view('customers.client.client_create');
     }
 
     /**
@@ -46,12 +46,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
         // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients,email',
-            'phone' => 'nullable|string|max:15',
-            'address' => 'nullable|string|max:500',
+            'last_name' => 'required|string|max:255',
+            'file' => 'image|max:2048',
+            // 'email' => 'required|email|unique:clients,email',
         ]);
 
         if ($validator->fails()) {
@@ -64,10 +65,52 @@ class ClientController extends Controller
         }
         
         // Create and save the client
-        Client::create($request->only('name', 'email', 'phone', 'address'));
+        $client = Client::firstOrCreate($request->only('first_name', 'last_name', 'email'));
 
-        return redirect()->route('clients.index')->with('success', 'Client created successfully');
+        $handlePicture = $this->handleUploads($request, 'avatar', $client);
+        
+        return $handlePicture;
+        // return redirect()->route('clients.index')->with('success', 'Client created successfully');
     }
+
+    public function handleUploads($request, String $key = 'avatar', Client $client) 
+    {
+        if (!$request->hasFile($key)) {
+            return;
+        }
+        
+
+        $request->validate([
+            $key => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the file
+        ]);
+
+        // Define the target folder
+        $targetFolder = public_path('images');
+        
+        // Ensure the folder exists
+        if (!is_dir($targetFolder)) {
+            mkdir($targetFolder, 0755, true);
+        }
+
+        // Get the uploaded file
+        $file = $request->file($key);
+
+        // Define the filename as avatar with the original extension
+        $fileName = 'avatar-' .rand(9999,99999).'-'.$client->client_id.'.'. $file->getClientOriginalExtension();
+
+        // Move the file to the images folder
+        $file->move($targetFolder, $fileName);
+        
+        $path = 'images/'.$fileName;
+
+        echo $path;
+        
+        // Save the path to the user's profile
+        $update = $client->update(['picture' => $path]);
+        
+        return $update;
+    }
+    
 
     /**
      * Display the specified client.
@@ -136,4 +179,61 @@ class ClientController extends Controller
 
         return view('clients.index', compact('clients'));
     }
+
+
+    
+    
+    // Login function
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('client')->attempt($credentials)) {
+            return response()->json(['result' => 'Login successful', 'redirect' => '/dashboard' ], 200);
+        } else {
+            return response()->json(['error' => 'Invalid credentials'], 401);
+        }
+    }
+
+    // Signup function
+    
+    /**
+     * Store a newly created client in the database.
+     */
+    public function register(Request $request)
+    {
+
+        // Validate incoming request data
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'password' => 'required|string|max:100|min:5',
+            'email' => 'required|email|unique:clients,email',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->hasError($validator->errors(), 'Validation Error');
+        }
+        
+        // Create and save the client
+        $client = $this->clientService->createStaff(  $request->only('first_name', 'last_name', 'email', 'password') );
+
+        $handleOTP = $this->clientService->creteOTP($client);
+        
+        return response()->json([
+            'success' => true,
+            'result' => 'Thanks for subscription, Please check your email',
+            'redirect' => route('OTP.activate')
+        ], 200);
+    }
+
+
+    // Logout function
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json(['result' => 'Logged out successfully'], 200);
+    }
+
+
 }

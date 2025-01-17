@@ -18,4 +18,13 @@ class CountryService
     {
         // Business logic for deleting a Country
     }
+    
+
+    public function list()
+    {
+        $list = json_decode(file_get_contents('../app/Modules/Countries/Services/list.json'));
+        
+        return $list;
+    }
+
 }

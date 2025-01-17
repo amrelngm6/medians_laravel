@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('system_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code');
-            $table->text('value');
-            $table->integer('created_by');
+            $table->text('value')->nullable();
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

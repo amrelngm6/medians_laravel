@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('modules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('path');
             $table->string('provider');
             $table->boolean('is_enabled')->default(true);
+            $table->boolean('has_settngs');
+            $table->boolean('business_access');
+            $table->boolean('limited_features');
             $table->timestamps();
         });
     }

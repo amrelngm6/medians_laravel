@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fields', function (Blueprint $table) {
-            $table->integer('field_id')->primary();
+            $table->bigIncrements('field_id')->primary();
             $table->string('model')->nullable();
             $table->integer('position')->nullable();
             $table->string('title', 191)->nullable();

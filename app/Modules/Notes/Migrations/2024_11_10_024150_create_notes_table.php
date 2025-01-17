@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notes', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->integer('model_id');
-            $table->string('model_type', 191);
+            $table->bigIncrements('id')->primary();
+            $table->morphs('model');
+            $table->morphs('user');
             $table->text('description')->nullable();
-            $table->integer('created_by')->nullable();
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

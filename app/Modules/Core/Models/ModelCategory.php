@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Projects\Models;
+namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,5 +16,14 @@ class ModelCategory extends Model
         'category_id',
         'created_by',
     ];
+
+    
+    /**
+     * Load related model as Morph
+     */
+    public function category()
+    {
+        return $this->hasOne(Category::class,'id','category_id');
+    }
 
 }

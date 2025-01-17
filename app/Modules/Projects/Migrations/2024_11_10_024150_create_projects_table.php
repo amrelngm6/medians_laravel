@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->integer('project_id')->primary();
+            $table->bigIncrements('project_id')->primary();
             $table->string('name', 191);
             $table->text('description')->nullable();
             $table->integer('client_id');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('deadline_date')->nullable();
             $table->dateTime('finished_date')->nullable();
             $table->decimal('total_cost', 15)->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status_id')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

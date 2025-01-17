@@ -1,35 +1,47 @@
 
+var MediansSettings = window.MediansSettings || {};
 
-jQuery(function($) {
 
-    'use strict';
-
-    var MediansSettings = window.MediansSettings || {};
-
-    
     /*--------------------------------
          Window Based Layout
      --------------------------------*/
-    function handleResponse(res, form) {
+     function handleResponse(res, form) {
+        if (!res)
+            return;
         
-        if (res.errors)
-        {
+        if (res.error) {
+        
+            Swal.fire(res.title ?? 'Error!',  res.error, 'error')
+
+        } else if (res.errors) {
+            
             for (const [key, value] of Object.entries(res.errors)) {
-                Swal.fire('Error!', value[0], 'error')
+                Swal.fire(res.title ?? 'Error!', value[0], 'error')
             }
 
-        } else if (res.error) {
-
-            Swal.fire('Error!', res.error, 'error')
-
         } else {
-
-            (Swal.fire(res.title, res.result, 'success'), setTimeout(() => {
-                res.reload ? window.location.reload() : (form ? form.reset() : null),
-                res.redirect ? (window.location.href = res.redirect) : (form ? form.reset() : null)
+            
+            (Swal.fire(res.title ?? 'Done', res.result, 'success'), setTimeout(() => {
+                res.reload ? window.location.reload() : (form && !res.no_reset ? form.reset() : null),
+                res.redirect ? (window.location.href = res.redirect) : (form && !res.no_reset ? form.reset() : null)
             }, 2000));
         }
     
+    }
+
+    async function showFormTargetModal(formId)
+    {
+        let url = jQuery('#'+formId).attr('data-reload-link');
+        if (!url)
+            return;
+
+        let res = await fetch(url);
+        res.text().then(a=> {
+            jQuery('#modals').html(a)
+            jQuery('#'+formId).data('target-modal') ? jQuery(jQuery('#'+formId).data('target-modal')).removeClass('fade').addClass('show') : null
+        })
+
+        jQuery('#'+formId).data('target-modal') ? jQuery('#'+formId).data('target-modal').removeClass('fade').addClass('show') : null
     }
     
     function submitForm(formId, elementId, append = null) {
@@ -43,47 +55,60 @@ jQuery(function($) {
     
         // Get the form data as a FormData object
         const formData = new FormData(form);
-    
+
         // Send the form data via AJAX
         const xhr = new XMLHttpRequest();
         xhr.open('POST', form.action, true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
                 // Handle the successful response 
-                try {
-    
-                    let res = xhr.responseText;
-                    handleResponse(res, form)
-    
-                } catch (error) {
-    
-                    element.innerHTML = xhr.responseText;
+                if ( xhr.status === 200) {
+                    showFormTargetModal(formId)
+                    try {
+        
+                        let res = JSON.parse(xhr.responseText);
+                        handleResponse(res, form)
+        
+                    } catch (error) {
+        
+                        if (append) {
+                            element.innerHTML += xhr.responseText;
+                        } else if (xhr.responseText) {
+                            element.innerHTML = xhr.responseText;
+                        }
+                    }
                 }
     
             } else {
                 if (append) {
                     element.appendChild(xhr.responseText)
                 } else if (xhr.responseText) {
-                    console.log(xhr.responseText)
-                    let res = JSON.parse(xhr.responseText);
-                    handleResponse(res, form)
+                    try {
+                        let res = JSON.parse(xhr.responseText);
+                        handleResponse(res, form)
+                    } catch (error) {   
+                        element.innerHTML = xhr.responseText;
+                    }
                 }
             }
         };
-        xhr.send(new URLSearchParams(formData).toString());
+        xhr.send(formData);
     }
     
     
     // Submit Ajax request
     function submitLink(path, data) {
+        
+        // path = path + '?_token=' + jQuery('#csrf-input').val(); 
+
         $.ajax({
             url: path,
             type: 'POST',
             dataType: 'JSON',
             contentType: 'application/json',
-            data: JSON.stringify({ params: data }), // Your data to send
+            data: JSON.stringify(data), // Your data to send
             processData: false,
             success: function (data) {
                 // Update your UI with the new data
@@ -96,26 +121,35 @@ jQuery(function($) {
     }
     
     
+    
+jQuery(function($) {
+
+    'use strict';
+
+    
      
     /*--------------------------------
          Window Based Layout
      --------------------------------*/
     MediansSettings.handleFormsActions = function() {
      
-        // jQuery(document).on('change', 'input', function (e) {
-        //     setTimeout(() => {
-        //         jQuery(e.target).data('element') ? submitForm(jQuery(e.target).data('form'), jQuery(e.target).data('element'),) : null;
-        //     }, 100);
-        // });
+        jQuery(document).on('change', 'input.submit-on-change', function (e) {
+            setTimeout(() => {
+                jQuery(e.target).data('element') ? submitForm(jQuery(e.target).data('form'), jQuery(e.target).data('element'), jQuery(e.target).data('append')) : null;
+            }, 100);
+        });
         
         jQuery(document).on('submit', '.ajax-form', function (e) {
             e.preventDefault();
-            submitForm(e.target.id, e.target.attr);
+            let element = jQuery(this).data('element'); 
+            let append = jQuery(this).data('append');
+            submitForm(e.target.id, element, append);
         });
         
         jQuery(document).on('click', '.ajax-link', function (e) {
             e.preventDefault();
         
+            let id = jQuery(this).attr('id');
             let data = jQuery(this).data('params');
             let path = jQuery(this).attr('href');
             let needConfirm = jQuery(this).data('confirm');
@@ -132,11 +166,22 @@ jQuery(function($) {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         submitLink(path, data);
+                        showFormTargetModal(id)
                     }
                 });
             } else {
                 submitLink(path, data);
             }
+        });
+               
+        jQuery(document).on('click', '.ajax-load', async function (e) {
+            e.preventDefault();
+            let element = jQuery(this).data('element');
+            let res = await fetch(jQuery(this).attr('href'));
+            res.text().then(data=> {
+                jQuery(element).html(data)
+            })
+
         });
                
     }
@@ -195,9 +240,14 @@ jQuery(function($) {
             e.preventDefault()
             let res = await fetch(jQuery(this).attr('href'));
             res.text().then(a=> {
-                jQuery('#modals').append(a)
+                jQuery('#modals').html(a)
                 jQuery(jQuery(modalLink).data('modal')).removeClass('fade').addClass('show')
             })
+        });
+
+        jQuery(document).on('click', '.show-modal', async function(e) {
+            let modalLink = this;
+            jQuery(jQuery(modalLink).data('modal')).removeClass('fade').addClass('show')
         });
 
         jQuery(document).on('click', '.close-modal', function() {
@@ -440,7 +490,12 @@ jQuery(function($) {
                 connectWith: ".sort_container",
                 handle: "div.sort_item",
                 cancel: ".panel_actions",
-                placeholder: "portlet-placeholder"
+                placeholder: "portlet-placeholder",
+                update: function(event, ui) {
+                    var sortedIDs = $(this).sortable("toArray", { attribute: 'data-id' });
+                    // You can make an AJAX call here to save the new order to the server
+                    var listContainerId = $(this).attr('data-id');
+                },
             });
         }
     };
@@ -2340,6 +2395,12 @@ jQuery(function($) {
         if (jQuery(".datepicker").length) {
             $('.datepicker').daterangepicker();
         }
+        if (jQuery(".singledatepicker").length) {
+            $('.singledatepicker').daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+            });
+        }
 
         /*-------------------------------------------*/
 
@@ -2384,6 +2445,15 @@ jQuery(function($) {
     MediansSettings.dropdownWidget = function() {
         if (jQuery('.select2').length) {
             jQuery('.select2').select2()
+        }
+        if (jQuery('.select-bootstrap').length) {
+            jQuery('.select-bootstrap').selectpicker({
+                liveSearch:true,
+                // mobile:true,
+                tickIcon:'glyphicon-hand-left',
+                showTick: true,
+                selectOnTab:true,
+            });
         }
     };
 
@@ -2480,7 +2550,11 @@ jQuery(function($) {
      --------------------------------*/
     MediansSettings.sweetalert = function() {
 
-        jQuery(document).on('click', '.delete-item', function(){
+        jQuery(document).on('click', '.delete-item', function(a){
+            a.preventDefault()
+            let path = jQuery(this).attr('data-path') + '?_token=' + jQuery('#csrf-input').val(); 
+            let id = jQuery(this).attr('id');
+            
             Swal.fire({
                 showDenyButton: true,
                 title: "Delete Item",
@@ -2488,12 +2562,26 @@ jQuery(function($) {
                 confirmButtonText: "Delete",
                 icon: "error"
               }).then(e=> {
-                  if (e.isConfirmed) {
-                    Swal.fire({
-                        title: "Removed successfully",
-                        text: "Item removed from database!",
-                        icon: "success"
-                    })
+                if (e.isConfirmed) {
+                    
+                    $.ajax({
+                        url: path,
+                        type: 'DELETE',
+                        dataType: 'JSON',
+                        contentType: 'application/json',
+                        processData: false,
+                        success: function (data) {
+                            // Update your UI with the new data
+                            showFormTargetModal(id)
+                            try {
+                                handleResponse(data, null)
+                            } catch (error) {
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            handleResponse(xhr.responseJSON, null)
+                        }
+                    });
                 }
 
               });
@@ -2696,6 +2784,27 @@ jQuery(function($) {
         return default_val;
     }
       
+
+    /**
+     * Upload Picture preview
+     */
+    MediansSettings.handleUploadAvatar = function() {
+
+        jQuery(document).on('change', '#imageInput', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            }
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+    }
    
 
 
@@ -2787,10 +2896,86 @@ jQuery(function($) {
             MediansSettings.windowBasedLayout();
             MediansSettings.otherScripts();
             MediansSettings.handleFormsActions();
+            MediansSettings.handleUploadAvatar();
             
         }, 100);
 
     });
     
 
+    
+
 });
+
+function calcTotal() {
+    let itemTotal = 0;
+    let subtotal = 0;
+    let tax = 0;
+    let discount = jQuery('#discount_amount').val();
+    let total = 0;
+    let rows = jQuery('.item-row');
+    for (let i = 0; i < rows.length; i++) {
+        let inputs = jQuery(rows[i]).find('input');
+
+        if (inputs.length) {
+            const item_qty = Number(inputs[1].value);
+            const item_price = Number(inputs[2].value);
+            const item_tax = Number(inputs[3].value);
+            const item_subtotal = item_price * item_qty;
+            const item_tax_amount = item_subtotal * Number(item_tax ?? 0) / 100;
+            const item_total = (item_tax_amount + item_subtotal);
+            inputs[4].value = item_subtotal;
+            inputs[5].value = item_total;
+            subtotal += item_subtotal
+            tax += item_tax_amount
+            total += (item_total)
+
+        }
+    }
+
+    total = (total - discount)
+    jQuery('#discount_input').val(discount)
+    jQuery('span#discount').html(discount)
+    jQuery('#total_input').val(total)
+    jQuery('span#total').html(total)
+    jQuery('#subtotal_input').val(subtotal)
+    jQuery('span#subtotal').html(subtotal)
+    jQuery('#tax_input').val(tax)
+    jQuery('span#tax').html(tax)
+}
+
+
+function calcTotalCreditNote(grandTotal) {
+    let subtotal = 0;
+    let tax = 0;
+    let total = 0;
+    let discount = jQuery('#discount_amount').val();
+    let rows = jQuery('.item-row');
+    for (let i = 0; i < rows.length; i++) {
+        let inputs = jQuery(rows[i]).find('input');
+
+        if (inputs.length) {
+            const item_qty = Number(inputs[1].value);
+            const item_price = Number(inputs[2].value);
+            const item_tax = Number(inputs[3].value);
+            const item_subtotal = item_price * item_qty;
+            const item_tax_amount = item_subtotal * Number(item_tax ?? 0) / 100;
+            const item_total = (item_tax_amount + item_subtotal);
+            inputs[4].value = item_subtotal;
+            inputs[5].value = item_total;
+            subtotal += item_subtotal
+            tax += item_tax_amount
+            total += (item_total)
+
+        }
+    }
+
+    total = (total - discount)
+    jQuery('#total_input').val(total)
+    jQuery('span#discount').html(discount)
+    jQuery('span#total').html(total)
+    jQuery('#subtotal_input').val(subtotal)
+    jQuery('span#subtotal').html(subtotal)
+    jQuery('#tax_input').val(tax)
+    jQuery('span#tax').html(tax)
+}

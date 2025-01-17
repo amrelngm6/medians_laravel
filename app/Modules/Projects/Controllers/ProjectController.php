@@ -4,22 +4,88 @@ namespace App\Modules\Projects\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Auth;
+use App\Modules\Projects\Services\ProjectService;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
-    public function index()
+
+    public $tabsPrefix = 'Projects.tabs';
+
+    protected $projectService;
+
+    public function __construct(ProjectService $projectService)
     {
-        // List all projects
-        return view('projects.grid');
+        $this->projectService = $projectService;
     }
 
-    public function store()
+
+    public function index()
     {
-        // Store a new project
+        $projects = $this->projectService->query();
+
+        // List all projects
+        return view('projects::grid', compact('projects'));
+    }
+
+    public function store(Request $request)
+    {
+        
+        try {
+            // Validate incoming request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->hasError($validator->errors(), 'Validation Error');
+            }
+            
+            $user = Auth::user();
+
+            // Create and save the Project
+            $project = $this->projectService->createProject( $request->only('description', 'name', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status', 'client_id'));
+            
+            return $project ? $this->jsonResponse('Created successfully') : null;
+            
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage(), 'Validation Error');
+            
+        }
+    }
+
+    /**
+     * Load Modal Create form
+     */
+    public function create(Request $request)
+    {
+        $statusList = $this->projectService->loadStatusList();
+        $clients = $this->projectService->clients();
+
+        return view('projects::new-project-modal', compact('clients','statusList'));
+    }
+
+    /**
+     * Load Modal Edit form
+     */
+    public function edit(Request $request, $id)
+    {
+        $project = $this->projectService->find($id);
+
+        $statusList = $this->projectService->loadStatusList();
+
+        $clients = $this->projectService->clients();
+
+        return view('projects::edit-project-modal', compact('clients','project','statusList'));
     }
 
     public function show(Request $request, $id)
     {
+        $project = $this->projectService->find($id);
+        $projectTabs = $this->loadModuleTabs($this->tabsPrefix);
+
         // Display a single project
         switch ($request->get('tab')) {
             case 'team':
@@ -32,18 +98,35 @@ class ProjectController extends Controller
                 break;
 
             case 'tasks':
-                return view('projects.tasks');
+                return view('projects::tasks', compact('project','projectTabs'));
                 break;
             
             default:
-                return view('projects.overview');
+                return view('projects::overview', compact('project','projectTabs'));
                 break;
         }
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        // Update the specified project
+        try {
+            // Validate incoming request datas
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->hasError($validator->errors(), 'Validation Error');
+            }
+
+            // Update the project
+            $project = $this->projectService->updateProject($id, $request->only('name', 'description', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status_id', 'client_id'));
+
+            return $project ? $this->jsonResponse('Updated successfully', 'Done', true) : null;
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage(), 'Update Error');
+        }
     }
 
     public function destroy($id)

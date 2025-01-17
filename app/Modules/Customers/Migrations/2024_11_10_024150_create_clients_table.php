@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('last_name', 191)->nullable();
             $table->string('picture', 191)->nullable();
             $table->string('email', 100)->nullable();
+            $table->string('phone', 20)->nullable();
             $table->string('about', 150)->nullable();
+            $table->string('password', 150)->nullable();
             $table->integer('lead_id')->nullable()->default(0);
             $table->integer('assigned_user')->default(0);
             $table->integer('status')->nullable()->default(0);

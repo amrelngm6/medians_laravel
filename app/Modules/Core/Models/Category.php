@@ -9,15 +9,32 @@ class Category extends Model
 
     protected $table = 'categories';
     
-    protected $primaryKey = 'category_id';
-
     protected $fillable = [
         
         'business_id',
         'model',
         'name',
+        'color',
         'description',
         'created_by',
     ];
 
+    
+    /**
+     * Load Items of Business Scope
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
+    /**
+     * Load Items of Business Scope
+     */
+    public function scopeDefault($query, $businessIds)
+    {
+        return $query->whereIn('business_id', $businessIds);
+    }
+
+    
 }

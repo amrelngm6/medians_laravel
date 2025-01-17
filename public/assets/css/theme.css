@@ -243,6 +243,9 @@ body .show-child:hover .show-on-hover {
 .page-topbar .quick-area .info-menu li a.toggle_chat i {
     font-size: 18px;
 }
+body .line-through {
+    text-decoration-line: line-through !important;
+}
 .page-topbar .quick-area .info-menu li.profile a {
     width: auto;
     text-decoration: none;
@@ -10234,3 +10237,16 @@ body .vis-item.vis-box {
 
 
 
+
+body .select2-container .select2-choice
+{
+    border: none;
+}
+.dropdown.bootstrap-select button.btn.btn-default
+{
+    background-color: transparent;
+}
+
+.disabled {
+    pointer-events: none;
+}

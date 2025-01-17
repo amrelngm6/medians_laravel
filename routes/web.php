@@ -2,17 +2,103 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ModuleController;
+use App\Modules\Customers\Controllers\StaffController;
+use App\Models\Auth;
+use thiagoalessio\TesseractOCR\TesseractOCR;
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 Route::get('', function () {
+
+
+//     $apiKey = 'K84715321088957';
+//     $url = 'https://api.ocr.space/parse/image';
+
+//     $imagePath = './image.png';
+// print_r(new CURLFile($imagePath));
+//     $data = [
+//         'apikey' => $apiKey,
+//         'file' => new CURLFile($imagePath),
+//         'language' => 'eng',
+//     ];
+
+//     $ch = curl_init();
+//     curl_setopt($ch, CURLOPT_URL, $url);
+//     curl_setopt($ch, CURLOPT_POST, true);
+//     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+//     $response = curl_exec($ch);
+//     curl_close($ch);
+
+//     $result = json_decode($response, true);
+//     print_r($result);
+
+
+//     return ;
+    // $text = (new TesseractOCR('./1724736274414.jpg'))
+    //     ->lang('ara') // Specify language
+    //     ->psm(3)
+    //     // ->oem(1)
+    //     ->run();
+
+    // echo $text;
+
+
+    // Mail::to('amrelngm6@gmail.com')->send(new TestEmail());
+
     return view('dashboard.analytics');
 })->name('index');
 
 
-Route::view('login', 'pages.login')->name('login_page');
+// Staff Login / Signup
+Route::prefix('staff')->group(function() {
+    Route::view('/login', 'pages.staff-login')->name('Staff.login');
+    Route::view('/signup', 'pages.signup')->name('Staff.signup');
+});
+Route::post('/signin', [StaffController::class, 'login'])->name('Staff.signin');
+Route::post('/register', [StaffController::class, 'register'])->name('Staff.register');
+
+
+// Users Login
+Route::view('login', 'pages.login')->name('login');
 Route::view('signup', 'pages.signup')->name('signup_page');
 Route::get('logout', [UserController::class, 'logout']);
 
+Route::prefix('dashboard')->middleware(['web', 'auth:superadmin,staff'])->group(function() {
+    
+    Route::get('', function () {
+        $user = Auth::guard('staff')->user();
+        if ($user && empty($user->business))
+        {
+            return redirect()->route('Business.subscription');
+        }
+        return view('dashboard.crm');
+    })->name('dashboard');
+
+});
+
+Route::prefix('users')->middleware(['web', 'auth:superadmin'])->group(function() {
+    Route::get('/', [UserController::class, 'index'])->name('Users');
+    Route::get('/create', [UserController::class, 'create'])->name('User.create');
+    Route::get('/edit', [UserController::class, 'edit'])->name('User.edit');
+    Route::post('/store', [UserController::class, 'store'])->name('User.store');
+    Route::post('{id}', [UserController::class, 'update'])->name('User.update');
+    Route::delete('{id}', [UserController::class, 'destroy'])->name('User.delete');
+
+    Route::get('{id}/overview', [UserController::class, 'overview'])->name('User.tabs.overview');
+
+});
+
+Route::prefix('modules')->middleware(['web', 'auth:superadmin'])->group(function() {
+    Route::get('/', [ModuleController::class, 'index'])->name('Modules');
+    Route::view('/upload', 'includes.modals.new-module')->name('Modules.upload');
+    Route::post('/install', [ModuleController::class, 'install'])->name('Modules.install');
+    Route::post('/update/{id}', [ModuleController::class, 'update'])->name('Modules.update');
+    
+});
 
 Route::group(['prefix'=>'api'], function() {
 

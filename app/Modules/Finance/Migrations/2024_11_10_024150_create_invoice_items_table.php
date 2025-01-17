@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoice_items', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->bigIncrements('id')->primary();
             $table->integer('invoice_id');
             $table->string('model_type')->nullable();
             $table->integer('model_id')->nullable();
