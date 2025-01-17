@@ -155,7 +155,7 @@ class MessageController extends Controller
 
         if ($mode != 'subscribe')
         {
-            Log::error('webhook Request. ' . json_encode($request->all() ?? []));
+            // Log::error('webhook Request. ' . json_encode($request->all() ?? []));
             
             return;
         }
