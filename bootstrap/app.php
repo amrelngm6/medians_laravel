@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: [
+            'webhook/*',
+            'webhook/medians_wp'
+        ]);
         // Set Language based on URL
         $middleware->web(append: \App\Http\Middleware\AuthMiddleware::class);
         $middleware->web(append: \App\Http\Middleware\SetLocale::class);
