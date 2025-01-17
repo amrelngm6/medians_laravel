@@ -46,7 +46,7 @@ class MessageService
 
 
 
-    public function __construct(Message $model)
+    public function __construct(Message $model = null)
     {
         $this->model = $model;
     }
