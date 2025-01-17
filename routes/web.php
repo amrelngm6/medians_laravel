@@ -104,7 +104,7 @@ Route::prefix('modules')->middleware(['web', 'auth:superadmin'])->group(function
     
 });
 
-Route::group(['prefix'=>'api'], function() {
+Route::group(['prefix'=>'apis'], function() {
 
     Route::get('/', [UserController::class, 'register']);
     Route::post('/register', [UserController::class, 'register'])->name('api.signup');
