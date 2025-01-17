@@ -54,6 +54,7 @@
                             <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="chat_messenger_footer">
                                 @csrf
                                 <input name="wa_id" value="{{$conversation->wa_id}}" type="hidden" />
+                                <input name="conversation_id" value="{{$conversation->conversation_id}}" type="hidden" />
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center ">
                                         <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button"
@@ -65,7 +66,7 @@
                                     </div>
                                     <!--end::Actions-->
                                 <!--begin::Input-->
-                                <textarea class="form-control form-control-solid mb-3" rows="1" data-kt-element="input"
+                                <textarea class="form-control form-control-solid mb-3" rows="1" name="message" data-kt-element="input"
                                     placeholder="Type a message"></textarea>
                                 <!--end::Input-->
 
