@@ -5,4 +5,5 @@ use App\Modules\WhatsApp\Controllers\MessageController;
 
 
 
-Route::post('/webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks2');
+Route::post('/webhooks/medians_wp', [MessageController::class, 'webhook']);
+Route::get('/webhooks/medians_wp2', [MessageController::class, 'webhook']);
