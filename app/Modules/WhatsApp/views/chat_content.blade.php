@@ -8,7 +8,7 @@
                                     <!--begin::User-->
                                     <div class="d-flex justify-content-center flex-column me-3">
                                         <a href="#"
-                                            class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">Adam Smith</a>
+                                            class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{$conversation->contact->name ?? ''}}</a>
 
                                         <!--begin::Info-->
                                         <div class="mb-0 lh-1">
@@ -51,8 +51,9 @@
                             <!--end::Card body-->
 
                             <!--begin::Card footer-->
-                            <div class="flex gap-2 pt-4" id="chat_messenger_footer">
-                                
+                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="chat_messenger_footer">
+                                @csrf
+                                <input name="wa_id" value="{{}}" />
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center ">
                                         <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button"
@@ -72,11 +73,11 @@
                                 <div class="d-flex flex-stack">
 
                                     <!--begin::Send-->
-                                    <button class="btn btn-primary" type="button" data-kt-element="send">Send</button>
+                                    <button class="btn btn-primary" type="submit" data-kt-element="send">Send</button>
                                     <!--end::Send-->
                                 </div>
                                 <!--end::Toolbar-->
-                            </div>
+                            </form>
                             <!--end::Card footer-->
                         </div>
                         <!--end::Messenger-->

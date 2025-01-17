@@ -227,7 +227,7 @@ class MessageService
 	}
 
 
-	public function sendTextMessage(String $message_text = 'Hola', String $receiver = '201096869285')
+	public function sendTextMessage(String $message_text = 'Hola', String $receiver = '201096869285', $conversationId = null)
 	{
 		$path = '/v17.0/'.$this->PNID.'/messages';
 
@@ -238,7 +238,6 @@ class MessageService
 			'text' => ['body'=>$message_text]
         );
 		
-        $app = new \config\APP;
 
 		$response = $this->wp_web_send($path, $data);
 		
@@ -246,15 +245,16 @@ class MessageService
 			return null;
 
 		$message = $response->messages[0];
-		$data['conversation_id'] = '';
-		$data['to'] = $receiver;
+		$data['conversation_id'] = $conversationId ?? '';
+		$data['receiver_id'] = $receiver;
 		$data['sender_id'] = $this->PNID;
 		$data['message_id'] = $message->id;
 		$data['message_text'] = $message_text;
 		$data['media_id'] = '';
 		$data['message_time'] = '';
 		$data['message_type'] = 'text';
-        $data['inserted_by'] = $app->auth()->id;
+        $data['user_type'] = get_class($user);
+        $data['user_id'] = $user->id();
 		$MessageRepository = new MessageRepository;
 		return $MessageRepository->saveMessage($data, $this->PNID);
 	}

@@ -53,20 +53,20 @@ class MessageController extends Controller
     {
         // $user = Auth::user();
 
-        // $validator = Validator::make($request->all(), [
-        //     'amount' => 'required|integer|min:1',
-        //     'status_id' => 'required|integer',
-        //     'category_id' => 'required|integer',
-        //     'date' => 'required|date',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'message' => 'required|string',
+            'wa_id' => 'required|string',
+        ]);
 
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Validation failed',
-        //         'errors' => $validator->errors()
-        //     ], 422);
-        // }
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $this->service->sendTextMessage($request->message, $request->user()->id);
 
         // $info = [
         //     'business_id'=> $user->business_id ?? 0,
