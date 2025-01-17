@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-start mb-10 ">
-    <div class="d-flex flex-column align-items-{!! (!$message->income ? 'start' : 'end')  !!}">
+<div class="d-flex justify-content-{!! (!$message->income ? 'start' : 'end')  !!} mb-10 ">
+    <div class="d-flex flex-column align-items-start">
 
         <a title="{{ $message->message_text }}" href="{{ $message->media_path }}" class="glightbox tyn-video cursor-pointer" data-gallery="media-video">
             <img src="/uploads/images/video.jpg" style="width:40px" height="80" width="100%" class="tyn-image" alt="">
