@@ -74,7 +74,7 @@
                                 <div class="d-flex flex-stack">
 
                                     <!--begin::Send-->
-                                    <button class="btn btn-primary" type="submit" data-kt-element="send">Send</button>
+                                    <a href="javascript:;" class="btn btn-primary " onClick="(function(){fetchData()})()">Send</a>
                                     <!--end::Send-->
                                 </div>
                                 <!--end::Toolbar-->
@@ -86,6 +86,8 @@
                             jQuery(document).ready(function(){
                                 const chatContainer = document.getElementById('chat-container');
                                 chatContainer.scrollTop = chatContainer.scrollHeight;
+
+                                jQuery('')
                             })
 
 // Function to fetch and update table data
@@ -105,13 +107,25 @@ function fetchData() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.responseText)
             {
-                jQuery('#chat_content').html(xhr.responseText);
+                try {
+                    let res =JSON.parse(xhr.responseText)
+                    if (res.errors) {
+                        handleResponse(res)
+                    }
+                } catch (error) {
+                    console.log(error)        
+                    jQuery('#chat_content').html(xhr.responseText);
+                }
             } else {
                 jQuery('#message-content').val('');
             }
         }
     };
-    xhr.send(formData);
+    try {
+        xhr.send(formData);
+    } catch (error) {
+        console.log(error)        
+    }
 
 }
 </script>
