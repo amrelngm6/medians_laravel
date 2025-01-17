@@ -53,7 +53,7 @@
                             <!--begin::Card footer-->
                             <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="chat_messenger_footer">
                                 @csrf
-                                <input name="wa_id" value="{{$conversation->wa_id}}" />
+                                <input name="wa_id" value="{{$conversation->wa_id}}" type="hidden' />
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center ">
                                         <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button"
