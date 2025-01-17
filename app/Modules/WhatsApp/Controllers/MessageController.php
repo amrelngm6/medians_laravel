@@ -166,7 +166,7 @@ class MessageController extends Controller
             }
         }
 
-        Log::error('Invalid request for webhook verification.');
+        Log::error('Invalid request for webhook verification. ' . json_encode($request->all()));
         return response('Bad Request', 400);
     }
 
