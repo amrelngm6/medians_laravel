@@ -138,4 +138,34 @@ class MessageController extends Controller
 
 
     
+    
+	/**
+	 * Webhooks method 
+	 * @var Int
+	 */
+	public function webhook( Request $request)
+	{
+            
+        $verifyToken = env('medians_wp'); // Your verification token stored in the .env file
+
+        // Get query parameters
+        $mode = $request->query('hub.mode');
+        $token = $request->query('hub.verify_token');
+        $challenge = $request->query('hub.challenge');
+
+        // Verify token and mode
+        if ($mode && $token) {
+            if ($mode === 'subscribe' && $token === $verifyToken) {
+                Log::info('Webhook verified successfully.');
+                return response($challenge, 200); // Respond with the challenge token
+            } else {
+                Log::warning('Webhook verification failed.');
+                return response('Forbidden', 403);
+            }
+        }
+
+        Log::error('Invalid request for webhook verification.');
+        return response('Bad Request', 400);
+    }
+
 }

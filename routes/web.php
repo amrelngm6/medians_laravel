@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
 use App\Modules\Customers\Controllers\StaffController;
+use App\Modules\WhatsApp\Controllers\MessageController;
 use App\Models\Auth;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use App\Mail\TestEmail;
@@ -56,9 +57,8 @@ Route::get('webhooks/medians_wp', function () {
     echo 'medians_wp';
 })->name('webhooks_wp');
 
-Route::post('webhooks/medians_wp', function () {
-    echo 'medians_wp';
-})->name('webhooks_wp2');
+Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
+
 
 // Staff Login / Signup
 Route::prefix('staff')->group(function() {
