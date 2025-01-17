@@ -68,6 +68,8 @@ class MessageController extends Controller
 
         $this->service->sendTextMessage($request->message, $request->wa_id, $request->conversation_id);
 
+        $ConversationController = new ConversationController();
+        return $ConversationController->show($request, $request->conversation_id);
         // $info = [
         //     'business_id'=> $user->business_id ?? 0,
         //     'created_by'=> $user->staff_id ?? 0,

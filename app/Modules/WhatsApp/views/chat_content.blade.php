@@ -51,7 +51,7 @@
                             <!--end::Card body-->
 
                             <!--begin::Card footer-->
-                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="chat_messenger_footer">
+                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="wp_chat_messenger_form">
                                 @csrf
                                 <input name="wa_id" value="{{$conversation->wa_id}}" type="hidden" />
                                 <input name="conversation_id" value="{{$conversation->conversation_id}}" type="hidden" />
@@ -67,7 +67,7 @@
                                     <!--end::Actions-->
                                 <!--begin::Input-->
                                 <textarea class="form-control form-control-solid mb-3" rows="1" name="message" data-kt-element="input"
-                                    placeholder="Type a message"></textarea>
+                                    placeholder="Type a message" id="message-content"></textarea>
                                 <!--end::Input-->
 
                                 <!--begin:Toolbar-->
@@ -84,8 +84,34 @@
                         <!--end::Messenger-->
                         <script>
                             jQuery(document).ready(function(){
-
                                 const chatContainer = document.getElementById('chat-container');
-                                  chatContainer.scrollTop = chatContainer.scrollHeight;
+                                chatContainer.scrollTop = chatContainer.scrollHeight;
                             })
-                        </script>
+
+// Function to fetch and update table data
+// function fetchData(startDate = '', endDate = '') {
+function fetchData() {
+    const form = document.getElementById('wp_chat_messenger_form');
+
+    // Get the form data as a FormData object
+    const formData = new FormData(form);
+
+    // Send the form data via AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', form.action, true);
+    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.responseText)
+            {
+                jQuery('#chat_content').html(xhr.responseText);
+            } else {
+                jQuery('#message-content').val('');
+            }
+        }
+    };
+    xhr.send(formData);
+
+}
+</script>
