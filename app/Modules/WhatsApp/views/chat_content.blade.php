@@ -85,7 +85,9 @@
                         <script>
                             jQuery(document).ready(function(){
                                 handleScroll()
-                                setTimeout()
+                                setTimeout(function(){
+                                    if ()
+                                })
                             })
 function handleScroll()
 {
