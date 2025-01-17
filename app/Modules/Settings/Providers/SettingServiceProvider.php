@@ -18,15 +18,20 @@ class SettingServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+        if (Schema::hasTable('system_settings')  )
+        {
 
-        // Fetch all settings
-        $settings = SystemSetting::pluck('value', 'code')->toArray();
 
-        // Share settings with all views
-        View::share('settings', $settings);
+            // Fetch all settings
+            $settings = SystemSetting::pluck('value', 'code')->toArray();
 
-        // Store settings in the config
-        config(['app.settings' => $settings]);
+            // Share settings with all views
+            View::share('settings', $settings);
+
+            // Store settings in the config
+            config(['app.settings' => $settings]);
+        }
+
     }
 
     public function register()
