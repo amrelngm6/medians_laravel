@@ -49,9 +49,12 @@ Route::get('', function () {
 
     // Mail::to('amrelngm6@gmail.com')->send(new TestEmail());
 
-    return view('dashboard.analytics');
+    // return view('dashboard.analytics');
 })->name('index');
 
+Route::get('webhooks', function () {
+    echo 'medians_wp';
+})->name('webhooks_wp');
 
 // Staff Login / Signup
 Route::prefix('staff')->group(function() {
