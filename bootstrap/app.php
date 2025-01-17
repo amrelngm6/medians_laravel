@@ -19,11 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Set Language based on URL
         $middleware->web(append: \App\Http\Middleware\AuthMiddleware::class);
         $middleware->web(append: \App\Http\Middleware\SetLocale::class);
-        $middleware->validateCsrfTokens(except: [
-            'webhook/*',
-            'webhook/medians_wp',
-            'https://crm.mediansai.com/webhook/medians_wp'
-        ]);
+        \Log::info('CSRF Middleware Loaded: Excluded Routes', ['excluded' => ['webhook/*', 'webhook/medians_wp']]);
+
         
     })
     ->withExceptions(function (Exceptions $exceptions) {

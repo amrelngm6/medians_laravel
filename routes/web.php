@@ -53,8 +53,11 @@ Route::get('', function () {
     // return view('dashboard.analytics');
 })->name('index');
 
+Route::middleware('web', 'api')->group(function () {
+    Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks2');
+});
+
 // Route::get('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks');
-Route::post('webhooks/medians_wp', [MessageController::class, 'webhook'])->name('webhooks2');
 
 
 // Staff Login / Signup
