@@ -152,9 +152,10 @@ class MessageController extends Controller
         $rawData = file_get_contents('php://input');
         $jsonData = json_decode($rawData, true);
         Log::error('webhook Data. ' . json_encode($jsonData ?? []));
-        
+
         if ($mode != 'subscribe')
         {
+            Log::error('webhook Request. ' . json_encode($request->all() ?? []));
             
             return;
         }
