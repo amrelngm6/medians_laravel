@@ -149,12 +149,13 @@ class MessageController extends Controller
 	{
         $mode = $request->query('hub_mode');
         
+        $rawData = file_get_contents('php://input');
+        $jsonData = json_decode($rawData, true);
+        Log::error('webhook Data. ' . json_encode($jsonData ?? []));
+        
         if ($mode != 'subscribe')
         {
             
-            $rawData = file_get_contents('php://input');
-            $jsonData = json_decode($rawData, true);
-            Log::error('webhook Data. ' . json_encode($jsonData ?? []));
             return;
         }
         
