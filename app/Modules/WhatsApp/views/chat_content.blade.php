@@ -93,6 +93,7 @@
                                     res.text().then(a=> {
                                         let resContent = jQuery(a)
                                         jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
+                                        handleScroll()
                                     })
                                 }, 5000)
                                     
