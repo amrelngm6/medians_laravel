@@ -18,8 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         \Log::info('CSRF Middleware Loaded: Excluded Routes', ['excluded' => ['webhooks/*', 'webhooks/medians_wp']]);
         // Set Language based on URL
-        $middleware->web(append: \App\Http\Middleware\AuthMiddleware::class);
-        $middleware->web(append: \App\Http\Middleware\SetLocale::class);
+        // $middleware->web(append: \App\Http\Middleware\AuthMiddleware::class);
+        // $middleware->web(append: \App\Http\Middleware\SetLocale::class);
         
     })
     ->withExceptions(function (Exceptions $exceptions) {
