@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'webhooks/*',
             'webhooks/medians_wp',
         ]);
-        \Log::info('CSRF Middleware Loaded: Excluded Routes', ['excluded' => ['webhooks/*', 'webhooks/medians_wp']]);
+        Log::info('CSRF Middleware Loaded: Excluded Routes', ['excluded' => ['webhooks/*', 'webhooks/medians_wp']]);
         // Set Language based on URL
         // $middleware->web(append: \App\Http\Middleware\AuthMiddleware::class);
         // $middleware->web(append: \App\Http\Middleware\SetLocale::class);
