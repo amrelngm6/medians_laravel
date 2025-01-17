@@ -51,6 +51,7 @@
                             <!--end::Card body-->
 
                             <!--begin::Card footer-->
+                            
                             <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="wp_chat_messenger_form">
                                 @csrf
                                 <input name="wa_id" value="{{$conversation->wa_id}}" type="hidden" />
@@ -81,16 +82,18 @@
                             </form>
                             <!--end::Card footer-->
                             
-                            <a id="reload-content" href="{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}"
-                                        data-element="#chat_content"
-                                        class="ajax-load"></a>
                         </div>
                         <!--end::Messenger-->
                         <script>
                             jQuery(document).ready(function(){
                                 handleScroll()
-                                setTimeout(function(){
-                                    jQuery('#reload-content').click()
+                                setTimeout(async  function() {
+                                                          
+                                    let res = await fetch("{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}");
+                                    res.text().then(a=> {
+                                        let resContent = jQuery(a)
+                                        jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
+                                    })
                                 }, 5000)
                                     
                             })
