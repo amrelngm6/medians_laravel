@@ -219,7 +219,7 @@ class MessageController extends Controller
         $data['conversation_id'] = $jsonData->entry[0]->id ?? 0;
         $data['name'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->profile->name ?? '';
         $data['sender_id'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
-        $data['to'] = $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '';
+        $data['receiver_id'] = $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '';
         $data['message_id'] = isset($message->id) ? $message->id : '';
         $data['message_json'] = serialize($jsonFileData);
         $data = $this->messageTypeHandler($data, $message);
