@@ -13,7 +13,9 @@ return new class extends Migration
     {
         
         Schema::create('modules', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
+            
+
             $table->string('name');
             $table->string('path');
             $table->string('provider');
