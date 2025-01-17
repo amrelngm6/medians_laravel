@@ -148,7 +148,7 @@ class MessageController extends Controller
 	public function webhook( Request $request)
 	{
             
-        $verifyToken = env('medians_wp'); // Your verification token stored in the .env file
+        $verifyToken = 'medians_wp'; // Your verification token stored in the .env file
 
         // Get query parameters
         $mode = $request->query('hub.mode');
