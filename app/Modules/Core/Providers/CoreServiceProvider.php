@@ -15,30 +15,34 @@ class CoreServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        if (Schema::hasTable('mytable')  )
+        {
+
+            $Module = Module::firstOrCreate([
+                'name' => 'Role',
+                'path' => dirname(__NAMESPACE__),
+                'provider' => $this::class,
+            ]);
+    
+            $Module = Module::firstOrCreate([
+                'name' => 'Business',
+                'path' => dirname(__NAMESPACE__),
+                'provider' => $this::class,
+            ]);
+    
+            $Module = Module::firstOrCreate([
+                'name' => 'StatusList',
+                'path' => dirname(__NAMESPACE__),
+                'provider' => $this::class,
+            ]);
+    
+            $Module = Module::firstOrCreate([
+                'name' => 'Category',
+                'path' => dirname(__NAMESPACE__),
+                'provider' => $this::class,
+            ]);
+        }
         
-        $Module = Module::firstOrCreate([
-            'name' => 'Role',
-            'path' => dirname(__NAMESPACE__),
-            'provider' => $this::class,
-        ]);
-
-        $Module = Module::firstOrCreate([
-            'name' => 'Business',
-            'path' => dirname(__NAMESPACE__),
-            'provider' => $this::class,
-        ]);
-
-        $Module = Module::firstOrCreate([
-            'name' => 'StatusList',
-            'path' => dirname(__NAMESPACE__),
-            'provider' => $this::class,
-        ]);
-
-        $Module = Module::firstOrCreate([
-            'name' => 'Category',
-            'path' => dirname(__NAMESPACE__),
-            'provider' => $this::class,
-        ]);
 
         // Load routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
