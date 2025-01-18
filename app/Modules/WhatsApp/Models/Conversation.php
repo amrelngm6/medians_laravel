@@ -31,9 +31,13 @@ class Conversation extends Model
 		return $this->hasOne(Contact::class, 'wa_id','wa_id');
 	}
 	
-	public function last_message()
+	public function last_message($wa_id, $display_phone_number)
 	{
-		return $this->hasOne(Message::class, 'display_phone_number','display_phone_number')->orderBy('id', 'DESC');
+		return Message::where('display_phone_number',$display_phone_number)
+		->where('sender_id', $wa_id)
+		->where('display_phone_number',$display_phone_number)
+		->where('receiver_id', $wa_id)
+		->first();
 	}
 
 	public function new_messages()

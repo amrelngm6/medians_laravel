@@ -63,10 +63,10 @@
                                         </div>
                                         <div class="overflow-hidden grow w-full">
                                             <h6 class="mb-1">{{$conversation->contact->name ?? ''}}</h6>
-                                            <p class="text-xs truncate text-muted dark:text-zink-200">{{$conversation->last_message->message_text ?? ''}}</p>
+                                            <p class="text-xs truncate text-muted dark:text-zink-200">{{$conversation->last_message($conversation->wa_id, $conversation->display_phone_number)->message_text ?? ''}}</p>
                                         </div>
                                         <div class="self-start shrink-0 flex-none  text-muted dark:text-zink-200">
-                                            <small>{{$conversation->last_message ? $conversation->last_message->time_elapsed_string() : ''}}</small>
+                                            <small>{{$conversation->last_message($conversation->wa_id, $conversation->display_phone_number) ? $conversation->last_message($conversation->wa_id, $conversation->display_phone_number)->time_elapsed_string() : '' }}</small>
                                         </div>
                                     </a>
                                 </div>
@@ -90,10 +90,10 @@
                                         </div>
                                         <div class="overflow-hidden grow w-full">
                                             <h6 class="mb-1">{{$conversation->contact->name ?? ''}}</h6>
-                                            <p class="text-xs truncate text-muted dark:text-zink-200">{{$conversation->last_message->message_text ?? ''}}</p>
+                                            <p class="text-xs truncate text-muted dark:text-zink-200">{{$conversation->last_message($conversation->wa_id, $conversation->display_phone_number)->message_text ?? ''}}</p>
                                         </div>
                                         <div class="self-start shrink-0 flex-none  text-muted dark:text-zink-200">
-                                            <small>{{$conversation->last_message->time_elapsed_string() ?? ''}}</small>
+                                            <small>{{$conversation->last_message($conversation->wa_id, $conversation->display_phone_number) ? $conversation->last_message($conversation->wa_id, $conversation->display_phone_number)->time_elapsed_string() : ''}}</small>
                                         </div>
                                     </a>
                                 </div>
