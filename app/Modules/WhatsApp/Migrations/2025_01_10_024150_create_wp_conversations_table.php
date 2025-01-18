@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('wp_conversations', function (Blueprint $table) {
             $table->id();
             $table->morphs('user');
-            $table->string('conversation_id',255)->nullable();
+            $table->string('conversation_id',191)->nullable();
             $table->string('wa_id',255)->nullable();
             $table->integer('ended')->default(0);
             $table->integer('status_id')->default(0);
