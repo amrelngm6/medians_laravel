@@ -86,7 +86,6 @@
                         <script>
                             var interval;
                             var position;
-                            const chatContainer = document.getElementById('chat-container');
                             jQuery(document).ready(function(){
                                 handleScroll()
                                 if (interval)
@@ -108,6 +107,7 @@
 
 function handleScroll(newPosition = null)
 {
+    const chatContainer = document.getElementById('chat-container');
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 // Function to fetch and update table data
