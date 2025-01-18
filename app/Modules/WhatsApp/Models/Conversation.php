@@ -42,7 +42,7 @@ class Conversation extends Model
 
 	public function new_messages()
 	{
-		return $this->hasMany(Message::class, 'sender_id','wa_id')->where('read', null);
+		return $this->hasMany(Message::class, 'sender_id','wa_id')->where('read', 0);
 	}
 	
 	public function messages()
