@@ -41,12 +41,12 @@ class ConversationController extends Controller
     }
 
 
-    public function show(Request $request, $id)
+    public function show(Request $request, $wa_id, $display_phone_number)
     {
         
         $user = Auth::user();
 
-        $conversation = $this->service->find($id);
+        $conversation = $this->service->getCovnversation($wa_id, $display_phone_number);
 
         return view('whatsapp::chat_content', compact('conversation','user'));
     }
