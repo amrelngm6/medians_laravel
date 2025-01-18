@@ -94,7 +94,7 @@
                                         jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
                                         handleScroll()
                                     })
-                                }, 5000)
+                                }, 10000)
                                     
                             })
 function handleScroll()
