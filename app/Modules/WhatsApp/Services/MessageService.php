@@ -51,6 +51,15 @@ class MessageService
         $this->model = $model;
     }
 
+	public function setBAID(String $baid)
+	{
+		$this->BAID = $baid;
+	}
+
+	public function setPNID(String $pnid)
+	{
+		$this->PNID = $pnid;
+	}
 
     
 	/**
@@ -230,7 +239,7 @@ class MessageService
 	public function sendTextMessage(String $message_text = 'Hola', String $receiver = '201096869285', $conversationId = null)
 	{
 		$user = Auth::user();
-		
+
 		$path = '/v17.0/'.$this->PNID.'/messages';
 
 		$data = array(

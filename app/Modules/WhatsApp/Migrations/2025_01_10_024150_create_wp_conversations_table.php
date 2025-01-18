@@ -16,6 +16,7 @@ return new class extends Migration
             $table->morphs('user');
             $table->string('conversation_id',191)->nullable();
             $table->string('wa_id',255)->nullable();
+            $table->string('phone_number_id',255)->nullable();
             $table->integer('ended')->default(0);
             $table->integer('status_id')->default(0);
             $table->integer('business_id')->default(0);

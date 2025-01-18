@@ -17,9 +17,12 @@ class Conversation extends Model
 	protected $fillable = [
     	'business_id',
     	'conversation_id',
+    	'phone_number_id',
     	'user_id',
+    	'user_type',
     	'wa_id',
     	'ended',
+    	'status_id',
 	];
 
 	
