@@ -131,4 +131,15 @@ class Message extends Model
 		return $string ? implode(', ', $string) . ' ago' : 'just now';
 	}
 
+
+	    
+    /**
+     * Load Templates of Business Scope
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
+	
 }

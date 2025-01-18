@@ -48,4 +48,14 @@ class Conversation extends Model
 		return $this->hasMany(Message::class, 'conversation_id','conversation_id');
 	}
 
+    
+    /**
+     * Load Templates of Business Scope
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
+
 }

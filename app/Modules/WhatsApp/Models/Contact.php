@@ -52,4 +52,13 @@ class Contact extends Model
 	}
 
 
+    /**
+     * Load Templates of Business Scope
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
+
 }
