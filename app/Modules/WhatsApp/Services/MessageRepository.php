@@ -67,7 +67,7 @@ class MessageRepository
          ->whereHas('new_messages')
          ->with('new_messages')
          ->where('ended', '0')
-         ->groupBy('wa_id')
+         ->groupBy('conversation_id')
          ->get();
     }
  
