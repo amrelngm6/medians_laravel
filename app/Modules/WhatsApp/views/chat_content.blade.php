@@ -85,9 +85,14 @@
                         </div>
                         <!--end::Messenger-->
                         <script>
+                            var interval;
                             jQuery(document).ready(function(){
                                 handleScroll()
-                                setInterval(async () => {
+                                if (interval)
+                                {
+                                    clearInterval(interval)   
+                                }
+                                interval = setInterval(async () => {
                                     let res = await fetch("{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}");
                                     res.text().then(a=> {
                                         let resContent = jQuery(a)
