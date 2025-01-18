@@ -173,9 +173,9 @@ class MessageController extends Controller
             $message = isset($jsonData->entry[0]->changes[0]->value->messages[0]) ? $jsonData->entry[0]->changes[0]->value->messages[0] : null;
         }
 
-        $repo = new MessageRepository;
         if (isset($jsonData->entry[0]->changes[0]->value->statuses[0]->status) && $jsonData->entry[0]->changes[0]->value->statuses[0]->status == 'read')
         {
+            $MessageRepository = new MessageRepository;
             $MessageRepository->readMessage($jsonData->entry[0]->changes[0]->value->statuses[0]->id);
         }
 
