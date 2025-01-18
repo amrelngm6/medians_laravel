@@ -37,6 +37,7 @@ class Conversation extends Model
 		->where('sender_id', $wa_id)
 		->orWhere('display_phone_number',$display_phone_number)
 		->where('receiver_id', $wa_id)
+		->orderBy('created_at','desc')
 		->first();
 	}
 
