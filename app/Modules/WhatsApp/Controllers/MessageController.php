@@ -201,7 +201,7 @@ class MessageController extends Controller
         $arr = [
             'wa_id'=> $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '',
             'user_id'=> 0,
-            'conversation_id'=> $jsonData->entry[0]->id ?? ''
+            'conversation_id'=> $jsonData->entry[0]->id ?? '',
         ];
         return $ConversationService->saveConversation( $arr);
     }
@@ -290,40 +290,46 @@ class MessageController extends Controller
         $date['reply_message_id'] = isset($message->context->id) 
             ? $message->context->id 
             : (isset($message->reaction->message_id) ? $message->reaction->message_id : null);
-            
-        switch ($message->type) {
-            case 'document':
-                $data['media_id'] = isset($message->document->id) ? $message->document->id : '';
-                $data['message_text'] = isset($message->document->caption) ? str_replace("\\","\\\\", $message->document->caption) : '';
-                break;
-                
-            case 'audio':
-                $data['media_id'] = isset($message->audio->id) ? $message->audio->id : '';
-                $data['message_text'] = isset($message->audio->caption) ? str_replace("\\","\\\\", $message->audio->caption) : '';
-                break;
-                
-            case 'video':
-                $data['media_id'] = isset($message->video->id) ? $message->video->id : '';
-                $data['message_text'] = isset($message->video->caption) ? str_replace("\\","\\\\", $message->video->caption) : '';
-                break;
-                
-            case 'image':
-                $data['media_id'] = isset($message->image->id) ? $message->image->id : '';
-                $data['message_text'] = isset($message->image->caption) ? str_replace("\\","\\\\", $message->image->caption) : '';
-                break;
-                
-            case 'sticker':
-                $data['media_id'] = isset($message->sticker->id) ? $message->sticker->id : '';
-                break;
-                
-            case 'reaction':
-                $data['message_text'] = isset($message->reaction->emoji) ? str_replace("\\","\\\\", $message->reaction->emoji) : '';
-                $date['reply_message_id'] = isset($message->reaction->message_id) ? $message->reaction->message_id : null;
-                break;
-                
-            default:
-                $data['message_text'] = isset($message->text->body) ? str_replace("\\","\\\\", $message->text->body) : '';
-                break;
+        
+        $data['message_text'] = isset($message->text->body) ? str_replace("\\","\\\\", $message->text->body) : '';
+        
+        if (isset($message->type))
+        {
+
+            switch ($message->type) {
+                case 'document':
+                    $data['media_id'] = isset($message->document->id) ? $message->document->id : '';
+                    $data['message_text'] = isset($message->document->caption) ? str_replace("\\","\\\\", $message->document->caption) : '';
+                    break;
+                    
+                case 'audio':
+                    $data['media_id'] = isset($message->audio->id) ? $message->audio->id : '';
+                    $data['message_text'] = isset($message->audio->caption) ? str_replace("\\","\\\\", $message->audio->caption) : '';
+                    break;
+                    
+                case 'video':
+                    $data['media_id'] = isset($message->video->id) ? $message->video->id : '';
+                    $data['message_text'] = isset($message->video->caption) ? str_replace("\\","\\\\", $message->video->caption) : '';
+                    break;
+                    
+                case 'image':
+                    $data['media_id'] = isset($message->image->id) ? $message->image->id : '';
+                    $data['message_text'] = isset($message->image->caption) ? str_replace("\\","\\\\", $message->image->caption) : '';
+                    break;
+                    
+                case 'sticker':
+                    $data['media_id'] = isset($message->sticker->id) ? $message->sticker->id : '';
+                    break;
+                    
+                case 'reaction':
+                    $data['message_text'] = isset($message->reaction->emoji) ? str_replace("\\","\\\\", $message->reaction->emoji) : '';
+                    $date['reply_message_id'] = isset($message->reaction->message_id) ? $message->reaction->message_id : null;
+                    break;
+                    
+                default:
+                    $data['message_text'] = isset($message->text->body) ? str_replace("\\","\\\\", $message->text->body) : '';
+                    break;
+            }
         }
             
         $data['message_type'] = isset($message->type) ? $message->type : '';
