@@ -7,7 +7,7 @@ use App\Modules\WhatsApp\Controllers\MessageController;
 Route::prefix('wp_conversations')->middleware(['web','auth:staff,superadmin'])->group(function () {
     Route::get('/', [ConversationController::class, 'index'])->name('WhatsApp');
     Route::get('/create', [ConversationController::class, 'create'])->name('WhatsConversation.create');
-    Route::get('/{id}/show', [ConversationController::class, 'show'])->name('WhatsConversation.show');
+    Route::get('/{wa_id}/{display_phone_number}/show', [ConversationController::class, 'show'])->name('WhatsConversation.show');
     Route::get('/{id}/edit', [ConversationController::class, 'edit'])->name('WhatsConversation.edit');
     Route::post('/', [ConversationController::class, 'store'])->name('WhatsConversation.store');
     Route::post('/filter', [ConversationController::class, 'filter'])->name('WhatsConversation.filter');

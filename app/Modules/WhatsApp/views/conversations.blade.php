@@ -51,7 +51,7 @@
                                 </div>
                                 @foreach ($new_conversations as $conversation)
                                 <div class="">
-                                    <a href="{{route('WhatsConversation.show', $conversation->display_phone_number)}}?_token={{csrf_token()}}"
+                                    <a href="{{route('WhatsConversation.show', ['wa_id'=> $conversation->wa_id, 'display_phone_number' => $conversation->display_phone_number])}}?_token={{csrf_token()}}"
                                         data-element="#chat_content"
                                         class="ajax-load flex items-center gap-3 px-2 py-2 [&amp;.active]:bg-slate-50 dark:[&amp;.active]:bg-zink-600 group/item active online">
                                         <div
@@ -78,7 +78,7 @@
                                 
                                 @foreach ($my_conversations as $conversation)
                                 <div class="">
-                                    <a href="{{route('WhatsConversation.show', $conversation->display_phone_number)}}?_token={{csrf_token()}}"
+                                    <a href="{{route('WhatsConversation.show', ['wa_id'=> $conversation->wa_id, 'display_phone_number' => $conversation->display_phone_number])}}?_token={{csrf_token()}}"
                                         data-element="#chat_content"
                                         class="ajax-load flex items-center gap-3 px-2 py-2 [&amp;.active]:bg-slate-50 dark:[&amp;.active]:bg-zink-600 group/item active online">
                                         <div

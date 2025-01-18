@@ -93,7 +93,7 @@
                                     clearInterval(interval)   
                                 }
                                 interval = setInterval(async () => {
-                                    let res = await fetch("{{route('WhatsConversation.show', $conversation->display_phone_number)}}?_token={{csrf_token()}}");
+                                    let res = await fetch("{{route('WhatsConversation.show', ['wa_id'=> $conversation->wa_id, 'display_phone_number' => $conversation->display_phone_number])}}?_token={{csrf_token()}}");
                                     res.text().then(a=> {
                                         position = document.getElementById('chat-container').scrollTop
                                         let resContent = jQuery(a).find('#chat_messenger_body').html()
