@@ -31,6 +31,11 @@ class Conversation extends Model
 		return $this->hasOne(Contact::class, 'wa_id','wa_id');
 	}
 	
+	public function last_message()
+	{
+		return $this->hasOne(Message::class, 'conversation_id','conversation_id')->orderBy('id', 'DESC');
+	}
+
 	public function new_messages()
 	{
 		return $this->hasMany(Message::class, 'sender_id','wa_id')->where('read', null);

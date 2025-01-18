@@ -121,7 +121,7 @@ class MessageRepository
 
     public function saveContact($data)
     {
-        Contact::firstOrCreate(
+        return Contact::firstOrCreate(
             $data
         );
     }
