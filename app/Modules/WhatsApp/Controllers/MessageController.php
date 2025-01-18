@@ -180,6 +180,13 @@ class MessageController extends Controller
             return;
         }
 
+        if (isset($jsonData->entry[0]->changes[0]->value->statuses[0]->status) && $jsonData->entry[0]->changes[0]->value->statuses[0]->status == 'sent')
+        {
+            $MessageRepository = new MessageRepository;
+            $MessageRepository->sentMessage($jsonData->entry[0]->changes[0]->value->statuses[0]->id);
+            return;
+        }
+
         $this->saveConversation($jsonData);
         
         $this->saveMessage($jsonData, $message);
@@ -202,7 +209,7 @@ class MessageController extends Controller
             'display_phone_number'=> $jsonData->entry[0]->id ?? '',
             'phone_number_id'=> $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '',
         ];
-        return $ConversationService->saveConversation( $arr);
+        return isset($jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id) ? $ConversationService->saveConversation( $arr) : null;
     }
 
     /**

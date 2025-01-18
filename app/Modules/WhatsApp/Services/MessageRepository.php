@@ -98,6 +98,13 @@ class MessageRepository
         ]);
     }
 
+    public function sentMessage($message_id)
+    {
+        return Message::where('message_id', $message_id)->update([
+            'sent'=> 1,
+        ]);
+    }
+
 
     public function loadMessages(String $id = null)
     {
