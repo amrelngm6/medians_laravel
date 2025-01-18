@@ -162,7 +162,6 @@ class MessageController extends Controller
             return $this->subscribe($request);
         }
         
-        
         $rawData = file_get_contents('php://input');
         $jsonData = json_decode($rawData, true);
         if ($jsonData)
@@ -173,8 +172,6 @@ class MessageController extends Controller
         if (isset($jsonData->entry[0]->changes[0]->value->messaging_product)){
             $message = isset($jsonData->entry[0]->changes[0]->value->messages[0]) ? $jsonData->entry[0]->changes[0]->value->messages[0] : null;
         }
-
-        
 
         $repo = new MessageRepository;
         if (isset($jsonData->entry[0]->changes[0]->value->statuses[0]->status) && $jsonData->entry[0]->changes[0]->value->statuses[0]->status == 'read')
@@ -215,7 +212,7 @@ class MessageController extends Controller
         
         $MessageRepository = new MessageRepository;
 
-        $jsonFileData = isset($message) ? json_encode($message, JSON_PRETTY_PRINT) : json_encode($jsonData, JSON_PRETTY_PRINT);
+        $jsonFileData = json_encode($jsonData, JSON_PRETTY_PRINT);
 
         // file_put_contents('uploads/chat/'.$time.'.json', $jsonFileData);
         $time = isset($message->timestamp) ? $message->timestamp : time();
@@ -228,7 +225,7 @@ class MessageController extends Controller
         $data['sender_id'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
         $data['receiver_id'] = $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '';
         $data['message_id'] = isset($message->id) ? $message->id : '';
-        $data['message_json'] = serialize($jsonFileData);
+        $data['message_json'] = $jsonFileData;
         $data = $this->messageTypeHandler($data, $message);
         isset($data['media_id']) ? $this->loadMedia( $data['media_id']) : '';
         return $MessageRepository->saveMessage($data);
