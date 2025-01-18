@@ -83,8 +83,9 @@ class ConversationService
         return Conversation::where('status_id', 0)->with(['contact' => function($q){
             return $q->with('last_message');
         }])
-        ->whereHas('members', function($q) use ($id) {
-            $q->where('user_id', $id)->where('user_type', Staff::class);
+        ->with('messages', function ($query) use ($wa_id, $display_phone_number) {
+            $query->where('receiver_id', $wa_id)
+            ->orWhere('sender_id', $wa_id);
         })->get();
     }
 
