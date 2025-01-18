@@ -248,7 +248,7 @@ class MessageController extends Controller
         $contact['name'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->profile->name ?? '';
         $contact['wa_id'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
         $contact['phone_number'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
-        return $MessageRepository->saveContact($contact);
+        return $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ? $MessageRepository->saveContact($contact) : null;
     }
 
     /**
