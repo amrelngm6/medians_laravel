@@ -91,9 +91,9 @@ class ConversationService
 
     public function saveConversation(Array $data)
     {
-        $check = Conversation::firstOrCreate(['conversation_id'=> $data['conversation_id'] ]);
+        $check = Conversation::where('conversation_id', $data['conversation_id'] )->first();
         
-        return $check->update($data);
+        return $check ?? Conversation::create($data);
     }
     
 
