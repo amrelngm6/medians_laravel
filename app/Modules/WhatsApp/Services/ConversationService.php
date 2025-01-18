@@ -91,9 +91,7 @@ class ConversationService
 
     public function saveConversation(Array $data)
     {
-        $check = Conversation::where('display_phone_number', $data['display_phone_number'] )->first();
-        
-        return $check ?? Conversation::create($data);
+        return Conversation::firstOrCreate($data);
     }
     
 
