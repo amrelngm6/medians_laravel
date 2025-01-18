@@ -72,7 +72,7 @@ class ConversationService
     {
         return Conversation::where('status_id', 0)->with(['contact' => function($q){
             return $q->with('last_message');
-        }])->get();
+        }])->get()->groupBy('conversation_id');
     }
 
     public function getOld()
