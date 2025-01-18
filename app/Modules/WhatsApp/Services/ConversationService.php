@@ -24,7 +24,11 @@ class ConversationService
     public function getCovnversation($wa_id, $display_phone_number)
     {
         return Conversation::where('display_phone_number', $display_phone_number)
-        ->where('wa_id', $wa_id)->first();
+        ->where('wa_id', $wa_id)
+        ->with('messages', function ($query) use ($wa_id, $display_phone_number) {
+            $query->where('receiver_id', $wa_id)
+            ->orWhere('sender_id', $wa_id);
+        })->first();
     }
     
     public function activeConversationsCount($dateStart = '-1days', $dateEnd = '-1days', $userId = 0)
