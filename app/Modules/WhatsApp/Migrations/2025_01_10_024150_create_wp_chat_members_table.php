@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wp_participants');
+        Schema::dropIfExists('wp_chat_members');
     }
 };
