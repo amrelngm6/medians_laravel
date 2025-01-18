@@ -66,6 +66,9 @@ class MessageController extends Controller
             ], 422);
         }
 
+        $conversation = $this->service->find($request->conversation_id);
+
+        $this->service->setPNID($conversation->phone_number_id ?? null);
         $this->service->sendTextMessage($request->message, $request->wa_id, $request->conversation_id);
 
         $ConversationController = new ConversationController(new ConversationService());

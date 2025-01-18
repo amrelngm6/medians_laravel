@@ -51,14 +51,14 @@ class MessageService
         $this->model = $model;
     }
 
-	public function setBAID(String $baid)
+	public function setBAID(String $baid = null)
 	{
-		$this->BAID = $baid;
+		$this->BAID = $baid ?? $this->BAID;
 	}
 
-	public function setPNID(String $pnid)
+	public function setPNID(String $pnid = null)
 	{
-		$this->PNID = $pnid;
+		$this->PNID = $pnid ?? $this->PNID;
 	}
 
     
