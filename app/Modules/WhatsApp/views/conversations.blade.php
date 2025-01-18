@@ -76,7 +76,7 @@
                                     <p class="mb-1 text-muted dark:text-zink-200">All Conversations</p>
                                 </div>
                                 
-                                @foreach ($old_conversations as $conversation)
+                                @foreach ($my_conversations as $conversation)
                                 <div class="">
                                     <a href="{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}"
                                         data-element="#chat_content"

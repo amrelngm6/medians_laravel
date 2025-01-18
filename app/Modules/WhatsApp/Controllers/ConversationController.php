@@ -22,10 +22,11 @@ class ConversationController extends Controller
         $user = Auth::user();
 
         $new_conversations = $this->service->getNew();
-        $old_conversations = $this->service->getOld();
+
+        $my_conversations = $this->service->byUser($user->id());
         $messages = [];
 
-        return view('whatsapp::conversations', compact('messages', 'new_conversations','old_conversations','user'));
+        return view('whatsapp::conversations', compact('messages', 'new_conversations','my_conversations','user'));
     }
 
     public function filter(Request $request)

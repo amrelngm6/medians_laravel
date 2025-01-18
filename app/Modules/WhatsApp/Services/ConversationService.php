@@ -2,6 +2,7 @@
 
 namespace App\Modules\WhatsApp\Services;
 
+use App\Modules\Customers\Models\Staff;
 use App\Modules\WhatsApp\Models\Message;
 use App\Modules\WhatsApp\Models\Conversation;
 use App\Models\Auth;
@@ -57,9 +58,19 @@ class ConversationService
         return $check->count();
     }
 
+    public function byUser($id)
+    {
+        return Conversation::with(['contact' => function($q){
+            return $q->with('last_message');
+        }])
+        ->whereHas('members', function($q) use ($id) {
+            $q->where('user_id', $id)->where('user_type', Staff::class);
+        })->get();
+    }
+
     public function getNew()
     {
-        return Conversation::where('user_id', 0)->with(['contact' => function($q){
+        return Conversation::where('status_id', 0)->with(['contact' => function($q){
             return $q->with('last_message');
         }])->get();
     }

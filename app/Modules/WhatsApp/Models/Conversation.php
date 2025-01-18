@@ -37,5 +37,15 @@ class Conversation extends Model
 	{
 		return $this->hasMany(Message::class, 'conversation_id','conversation_id');
 	}
+	
+	public function members()
+	{
+		return $this->hasMany(ChatMember::class, 'conversation_id','conversation_id');
+	}
+	
+	public function isParticipant($userId)
+	{
+		return $this->hasMany(Message::class, 'conversation_id','conversation_id');
+	}
 
 }
