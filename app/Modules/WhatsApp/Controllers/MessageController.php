@@ -177,6 +177,7 @@ class MessageController extends Controller
         {
             $MessageRepository = new MessageRepository;
             $MessageRepository->readMessage($jsonData->entry[0]->changes[0]->value->statuses[0]->id);
+            return;
         }
 
         $this->saveConversation($jsonData);
