@@ -202,6 +202,7 @@ class MessageController extends Controller
             'wa_id'=> $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '',
             'user_id'=> 0,
             'conversation_id'=> $jsonData->entry[0]->id ?? '',
+            'phone_number_id'=> $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '',
         ];
         return $ConversationService->saveConversation( $arr);
     }
