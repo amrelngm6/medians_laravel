@@ -14,10 +14,12 @@ class Contact extends Model
 	protected $table = 'wp_contacts';
 
 	protected $fillable = [
-    	'business_id',
+		'business_id',
     	'name',
     	'wa_id',
     	'phone_number',
+		'user_type',
+		'user_id',
     	'picture',
 	];
 
