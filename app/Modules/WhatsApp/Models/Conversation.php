@@ -35,7 +35,7 @@ class Conversation extends Model
 	{
 		return Message::where('display_phone_number',$display_phone_number)
 		->where('sender_id', $wa_id)
-		->where('display_phone_number',$display_phone_number)
+		->orWhere('display_phone_number',$display_phone_number)
 		->where('receiver_id', $wa_id)
 		->first();
 	}

@@ -6,7 +6,6 @@ use App\Modules\Customers\Models\Staff;
 use App\Modules\WhatsApp\Models\Message;
 use App\Modules\WhatsApp\Models\Conversation;
 use App\Models\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ConversationService
 {
@@ -81,19 +80,8 @@ class ConversationService
 
     public function getNew()
     {
-        $conversations = DB::table('conversations')
-        ->leftJoin('messages as sender_messages', 'conversations.wa_id', '=', 'sender_messages.sender_id')
-        ->leftJoin('messages as receiver_messages', 'conversations.wa_id', '=', 'receiver_messages.receiver_id')
-        ->select('conversations.*', 'sender_messages.*', 'receiver_messages.*')
-        ->get();
-    
-        return $conversations;
-
         return Conversation::where('status_id', 0)->with(['contact' => function($q){
             return $q->with('last_message');
-        }])->with(['messages' => function ($query) {
-            $query->whereColumn('sender_id', 'wa_id')
-                  ->orWhereColumn('receiver_id', 'wa_id');
         }])->get();
     }
 
