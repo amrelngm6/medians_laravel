@@ -66,12 +66,13 @@ class MessageController extends Controller
             ], 422);
         }
 
-        $ConversationController = new ConversationController(new ConversationService());
-        $conversation = $ConversationController->service->find($request->conversation_id);
 
+        $ConversationService = new ConversationService();
+        $conversation = $ConversationController->service->find($request->conversation_id);
         $this->service->setPNID($conversation->phone_number_id ?? null);
         $this->service->sendTextMessage($request->message, $request->wa_id, $request->conversation_id);
-
+        
+        $ConversationController = new ConversationController($ConversationService);
         return $ConversationController->show($request, $request->conversation_id);
         // $info = [
         //     'business_id'=> $user->business_id ?? 0,
