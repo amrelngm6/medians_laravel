@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="overflow-hidden grow w-full">
                                             <h6 class="mb-1">{{$conversation->contact->name ?? ''}}</h6>
-                                            <p class="text-xs truncate text-muted dark:text-zink-200">{{$conversation->contact ? $conversation->contact->last_message->message_text : ''}}</p>
+                                            <p class="text-xs truncate text-muted dark:text-zink-200">{{$conversation->contact->last_message ? $conversation->contact->last_message->message_text : ''}}</p>
                                         </div>
                                         <div class="self-start shrink-0 flex-none  text-muted dark:text-zink-200">
                                             <small>{{$conversation->contact ? $conversation->contact->last_message->time_elapsed_string() : ''}}</small>
