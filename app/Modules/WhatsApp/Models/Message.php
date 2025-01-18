@@ -17,7 +17,7 @@ class Message extends Model
 	protected $fillable = [
     	'business_id',
     	'message_id',
-    	'conversation_id',
+    	'display_phone_number',
     	'sender_id',
     	'receiver_id',
     	'message_text',
@@ -141,5 +141,5 @@ class Message extends Model
         return $query->where('business_id', $businessId);
     }
 
-	
+
 }

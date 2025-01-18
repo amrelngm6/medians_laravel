@@ -16,7 +16,7 @@ class ChatMember extends Model
 
 	protected $fillable = [
     	'business_id',
-    	'conversation_id',
+    	'display_phone_number',
     	'staff_id',
     	'can_send',
     	'can_manage',

@@ -45,7 +45,7 @@ class MessageRepository
             'message_id' => $data['message_id'],
             'reply_message_id'=> isset($data['reply_message_id']) ? $data['reply_message_id'] : '',
             'message_time'=> isset($data['message_time']) ? $data['message_time'] : '',
-            'conversation_id' => isset($data['conversation_id']) ? $data['conversation_id'] : '',
+            'display_phone_number' => isset($data['display_phone_number']) ? $data['display_phone_number'] : '',
             'message_text' => isset($data['message_text']) ? $data['message_text'] : '',
             'message_json' => isset($data['message_json']) ? $data['message_json'] : '',
             'message_type' => isset($data['message_type']) ? $data['message_type'] : '',
@@ -67,7 +67,7 @@ class MessageRepository
          ->whereHas('new_messages')
          ->with('new_messages')
          ->where('ended', '0')
-         ->groupBy('conversation_id')
+         ->groupBy('display_phone_number')
          ->get();
     }
  
@@ -77,11 +77,6 @@ class MessageRepository
         return Message::find($id);
     }
     
-    public function getConversationId ($data)
-    {
-        return Message::where($data)->orderBy('id', 'DESC')->first();
-    }
-
     public function updateMedia(String $mediaId, $newpath = null)
     {
         return Message::where('media_id', $mediaId)->update([

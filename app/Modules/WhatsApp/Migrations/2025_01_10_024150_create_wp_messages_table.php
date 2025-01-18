@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('message_id',191)->nullable();
             $table->string('message_type',191)->nullable();
             $table->string('reply_message_id',191)->nullable();
-            $table->string('conversation_id',191)->nullable();
+            $table->string('display_phone_number',191)->nullable();
             $table->string('sender_id',191)->nullable();
             $table->string('receiver_id',191)->nullable();
             $table->string('media_id',191)->nullable();

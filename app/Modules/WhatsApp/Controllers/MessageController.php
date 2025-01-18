@@ -68,12 +68,12 @@ class MessageController extends Controller
 
 
         $ConversationService = new ConversationService();
-        $conversation = $ConversationService->find($request->conversation_id);
+        $conversation = $ConversationService->find($request->display_phone_number);
         $this->service->setPNID($conversation->phone_number_id ?? null);
-        $this->service->sendTextMessage($request->message, $request->wa_id, $request->conversation_id);
+        $this->service->sendTextMessage($request->message, $request->wa_id, $request->display_phone_number);
         
         $ConversationController = new ConversationController($ConversationService);
-        return $ConversationController->show($request, $request->conversation_id);
+        return $ConversationController->show($request, $request->display_phone_number);
         // $info = [
         //     'business_id'=> $user->business_id ?? 0,
         //     'created_by'=> $user->staff_id ?? 0,
@@ -201,7 +201,7 @@ class MessageController extends Controller
         $arr = [
             'wa_id'=> $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '',
             'user_id'=> 0,
-            'conversation_id'=> $jsonData->entry[0]->id ?? '',
+            'display_phone_number'=> $jsonData->entry[0]->id ?? '',
             'phone_number_id'=> $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '',
         ];
         return $ConversationService->saveConversation( $arr);
@@ -223,7 +223,7 @@ class MessageController extends Controller
 
         $data = array();
         $date['message_time'] = $time;
-        $data['conversation_id'] = $jsonData->entry[0]->id ?? 0;
+        $data['display_phone_number'] = $jsonData->entry[0]->id ?? 0;
         $data['name'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->profile->name ?? '';
         $data['sender_id'] = $jsonData->entry[0]->changes[0]->value->contacts[0]->wa_id ?? '';
         $data['receiver_id'] = $jsonData->entry[0]->changes[0]->value->metadata->phone_number_id ?? '';

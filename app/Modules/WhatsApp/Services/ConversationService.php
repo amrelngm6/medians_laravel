@@ -16,9 +16,9 @@ class ConversationService
         $this->model = $model;
     }
     
-    public function find($conversation_id)
+    public function find($display_phone_number)
     {
-        return Conversation::where('conversation_id', $conversation_id)->first();
+        return Conversation::where('display_phone_number', $display_phone_number)->first();
     }
     
     public function activeConversationsCount($dateStart = '-1days', $dateEnd = '-1days', $userId = 0)
@@ -91,7 +91,7 @@ class ConversationService
 
     public function saveConversation(Array $data)
     {
-        $check = Conversation::where('conversation_id', $data['conversation_id'] )->first();
+        $check = Conversation::where('display_phone_number', $data['display_phone_number'] )->first();
         
         return $check ?? Conversation::create($data);
     }

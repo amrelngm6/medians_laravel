@@ -236,7 +236,7 @@ class MessageService
 	}
 
 
-	public function sendTextMessage(String $message_text = 'Hola', String $receiver = '201096869285', $conversationId = null)
+	public function sendTextMessage(String $message_text = 'Hola', String $receiver = '201096869285', $display_phone_number = null)
 	{
 		$user = Auth::user();
 
@@ -256,7 +256,7 @@ class MessageService
 			return null;
 
 		$message = $response->messages[0];
-		$data['conversation_id'] = $conversationId ?? '';
+		$data['display_phone_number'] = $display_phone_number ?? '';
 		$data['receiver_id'] = $receiver;
 		$data['sender_id'] = $this->PNID;
 		$data['message_id'] = $message->id;

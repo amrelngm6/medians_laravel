@@ -16,7 +16,7 @@ class Conversation extends Model
 
 	protected $fillable = [
     	'business_id',
-    	'conversation_id',
+    	'display_phone_number',
     	'phone_number_id',
     	'user_id',
     	'user_type',
@@ -33,7 +33,7 @@ class Conversation extends Model
 	
 	public function last_message()
 	{
-		return $this->hasOne(Message::class, 'conversation_id','conversation_id')->orderBy('id', 'DESC');
+		return $this->hasOne(Message::class, 'display_phone_number','display_phone_number')->orderBy('id', 'DESC');
 	}
 
 	public function new_messages()
@@ -43,17 +43,17 @@ class Conversation extends Model
 	
 	public function messages()
 	{
-		return $this->hasMany(Message::class, 'conversation_id','conversation_id');
+		return $this->hasMany(Message::class, 'display_phone_number','display_phone_number');
 	}
 	
 	public function members()
 	{
-		return $this->hasMany(ChatMember::class, 'conversation_id','conversation_id');
+		return $this->hasMany(ChatMember::class, 'display_phone_number','display_phone_number');
 	}
 	
 	public function isParticipant($userId)
 	{
-		return $this->hasMany(Message::class, 'conversation_id','conversation_id');
+		return $this->hasMany(Message::class, 'display_phone_number','display_phone_number');
 	}
 
     

@@ -55,7 +55,7 @@
                             <form class="flex gap-2 pt-4 ajax-form" action="{{route('WhatsMessage.store')}}" id="wp_chat_messenger_form">
                                 @csrf
                                 <input name="wa_id" value="{{$conversation->wa_id}}" type="hidden" />
-                                <input name="conversation_id" value="{{$conversation->conversation_id}}" type="hidden" />
+                                <input name="display_phone_number" value="{{$conversation->display_phone_number}}" type="hidden" />
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center ">
                                         <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button" >
@@ -93,7 +93,7 @@
                                     clearInterval(interval)   
                                 }
                                 interval = setInterval(async () => {
-                                    let res = await fetch("{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}");
+                                    let res = await fetch("{{route('WhatsConversation.show', $conversation->display_phone_number)}}?_token={{csrf_token()}}");
                                     res.text().then(a=> {
                                         position = document.getElementById('chat-container').scrollTop
                                         let resContent = jQuery(a).find('#chat_messenger_body').html()

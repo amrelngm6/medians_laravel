@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->morphs('user');
             $table->string('wa_id',191)->nullable();
-            $table->string('conversation_id',191)->nullable();
+            $table->string('display_phone_number',191)->nullable();
             $table->boolean('can_send')->default(0);
             $table->boolean('can_manage')->default(0);
             $table->integer('business_id')->default(0);
