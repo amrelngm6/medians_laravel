@@ -61,7 +61,7 @@ class ConversationService
     {
         return Conversation::where('user_id', 0)->with(['contact' => function($q){
             return $q->with('last_message');
-        }])->get();
+        }])->groupBy('conversation_id')->get();
     }
 
     public function getOld()
@@ -69,7 +69,7 @@ class ConversationService
         $user = Auth::user();
         return Conversation::where('user_id', $user->id())->with(['contact' => function($q){
             return $q->with('last_message');
-        }])->get();
+        }])->groupBy('conversation_id')->get();
     }
 
     public function checkOld(String $wa_id)
