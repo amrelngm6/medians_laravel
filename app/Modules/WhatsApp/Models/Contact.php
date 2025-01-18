@@ -33,7 +33,7 @@ class Contact extends Model
 
 	public function last_message()
 	{
-		return $this->hasOne(Message::class, 'sender_id','wa_id')->orderBy('id', 'DESC');
+		return $this->hasOne(Message::class, 'conversation_id','conversation_id')->orderBy('id', 'DESC');
 	}
 
 	public function last_sent_message()
