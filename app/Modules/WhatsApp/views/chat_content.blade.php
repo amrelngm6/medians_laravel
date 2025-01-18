@@ -58,8 +58,7 @@
                                 <input name="conversation_id" value="{{$conversation->conversation_id}}" type="hidden" />
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center ">
-                                        <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button"
-                                            >
+                                        <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button" >
                                             <i class="bx bx-cloud-upload fs-3"></i> </button>
                                         <button class="btn btn-sm btn-icon btn-active-light-primary px-1" type="button">
                                             <i class="bx bx-microphone fs-3"><span class="path1"></span><span
@@ -86,6 +85,8 @@
                         <!--end::Messenger-->
                         <script>
                             var interval;
+                            var position;
+                            const chatContainer = document.getElementById('chat-container');
                             jQuery(document).ready(function(){
                                 handleScroll()
                                 if (interval)
@@ -95,16 +96,18 @@
                                 interval = setInterval(async () => {
                                     let res = await fetch("{{route('WhatsConversation.show', $conversation->conversation_id)}}?_token={{csrf_token()}}");
                                     res.text().then(a=> {
-                                        let resContent = jQuery(a)
-                                        jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
-                                        handleScroll()
+                                        position = document.getElementById('chat-container').scrollTop
+                                        let resContent = jQuery(a).find('#chat_messenger_body').html()
+                                        if (resContent) {
+                                            jQuery('#chat_messenger_body').html(resContent);
+                                            document.getElementById('chat-container').scrollTop = position
+                                        }
                                     })
-                                }, 10000)
-                                    
+                                }, 5000)
                             })
-function handleScroll()
+
+function handleScroll(newPosition = null)
 {
-    const chatContainer = document.getElementById('chat-container');
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 // Function to fetch and update table data
@@ -134,7 +137,8 @@ function fetchData() {
                 } catch (error) {
                     let resContent = jQuery(xhr.responseText)
                     jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
-                    handleScroll()
+                    handleScroll() 
+
                 }
             } else {
                 jQuery('#message-content').val('');
