@@ -35,9 +35,9 @@ class ModuleController extends Controller
         Artisan::call('cache:clear');
         Artisan::call('route:clear');
         
-        $path = "--path=$module->path/Migrations";
+        $path = str_replace('App\\', 'app', $module->path)."/Migrations";
         echo $path;
-        $migrate = Artisan::call("migrate $path");
+        $migrate = Artisan::call("migrate --path=$path");
         return $update;
     }
 
