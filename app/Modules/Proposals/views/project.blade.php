@@ -21,6 +21,8 @@
             @csrf
             <input type="hidden" name="model_id" value="{{$project->project_id}}" />
             <input type="hidden" name="model_type" value="{{get_class($project)}}" />
+            <input type="hidden" name="user_id" value="{{$project->client_id}}" />
+            <input type="hidden" name="user_type" value="{{get_class($project->client)}}" />
 
             <div class="w-full flex gap-10">
                 <div class="form-group w-full"><label for="name" class="control-label">Name</label>
