@@ -31,10 +31,12 @@ class ModuleController extends Controller
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
         $handleRoles = $this->handleRoles($module->path);
         
-        echo $handleRoles;
         Artisan::call('config:clear');
         Artisan::call('cache:clear');
         Artisan::call('route:clear');
+        
+        $path = $value['path'];
+        $migrate = Artisan::call("migrate --path=$path/Migrations");
         return $update;
     }
 
@@ -106,9 +108,12 @@ class ModuleController extends Controller
             ]);
 
             $this->handleRoles($value['path']);
+            $path = $value['path'];
+            $migrate = Artisan::call("migrate --path=$path/Migrations");
         }
 
         Artisan::call('migrate');
+
 
         return response()->json(['success'=>1, 'result' => 'Module installed successfully.']);
     }
