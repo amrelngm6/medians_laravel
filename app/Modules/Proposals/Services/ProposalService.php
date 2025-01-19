@@ -44,7 +44,7 @@ class ProposalService
         {
             foreach ($data['items'] as $key => $item) {
 
-                $item['description'] = $item['description' ?? ''];
+                $item['description'] = $item['description'] ?? '';
                 $item['item_type'] = $item['model_type'];
                 $item['item_id'] = $item['model_id'];
                 $item['unit_price'] = $item['price'];
