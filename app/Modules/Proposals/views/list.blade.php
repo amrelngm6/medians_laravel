@@ -89,6 +89,7 @@
 
                                     <div class="form-group d-flex  align-items-center gap-5 flex ">
                                         <span class="mw-100 min-w-200px"> Title</span>
+                                        <span class="mw-100 w-full"> Client</span>
                                         <span class="mw-100 w-full"> Quantity</span>
                                         <span class="mw-100 w-full"> Unit price</span>
                                         <span class="mw-100 w-full"> Tax</span>
