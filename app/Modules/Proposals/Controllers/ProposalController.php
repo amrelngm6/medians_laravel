@@ -30,7 +30,7 @@ class ProposalController extends Controller
         
         $user = Auth::user();
 
-        if ($user->cannot('Proposal create') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Proposal view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 

@@ -57,6 +57,14 @@
                         </dl>
 
                         <dl class="min-w-100px">
+                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Client:</dt>
+                            <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
+                                <img alt="Pic" src="/{{ $proposal->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">
+                                    {{ $proposal->user->name ?? '' }}    
+                            </dd>
+                        </dl>
+
+                        <dl class="min-w-100px">
                             <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Expiry Date:</dt>
                             <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{date('M d, Y', strtotime($proposal->expiry_date))}}</dd>
                         </dl>
@@ -89,7 +97,6 @@
 
                                     <div class="form-group d-flex  align-items-center gap-5 flex ">
                                         <span class="mw-100 min-w-200px"> Title</span>
-                                        <span class="mw-100 w-full"> Client</span>
                                         <span class="mw-100 w-full"> Quantity</span>
                                         <span class="mw-100 w-full"> Unit price</span>
                                         <span class="mw-100 w-full"> Tax</span>
