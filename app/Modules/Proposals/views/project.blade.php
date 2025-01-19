@@ -247,6 +247,9 @@
 
     @include('proposals::items-modal')
 
+    @endsection
+    @section('project-script')
+    
     <script>
         jQuery(document).ready(function() {
             setInterval(calcTotal, 1000);
