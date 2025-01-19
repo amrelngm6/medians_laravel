@@ -121,6 +121,7 @@ class ModuleController extends Controller
         
         $configPath = $path . '/Config/roles.php';
         print_r(app_path(str_replace('App\\','',$configPath)));
+        print_r(File::exists(app_path(str_replace('App\\','',$configPath))));
         
         if (File::exists(app_path(str_replace('App\\','',$configPath)))) {
             
