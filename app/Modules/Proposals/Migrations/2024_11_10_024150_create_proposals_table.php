@@ -17,7 +17,7 @@ return new class extends Migration
             $table->morphs('model');
             $table->morphs('user');
             $table->string('title', 191);
-            $table->longtext('content');
+            $table->longtext('content')->nullable();
             $table->date('date');
             $table->date('expiry_date')->nullable();
             $table->integer('currency_id');

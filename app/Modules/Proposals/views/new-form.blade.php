@@ -88,7 +88,7 @@
                             <div class="d-flex flex-column my-10">
                                 <label class="fs-6 fw-semibold mb-2">Details</label>
                                 <textarea class="form-control form-control-solid" rows="3" name="content"
-                                    placeholder="Type Details"></textarea>
+                                    placeholder="Type Details" required></textarea>
                             </div>
 
                         </div>
