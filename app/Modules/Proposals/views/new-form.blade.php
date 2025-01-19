@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     </div>
-                    <input value="{{$proposal->client_id}}" name="client_id" type="hidden" />
+                    <input value="{{$proposal->client_id ?? 0}}" name="client_id" type="hidden" />
                     <input id="total_input" name="total" type="hidden" />
                     <input id="subtotal_input" name="subtotal" type="hidden" />
                     <input id="tax_input" name="tax_amount" type="hidden" />
