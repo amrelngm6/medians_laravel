@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longtext('content')->nullable();
             $table->date('date');
             $table->date('expiry_date')->nullable();
-            $table->integer('currency_id');
+            $table->integer('currency_id')->nullable();
             $table->decimal('subtotal', 15);
             $table->decimal('discount_amount', 15)->default(0);
             $table->decimal('tax_amount', 15)->default(0);
