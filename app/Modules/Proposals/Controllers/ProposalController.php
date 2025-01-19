@@ -9,7 +9,7 @@ use App\Models\Auth;
 use App\Http\Controllers\Controller;
 use App\Modules\Projects\Services\ProjectService;
 use App\Modules\Items\Services\ItemService;
-use App\Modules\Proposals\Services\service;
+use App\Modules\Proposals\Services\ProposalService;
 use App\Modules\Customers\Services\ClientService;
 
 
@@ -18,7 +18,7 @@ class ProposalController extends Controller
     
     protected $service;
 
-    public function __construct(service $service)
+    public function __construct(ProposalService $service)
     {
         $this->service = $service;
     }
