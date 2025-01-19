@@ -13,20 +13,20 @@ return new class extends Migration
     {
         
         Schema::create('proposals', function (Blueprint $table) {
-            $table->bigIncrements('estimate_id')->primary();
-            $table->string('model_type')->nullable();
-            $table->integer('model_id')->nullable();
-            $table->integer('client_id');
-            $table->date('date');
+            $table->id();
+            $table->morphs('model');
+            $table->morphs('user');
+            $table->string('title', 191);
             $table->longtext('content');
+            $table->date('date');
             $table->date('expiry_date')->nullable();
             $table->integer('currency_id');
             $table->decimal('subtotal', 15);
             $table->decimal('discount_amount', 15)->default(0);
             $table->decimal('tax_amount', 15)->default(0);
             $table->decimal('total', 15);
-            $table->integer('status')->default(0);
-            $table->string('created_by', 100);
+            $table->unsignedBigInteger('status_id')->default(0);
+            $table->integer('created_by')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

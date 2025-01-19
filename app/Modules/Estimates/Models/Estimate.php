@@ -10,13 +10,11 @@ class Estimate extends Model
 {
     protected $table = 'estimates';
 
-    protected $primaryKey = 'estimate_id';
-
     protected $fillable = ['business_id', 'title', 'content', 'model_type', 'model_id', 'client_id', 'date', 'expiry_date', 'currency_id', 'subtotal', 'discount_amount', 'tax_amount', 'total', 'created_by', 'status_id'];
 
     public function items()
     {
-        return $this->hasMany(EstimateItem::class, 'estimate_id', 'estimate_id');
+        return $this->hasMany(EstimateItem::class, 'estimate_id', 'id');
     }
 
     public function client()

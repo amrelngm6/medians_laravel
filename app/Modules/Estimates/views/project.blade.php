@@ -177,7 +177,7 @@
                     <dl class="min-w-100px">
                         <dt class="text-base font-medium text-gray-500 dark:text-gray-400">ID:</dt>
                         <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                            <a href="#!" onClick="(function(){jQuery('#estimate-info-{{$estimate->estimate_id}}').toggle()})()"  class="hover:underline">#ES-{{$estimate->estimate_id}}</a>
+                            <a href="#!" onClick="(function(){jQuery('#estimate-info-{{$estimate->id}}').toggle()})()"  class="hover:underline">#ES-{{$estimate->id}}</a>
                         </dd>
                     </dl>
 
@@ -209,13 +209,13 @@
                         <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Actions:</dt>
                         <dd 
                             class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
-                            <i onClick="(function(){jQuery('#estimate-info-{{$estimate->estimate_id}}').toggle()})()" class='cursor-pointer bx bx-show fs-3'></i>
-                            <a href="{{route('Estimate.edit', $estimate->estimate_id)}}" class="open-modal"><i class='bx bx-edit fs-4'></i></a>
+                            <i onClick="(function(){jQuery('#estimate-info-{{$estimate->id}}').toggle()})()" class='cursor-pointer bx bx-show fs-3'></i>
+                            <a href="{{route('Estimate.edit', $estimate->id)}}" class="open-modal"><i class='bx bx-edit fs-4'></i></a>
                         </dd>
                     </dl>
 
                 </div>
-                <div id="estimate-info-{{$estimate->estimate_id}}"  style="display:none">
+                <div id="estimate-info-{{$estimate->id}}"  style="display:none">
                     <div class="card-body bg-gray-200 pt-4 pb-4 rounded">
                         <div class="w-full">
                             <div class="form-group">

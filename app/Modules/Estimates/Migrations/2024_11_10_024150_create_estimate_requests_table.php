@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('estimate_requests', function (Blueprint $table) {
             $table->id()->primary();
-            $table->integer('estimate_id')->nullable();
+            $table->integer('estimate_id')->nullable()->default(0);
             $table->longText('message');
             $table->dateTime('date')->nullable();
             $table->integer('user_id')->default(0);

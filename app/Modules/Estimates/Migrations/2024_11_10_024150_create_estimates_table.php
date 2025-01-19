@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('estimates', function (Blueprint $table) {
-            $table->bigIncrements('estimate_id')->primary();
-            $table->string('model_type')->nullable();
-            $table->integer('model_id')->nullable();
+            $table->id();
+            $table->morphs('model');
             $table->integer('client_id');
             $table->date('date');
             $table->string('title', 191);
@@ -26,7 +25,7 @@ return new class extends Migration
             $table->decimal('tax_amount', 15)->default(0);
             $table->decimal('total', 15);
             $table->unsignedBigInteger('status_id')->default(0);
-            $table->integer('created_by');
+            $table->integer('created_by')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

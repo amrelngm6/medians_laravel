@@ -31,7 +31,7 @@
                     </div>
                     <!--end::Heading-->
 
-                    <form action="{{route('Estimate.update', $estimate->estimate_id)}}" class="w-full ajax-form card-body " data-append="true"
+                    <form action="{{route('Estimate.update', $estimate->id)}}" class="w-full ajax-form card-body " data-append="true"
                         data-element="variants-container" id="edit-estimate-form">
                         @csrf
 
