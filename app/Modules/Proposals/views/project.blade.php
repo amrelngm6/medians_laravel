@@ -153,7 +153,6 @@
                     </div>
                 </div>
             </div>
-            <input value="{{$project->user_id}}" name="user_id" type="hidden" />
             <input id="total_input" name="total" type="hidden" />
             <input id="subtotal_input" name="subtotal" type="hidden" />
             <input id="tax_input" name="tax_amount" type="hidden" />
