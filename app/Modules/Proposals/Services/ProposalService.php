@@ -43,6 +43,9 @@ class ProposalService
         if (isset($data['items']))
         {
             foreach ($data['items'] as $key => $item) {
+
+                $item['item_type'] = $item['model_type'];
+                $item['item_id'] = $item['model_id'];
                 $item['unit_price'] = $item['price'];
                 $item['business_id'] = $proposal->business_id;
                 $item['proposal_id'] = $proposal->id;
