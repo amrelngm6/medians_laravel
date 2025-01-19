@@ -79,19 +79,18 @@ var MediansSettings = window.MediansSettings || {};
                             element.innerHTML = xhr.responseText;
                         }
                     }
-                }
-    
-            } else {
-                try {
-                        
-                    if (append) {
-                        element.appendChild(xhr.responseText)
-                    } else if (xhr.responseText) {
-                        let res = JSON.parse(xhr.responseText);
-                        handleResponse(res, form)
+                    
+                } else {
+                    try {
+                        if (append) {
+                            element.appendChild(xhr.responseText)
+                        } else if (xhr.responseText) {
+                            let res = JSON.parse(xhr.responseText);
+                            handleResponse(res, form)
+                        }
+                    } catch (error) {   
+                        element.innerHTML = xhr.responseText;
                     }
-                } catch (error) {   
-                    element.innerHTML = xhr.responseText;
                 }
             }
         };
