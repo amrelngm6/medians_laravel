@@ -134,6 +134,8 @@ class ModuleController extends Controller
 
             // Load Staff permissions
             if (isset($rolesConfig['permissions'])) {
+        print_r($rolesConfig['permissions']);
+
                 foreach ($rolesConfig['permissions'] as $key =>  $permissionModel) {
                     foreach ($permissionModel as $permissionName) {
                         $savePermission = Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'staff']);
