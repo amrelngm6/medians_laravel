@@ -50,32 +50,41 @@ class ProposalController extends Controller
     public function store(Request $request)
     {
         // Store a new Proposal
-        
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'date' => 'required|string',
-            'expiry_date' => 'required|string',
-            'status_id' => 'required|integer|exists:status_list,status_id',
-        ]);
+        try {
+                
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string|max:255',
+                'date' => 'required|string',
+                'expiry_date' => 'required|string',
+                'status_id' => 'required|integer|exists:status_list,status_id',
+            ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            $user = Auth::user();
+            $userInfo = [
+                'business_id' => $user->business_id ?? 0, 
+                'created_by' => $user->id() ?? 0
+            ];
+
+            $create = $this->service->createProposal(array_merge($userInfo, $request->only('items', 'title', 'content', 'model_type', 'model_id', 'user_id', 'user_type', 'date', 'expiry_date', 'currency_id', 'subtotal', 'discount_amount', 'tax_amount', 'total', 'status_id')));
+
+            return response()->json([
+                'success' => !empty($create),
+                'reload' => !empty($create),
+                'title' => $create ? 'Done' : 'Error',
+                'result' => $create ? 'Proposal created successfully' : 'Failed to store' ], 
+                $create ? 201 : 422);
+        } catch (\Throwable $th) {
+            
+            return response()->json([
+                'error' => $th->getMessage(),
+                'title' => 'Error',
+                'result' =>'Failed to store' 
+                ], 422);
         }
-
-        $user = Auth::user();
-        $userInfo = [
-            'business_id' => $user->business_id ?? 0, 
-            'created_by' => $user->id() ?? 0
-        ];
-
-        $create = $this->service->createProposal(array_merge($userInfo, $request->only('items', 'title', 'content', 'model_type', 'model_id', 'user_id', 'user_type', 'date', 'expiry_date', 'currency_id', 'subtotal', 'discount_amount', 'tax_amount', 'total', 'status_id')));
-
-        return response()->json([
-            'success' => !empty($create),
-            'reload' => !empty($create),
-            'title' => $create ? 'Done' : 'Error',
-            'result' => $create ? 'Proposal created successfully' : 'Failed to store' ], 
-            $create ? 201 : 422);
 
     }
 
