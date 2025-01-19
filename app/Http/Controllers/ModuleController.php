@@ -27,7 +27,9 @@ class ModuleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $update =  Module::findOrFail($id)->update(['is_enabled'=> $request->is_enabled]);
+        $module =  Module::findOrFail($id);
+        $update =  $module->update(['is_enabled'=> $request->is_enabled]);
+        $handleRoles = $this->handleRoles($value);
         Artisan::call('config:clear');
         Artisan::call('cache:clear');
         Artisan::call('route:clear');
@@ -89,7 +91,6 @@ class ModuleController extends Controller
 
         foreach ($moduleConfig as $key => $value) {
             
-            $configPath = $value['path'] . '/Config/roles.php';
             
             // Add to database
             Module::firstOrCreate([
@@ -102,40 +103,49 @@ class ModuleController extends Controller
                 'is_enabled' => true
             ]);
 
-
-            if (File::exists(app_path(str_replace('App\\','',$configPath)))) {
-
-                $rolesConfig = require app_path(str_replace('App\\','',$configPath));
-
-                // Load roles
-                if (isset($rolesConfig['roles'])) {
-                    foreach ($rolesConfig['roles'] as $roleName) {
-                        Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
-                    }
-                }
-
-                // Load Staff permissions
-                if (isset($rolesConfig['permissions'])) {
-                    foreach ($rolesConfig['permissions'] as $key =>  $permissionModel) {
-                        foreach ($permissionModel as $permissionName) {
-                            Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'staff']);
-                        }
-                    }
-                }
-
-                // Load Superadmin permissions
-                if (isset($rolesConfig['superadmin_permissions'])) {
-                    foreach ($rolesConfig['superadmin_permissions'] as $key =>  $permissionModel) {
-                        foreach ($permissionModel as $permissionName) {
-                            Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'superadmin']);
-                        }
-                    }
-                }
-            }
+            $this->handleRoles($value['path']);
         }
 
         Artisan::call('migrate');
 
         return response()->json(['success'=>1, 'result' => 'Module installed successfully.']);
+    }
+
+    /**
+     * Handle Roles of the Module
+     */
+    private function handleRoles($path)
+    {
+        
+        $configPath = $path . '/Config/roles.php';
+        if (File::exists(app_path(str_replace('App\\','',$configPath)))) {
+
+            $rolesConfig = require app_path(str_replace('App\\','',$configPath));
+
+            // Load roles
+            if (isset($rolesConfig['roles'])) {
+                foreach ($rolesConfig['roles'] as $roleName) {
+                    Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
+                }
+            }
+
+            // Load Staff permissions
+            if (isset($rolesConfig['permissions'])) {
+                foreach ($rolesConfig['permissions'] as $key =>  $permissionModel) {
+                    foreach ($permissionModel as $permissionName) {
+                        Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'staff']);
+                    }
+                }
+            }
+
+            // Load Superadmin permissions
+            if (isset($rolesConfig['superadmin_permissions'])) {
+                foreach ($rolesConfig['superadmin_permissions'] as $key =>  $permissionModel) {
+                    foreach ($permissionModel as $permissionName) {
+                        Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'superadmin']);
+                    }
+                }
+            }
+        }
     }
 }
