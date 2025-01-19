@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
                 ->pluck('provider');
                 
 
-            foreach ($modules as $providerClass) {
+            foreach (array_unique($modules) as $providerClass) {
                 if (class_exists($providerClass)) {
                     Log::info('Loaded Module '. json_encode($providerClass));
                     $this->app->register($providerClass);
