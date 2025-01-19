@@ -38,7 +38,7 @@
 
                 <div class="form-group w-full"><label for="date" class="control-label">Date </label>
                     <input type="date" class=" form-control form-control-solid  " id="date" name="date"
-                        class="form-control form-control-solid ">
+                        class="form-control form-control-solid " value="{{date('Y-m-d')}}">
                 </div>
                 <div class="form-group w-full"><label for="expiry_date" class="control-label" rel="popover"
                         data-animate=" animated fadeIn " data-container="body" data-toggle="popover"
