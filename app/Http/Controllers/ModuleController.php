@@ -29,7 +29,7 @@ class ModuleController extends Controller
     {
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
-        $handleRoles = $this->handleRoles($value);
+        $handleRoles = $this->handleRoles($module->path);
         Artisan::call('config:clear');
         Artisan::call('cache:clear');
         Artisan::call('route:clear');
