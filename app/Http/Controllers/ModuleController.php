@@ -118,7 +118,7 @@ class ModuleController extends Controller
      */
     private function handleRoles($path)
     {
-        $configPath = app_path(str_replace(['App\\'],'',$configPath). '/Config/roles.php');
+        $configPath = app_path(str_replace(['App\\'],'',$path). '/Config/roles.php');
 
         $configFileFullPath = app_path(str_replace(['\\', $_SERVER['DOCUMENT_ROOT'].'/app'],['/', ''],$configPath));
 
