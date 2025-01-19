@@ -20,6 +20,14 @@ class Proposal extends Model
         return $this->morphTo();
     }
 
+    /**
+     * Relation with User as morphTo
+     */
+    public function items()
+    {
+        return $this->hasMany(ProposalsItem::class, 'proposal_id','id');
+    }
+
 
     /**
      * Estimates of Business
