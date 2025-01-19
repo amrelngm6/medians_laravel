@@ -16,14 +16,14 @@ class ProposalService
 
         $Leads = Proposal::forBusiness($user->business_id ?? 0);
 
-        return $Leads->with('client','items')->paginate(100);
+        return $Leads->with('user','items')->paginate(100);
     }
     
     public function query($modelId, $modelType)
     {
         $Leads = Proposal::query();
 
-        return $Leads->where("model_id", $modelId)->where('model_type', $modelType)->with('client','items')->paginate(100);
+        return $Leads->where("model_id", $modelId)->where('model_type', $modelType)->with('user','items')->paginate(100);
     }
 
     public function find($proposalId)
@@ -32,7 +32,7 @@ class ProposalService
 
         $proposal = Proposal::forBusiness($user->business_id ?? 0);
 
-        return $proposal->with('client','items')->find($proposalId);
+        return $proposal->with('user','items')->find($proposalId);
     }
 
 

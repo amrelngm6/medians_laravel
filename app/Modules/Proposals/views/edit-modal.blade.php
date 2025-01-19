@@ -41,10 +41,10 @@
                                     id="name" name="title" class="form-control form-control-solid " value="{{$proposal->title}}">
                             </div>
 
-                            <div class="form-group w-full"><label for="client_id" class="control-label">Client</label>
-                                <select name="client_id" id="client_id" class="form-control form-control-solid">
+                            <div class="form-group w-full"><label for="user_id" class="control-label">Client</label>
+                                <select name="user_id" id="user_id" class="form-control form-control-solid">
                                     @foreach ($clients as $client)
-                                    <option value="{{ $client->client_id }}" @if($proposal->client_id == $client->client_id) selected @endif >{{ $client->name }}</option>
+                                    <option value="{{ $client->client_id }}" @if($proposal->user_id == $client->client_id) selected @endif >{{ $client->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

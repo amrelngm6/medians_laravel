@@ -28,8 +28,8 @@
                         id="name" name="title" class="form-control form-control-solid ">
                 </div>
 
-                <div class="form-group w-full"><label for="client_id" class="control-label">Client</label>
-                    <input type="text" class=" form-control form-control-solid  " id="client_id"
+                <div class="form-group w-full"><label for="user_id" class="control-label">Client</label>
+                    <input type="text" class=" form-control form-control-solid  " id="user_id"
                         class="form-control form-control-solid " value="{{$project->client->name ?? ''}}"
                         disabled />
                 </div>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </div>
-            <input value="{{$project->client_id}}" name="client_id" type="hidden" />
+            <input value="{{$project->user_id}}" name="user_id" type="hidden" />
             <input id="total_input" name="total" type="hidden" />
             <input id="subtotal_input" name="subtotal" type="hidden" />
             <input id="tax_input" name="tax_amount" type="hidden" />
