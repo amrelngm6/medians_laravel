@@ -24,7 +24,7 @@ class ProposalController extends Controller
     }
 
 
-    public function index()
+    public function index( Request $request)
     {
         // List all Proposals
         
@@ -47,7 +47,7 @@ class ProposalController extends Controller
    
     }
 
-    public function store()
+    public function store(Request $request)
     {
         // Store a new Proposal
         
@@ -79,7 +79,7 @@ class ProposalController extends Controller
 
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         // Display a single Proposal
     }
@@ -108,7 +108,7 @@ class ProposalController extends Controller
     
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
         // Update the specified Proposal
         
@@ -128,7 +128,7 @@ class ProposalController extends Controller
         return response()->json(['message' => 'Proposal updated successfully'], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         // Delete the specified Proposal
         $this->service->deleteProposal($id);
