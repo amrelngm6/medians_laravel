@@ -23,7 +23,7 @@
 
                         <div class="form-group w-full"><label for="date" class="control-label">Date </label>
                             <input type="date" class=" form-control form-control-solid  " id="date" name="date"
-                                class="form-control form-control-solid ">
+                                class="form-control form-control-solid " value="{{date('Y-m-d')}}">
                         </div>
                         <div class="form-group w-full"><label for="expiry_date" class="control-label" rel="popover"
                                 data-animate=" animated fadeIn " data-container="body" data-toggle="popover"
@@ -31,7 +31,7 @@
                                 data-title="Expiry Date" data-trigger="hover" data-html="true">Expiry Date <i
                                     class="bx bx-help-circle"></i></label>
                             <input type="date" class=" form-control form-control-solid  " min="{{date('Y-m-d')}}"
-                                id="expiry_date" name="expiry_date" class="form-control form-control-solid ">
+                                id="expiry_date" name="expiry_date" class="form-control form-control-solid " value="{{date('Y-m-d', strtotime('+7 days'))}}">
                         </div>
                     </div>
                     <div class="w-full flex gap-10">
