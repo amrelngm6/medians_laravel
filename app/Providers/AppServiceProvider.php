@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
             foreach (array_unique($modules->toArray()) as $providerClass) {
                 if (class_exists($providerClass)) {
                     Log::info('Loaded Module '. json_encode($providerClass));
-                    $this->app->register(str_replace('\\', '/', $providerClass));
+                    $this->app->register(str_replace('\\', '/', str_replace('App', 'app', $providerClass)));
                 } else {
                     Log::info('Module not found '. json_encode($providerClass));
                 }
