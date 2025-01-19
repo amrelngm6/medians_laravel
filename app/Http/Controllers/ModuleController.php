@@ -121,9 +121,8 @@ class ModuleController extends Controller
         
         $configPath = $path . '/Config/roles.php';
         $configFilePath = app_path(str_replace(['App\\'],'',$configPath));
-        print_r($configFilePath);
-        print_r(File::exists(app_path(str_replace('App\\','',$configPath))));
-        $rolesConfig = require app_path(str_replace('App\\','',$configPath));
+        print_r(File::exists(app_path(str_replace('\\','/',$configFilePath))));
+        $rolesConfig = require app_path(str_replace('\\','/',$configFilePath));
         print_r($rolesConfig);
 
         // Storage::exists($file_name)
