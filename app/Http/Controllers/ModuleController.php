@@ -118,18 +118,13 @@ class ModuleController extends Controller
      */
     private function handleRoles($path)
     {
-        $configPath = $path . '/Config/roles.php';
-        $configFilePath = app_path(str_replace(['App\\'],'',$configPath));
-        print_r(File::exists(app_path(str_replace(['\\', $_SERVER['DOCUMENT_ROOT'].'/app'],['/', ''],$configFilePath))));
-        
-        $rolesConfig = require app_path(str_replace(['\\', $_SERVER['DOCUMENT_ROOT'].'/app'],['/', ''],$configFilePath));
-        print_r($rolesConfig);
+        $configPath = app_path(str_replace(['App\\'],'',$configPath). '/Config/roles.php');
 
-        // Storage::exists($file_name)
+        $configFileFullPath = app_path(str_replace(['\\', $_SERVER['DOCUMENT_ROOT'].'/app'],['/', ''],$configPath));
 
-        if (File::exists(app_path(str_replace('App\\','',$configPath)))) {
+        if (File::exists($configFileFullPath)) {
             
-            $rolesConfig = require app_path(str_replace('App\\','',$configPath));
+            $rolesConfig = require $configFileFullPath;
 
             // Load roles
             if (isset($rolesConfig['roles'])) {
@@ -140,8 +135,6 @@ class ModuleController extends Controller
 
             // Load Staff permissions
             if (isset($rolesConfig['permissions'])) {
-        print_r($rolesConfig['permissions']);
-
                 foreach ($rolesConfig['permissions'] as $key =>  $permissionModel) {
                     foreach ($permissionModel as $permissionName) {
                         $savePermission = Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'staff']);
