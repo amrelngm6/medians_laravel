@@ -30,6 +30,8 @@ class ModuleController extends Controller
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
         $handleRoles = $this->handleRoles($module->path);
+        
+        echo $handleRoles;
         Artisan::call('config:clear');
         Artisan::call('cache:clear');
         Artisan::call('route:clear');
@@ -118,6 +120,7 @@ class ModuleController extends Controller
     {
         
         $configPath = $path . '/Config/roles.php';
+
         if (File::exists(app_path(str_replace('App\\','',$configPath)))) {
 
             $rolesConfig = require app_path(str_replace('App\\','',$configPath));
@@ -125,7 +128,7 @@ class ModuleController extends Controller
             // Load roles
             if (isset($rolesConfig['roles'])) {
                 foreach ($rolesConfig['roles'] as $roleName) {
-                    Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
+                    $saveRole = Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
                 }
             }
 
@@ -133,7 +136,7 @@ class ModuleController extends Controller
             if (isset($rolesConfig['permissions'])) {
                 foreach ($rolesConfig['permissions'] as $key =>  $permissionModel) {
                     foreach ($permissionModel as $permissionName) {
-                        Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'staff']);
+                        $savePermission = Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'staff']);
                     }
                 }
             }
@@ -142,7 +145,7 @@ class ModuleController extends Controller
             if (isset($rolesConfig['superadmin_permissions'])) {
                 foreach ($rolesConfig['superadmin_permissions'] as $key =>  $permissionModel) {
                     foreach ($permissionModel as $permissionName) {
-                        Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'superadmin']);
+                        $saveSAPermission = Permission::firstOrCreate(['name' => $key.' '. $permissionName, 'guard_name' => 'superadmin']);
                     }
                 }
             }
