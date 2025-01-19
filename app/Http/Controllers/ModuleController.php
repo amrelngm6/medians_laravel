@@ -30,13 +30,7 @@ class ModuleController extends Controller
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
         $handleRoles = $this->handleRoles($module->path);
-        
-        Artisan::call('config:clear');
-        Artisan::call('cache:clear');
-        Artisan::call('route:clear');
-        
         $path = str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations";
-        echo $path;
         $migrate = Artisan::call("migrate --path=$path");
         return $update;
     }
