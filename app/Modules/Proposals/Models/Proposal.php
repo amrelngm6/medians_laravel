@@ -25,7 +25,7 @@ class Proposal extends Model
      */
     public function items()
     {
-        return $this->hasMany(ProposalsItem::class, 'proposal_id','id');
+        return $this->hasMany(ProposalItem::class, 'proposal_id','id');
     }
 
 
