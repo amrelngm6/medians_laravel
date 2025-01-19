@@ -82,15 +82,16 @@ var MediansSettings = window.MediansSettings || {};
                 }
     
             } else {
-                if (append) {
-                    element.appendChild(xhr.responseText)
-                } else if (xhr.responseText) {
-                    try {
+                try {
+                        
+                    if (append) {
+                        element.appendChild(xhr.responseText)
+                    } else if (xhr.responseText) {
                         let res = JSON.parse(xhr.responseText);
                         handleResponse(res, form)
-                    } catch (error) {   
-                        element.innerHTML = xhr.responseText;
                     }
+                } catch (error) {   
+                    element.innerHTML = xhr.responseText;
                 }
             }
         };
