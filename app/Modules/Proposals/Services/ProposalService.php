@@ -45,7 +45,7 @@ class ProposalService
             foreach ($data['items'] as $key => $item) {
                 $item['unit_price'] = $item['price'];
                 $item['business_id'] = $proposal->business_id;
-                $item['proposal_id'] = $proposal->proposal_id;
+                $item['proposal_id'] = $proposal->id;
                 $saveItem = ProposalItem::create($item);
             }
         }
