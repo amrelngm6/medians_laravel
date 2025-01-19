@@ -247,5 +247,10 @@
 
     @include('proposals::items-modal')
 
+    <script>
+        jQuery(document).ready(function() {
+            setInterval(calcTotal, 1000);
+        })
+    </script>
     @endsection
     

@@ -173,11 +173,10 @@
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
     
 @section('script')
-    <script>
+<script>
     jQuery(document).ready(function() {
         setInterval(calcTotal, 1000);
     })
-
 </script>
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
     
