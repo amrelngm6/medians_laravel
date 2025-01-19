@@ -11,8 +11,8 @@
                                 id="name" name="title" class="form-control form-control-solid ">
                         </div>
 
-                        <div class="form-group w-full"><label for="client_id" class="control-label">Client</label>
-                            <select name="client_id" id="client_id" class="form-control form-control-solid">
+                        <div class="form-group w-full"><label for="user_id" class="control-label">user</label>
+                            <select name="user_id" id="user_id" class="form-control form-control-solid">
                                 @foreach ($clients as $client)
                                 <option value="{{ $client->client_id }}">{{ $client->name }}</option>
                                 @endforeach
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <input value="{{$proposal->client_id ?? 0}}" name="client_id" type="hidden" />
+                    <input value="{{$proposal->user_id ?? 0}}" name="user_id" type="hidden" />
                     <input id="total_input" name="total" type="hidden" />
                     <input id="subtotal_input" name="subtotal" type="hidden" />
                     <input id="tax_input" name="tax_amount" type="hidden" />
