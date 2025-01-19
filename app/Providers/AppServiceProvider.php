@@ -50,11 +50,13 @@ class AppServiceProvider extends ServiceProvider
                 ->where('is_enabled', 1)
                 ->pluck('provider');
                 
-            Log::info('Loaded Modules '. json_encode($modules));
 
             foreach ($modules as $providerClass) {
                 if (class_exists($providerClass)) {
+                    Log::info('Loaded Module '. json_encode($providerClass));
                     $this->app->register($providerClass);
+                } else {
+                    Log::info('Module not found '. json_encode($providerClass));
                 }
             }
         }
