@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         Module::createMany(
             [
-
-                'name' => 'Test User',
-                'email' => 'test@example.com',
+                [
+                    "name"=> "Dashboard",
+                ]
             ]
         );
     }
