@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('estimate_items', function (Blueprint $table) {
-            $table->morphs('item')->after('business_id'); // Add the column
+            $table->integer('item_id')->after('business_id'); // Add the column
+            $table->string('item_type')->after('business_id'); // Add the column
         });
     }
 
