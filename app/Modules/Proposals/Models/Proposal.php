@@ -3,6 +3,7 @@
 namespace App\Modules\Proposals\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\Core\Models\Status;
 
 class Proposal extends Model
 {
@@ -26,6 +27,14 @@ class Proposal extends Model
     public function items()
     {
         return $this->hasMany(ProposalItem::class, 'proposal_id','id');
+    }
+
+    /**
+     * Relation with User as morphTo
+     */
+    public function status()
+    {
+        return $this->hasOne(Status::class, 'status_id','status_id');
     }
 
 
