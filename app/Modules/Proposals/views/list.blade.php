@@ -96,7 +96,7 @@
                                         --
                                     </div>
                                     @foreach ($proposal->items as $item)
-                                    @include('proposal::proposal-item-row')
+                                    @include('proposals::proposal-item-row')
                                     @endforeach
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                     </div>
                     <!--end::Heading-->
 
-                    @include('proposal::new-form')
+                    @include('proposals::new-form')
 
                 </div>
                 <!--end::Modal body-->
@@ -158,7 +158,7 @@
 
     <!-- MAIN CONTENT AREA ENDS -->
 </div>
-@include('proposal::items-modal')
+@include('proposals::items-modal')
 
 @endsection
 

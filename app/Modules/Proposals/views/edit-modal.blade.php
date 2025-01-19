@@ -99,7 +99,7 @@
                                                     --
                                                 </div>
                                                 @foreach ( $proposal->items as $item)
-                                                @include('proposal::proposal-item-row')
+                                                @include('proposals::proposal-item-row')
                                                 @endforeach
                                             </div>
                                         </div>
