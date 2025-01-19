@@ -3,6 +3,7 @@
                     @csrf
                     <input type="hidden" name="model_id" value="{{$user->id()}}" />
                     <input type="hidden" name="model_type" value="{{get_class($user)}}" />
+                    <input type="hidden" name="user_type" value="{{$clients ? get_class($clients->first()) : ''}}" />
 
                     <div class="w-full flex gap-10">
                         <div class="form-group w-full"><label for="name" class="control-label">Name</label>
