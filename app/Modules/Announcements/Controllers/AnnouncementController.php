@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Modules\Announcements\Services\AnnouncementService;
 use App\Modules\Leads\Services\LeadService;
 use App\Modules\Customers\Services\StaffService;
+use App\Modules\Customers\Services\ClientService;
 use App\Modules\Projects\Services\ProjectService;
+use App\Modules\Items\Services\ItemService;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Auth;
 
