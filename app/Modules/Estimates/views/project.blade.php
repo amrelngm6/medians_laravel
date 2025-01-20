@@ -248,5 +248,13 @@
 
     @include('estimate::items-modal')
 
-    @endsection
+@endsection
+
+@section('project-scripts')
+<script>
+    jQuery(document).ready(function() {
+        setInterval(calcTotal, 1000);
+    })
+</script>
+@endsection
     
