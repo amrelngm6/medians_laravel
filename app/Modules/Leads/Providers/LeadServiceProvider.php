@@ -14,6 +14,9 @@ class LeadServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        // Load migrations
+        $this->loadViewsFrom(__DIR__ . '/../views', 'leads');
     }
 
     public function register()

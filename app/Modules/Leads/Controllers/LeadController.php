@@ -33,7 +33,7 @@ class LeadController extends Controller
         
         $custom_fields = $this->leadService->loadModelFields(); 
         
-        return view('leads.leads', compact('Leads', 'custom_fields'));
+        return view('leads::leads', compact('Leads', 'custom_fields'));
         
     }
 
@@ -53,7 +53,7 @@ class LeadController extends Controller
 
         $custom_fields = $this->leadService->loadModelFields(); 
 
-        return view('leads.create', [ 'custom_fields'=> $custom_fields, 'statusList'=> $statusList, 'staffList'=>$staffList,  'leadSources'=> $leadSources, 'leadTabs' => $leadTabs  ]);
+        return view('leads::create', [ 'custom_fields'=> $custom_fields, 'statusList'=> $statusList, 'staffList'=>$staffList,  'leadSources'=> $leadSources, 'leadTabs' => $leadTabs  ]);
     }
 
     /**
@@ -73,7 +73,7 @@ class LeadController extends Controller
         
         $custom_fields = $this->leadService->loadModelFields(); 
 
-        return view('leads.edit', ['custom_fields'=> $custom_fields, 'lead'=>$lead, 'statusList'=> $statusList, 'staffList'=>$staffList,  'leadSources'=> $leadSources, 'leadTabs' => $leadTabs  ]);
+        return view('leads::edit', ['custom_fields'=> $custom_fields, 'lead'=>$lead, 'statusList'=> $statusList, 'staffList'=>$staffList,  'leadSources'=> $leadSources, 'leadTabs' => $leadTabs  ]);
     }
 
     /**
@@ -86,7 +86,7 @@ class LeadController extends Controller
 
         $lead = $this->leadService->find($id);
 
-        return view('leads.overview', [ 'lead'=>$lead, 'leadTabs' => $leadTabs ]);
+        return view('leads::overview', [ 'lead'=>$lead, 'leadTabs' => $leadTabs ]);
     }
 
     /**
@@ -98,7 +98,7 @@ class LeadController extends Controller
 
         $lead = $this->leadService->find($id);
 
-        return view('leads.overview', [ 'lead'=>$lead, 'leadTabs' => $leadTabs ]);
+        return view('leads::overview', [ 'lead'=>$lead, 'leadTabs' => $leadTabs ]);
     }
 
     /**
@@ -196,6 +196,6 @@ class LeadController extends Controller
             ->orWhere('email', 'like', "%{$query}%")
             ->paginate(10);
 
-        return view('Leads.index', compact('Leads'));
+        return view('leads::index', compact('Leads'));
     }
 }
