@@ -42,7 +42,7 @@ class MenuService
                         $newSubMenu = Menu::firstOrCreate([
                             'business_id' => $user->business_id ?? 0,
                             'name' => $subValue->text,
-                            'route_name' => $subValue->route_name  ?? $subValue->text,
+                            'route_name' => $subValue->route_name  ?? $subValue->href,
                             'icon' => $value->icon ?? null,
                             'parent_id' => $newMenu->id,
                             'role_id' => $roleId,
