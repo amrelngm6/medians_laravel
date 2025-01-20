@@ -17,7 +17,7 @@ class EstimateService
 
         $query = Estimate::forBusiness($user->business_id ?? 0);
 
-        return $query->with('client','items')->paginate(100);
+        return $query->with('client','items', 'model')->paginate(100);
     }
     
     public function query($request, $modelId = null, $modelType = null)
