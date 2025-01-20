@@ -120,14 +120,14 @@ class EstimateController extends Controller
 
         $this->estimateService->updateEstimate($id, $request->all());
 
-        return response()->json(['message' => 'Estimate updated successfully'], 200);
+        return response()->json(['result' => 'Estimate updated successfully'], 200);
     }
 
     public function destroy($id)
     {
         $this->estimateService->deleteEstimate($id);
 
-        return response()->json(['message' => 'Estimate deleted successfully'], 200);
+        return response()->json(['result' => 'Estimate deleted successfully'], 200);
     }
 
 
