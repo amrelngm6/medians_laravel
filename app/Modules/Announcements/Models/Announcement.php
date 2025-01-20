@@ -33,6 +33,12 @@ class Announcement extends Model
     }
 
 
+    public function modelName()
+    {
+        return basename(str_replace('\\', '/', $this->model_type));
+    }
+
+    
     /**
      * Load Items of Business
      */

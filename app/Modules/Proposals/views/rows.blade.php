@@ -9,7 +9,7 @@
                                     {{ $proposal->user->name ?? '' }}</td>
                                 <td> 
                                     <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
-                                        data-content="Related to <b>{{$proposal->model ? basename(get_class($proposal->model)) : ''}}: {{ $proposal->model->name ?? '' }}</b>">
+                                        data-content="Related to <b>{{$proposal->modelName()}}: {{ $proposal->model->name ?? '' }}</b>">
                                         {{ $proposal->model->name ?? '' }}</span></td>
 
                                 <td>{{$settings['currency_code']}}{{ $proposal->total }}</td>

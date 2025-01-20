@@ -7,7 +7,11 @@
                                 <td>
                                     @if ($estimate->user) <img alt="Pic" src="/{{ $estimate->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
                                     {{ $estimate->user->name ?? '' }}</td>
-                                <td>{{ $estimate->model->name ?? '' }}</td>
+                                    
+                                <td >
+                                    <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
+                                        data-content="Related to <b>{{$estimate->modelName()}}: {{ $estimate->model->name ?? '' }}</b>">
+                                        {{ $estimate->model->name ?? '' }}</span></td>
                                 <td>{{$settings['currency_code']}}{{ $estimate->total }}</td>
                                 <td>{{$estimate->date }}</td>
                                 <td>
