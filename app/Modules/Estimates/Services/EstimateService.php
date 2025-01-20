@@ -45,6 +45,12 @@ class EstimateService
 
         if ($request->has('date') ) {
             $date = explode(' - ', $request->date);
+            $query->whereDate('date', '>=', date('Y-m-d', strtotime($date[0])));
+            $query->whereDate('date', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
+        }
+
+        if ($request->has('expiry_date') ) {
+            $date = explode(' - ', $request->date);
             $query->whereDate('expiry_date', '>=', date('Y-m-d', strtotime($date[0])));
             $query->whereDate('expiry_date', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
         }
