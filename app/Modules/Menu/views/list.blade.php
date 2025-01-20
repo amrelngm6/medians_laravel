@@ -211,10 +211,21 @@
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Name</span>
+                            <span class="required">Title</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" id="active-menu-val" placeholder="Menu name" value="" name="name" />
+                        <input class="form-control form-control-solid" id="active-menu-val" placeholder="Menu title" value="" name="name" />
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Route Name</span>
+                        </label>
+                        <!--end::Label-->
+                        <input class="form-control form-control-solid" id="active-menu-route" placeholder="Route name" value="" name="route_name" />
                     </div>
                     <!--end::Input group-->
 
@@ -270,6 +281,7 @@ menuEditor.onClickDelete((event) => {
 menuEditor.onClickEdit((event) => {
     activeMenuItem = event.item
     jQuery('#active-menu-name').text(event.item.getDataset().route_name)
+    jQuery('#active-menu-route').val(event.item.getDataset().route_name)
     jQuery('#active-menu-val').val(event.item.getDataset().text)
     jQuery('#active-menu-icon').val(event.item.getDataset().icon)
     jQuery('#edit-Business-modal').addClass('show')
@@ -277,12 +289,14 @@ menuEditor.onClickEdit((event) => {
 });
 
 jQuery('#updateMenuItem').on('click', function() {
+    let route_name = jQuery('#active-menu-route').val()
     let name = jQuery('#active-menu-val').val()
     let icon = jQuery('#active-menu-icon').val()
 
     // Update the text
     if (activeMenuItem) {
         activeMenuItem.name = name
+        activeMenuItem.route_name = route_name
         activeMenuItem.icon = icon
         menuEditor.update(menuItem(activeMenuItem)); // Update the menu editor with the new structure
     } else {
