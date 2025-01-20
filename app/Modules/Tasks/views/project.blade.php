@@ -9,15 +9,31 @@
 
         <div class="card mb-5 mb-xl-10 py-0">
             <div class="card-body py-0 flex w-full">
+                
+                <form action="{{route('Project.tasks.filter', $project->project_id)}}" id="filter-form" class="card-header ajax-form">
+                    @csrf
+                    <div class="card-title">
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="invoices" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
+                        </div>
+                        
+                        <div class="d-flex align-items-center position-relative my-1">
+                            
+                            <div class="select-placeholder w-full">
+                                <select id="status_id" name="status_id" placeholder=""
+                                    class="filter-on-change select-bootstrap border border-gray-300 form-control form-control-solid ">
+                                    <option value="0"></option>
+                                    @foreach ($statusList as $status)
+                                    <option value="{{$status->status_id}}">{{$status->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
                 <!--begin::Navs-->
-                <ul class="w-full nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-                    <!--begin::Nav item-->
-                    <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="">
-                            Project Tasks </a>
-                    </li>
-                    <!--end::Nav item-->
-                </ul>
+                <span class="w-full"></span>
                 <!--begin::Navs-->
                 <div class="d-flex flex-none align-items-center position-relative my-1 gap-10">
                     <input type="text" class="form-control form-control-solid w-250px ps-12"
@@ -176,5 +192,43 @@ jQuery(document).ready(function(){
             },
         });
 })
+
+
+    // Function to fetch and update table data
+    // function fetchData(startDate = '', endDate = '') {
+    function fetchData() {
+        const form = document.getElementById('filter-form');
+    
+        // Get the form data as a FormData object
+        const formData = new FormData(form);
+
+        // Send the form data via AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        xhr.onreadystatechange = function () {
+            console.log(xhr.responseText);
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.responseText)
+                {
+                    jQuery('tbody#rows-invoices').html(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(formData);
+
+    }
+
+    // Initial fetch without filters
+    // fetchData();
+
+    // Add date range filtering logic
+    $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
+        fetchData();
+    });
+
 </script>
+
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
