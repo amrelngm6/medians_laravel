@@ -75,18 +75,18 @@ class AnnouncementController extends Controller
             
             // Handle User who created it
             $user = Auth::user();
-            $userData = ['user_id'=>$user->staff_id, 'user_type'=> get_class($user)];
+            $userData = ['user_id'=>$user->staff_id, 'user_type'=> get_class($user), 'business_id'=>$user->business_id ?? 0];
             
             // Handle Dates
             $dates = explode(" - ",  $request->date);
             $datesData['start'] = date("Y-m-d", strtotime($dates[0]));
             $datesData['end'] = date("Y-m-d", strtotime($dates[1]));
 
-            $datesData['model_type'] = !empty($request->model_type) ? $request->model_type : get_class($user);
-            $datesData['model_id'] = !empty($request->model_id) ? $request->model_id : $user->staff_id;
+            $userData['model_type'] = !empty($request->model_type) ? $request->model_type : get_class($user);
+            $userData['model_id'] = !empty($request->model_id) ? $request->model_id : $user->staff_id;
 
             // Create and save the Announcement
-            $announcement = $this->service->createAnnouncement( array_merge($datesData, $userData, $request->only('name', 'description', 'model_id', 'model_type', 'user_id', 'user_type')));
+            $announcement = $this->service->createAnnouncement( array_merge($datesData, $userData, $request->only('name', 'description', 'is_active', 'staff_access', 'client_access')) );
             
             return $announcement ? $this->jsonResponse('Created successfully') : null;
             
