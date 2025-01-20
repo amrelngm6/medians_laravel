@@ -12,7 +12,7 @@ use App\Modules\Core\Models\ModelMember;
 class Announcement extends Model
 {
     
-    protected $table = 'Announcements';
+    protected $table = 'announcements';
     
     protected $fillable = ['business_id', 'name', 'description','start', 'end', 'client_access', 'staff_access', 'is_private', 'user_id', 'user_type',  'model_id', 'model_type'];
 

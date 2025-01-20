@@ -14,18 +14,49 @@ use App\Models\Auth;
 class AnnouncementController extends Controller
 {
     
-    protected $announcementService;
+    protected $service;
 
-    public function __construct(AnnouncementService $announcementService)
+    public function __construct(AnnouncementService $service)
     {
-        $this->announcementService = $announcementService;
+        $this->service = $service;
     }
 
 
-    public function index()
+    public function index( Request $request)
     {
         // List all Announcements
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Announcement view') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
+        // Display a single Announcement
+        $statusList = $this->service->loadStatusList();
+        $clientService = new ClientService;
+        $clients = $clientService->query();
+        
+        $ItemService = new ItemService;
+        $items = $ItemService->query();
+
+        return view('announcements::list', compact('items', 'user', 'statusList', 'clients'));
+   
     }
+
+    
+    public function filter(Request $request)
+    {
+        $user = Auth::user();
+
+        $announcements = $this->service->query($request);
+
+        $model = $this->service->model ?? null;
+
+        return view('announcements::rows', compact('announcements', 'model'));
+    }
+
+    
 
     public function store(Request $request)
     {
@@ -50,7 +81,7 @@ class AnnouncementController extends Controller
             $datesData['end'] = date("Y-m-d", strtotime($dates[1]));
 
             // Create and save the Announcement
-            $announcement = $this->announcementService->createAnnouncement( array_merge($datesData, $userData, $request->only('name', 'description', 'model_id', 'model_type', 'user_id', 'user_type')));
+            $announcement = $this->service->createAnnouncement( array_merge($datesData, $userData, $request->only('name', 'description', 'model_id', 'model_type', 'user_id', 'user_type')));
             
             return $announcement ? $this->jsonResponse('Created successfully') : null;
             
@@ -73,7 +104,7 @@ class AnnouncementController extends Controller
     public function destroy($id)
     {
         try {
-            return $this->announcementService->deleteAnnouncement($id) 
+            return $this->service->deleteAnnouncement($id) 
                 ? $this->jsonResponse('Deleted successfully') 
                 : $this->hasError('Failed to destroy') ;
 
@@ -95,7 +126,7 @@ class AnnouncementController extends Controller
 
         $leadTabs = $this->loadModuleTabs('Lead.tabs');
 
-        $announcements = $this->announcementService->query($lead->lead_id, get_class($lead));
+        $announcements = $this->service->query($lead->lead_id, get_class($lead));
 
         return view('announcements::lead', [ 'lead'=> $lead, 'announcements'=>$announcements, 'leadTabs' => $leadTabs ]);
     }
@@ -111,7 +142,7 @@ class AnnouncementController extends Controller
 
         $staffTabs = $this->loadModuleTabs('Staff.tabs');
 
-        $announcements = $this->announcementService->query($staff->staff_id, get_class($staff));
+        $announcements = $this->service->query($staff->staff_id, get_class($staff));
 
         return view('announcements::staff', [ 'staff'=> $staff, 'announcements'=>$announcements, 'staffTabs' => $staffTabs ]);
     }
@@ -127,7 +158,7 @@ class AnnouncementController extends Controller
 
         $projectTabs = $this->loadModuleTabs('Projects.tabs');
 
-        $announcements = $this->announcementService->query($project->project_id, get_class($project));
+        $announcements = $this->service->query($project->project_id, get_class($project));
 
         return view('announcements::project', [ 'project'=> $project, 'announcements'=>$announcements, 'projectTabs' => $projectTabs ]);
     }

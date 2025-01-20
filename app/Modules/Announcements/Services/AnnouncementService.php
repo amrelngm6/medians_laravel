@@ -3,6 +3,8 @@
 namespace App\Modules\Announcements\Services;
 
 use App\Modules\Announcements\Models\Announcement;
+use App\Modules\Core\Models\Status;
+use App\Models\Auth;
 
 class AnnouncementService
 {
@@ -32,4 +34,14 @@ class AnnouncementService
     {
         return Announcement::findOrFail($id)->delete();
     }
+
+    
+    /**
+     * Get allowed Status list
+     */
+    public function loadStatusList()
+    {
+        return Status::default([Auth::user()->business_id, '0'])->where('model', Announcement::class)->orderBy('sort', 'ASC')->get();
+    }
+
 }

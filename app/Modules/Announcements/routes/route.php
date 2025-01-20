@@ -6,6 +6,7 @@ use App\Modules\Announcements\Controllers\AnnouncementController;
 Route::prefix('announcements')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [AnnouncementController::class, 'index'])->name('Announcement');
     Route::post('/', [AnnouncementController::class, 'store'])->name('Announcement.store');
+    Route::post('/filter', [AnnouncementController::class, 'filter'])->name('Announcement.filter');
     Route::post('/store_lead/{leadId}', [AnnouncementController::class, 'store_lead'])->name('Announcement.store_lead');
     Route::delete('{id}', [AnnouncementController::class, 'destroy'])->name('Announcement.delete');
 });
