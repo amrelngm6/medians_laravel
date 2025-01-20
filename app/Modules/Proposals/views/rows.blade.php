@@ -7,7 +7,11 @@
                                 <td>
                                     @if ($proposal->user) <img alt="Pic" src="/{{ $proposal->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
                                     {{ $proposal->user->name ?? '' }}</td>
-                                <td>{{ $proposal->model->name ?? '' }}</td>
+                                <td> 
+                                    <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
+                                        data-content="Related to <b>{{$proposal->model ? basename(get_class($proposal->model)) : ''}}: {{ $proposal->model->name ?? '' }}</b>">
+                                        {{ $proposal->model->name ?? '' }}</span></td>
+
                                 <td>{{$settings['currency_code']}}{{ $proposal->total }}</td>
                                 <td>{{$proposal->date }}</td>
                                 <td>
@@ -24,3 +28,6 @@
                             </tr>
                             @endforeach
                 
+                            <script>
+                MediansSettings.tooltipsPopovers();
+                </script>
