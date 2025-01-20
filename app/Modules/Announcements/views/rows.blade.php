@@ -17,7 +17,6 @@
                                 <td>
                                     <div 
                                     class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
-                                        <a href="{{route('Announcement.edit', $announcement->id)}}" class="text-primary open-modal"><i class='bx bx-edit fs-4'></i></a>
                                         <a href="javascript:;" data-path="{{route('Announcement.delete', $announcement->id)}}" class="delete-item " ><i class='bx bx-trash fs-4'></i></a>
                                     </div>
                                 </td>

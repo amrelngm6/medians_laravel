@@ -1,7 +1,7 @@
 <form action="{{route('Announcement.store')}}" class="w-full ajax-form card-body " id="announcement-form">
             @csrf
             <input type="hidden" name="model_id" value="{{$project->project_id ?? 0}}" />
-            <input type="hidden" name="model_type" value="{{$project ? get_class($project) : null}}" />
+            <input type="hidden" name="model_type" value="{{isset($project) ? get_class($project) : null}}" />
 
             <div class="w-full flex gap-10">
 

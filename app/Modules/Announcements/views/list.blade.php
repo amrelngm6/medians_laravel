@@ -122,7 +122,6 @@
 
     <!-- MAIN CONTENT AREA ENDS -->
 </div>
-@include('announcements::items-modal')
 
 @endsection
 
