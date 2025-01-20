@@ -3,13 +3,13 @@
                             @foreach ($announcements as $announcement)
                             <tr>
                                 <td>{{$announcement->id}}</td>
-                                <td>{{$announcement->title}}</td>
+                                <td>{{$announcement->name}}</td>
                                 <td>
                                     @if ($announcement->user) <img alt="Pic" src="/{{ $announcement->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
                                     {{ $announcement->user->name ?? '' }}</td>
                                 <td>{{ $announcement->model->name ?? '' }}</td>
-                                <td>{{$settings['currency_code']}}{{ $announcement->total }}</td>
-                                <td>{{$announcement->date }}</td>
+                                <td>{{date('M d, Y', strtotime($announcement->start)) }}</td>
+                                <td>{{date('M d, Y', strtotime($announcement->end)) }}</td>
                                 <td>
                                     <span
                                         class="badge bg-{{$announcement->status->color ?? ''}} px-2.5 py-1 inline-block text-xs font-medium rounded border bg-orange-100 border-transparent text-orange-500 dark:bg-orange-500/20 dark:border-transparent">{{$announcement->status->name ?? ''}}</span>
