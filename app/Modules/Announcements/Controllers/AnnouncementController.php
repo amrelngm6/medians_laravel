@@ -84,8 +84,8 @@ class AnnouncementController extends Controller
 
             $userData['model_type'] = !empty($request->model_type) ? $request->model_type : get_class($user);
             $userData['model_id'] = !empty($request->model_id) ? $request->model_id : $user->staff_id;
-            $userData['staff_access'] = $request->staff_access ?? 0;
-            $userData['is_private'] = $request->is_private ?? 0;
+            $userData['staff_access'] = !empty($request->staff_access);
+            $userData['is_private'] = !empty($request->is_private);
 
             // Create and save the Announcement
             $announcement = $this->service->createAnnouncement( array_merge($datesData, $userData, $request->only('name', 'description')) );
