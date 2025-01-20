@@ -123,11 +123,26 @@ class ProjectTasksController extends TaskController
 
         $projectTabs = $this->loadModuleTabs('Projects.tabs');
 
-        $tasks = $this->taskService->query($project->project_id, get_class($project));
+        $tasks = $this->taskService->query($request, $project->project_id, get_class($project));
 
         $statusList = $this->taskService->loadStatusList();
 
         return view('tasks::project', ['project'=> $project, 'modelId'=> $project->project_id, 'modelType'=> get_class($project), 'tasks'=>$tasks, 'projectTabs' => $projectTabs, 'statusList'=>$statusList ]);
+    }
+    
+    /**
+     * Show the form for updating a Note.
+     */
+    public function project_filter(Request $request, $id)
+    {
+        $projectService = new ProjectService;
+        $project = $projectService->find($id);
+
+        $tasks = $this->taskService->query($request, $project->project_id, get_class($project));
+
+        $statusList = $this->taskService->loadStatusList();
+
+        return view('tasks::project-tasks', ['project'=> $project, 'modelId'=> $project->project_id, 'modelType'=> get_class($project), 'tasks'=>$tasks, 'statusList'=>$statusList ]);
     }
 
 }

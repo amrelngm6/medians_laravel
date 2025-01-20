@@ -32,9 +32,10 @@ Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
 Route::prefix('project')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('{id}/edit_field/{field}', [ProjectTasksController::class, 'edit_field'])->name('Task.edit_field');
     Route::get('/{id}/tasks', [ProjectTasksController::class, 'project'])->name('Projects.tabs.tasks');
-    Route::get('/{id}/filter', [ProjectTasksController::class, 'project_filter'])->name('Project.tasks.filter');
     Route::get('{id}/create_task', [ProjectTasksController::class, 'create_project_task'])->name('Tasks.create_project');
     Route::get('edit_task/{taskid}', [ProjectTasksController::class, 'edit_project_task'])->name('Tasks.edit_project');
     Route::get('project_task/{taskid}', [ProjectTasksController::class, 'project_task'])->name('Tasks.project_task');
+    
+    Route::post('/{id}/filter', [ProjectTasksController::class, 'project_filter'])->name('Project.tasks.filter');
 });
 

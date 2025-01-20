@@ -332,7 +332,7 @@ menuEditor.mount();
 function menuItem(model) {
     return {
         text: model.name, // required
-        href: model.route_name, // required
+        href: model.route_name ?? model.name, // required
         icon:  (model.icon ?? 'lock'), // required
         tooltip: model.name, // required
         children: model.children ?? []

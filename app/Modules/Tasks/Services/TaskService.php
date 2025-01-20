@@ -7,6 +7,7 @@ use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\ModelMember;
 use App\Modules\Core\Models\ModelField;
 use App\Modules\CustomFields\Models\CustomField;
+use App\Modules\Customers\Models\Staff;
 use App\Models\Auth;
 
 class TaskService
@@ -88,17 +89,38 @@ class TaskService
 
 
 
-    public function query($modelId, $modelType)
+    public function query($request, $modelId, $modelType)
     {
         // Business logic for querying tasks
         $query = Task::forBusiness(Auth::user()->business_id ?? null)
                  ->where('model_id', $modelId)
                  ->where('model_type', $modelType)
-                 ->with('team','checklist')
-                 ->orderBy('sort')
-                 ->get();
+                 ->with('team','checklist');
 
-        return $query;
+        if (!empty($request->status_id))
+        {
+            $query->where('status_id', $request->status_id);
+        }
+        
+        if ($request->has('client_id')) {
+            $query->where('client_id', $request->client_id);
+        }
+
+        if ($request->has('staff_id')) {
+            $query->whereHas('team', function($q) use ($request){
+                return $q->where('user_id', $request->staff_id)->where('user_type', Staff::class);
+            });
+        }
+
+        // if ($request->has('date') ) {
+        //     $date = explode(' - ', $request->date);
+        //     $query->whereDate('due_date', '>=', date('Y-m-d', strtotime($date[0])));
+        //     $query->whereDate('due_date', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
+        // }
+
+        
+
+        return $query->orderBy('sort')->get();
     }
 
     public function find($id)
