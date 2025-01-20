@@ -28,7 +28,7 @@ class MenuService
                 $newMenu = Menu::firstOrCreate([
                     'business_id' => $user->business_id ?? 0,
                     'name' => $value->text,
-                    'route_name' => $value->route_name ?? $value->text,
+                    'route_name' => $value->route_name ?? $value->href,
                     'icon' => $value->icon ?? null,
                     'parent_id' => 0,
                     'role_id' => $roleId,
