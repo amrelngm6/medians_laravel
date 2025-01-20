@@ -61,6 +61,12 @@ class EstimateService
         return $estimate;
     }
 
+    public function deleteEstimate($id)
+    {
+        $estimate = Estimate::findOrFail($id);
+        return $estimate->delete();
+    }
+
     
     /**
      * Get allowed Status list
