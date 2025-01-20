@@ -250,7 +250,7 @@
 
 @endsection
 
-@section('project-scripts')
+@section('project-script')
 <script>
     jQuery(document).ready(function() {
         setInterval(calcTotal, 1000);
