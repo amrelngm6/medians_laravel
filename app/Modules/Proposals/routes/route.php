@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Modules\Proposals\Controllers\ProposalController;
 
 Route::prefix('proposals')->middleware(['web', 'auth:staff'])->group(function () {
-    Route::get('/', [ProposalController::class, 'index'])->name('Proposals');
+    Route::get('/', [ProposalController::class, 'index'])->name('Proposal');
     Route::get('/create', [ProposalController::class, 'create'])->name('Proposal.create');
     Route::get('{id}/edit', [ProposalController::class, 'edit'])->name('Proposal.edit');
     Route::post('/store', [ProposalController::class, 'store'])->name('Proposal.store');
