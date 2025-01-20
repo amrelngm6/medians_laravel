@@ -97,9 +97,9 @@ class TaskService
                  ->where('model_type', $modelType)
                  ->with('team','checklist');
 
-        if (!empty($request->title))
+        if (!empty($request->name))
         {
-            $query->where('name', 'LIKE', '%'.$request->title.'%');
+            $query->where('name', 'LIKE', '%'.$request->name.'%');
         }
 
         if (!empty($request->status_id))
