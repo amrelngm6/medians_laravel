@@ -16,25 +16,15 @@
                         
                         <div class="d-flex align-items-center position-relative my-1" 
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Search for tasks by name" >
-                            <input type="text" class="form-control form-control-solid w-150px ps-12" placeholder="Search in Tasks">
+                            <input type="text" class="filter-on-change form-control form-control-solid w-150px ps-12" placeholder="Search in Tasks">
                         </div>
                         <div class="d-flex align-items-center position-relative my-1"
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter tasks by Due date" >
                             <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="invoices" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
-                        </div>
+                        </div>  
                         
                         <div class="d-flex align-items-center position-relative my-1">
-                            
-                            <div class="select-placeholder w-full" 
-                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Status" >
-                                <select id="status_id" name="status_id" placeholder=""
-                                    class="filter-on-change select-bootstrap border border-gray-300 form-control form-control-solid ">
-                                    <option value="0">-- Status --</option>
-                                    @foreach ($statusList as $status)
-                                    <option value="{{$status->status_id}}">{{$status->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @include('status.status-field-inline')
                         </div>
                     </div>
                 </form>
