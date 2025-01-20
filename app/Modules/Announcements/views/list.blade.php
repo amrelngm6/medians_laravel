@@ -144,7 +144,7 @@
         // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
         xhr.onreadystatechange = function () {
-            console.log(xhr.responseText);
+            
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.responseText)
                 {

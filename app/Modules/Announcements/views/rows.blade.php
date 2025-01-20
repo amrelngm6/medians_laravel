@@ -7,9 +7,10 @@
                                 <td>
                                     @if ($announcement->user) <img alt="Pic" src="/{{ $announcement->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
                                     {{ $announcement->user->name ?? '' }}</td>
-                                <td 
-                                rel="popover" data-toggle="popover" data-placement="top" data-toggle="hover" data-content="Model of the announcement">
-                                >{{ $announcement->model->name ?? '' }}</td>
+                                <td >
+                                    <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
+                                        data-content="Related to <b>{{$announcement->model ? basename(get_class($announcement->model)) : ''}}: {{ $announcement->model->name ?? '' }}</b>">
+                                {{ $announcement->model->name ?? '' }}</span></td>
                                 <td>{{date('M d, Y', strtotime($announcement->start)) }}</td>
                                 <td>{{date('M d, Y', strtotime($announcement->end)) }}</td>
                                 <td>
@@ -24,4 +25,6 @@
                                 </td>
                             </tr>
                             @endforeach
-                
+                <script>
+                MediansSettings.tooltipsPopovers();
+                </script>

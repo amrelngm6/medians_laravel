@@ -192,7 +192,6 @@ jQuery(function($) {
     MediansSettings.windowBasedLayout = function() {
             
         var width = window.innerWidth;
-        //console.log(width);
 
         if (jQuery("body").hasClass("chat-open") || jQuery("body").hasClass("sidebar-collapse")) {
 
@@ -434,7 +433,6 @@ jQuery(function($) {
         var height = window.innerHeight;
         var formheight = jQuery("#login").height();
         var newheight = (height - formheight) / 2;
-        //console.log(height+" - "+ formheight + " / "+ newheight);
         jQuery('#login').css('margin-top', +newheight + 'px');
 
         if (jQuery('#login #user_login').length) {
@@ -543,7 +541,6 @@ jQuery(function($) {
      --------------------------------*/
     MediansSettings.mainmenuScroll = function() {
 
-        //console.log("expand scroll menu");
 
         var topbar = jQuery(".page-topbar").height();
         var projectinfo = jQuery(".project-info").innerHeight();
@@ -567,7 +564,6 @@ jQuery(function($) {
     MediansSettings.mainmenuCollapsed = function() {
 
         if (jQuery(".page-sidebar.chat_shift #main-menu-wrapper").length > 0 || jQuery(".page-sidebar.collapseit #main-menu-wrapper").length > 0) {
-            //console.log("collapse menu");
             var topbar = jQuery(".page-topbar").height();
             var windowheight = window.innerHeight;
             var minheight = windowheight - topbar;
@@ -2030,8 +2026,6 @@ jQuery(function($) {
 
             if (!depth)
                 depth = 0;
-
-            //console.log(items);
 
             jQuery.each(items, function(i, obj) {
                 str += '[ID: ' + obj.itemId + ']\t' + nestableRepeat('—', depth + 1) + ' ' + obj.item;

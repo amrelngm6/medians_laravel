@@ -299,8 +299,6 @@ jQuery('#updateMenuItem').on('click', function() {
         activeMenuItem.route_name = route_name
         activeMenuItem.icon = icon
         menuEditor.update(menuItem(activeMenuItem)); // Update the menu editor with the new structure
-    } else {
-        console.log('Item not found');
     }
     menuEditor.update(activeMenuItem)
     jQuery('#menu-json').val(menuEditor.getString())
@@ -330,7 +328,6 @@ try {
 menuEditor.mount();
 
 function menuItem(model) {
-    console.log(model)
     return {
         text: model.name, // required
         href: model.route_name ?? model.name, // required
