@@ -21,19 +21,6 @@
 
     <div class="clearfix"></div>
     <!-- MAIN CONTENT AREA STARTS -->
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header align-items-center  gap-2 gap-md-5 w-full flex px-4">
-                <div class="card-title">
-                    <input type="date" class="datepicker form-control form-control-solid py-1 w-200px" />
-                </div>
-                
-                <a class="btn btn-md btn-primary me-2 show-modal" href="#!" data-modal="#new-announcement-modal">
-                    New Announcement </a>
-            </div>
-        </div>
-    </div>
-
     <div class="col-xs-12 ">
         <section class="card ">
             <form action="{{route('Announcement.filter')}}" id="filter-form" class="card-header ajax-form">
