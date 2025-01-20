@@ -32,13 +32,15 @@ class Announcement extends Model
         return $this->morphTo();
     }
 
-
+    /**
+     * Get Model Name
+     */
     public function modelName()
     {
         return basename(str_replace('\\', '/', $this->model_type));
     }
 
-    
+
     /**
      * Load Items of Business
      */
