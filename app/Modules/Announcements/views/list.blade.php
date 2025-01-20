@@ -44,8 +44,8 @@
                                 <th class="text-start">ID</th>
                                 <th class="text-start">Title</th>
                                 <th class="text-start">User</th>
+                                <th class="text-start">Item</th>
                                 <th class="text-start">Start</th>
-                                <th class="text-start">End</th>
                                 <th class="text-start">Due Date</th>
                                 <th class="text-start">Actions</th>
                             </tr>

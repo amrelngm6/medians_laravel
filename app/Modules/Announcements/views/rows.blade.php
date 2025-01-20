@@ -7,7 +7,9 @@
                                 <td>
                                     @if ($announcement->user) <img alt="Pic" src="/{{ $announcement->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
                                     {{ $announcement->user->name ?? '' }}</td>
-                                <td>{{ $announcement->model->name ?? '' }}</td>
+                                <td 
+                                rel="popover" data-toggle="popover" data-placement="top" data-toggle="hover" data-content="Model of the announcement">
+                                >{{ $announcement->model->name ?? '' }}</td>
                                 <td>{{date('M d, Y', strtotime($announcement->start)) }}</td>
                                 <td>{{date('M d, Y', strtotime($announcement->end)) }}</td>
                                 <td>
