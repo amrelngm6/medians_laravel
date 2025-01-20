@@ -56,7 +56,7 @@
                             </dd>
                         </dl>
 
-                        <dl class="min-w-100px">
+                        <dl class="min-w-150px">
                             <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Client:</dt>
                             <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
                                 <img alt="Pic" src="/{{ $proposal->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">

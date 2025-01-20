@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="form-group mt-5">
                                     <a href="#!" data-modal="#items-modal"
-                                        class="btn btn-sm btn-light-primary show-modal">
+                                        class="btn btn-primary show-modal">
                                         <i class="bx bx-add-to-queue"></i>
                                         <span>Add new</span>
                                     </a>
