@@ -5,6 +5,7 @@ namespace App\Modules\Estimates\Services;
 use App\Modules\Estimates\Models\Estimate;
 use App\Modules\Estimates\Models\EstimateItem;
 use App\Modules\Core\Models\Status;
+use App\Modules\Customers\Models\Staff;
 use App\Models\Auth;
 
 class EstimateService
