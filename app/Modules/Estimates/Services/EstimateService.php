@@ -45,7 +45,7 @@ class EstimateService
             foreach ($data['items'] as $key => $item) {
                 $item['unit_price'] = $item['price'];
                 $item['business_id'] = $estimate->business_id;
-                $item['estimate_id'] = $estimate->estimate_id;
+                $item['estimate_id'] = $estimate->id;
                 $saveItem = EstimateItem::create($item);
             }
         }
