@@ -3,6 +3,7 @@
                     @csrf
                     <input type="hidden" name="model_id" value="{{$user->id()}}" />
                     <input type="hidden" name="model_type" value="{{get_class($user)}}" />
+                    <input value="{{$estimate->client_id ?? 0 }}" name="client_id" type="hidden" />
 
                     <div class="w-full flex gap-10">
                         <div class="form-group w-full"><label for="name" class="control-label">Name</label>
@@ -136,7 +137,6 @@
                             </div>
                         </div>
                     </div>
-                    <input value="{{$estimate->client_id}}" name="client_id" type="hidden" />
                     <input id="total_input" name="total" type="hidden" />
                     <input id="subtotal_input" name="subtotal" type="hidden" />
                     <input id="tax_input" name="tax_amount" type="hidden" />

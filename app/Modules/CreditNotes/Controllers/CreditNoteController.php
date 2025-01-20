@@ -81,7 +81,7 @@ class CreditNoteController extends Controller
         return view('credit_notes::edit', compact('modules', 'user', 'credit_note'));
     }
 
-        /**
+    /**
      * Load Estimate Item Row
      */
     public function itemRow(Request $request)

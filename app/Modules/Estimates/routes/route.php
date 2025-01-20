@@ -9,11 +9,10 @@ Route::prefix('estimates')->middleware(['web', 'auth:staff'])->group(function ()
     Route::get('/create', [EstimateController::class, 'create'])->name('Estimate.create');
     Route::get('{id}/edit', [EstimateController::class, 'edit'])->name('Estimate.edit');
     Route::post('/store', [EstimateController::class, 'store'])->name('Estimate.store');
+    Route::post('/filter', [EstimateController::class, 'filter'])->name('Estimate.filter');
     Route::post('{id}/update', [EstimateController::class, 'update'])->name('Estimate.update');
     Route::delete('{id}', [EstimateController::class, 'destroy'])->name('Estimate.delete');
-});
 
-Route::prefix('items')->middleware(['web', 'auth:staff'])->group(function () {
     Route::post('/itemRow', [EstimateController::class, 'itemRow'])->name('Estimate.item-row');
 });
 

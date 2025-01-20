@@ -2,7 +2,7 @@
 
                             @foreach ($proposals as $proposal)
                             <tr>
-                                <td>#ES-{{$proposal->id}}</td>
+                                <td>{{$proposal->id}}</td>
                                 <td>{{$proposal->title}}</td>
                                 <td>
                                     @if ($proposal->user) <img alt="Pic" src="/{{ $proposal->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif

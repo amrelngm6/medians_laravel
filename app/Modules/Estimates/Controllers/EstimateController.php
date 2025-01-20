@@ -24,7 +24,7 @@ class EstimateController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Estimate create') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Estimate view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -38,6 +38,20 @@ class EstimateController extends Controller
         $items = $ItemService->query();
 
         return view('estimate::list', compact('items', 'estimates', 'user', 'statusList', 'clients'));
+    }
+
+    public function filter(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Estimate view') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
+        // Display a single Estimate
+        $estimates = $this->estimateService->get();
+
+        return view('estimate::rows', compact('estimates'));
     }
 
     public function store(Request $request)

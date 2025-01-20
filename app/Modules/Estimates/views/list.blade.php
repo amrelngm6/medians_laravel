@@ -21,94 +21,45 @@
 
     <div class="clearfix"></div>
     <!-- MAIN CONTENT AREA STARTS -->
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header align-items-center  gap-2 gap-md-5 w-full flex px-4">
-                <div class="card-title">
-                    <input type="date" class="datepicker form-control form-control-solid py-1 w-200px" />
-                </div>
-                
-                <a class="btn btn-md btn-primary me-2 show-modal" href="#!" data-modal="#new-estimate-modal">
-                    New Estimate </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-12">
-        <div class="card w-full">
-
-            <!--begin::Card body-->
-            <div class="card-body  ">
-                @foreach ($estimates as $estimate)
-                <div class="mb-4  divide-y divide-gray-200 dark:divide-gray-700 w-full card card-flush mb-0 py-0">
-                    <div class="flex  items-center gap-y-4 pt-4  w-full gap-1 ">
-                        <dl class="min-w-100px">
-                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">ID:</dt>
-                            <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                <a href="#!" onClick="(function(){jQuery('#estimate-info-{{$estimate->id}}').toggle()})()"  class="hover:underline">#ES-{{$estimate->id}}</a>
-                            </dd>
-                        </dl>
-
-                        <dl class="w-full">
-                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Title:</dt>
-                            <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                {{$estimate->title}}
-                            </dd>
-                        </dl>
-
-                        <dl class="min-w-100px">
-                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Expiry Date:</dt>
-                            <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{date('M d, Y', strtotime($estimate->expiry_date))}}</dd>
-                        </dl>
-
-                        <dl class="min-w-100px">
-                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Total price:</dt>
-                            <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{$settings['currency_code']}}{{$estimate->total}}</dd>
-                        </dl>
-
-                        <dl class="min-w-150px">
-                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Status:</dt>
-                            <dd
-                                class="me-2 mt-1.5 inline-flex items-center rounded px-2.5 py-0.5 text-sm font-medium text-white bg-{{$estimate->status->color ?? ''}}  dark:text-primary-300">
-                                {{$estimate->status->name ?? ''}}
-                            </dd>
-                        </dl>
-                        <dl class="">
-                            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Actions:</dt>
-                            <dd
-                                class="gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
-                                <i onClick="(function(){jQuery('#estimate-info-{{$estimate->id}}').toggle()})()" class='cursor-pointer bx bx-show fs-3'></i>
-                                <a href="{{route('Estimate.edit', $estimate->id)}}" class="open-modal"><i class='bx bx-edit fs-4'></i></a>
-                            </dd>
-                        </dl>
+    <div class="col-xs-12 ">
+        <section class="card ">
+            <form action="{{route('Estimate.filter')}}" id="filter-form" class="card-header ajax-form">
+                @csrf
+                <div class="card-title w-full gap-6">
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="estimates" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
                     </div>
-                    <div id="estimate-info-{{$estimate->id}}"  style="display:none">
-                        <div class="card-body bg-gray-200 pt-4 pb-4 rounded">
-                            <div class="w-full">
-                                <div class="form-group">
-
-                                    <div class="form-group d-flex  align-items-center gap-5 flex ">
-                                        <span class="mw-100 min-w-200px"> Title</span>
-                                        <span class="mw-100 w-full"> Quantity</span>
-                                        <span class="mw-100 w-full"> Unit price</span>
-                                        <span class="mw-100 w-full"> Tax</span>
-                                        <span class="mw-100 w-full"> Subtotal</span>
-                                        --
-                                    </div>
-                                    @foreach ($estimate->items as $item)
-                                    @include('estimate::estimate-item-row')
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <div class="d-flex align-items-center position-relative my-1">
+                        @include('status.status-field-inline')
                     </div>
+                    <span class="w-full"></span>
+                    <a class="btn btn-md btn-primary me-2 show-modal" href="#!" data-modal="#new-estimate-modal">
+                        New estimates </a>
                 </div>
-                @endforeach
-
-                @if (count($estimates) < 1) No data here yet @endif </div>
-                    <!--end::Card body-->
+            </form>
+            <div class="card-body" id="estimates">
+                <div class="w-full">
+                    <!-- ********************************************** -->
+                    <table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Code</th>
+                                <th class="text-start">Title</th>
+                                <th class="text-start">Client</th>
+                                <th class="text-start">Item</th>
+                                <th class="text-start">Total</th>
+                                <th class="text-start">Due Date</th>
+                                <th class="text-start">Status</th>
+                                <th class="text-start">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows-estimates">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 
 
@@ -165,14 +116,65 @@
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
     
 @section('script')
-    <script>
-    jQuery(document).ready(function() {
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+<script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
 
+
+<script>
+    var table = $('#example').DataTable({
+        // Disable automatic processing (as we manage it manually)
+        paging: true,     // Enable pagination
+        searching: true,  // Enable search box
+        ordering: true,   // Enable column sorting
+        info: true,       // Show table info (e.g., "Showing X of Y entries")
+        autoWidth: false, // Disable auto-width
+        responsive: true  // Make it responsive
+    });
+
+    // Function to fetch and update table data
+    // function fetchData(startDate = '', endDate = '') {
+    function fetchData() {
+        jQuery('tbody#rows-proposals').html(' ');
+        const form = document.getElementById('filter-form');
+    
+        // Get the form data as a FormData object
+        const formData = new FormData(form);
+
+        // Send the form data via AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        xhr.onreadystatechange = function () {
+            console.log(xhr.responseText);
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.responseText)
+                {
+                    jQuery('tbody#rows-proposals').html(xhr.responseText);
+                    table.clear();
+                    table.responsive.recalc();
+                }
+            }
+        };
+        xhr.send(formData);
+
+    }
+
+    // Initial fetch without filters
+    // fetchData();
+
+    // Add date range filtering logic
+    $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
+        fetchData();
+    });
+
+    jQuery(document).ready(function() {
         setInterval(calcTotal, 1000);
     })
 
 </script>
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-    
+
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
