@@ -34,6 +34,47 @@
         </div>
     </div>
 
+    <div class="col-xs-12 ">
+        <section class="card ">
+            <form action="{{route('Proposal.filter')}}" id="filter-form" class="card-header ajax-form">
+                @csrf
+                <div class="card-title w-full gap-6">
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="proposals" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
+                    </div>
+                    
+                    <div class="d-flex align-items-center position-relative my-1">
+                        @include('status.status-field-inline')
+                    </div>
+                    <span class="w-full"></span>
+                    <a class="btn btn-md btn-primary me-2 show-modal" href="#!" data-modal="#new-proposal-modal">
+                        New Proposal </a>
+                </div>
+            </form>
+            <div class="card-body" id="proposals">
+                <div class="w-full">
+                    <!-- ********************************************** -->
+                    <table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Code</th>
+                                <th class="text-start">Title</th>
+                                <th class="text-start">Client</th>
+                                <th class="text-start">Item</th>
+                                <th class="text-start">Total</th>
+                                <th class="text-start">Due Date</th>
+                                <th class="text-start">Status</th>
+                                <th class="text-start">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows-proposals">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <div class="col-sm-12">
         <div class="card w-full">
 
@@ -173,12 +214,63 @@
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
     
 @section('script')
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+<script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
+
+
 <script>
-    jQuery(document).ready(function() {
-        setInterval(calcTotal, 1000);
-    })
-</script>
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+    var table = $('#example').DataTable({
+        // Disable automatic processing (as we manage it manually)
+        paging: true,     // Enable pagination
+        searching: true,  // Enable search box
+        ordering: true,   // Enable column sorting
+        info: true,       // Show table info (e.g., "Showing X of Y entries")
+        autoWidth: false, // Disable auto-width
+        responsive: true  // Make it responsive
+    });
+
+    // Function to fetch and update table data
+    // function fetchData(startDate = '', endDate = '') {
+    function fetchData(dates) {
+        const form = document.getElementById('filter-form');
     
+        // Get the form data as a FormData object
+        const formData = new FormData(form);
+
+        // Send the form data via AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        xhr.onreadystatechange = function () {
+            console.log(xhr.responseText);
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.responseText)
+                {
+                    jQuery('tbody#rows-proposals').html(xhr.responseText);
+                    table.clear();
+                    table.responsive.recalc();
+                }
+            }
+        };
+        xhr.send(formData);
+
+    }
+
+    // Initial fetch without filters
+    // fetchData();
+
+    // Add date range filtering logic
+    $('#filter-date,#status_id').on('change', function (ev, picker) {
+        const dates = ev.target.value.split(' - ');
+        const startDate = dates[0];
+        const endDate = dates[1];
+        fetchData(dates);
+    });
+
+</script>
+
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

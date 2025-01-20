@@ -14,6 +14,14 @@ class Proposal extends Model
 
 
     /**
+     * Relation with Model as morphTo
+     */
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
+    /**
      * Relation with User as morphTo
      */
     public function user()

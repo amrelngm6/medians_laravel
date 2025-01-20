@@ -14,16 +14,35 @@ class ProposalService
     {
         $user = Auth::user();
 
-        $Leads = Proposal::forBusiness($user->business_id ?? 0);
+        $Proposals = Proposal::forBusiness($user->business_id ?? 0);
 
-        return $Leads->with('user','items')->paginate(100);
+        return $Proposals->with('user','items')->paginate(100);
     }
     
-    public function query($modelId, $modelType)
+    public function query($request, $modelId = null, $modelType = null)
     {
-        $Leads = Proposal::query();
+        $query = Proposal::query();
 
-        return $Leads->where("model_id", $modelId)->where('model_type', $modelType)->with('user','items')->paginate(100);
+        if (!empty($modelType) && !empty($modelId)) {
+            $query->where("model_id", $modelId)->where('model_type', $modelType);
+        }
+        
+        if (!empty($request->status_id))
+        {
+            $query->where('status_id', $request->status_id);
+        }
+        
+        if ($request->has('client_id')) {
+            $query->where('client_id', $request->client_id);
+        }
+
+        if ($request->has('staff_id')) {
+            $query->whereHas('team', function($q) use ($request){
+                return $q->where('user_id', $request->staff_id)->where('user_type', Staff::class);
+            });
+        }
+
+        return $query->with('user','items')->paginate(100);
     }
 
     public function find($proposalId)

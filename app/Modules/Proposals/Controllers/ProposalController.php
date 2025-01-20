@@ -187,4 +187,18 @@ class ProposalController extends Controller
 
         return view('proposals::project', compact('items', 'project', 'proposals', 'projectTabs', 'statusList'));
     }
+
+    
+    public function filter(Request $request)
+    {
+        $user = Auth::user();
+
+        $proposals = $this->service->query($request);
+
+        $model = $this->service->model ?? null;
+
+        return view('proposals::rows', compact('proposals', 'model'));
+    }
+
+
 }

@@ -48,16 +48,7 @@
                     </div>
                     
                     <div class="d-flex align-items-center position-relative my-1">
-                        
-                        <div class="select-placeholder w-full">
-                            <select id="status_id" name="status_id" placeholder=""
-                                class=" select-bootstrap border border-gray-300 form-control form-control-solid ">
-                                <option value="0">Status</option>
-                                @foreach ($statusList as $status)
-                                <option value="{{$status->status_id}}">{{$status->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @include('status.status-field-inline')
                     </div>
                 </div>
             </form>
@@ -110,7 +101,8 @@
 
     // Function to fetch and update table data
     // function fetchData(startDate = '', endDate = '') {
-    function fetchData(dates) {
+    function fetchData() {
+        jQuery('tbody#rows-credit_notes').empty();
         const form = document.getElementById('filter-form');
     
         // Get the form data as a FormData object
@@ -141,11 +133,8 @@
     // fetchData();
 
     // Add date range filtering logic
-    $('#filter-date,#status_id,#category_id').on('change', function (ev, picker) {
-        const dates = ev.target.value.split(' - ');
-        const startDate = dates[0];
-        const endDate = dates[1];
-        fetchData(dates);
+    $('#filter-date,.filter-on-change,#category_id').on('change', function (ev, picker) {
+        fetchData();
     });
 
 </script>
