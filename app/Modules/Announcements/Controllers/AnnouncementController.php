@@ -133,7 +133,7 @@ class AnnouncementController extends Controller
 
         $leadTabs = $this->loadModuleTabs('Lead.tabs');
 
-        $announcements = $this->service->query($lead->lead_id, get_class($lead));
+        $announcements = $this->service->query($request, $lead->lead_id, get_class($lead));
 
         return view('announcements::lead', [ 'lead'=> $lead, 'announcements'=>$announcements, 'leadTabs' => $leadTabs ]);
     }
@@ -149,7 +149,7 @@ class AnnouncementController extends Controller
 
         $staffTabs = $this->loadModuleTabs('Staff.tabs');
 
-        $announcements = $this->service->query($staff->staff_id, get_class($staff));
+        $announcements = $this->service->query($request, $staff->staff_id, get_class($staff));
 
         return view('announcements::staff', [ 'staff'=> $staff, 'announcements'=>$announcements, 'staffTabs' => $staffTabs ]);
     }
@@ -165,7 +165,7 @@ class AnnouncementController extends Controller
 
         $projectTabs = $this->loadModuleTabs('Projects.tabs');
 
-        $announcements = $this->service->query($project->project_id, get_class($project));
+        $announcements = $this->service->query($request, $project->project_id, get_class($project));
 
         return view('announcements::project', [ 'project'=> $project, 'announcements'=>$announcements, 'projectTabs' => $projectTabs ]);
     }

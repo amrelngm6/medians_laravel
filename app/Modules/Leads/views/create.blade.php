@@ -3,15 +3,14 @@
 @section('lead-page')
 <div class="col-md-12">
 
-    <div class="w-full flex gap-10 content-wrapper">
-        <div id="form-sidebar"
+    <div class="w-full gap-14 content-wrapper">
+        <div class="w-350px pull-left px-0 " id="form-sidebar"
             class="rounded d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
             <!--begin::Nav-->
-            <div class="bg-white   stepper-nav p-10 mt-6">
+            <div class="bg-white   stepper-nav py-14 px-10 ">
                 <!--begin::Step 1-->
-                <div class="stepper-item cursor-pointer current "
-                    onClick="(function(){jQuery('.step-container,.step-item').addClass('hidden'), jQuery('#basic-form').removeClass('hidden'), jQ})()"
-                    data-kt-stepper-element="nav">
+                <div class="stepper-item cursor-pointer current " data-id="basic-form"
+                    >
                     <!--begin::Wrapper-->
                     <div class="stepper-wrapper flex gap-6 ">
                         <!--begin::Icon-->
@@ -41,7 +40,7 @@
                 <!--end::Step 1-->
 
                 <!--begin::Step 2-->
-                <div class="stepper-item cursor-pointer " data-kt-stepper-element="nav">
+                <div class="stepper-item cursor-pointer " data-id="info-form">
                     <!--begin::Wrapper-->
                     <div class="stepper-wrapper flex gap-6">
                         <!--begin::Icon-->
@@ -53,11 +52,11 @@
                         <!--begin::Label-->
                         <div class="stepper-label">
                             <h3 class="stepper-title">
-                                Frameworks
+                                Information
                             </h3>
 
                             <div class="stepper-desc">
-                                Define your app framework
+                                Some information for system
                             </div>
                         </div>
                         <!--begin::Label-->
@@ -71,7 +70,8 @@
                 <!--end::Step 2-->
 
                 <!--begin::Step 3-->
-                <div class="stepper-item cursor-pointer " data-kt-stepper-element="nav">
+                <div class="stepper-item cursor-pointer " data-id="location-form"
+                    >
                     <!--begin::Wrapper-->
                     <div class="stepper-wrapper flex gap-6">
                         <!--begin::Icon-->
@@ -83,11 +83,11 @@
                         <!--begin::Label-->
                         <div class="stepper-label">
                             <h3 class="stepper-title">
-                                Database
+                                Location
                             </h3>
 
                             <div class="stepper-desc">
-                                Select the app database type
+                                Information about the location
                             </div>
                         </div>
                         <!--end::Label-->
@@ -101,7 +101,8 @@
                 <!--end::Step 3-->
 
                 <!--begin::Step 4-->
-                <div class="stepper-item cursor-pointer " data-kt-stepper-element="nav">
+                <div class="stepper-item cursor-pointer " data-id="fields-form"
+                    >
                     <!--begin::Wrapper-->
                     <div class="stepper-wrapper flex gap-6">
                         <!--begin::Icon-->
@@ -113,11 +114,11 @@
                         <!--begin::Label-->
                         <div class="stepper-label">
                             <h3 class="stepper-title">
-                                Billing
+                                Custom fields
                             </h3>
 
                             <div class="stepper-desc">
-                                Provide payment details
+                                Custom fields for the item
                             </div>
                         </div>
                         <!--end::Label-->
@@ -131,7 +132,8 @@
                 <!--end::Step 4-->
 
                 <!--begin::Step 5-->
-                <div class="stepper-item cursor-pointer " onClick="(function(){jQuery().addClass()})()">
+                <div class="stepper-item cursor-pointer " data-id="business-form" 
+                    >
                     <!--begin::Wrapper-->
                     <div class="stepper-wrapper flex gap-6">
                         <!--begin::Icon-->
@@ -143,11 +145,11 @@
                         <!--begin::Label-->
                         <div class="stepper-label">
                             <h3 class="stepper-title">
-                                Completed
+                                Business info
                             </h3>
 
                             <div class="stepper-desc">
-                                Review and Submit
+                                Information about the business
                             </div>
                         </div>
                         <!--end::Label-->
@@ -158,9 +160,9 @@
             </div>
             <!--end::Nav-->
         </div>
-        <form action="{{route('Lead.store')}}"  class="ajax-form" method="POST">
-            @csrf
-            <div id="content">
+        <div id="content" class="w-2/3 pull-right content ">
+            <form action="{{route('Lead.store')}}"  class="ajax-form" method="POST" id="form">
+                @csrf
                 <div class="w-full  step-container" id="basic-form">
 
                     <div class="card w-full">
@@ -178,7 +180,7 @@
                                 <div class="form-group w-full" app-field-wrapper="subject"><label for="subject"
                                         class="control-label">First name</label>
                                     <input type="text" id="fname" name="first_name" class="form-control form-control-solid"
-                                        autofocus="1">
+                                        autofocus="1" required>
                                 </div>
 
 
@@ -358,7 +360,7 @@
                 </div>
 
 
-                <div class="card w-full step-container">
+                <div class="card w-full step-container" id="business-form">
                     <div class="card-body">
 
                         <div class="mb-2 text-start">
@@ -399,12 +401,13 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
-
-        </form>
+                </div>  
+            </form>
+        </div>
     </div>
 </div>
+<style>
+</style>
 @endsection
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -412,11 +415,23 @@
 <script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
 <script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
 <script>
-var stickySidebar = new StickySidebar('#form-sidebar', {
-    topSpacing: 10,
-    bottomSpacing: 0,
-    containerSelector: '.content-wrapper',
-    innerWrapperSelector: '.stepper-nav'
-});
+    jQuery(document).ready(function(e){
+        // jQuery('#content').css({'margin-left': (jQuery('#form-sidebar').width()+20)+'px'})
+        jQuery('.content-wrapper').addClass('flex')
+        jQuery(document).on('click', '.stepper-item', function(e){
+            document.getElementById(jQuery(this).data('id')).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            // return jQuery('.step-container,.step-item').addClass('hidden'), 
+            // jQuery('#'+jQuery(this).data('id')).removeClass('hidden'), 
+            jQuery('.stepper-icon').removeClass('bg-success'), 
+            jQuery(this).children().children('.stepper-icon').addClass('bg-success'); 
+        })
+        
+        var stickySidebar = new StickySidebar('#form-sidebar', {
+            topSpacing: 20,
+            bottomSpacing: 0,
+            containerSelector: '.content-wrapper',
+            innerWrapperSelector: '.stepper-nav'
+        });
+    })
 </script>
 @endsection
