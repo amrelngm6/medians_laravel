@@ -16,7 +16,7 @@
                         
                         <div class="d-flex align-items-center position-relative my-1" 
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Search for tasks by name" >
-                            <input type="text" class="filter-on-change form-control form-control-solid w-150px ps-12" placeholder="Search in Tasks">
+                            <input type="text" class="filter-on-change form-control form-control-solid w-150px ps-12" placeholder="Search in Tasks" name="name">
                         </div>
                         <div class="d-flex align-items-center position-relative my-1"
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter tasks by Due date" >
