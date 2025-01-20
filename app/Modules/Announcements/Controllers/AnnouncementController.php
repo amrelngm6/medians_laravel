@@ -82,8 +82,8 @@ class AnnouncementController extends Controller
             $datesData['start'] = date("Y-m-d", strtotime($dates[0]));
             $datesData['end'] = date("Y-m-d", strtotime($dates[1]));
 
-            $datesData['model_type'] = $request->model_type ?? get_class($user);
-            $datesData['model_id'] = $request->model_id ?? $user->staff_id;
+            $datesData['model_type'] = !empty($request->model_type) ? $request->model_type : get_class($user);
+            $datesData['model_id'] = !empty($request->model_id) ? $request->model_id : $user->staff_id;
 
             // Create and save the Announcement
             $announcement = $this->service->createAnnouncement( array_merge($datesData, $userData, $request->only('name', 'description', 'model_id', 'model_type', 'user_id', 'user_type')));
