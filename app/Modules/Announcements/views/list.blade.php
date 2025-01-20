@@ -43,9 +43,6 @@
                         <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="announcements" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
                     </div>
                     
-                    <div class="d-flex align-items-center position-relative my-1">
-                        @include('status.status-field-inline')
-                    </div>
                     <span class="w-full"></span>
                     <a class="btn btn-md btn-primary me-2 show-modal" href="#!" data-modal="#new-announcement-modal">
                         New Announcement </a>
