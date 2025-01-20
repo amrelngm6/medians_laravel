@@ -17,6 +17,11 @@ class Estimate extends Model
         return $this->hasMany(EstimateItem::class, 'estimate_id', 'id');
     }
 
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
     public function client()
     {
         return $this->hasOne(Client::class, 'client_id', 'client_id');

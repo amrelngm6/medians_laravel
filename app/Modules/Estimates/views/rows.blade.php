@@ -5,8 +5,8 @@
                                 <td>{{$estimate->id}}</td>
                                 <td>{{$estimate->title}}</td>
                                 <td>
-                                    @if ($estimate->user) <img alt="Pic" src="/{{ $estimate->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
-                                    {{ $estimate->user->name ?? '' }}</td>
+                                    @if ($estimate->client) <img alt="Pic" src="/{{ $estimate->client->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">@endif
+                                    {{ $estimate->client->name ?? '' }}</td>
                                     
                                 <td >
                                     <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
