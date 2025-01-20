@@ -136,7 +136,7 @@
     // Function to fetch and update table data
     // function fetchData(startDate = '', endDate = '') {
     function fetchData() {
-        jQuery('tbody#rows-proposals').html(' ');
+        jQuery('tbody#rows-estimates').html(' ');
         const form = document.getElementById('filter-form');
     
         // Get the form data as a FormData object
@@ -152,7 +152,7 @@
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.responseText)
                 {
-                    jQuery('tbody#rows-proposals').html(xhr.responseText);
+                    jQuery('tbody#rows-estimates').html(xhr.responseText);
                     table.clear();
                     table.responsive.recalc();
                 }

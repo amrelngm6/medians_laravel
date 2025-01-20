@@ -14,16 +14,35 @@ class EstimateService
     {
         $user = Auth::user();
 
-        $Leads = Estimate::forBusiness($user->business_id ?? 0);
+        $query = Estimate::forBusiness($user->business_id ?? 0);
 
-        return $Leads->with('client','items')->paginate(100);
+        return $query->with('client','items')->paginate(100);
     }
     
-    public function query($modelId, $modelType)
+    public function query($request, $modelId = null, $modelType = null)
     {
-        $Leads = Estimate::query();
+        $query = Estimate::query();
 
-        return $Leads->where("model_id", $modelId)->where('model_type', $modelType)->with('client','items')->paginate(100);
+        if (!empty($modelType) && !empty($modelId)) {
+            $query->where("model_id", $modelId)->where('model_type', $modelType);
+        }
+        
+        if (!empty($request->status_id))
+        {
+            $query->where('status_id', $request->status_id);
+        }
+        
+        if ($request->has('client_id')) {
+            $query->where('client_id', $request->client_id);
+        }
+
+        if ($request->has('staff_id')) {
+            $query->whereHas('team', function($q) use ($request){
+                return $q->where('user_id', $request->staff_id)->where('user_type', Staff::class);
+            });
+        }
+
+        return $query->with('client','items')->paginate(100);
     }
 
     public function find($estimateId)

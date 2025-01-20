@@ -13,11 +13,11 @@ use App\Modules\Customers\Services\ClientService;
 
 class EstimateController extends Controller
 {
-    protected $estimateService;
+    protected $service;
 
-    public function __construct(EstimateService $estimateService)
+    public function __construct(EstimateService $service)
     {
-        $this->estimateService = $estimateService;
+        $this->service = $service;
     }
 
     public function index(Request $request)
@@ -29,15 +29,14 @@ class EstimateController extends Controller
         }
 
         // Display a single Estimate
-        $estimates = $this->estimateService->get();
-        $statusList = $this->estimateService->loadStatusList();
+        $statusList = $this->service->loadStatusList();
         $clientService = new ClientService;
         $clients = $clientService->query();
         
         $ItemService = new ItemService;
         $items = $ItemService->query();
 
-        return view('estimate::list', compact('items', 'estimates', 'user', 'statusList', 'clients'));
+        return view('estimate::list', compact('items', 'user', 'statusList', 'clients'));
     }
 
     public function filter(Request $request)
@@ -49,7 +48,7 @@ class EstimateController extends Controller
         }
 
         // Display a single Estimate
-        $estimates = $this->estimateService->get();
+        $estimates = $this->service->query($request);
 
         return view('estimate::rows', compact('estimates'));
     }
@@ -74,7 +73,7 @@ class EstimateController extends Controller
             'created_by' => $user->id() ?? 0
         ];
 
-        $create = $this->estimateService->createEstimate(array_merge($userInfo, $request->only('items', 'title', 'content', 'model_type', 'model_id', 'client_id', 'date', 'expiry_date', 'currency_id', 'subtotal', 'discount_amount', 'tax_amount', 'total', 'status_id')));
+        $create = $this->service->createEstimate(array_merge($userInfo, $request->only('items', 'title', 'content', 'model_type', 'model_id', 'client_id', 'date', 'expiry_date', 'currency_id', 'subtotal', 'discount_amount', 'tax_amount', 'total', 'status_id')));
 
         return $create ? response()->json([
             'success' => true,
@@ -92,7 +91,7 @@ class EstimateController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        $statusList = $this->estimateService->loadStatusList();
+        $statusList = $this->service->loadStatusList();
         $clientService = new ClientService;
         $clients = $clientService->query();
         
@@ -100,7 +99,7 @@ class EstimateController extends Controller
         $items = $ItemService->query();
 
         // Display a single Estimate
-        $estimate = $this->estimateService->find($id);
+        $estimate = $this->service->find($id);
 
         return view('estimate::edit-modal', compact('estimate', 'items', 'clients','statusList'));
     }
@@ -118,14 +117,14 @@ class EstimateController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $this->estimateService->updateEstimate($id, $request->all());
+        $this->service->updateEstimate($id, $request->all());
 
         return response()->json(['result' => 'Estimate updated successfully'], 200);
     }
 
     public function destroy($id)
     {
-        $this->estimateService->deleteEstimate($id);
+        $this->service->deleteEstimate($id);
 
         return response()->json(['result' => 'Estimate deleted successfully'], 200);
     }
@@ -164,8 +163,8 @@ class EstimateController extends Controller
 
         $projectTabs = $this->loadModuleTabs('Projects.tabs');
 
-        $estimates = $this->estimateService->query($project->project_id, get_class($project));
-        $statusList = $this->estimateService->loadStatusList();
+        $estimates = $this->service->query($project->project_id, get_class($project));
+        $statusList = $this->service->loadStatusList();
 
         $ItemService = new ItemService;
         $items = $ItemService->query();
