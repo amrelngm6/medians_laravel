@@ -24,15 +24,7 @@ class GoalService
     {
         $goal = Goal::create($data);
 
-        if ($save  && isset($data['category_id']))
-        {
-            $saveCategory = ModelCategory::create([
-                'model_id' => $goal->id,
-                'model_type' => Goal::class,
-                'category_id' => $data['category_id'],
-                'created_by' => Auth::user()->id()
-            ]);
-        }
+
 
         return $save;
     }
@@ -94,14 +86,8 @@ class GoalService
         }
 
         
-        if ($request->has('category_id') && $request->category_id != '0') {
-            $goal->whereHas('category', function ($query) use ($request) {
-                $query->where('category_id', $request->category_id)->with('category');
-            });
-        }
-
-        if ($request->has('client_id')) {
-            $goal->where('client_id', $request->client_id);
+        if ($request->has('user_id') && $request->has('user_type')) {
+            $goal->where('user_id', $request->user_id)->where('user_type', $request->user_type);
         }
 
         if ($request->has('created_by')) {
