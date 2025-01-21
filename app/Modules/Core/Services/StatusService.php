@@ -14,6 +14,12 @@ class StatusService
         return Status::forBusiness(Auth::user()->business_id ?? 0)->get()->groupBy('name');
     }
 
+    public function lastStatusId()
+    {
+        // Status logic for creating a Status
+        return Status::orderBy('status_id', 'desc')->first()->status_id ?? 0;
+    }
+
 
     public function createStatus(array $data)
     {

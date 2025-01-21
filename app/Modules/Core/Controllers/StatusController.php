@@ -54,7 +54,9 @@ class StatusController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        return view('status.new-status-modal');
+        $newId = $this->statusService->lastStatusId();
+
+        return view('status.new-status-modal', compact('newId'));
     }
 
     /**
@@ -85,6 +87,7 @@ class StatusController extends Controller
         // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'status_id' => 'required|unique|status_list:status_id',
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +99,7 @@ class StatusController extends Controller
         }
         
         // Create and save the Status
-        $source = $this->statusService->createStatus(array_merge($request->only('name', 'model','sort','color'), ['created_by' => auth()->user()->staff_id]));
+        $source = $this->statusService->createStatus(array_merge($request->only('name', 'model','sort','color', 'status_id'), ['created_by' => auth()->user()->staff_id]));
 
         return $source ? response()->json([
             'no_reset' => true,

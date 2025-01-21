@@ -19,6 +19,7 @@
                 <!--begin:Form-->
                 <form id="modal_new_target_form" method="POST" class="ajax-form form" action="{{route('StatusList.store')}}">
                     @csrf
+                    <input type="hidden" name="status_id" value="{{$newId}}" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
