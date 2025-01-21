@@ -4,19 +4,40 @@ namespace App\Modules\NLP\Services;
 
 use Swapinvidya\HuggingFaceClient\HuggingFaceClient;
 use App\Models\Auth;
+use GuzzleHttp\Client;
 
 class HuggFaceService
 {
-    
+
     protected $client;
 
-    public function __construct(HuggingFaceClient $client)
+    public function __construct()
     {
-        $this->client = $client;
+        $this->client = new Client([
+            'base_uri' => 'https://api-inference.huggingface.co/',
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('HUGGINGFACE_API_KEY'),
+            ],
+        ]);
     }
     
-    public function generateText()
+    public function analyzeText(string $text)
     {
-        return $this->client->generateText('gpt2', 'Write a short story about a hero.');
+        $model = 'google/gemma-2-2b-it';
+        $response = $this->client->post("models/$model", [
+            'json' => ['inputs' => $text],
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+    
+    public function generateText(string $text)
+    {
+        $model = 'google/gemma-2-2b-it';
+        $response = $this->client->post("models/$model", [
+            'json' => ['inputs' => $text],
+        ]);
+    
+        return json_decode($response->getBody()->getContents(), true);
     }
 }
