@@ -148,5 +148,13 @@ class ConversationController extends Controller
         $repo->updateMedia($mediaid, $filename);
     }
 
+    /**
+     * Show the form for updating a Lead.
+     */
+    public function settings(Request $request)
+    {
+        return view('whatsapp::settings');
+    }
+
 
 }

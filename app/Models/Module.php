@@ -44,12 +44,12 @@ class Module extends Model
     
     public static function getActiveForBusiness()
     {
-        return Module::where('is_enabled', true)->where('business_access', true)->get();
+        return Module::where('is_enabled', 1)->where('business_access', 1)->get();
     }
 
     public static function getActiveHasSetting()
     {
-        return Module::where('is_enabled', true)->where('has_settings', true)->get();
+        return Module::where('is_enabled', 1)->where('has_settings', 1)->get();
     }
 
 }

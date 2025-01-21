@@ -20,6 +20,9 @@ Route::prefix('clients')->middleware(['web', 'auth:staff'])->group(function () {
 
 });
 
+/** 
+ * Add Staff settings tab at System Settings page
+ */
 Route::prefix('settings')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
     Route::get('/staff', [StaffController::class, 'settings'])->name('Staff.settings');
 });

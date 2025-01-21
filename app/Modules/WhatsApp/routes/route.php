@@ -35,3 +35,11 @@ Route::prefix('wp_messages')->middleware(['web','auth:staff,superadmin'])->group
 // Route::prefix('project')->middleware(['web', 'auth:staff'])->group(function () {
 //     Route::get('/{id}/expenses', [ConversationController::class, 'project'])->name('Projects.tabs.expenses');
 // });
+
+
+/** 
+ * Add Staff settings tab at System Settings page
+ */
+Route::prefix('settings')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
+    Route::get('/whatsapp', [ConversationController::class, 'settings'])->name('WhatsApp.settings');
+});
