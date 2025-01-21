@@ -6,9 +6,10 @@
                                 <td>{{ $goal->name }}</td>
                                 <td>
                                     <img alt="Pic" src="/{{ $goal->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">
-                                    {{ $goal->user->name ?? '' }}</td>
-                                <td>{{date('M d, Y', strtotime($goal->due_date)) }}</td>
+                                    {{ $goal->user->name ?? '' }}
+                                </td>
                                 <td>{{ $goal->model->name ?? '' }}</td>
+                                <td>{{date('M d, Y', strtotime($goal->due_date)) }}</td>
                                 <td>
                                     <span
                                         class="badge bg-{{$goal->status->color ?? ''}} px-2.5 py-1 inline-block text-xs font-medium rounded border bg-orange-100 border-transparent text-orange-500 dark:bg-orange-500/20 dark:border-transparent">{{$goal->status->name ?? ''}}</span>
