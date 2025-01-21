@@ -23,8 +23,6 @@ class GoalService
     public function createGoal(array $data)
     {
         $goal = Goal::create($data);
-        $goal->code = 'EXP-' . $goal->id;
-        $save =  $goal->save();
 
         if ($save  && isset($data['category_id']))
         {
