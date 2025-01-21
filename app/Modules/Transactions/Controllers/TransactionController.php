@@ -49,7 +49,7 @@ class TransactionController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Transactions create')) {
+        if ($user->cannot('Transactions create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -62,7 +62,7 @@ class TransactionController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Transactions edit')) {
+        if ($user->cannot('Transactions edit') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -111,7 +111,7 @@ class TransactionController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Transactions view')) {
+        if ($user->cannot('Transactions view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -152,7 +152,7 @@ class TransactionController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Transactions delete')) {
+        if ($user->cannot('Transactions delete') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 

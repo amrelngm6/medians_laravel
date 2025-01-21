@@ -95,7 +95,7 @@ class UploadController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Uploads delete')) {
+        if ($user->cannot('Uploads delete') && Auth::guardName() != 'superadmin') {
             
             return response()->json([
                 'success' => false,
