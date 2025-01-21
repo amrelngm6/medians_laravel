@@ -17,7 +17,7 @@
                                 <!--begin::Input group-->
                                 <div class="d-flex flex-column fv-row w-full ">
                                     <input class="form-control w-full  form-control-solid" placeholder="Task deadline date"
-                                            name="start_date" type="date"  value="{{$task->start_date}}" />
+                                            name="start_date" type="date"  value="{{$task->start_date ?? date('Y-m-d')}}" />
                                 </div>
                                 <!--end::Input group-->
 
