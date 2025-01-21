@@ -37,6 +37,8 @@
                     <!--end::Title-->
                     <div class="flex gap-10 pb-6">
                         <a class="pt-2 open-modal text-primary"
+                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                            data-content="Start Date"
                             href="{{route('Task.edit_field',['id' => $task->task_id, 'field' => 'tasks::components.start_date'])}}">
                             <i class="bx bx-calendar"></i> {{ date('M d, Y', strtotime($task->start_date)) }}
                         </a>
@@ -55,8 +57,8 @@
                                         data-confirm-text="Confirm remove this member"
                                         href="{{route('Task.delete_team', $member->id)}}"
                                         data-params='{"_token":"{{csrf_token()}}", "model_id": "{{$task->task_id}}", "id": "{{$member->id}}" }'
-                                        class="ajax-link symbol symbol-35px symbol-circle" rel="popover"
-                                        data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        class="ajax-link symbol symbol-35px symbol-circle" 
+                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                         data-content="{{$member->user->name ?? ''}}">
                                         <img alt="Pic" src="/{{$member->user->picture ?? ''}}">
                                     </a>
