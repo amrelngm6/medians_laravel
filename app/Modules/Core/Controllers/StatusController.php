@@ -87,7 +87,7 @@ class StatusController extends Controller
         // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'status_id' => 'required|unique|status_list:status_id',
+            'status_id' => 'required|unique:status_list,status_id',
         ]);
 
         if ($validator->fails()) {
