@@ -33,7 +33,7 @@ class ModuleController extends Controller
         $path = str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations";
         $migrate = Artisan::call("migrate --path=$path");
 
-        return response()->json(['success'=>1, 'reload'=>1, 'result' => 'Module updated successfully.']);
+        return response()->json(['success'=>1, 'result' => 'Module updated successfully.']);
     }
 
 

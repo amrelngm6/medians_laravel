@@ -38,13 +38,20 @@
                                             
                                             <td class=" ">{{$module->name}}</td>
                                             <td class=" status">
-                                                <a href="{{route('Modules.update', $module->id)}}?is_enabled={{$module->is_enabled ? '0' : 1}}&_token={{@csrf_token()}}" class="ajax-link" ><span class="badge round-{{$module->is_enabled ? 'success' : 'danger'}} px-2.5 py-0.5 inline-block text-xs font-medium rounded border "
                                                 
+                                                <a onClick="(function(){jQuery('.set-{{$module->id}}').toggleClass('hidden')})()" href="{{route('Modules.update', $module->id)}}?is_enabled=1&_token={{@csrf_token()}}" class="ajax-link set-{{$module->id}} {{$module->is_enabled ? 'hidden' : ''}}" ><span class="badge round-danger px-2.5 py-0.5 inline-block text-xs font-medium rounded border "
                                                 rel="popover" data-animate=" animated fadeIn " data-container="body"
                                                 data-toggle="popover" data-placement="top"
-                                                data-content="{{$module->name}}"
-                                                data-title="{{$module->is_enabled ? 'Disable Module' : 'Enable Module'}}" data-trigger="hover" data-html="true"
-                                                 >{{$module->is_enabled ? 'Enabled' : 'Disabled'}}</span></a>
+                                                data-content="Enable Module"
+                                                data-title="{{$module->name}}" data-trigger="hover" data-html="true"
+                                                 >Disabled</span></a>
+                                                 
+                                                <a onClick="(function(){jQuery('.set-{{$module->id}}').toggleClass('hidden')})()"  href="{{route('Modules.update', $module->id)}}?is_enabled=0&_token={{@csrf_token()}}" class="ajax-link set-{{$module->id}} {{$module->is_enabled ? '' : 'hidden'}} " ><span class="badge round-success px-2.5 py-0.5 inline-block text-xs font-medium rounded border "
+                                                rel="popover" data-animate=" animated fadeIn " data-container="body"
+                                                data-toggle="popover" data-placement="top"
+                                                data-content="Disable Module"
+                                                data-title="{{$module->name}}" data-trigger="hover" data-html="true"
+                                                 >Enabled</span></a>
                                             </td>
                                         </tr>
                                         @endforeach

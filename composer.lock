@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "480565e0a1f5bddf3b9d3d79d96d0c3d",
+    "content-hash": "d8fae9b45f60b2bbc71d716ba6c43619",
     "packages": [
         {
             "name": "ashtokalo/php-translit",
@@ -3458,6 +3458,55 @@
                 }
             ],
             "time": "2024-11-08T18:45:41+00:00"
+        },
+        {
+            "name": "swapinvidya/laravel-huggingface-client",
+            "version": "v1.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swapins/laravel-huggingface-client.git",
+                "reference": "4013faadb32020ebdb12fb6ed1bc828355aab381"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swapins/laravel-huggingface-client/zipball/4013faadb32020ebdb12fb6ed1bc828355aab381",
+                "reference": "4013faadb32020ebdb12fb6ed1bc828355aab381",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "swapinvidya\\HuggingFaceClient\\HuggingFaceServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "swapinvidya\\HuggingFaceClient\\": "src/HuggingFaceClient/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Swapin Vidya",
+                    "email": "swapin@laravelone.in"
+                }
+            ],
+            "description": "A Laravel package for interacting with Hugging Face API",
+            "support": {
+                "issues": "https://github.com/swapins/laravel-huggingface-client/issues",
+                "source": "https://github.com/swapins/laravel-huggingface-client/tree/v1.0.10"
+            },
+            "time": "2024-11-09T06:30:26+00:00"
         },
         {
             "name": "symfony/clock",
@@ -8376,12 +8425,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

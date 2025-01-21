@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "spatie/laravel-activitylog": "^4.9",
         "spatie/laravel-permission": "^6.10",
+        "swapinvidya/laravel-huggingface-client": "^1.0",
         "thiagoalessio/tesseract_ocr": "^2.13",
         "voku/portable-ascii": "^2.0"
     },
