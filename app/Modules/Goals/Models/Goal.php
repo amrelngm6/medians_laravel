@@ -14,7 +14,7 @@ class Goal extends Model
     
     protected $table = 'goals';
 
-    protected $fillable = ['business_id', 'description', 'amount', 'code', 'model_type', 'model_id', 'created_by',  'payment_method', 'date', 'status_id'];
+    protected $fillable = ['business_id', 'description', 'name', 'user_type', 'user_id', 'model_type', 'model_id', 'due_date', 'date', 'status_id'];
 
     
 
