@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
+            $table->string('name',191)->nullable();
             $table->text('description')->nullable();
             $table->morphs('model');
-            $table->decimal('amount', 15);
-            $table->string('code',191)->nullable();
-            $table->string('payment_method',191)->nullable();
+            $table->morphs('user');
             $table->date('date');
+            $table->date('due_date');
             $table->integer('status_id')->default(0);
-            $table->integer('created_by')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

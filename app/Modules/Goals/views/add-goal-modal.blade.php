@@ -45,12 +45,6 @@
                                 class="form-control form-control-solid " value="">
                         </div>
                         
-                        <div class="form-group w-full"><label for="date" class="control-label">Date</label>
-                            <input type="date" class=" form-control form-control-solid  " id="date" name="date"
-                                class="form-control form-control-solid " value="{{date('Y-m-d')}}">
-                        </div>
-                    </div>
-                    <div class="w-full flex gap-10">
                         <div class="form-group w-full"><label for="status_id" class="control-label">Status</label>
                             <select name="status_id" id="status_id" class="form-control form-control-solid">
                                 @foreach ($statusList as $status)
@@ -58,12 +52,17 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group w-full"><label for="category_id" class="control-label">Category</label>
-                            <select name="category_id" id="category_id" class="form-control form-control-solid">
-                                @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                    </div>
+                    <div class="w-full flex gap-10">
+                        
+                        <div class="form-group w-full"><label for="date" class="control-label">Start Date</label>
+                            <input type="date" class=" form-control form-control-solid  " id="date" name="date"
+                                class="form-control form-control-solid " value="{{date('Y-m-d')}}">
+                        </div>
+                        
+                        <div class="form-group w-full"><label for="due_date" class="control-label">Due Date</label>
+                            <input type="date" class=" form-control form-control-solid  " id="due_date" name="due_date"
+                                class="form-control form-control-solid " value="{{date('Y-m-d', strtotime('+7 days'))}}">
                         </div>
                     </div>
                     
