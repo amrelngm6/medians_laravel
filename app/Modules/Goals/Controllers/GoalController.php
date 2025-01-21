@@ -87,9 +87,10 @@ class GoalController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'amount' => 'required|integer|min:1',
+            'name' => 'required|string',
             'status_id' => 'required|integer',
             'date' => 'required|date',
+            'due_date' => 'date',
         ]);
 
         if ($validator->fails()) {
