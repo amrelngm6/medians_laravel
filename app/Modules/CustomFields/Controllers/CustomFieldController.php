@@ -30,7 +30,7 @@ class CustomFieldController extends Controller
     public function index(Request $request)
     {
 
-        if (Auth::user()->cannot('CustomField view')) {
+        if (Auth::user()->cannot('CustomField view')  && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 

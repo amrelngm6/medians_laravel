@@ -46,7 +46,7 @@ class TemplateController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Templates create')) {
+        if ($user->cannot('Templates create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -64,7 +64,7 @@ class TemplateController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Templates edit')) {
+        if ($user->cannot('Templates edit') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 

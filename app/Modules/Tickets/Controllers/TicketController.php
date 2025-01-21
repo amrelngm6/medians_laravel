@@ -59,7 +59,7 @@ class TicketController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Tickets create')) {
+        if ($user->cannot('Tickets create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -81,7 +81,7 @@ class TicketController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Tickets view')) {
+        if ($user->cannot('Tickets view') && Auth::guardName() != 'superadmin') {
             abort(401, 'Unauthorized');
         }
 

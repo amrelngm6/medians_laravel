@@ -42,7 +42,9 @@ class CategoryController extends Controller
     public function overview(Request $request, $id)
     {
 
-        if ($request->user()->cannot('Category view')) {
+        $user = Auth::user();
+        
+        if ($user->cannot('Category view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 

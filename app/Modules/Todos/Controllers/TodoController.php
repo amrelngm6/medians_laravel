@@ -22,7 +22,7 @@ class TodoController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('ToDo view') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Todo view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -36,7 +36,7 @@ class TodoController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('ToDo create')) {
+        if ($user->cannot('Todo create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
         
@@ -53,7 +53,7 @@ class TodoController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('ToDo edit')) {
+        if ($user->cannot('Todo edit') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -65,6 +65,10 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
+        if ($user->cannot('Todo create') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
 
         $validator = Validator::make($request->all(), [
             'description' => 'required|string|max:255',
@@ -103,6 +107,12 @@ class TodoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+
+        if ($user->cannot('Todo edit') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
         $validator = Validator::make($request->all(), [
             'completed' => 'required|integer',
         ]);
@@ -127,6 +137,12 @@ class TodoController extends Controller
 
     public function destroy($id)
     {
+        $user = Auth::user();
+
+        if ($user->cannot('Todo delete') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
         $delete = $this->todoService->deleteTodo($id);
 
         return $delete ? response()->json([
