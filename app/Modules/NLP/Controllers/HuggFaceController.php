@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Auth;
 
-use Swapinvidya\HuggingFaceClient\HuggingFaceClient;
 use App\Modules\NLP\Services\HuggFaceService;
 
 class HuggFaceController extends Controller
