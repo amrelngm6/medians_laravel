@@ -54,7 +54,7 @@ class StatusController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        $newId = $this->statusService->lastStatusId();
+        $newId = $this->statusService->lastStatusId() + 1;
 
         return view('status.new-status-modal', compact('newId'));
     }
