@@ -8,10 +8,10 @@
                                     <img alt="Pic" src="/{{ $goal->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">
                                     {{ $goal->user->name ?? '' }}
                                 </td>
+                                <td>
                                 <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
                                         data-content="Related to <b>{{basename($goal->model)}}: {{ $goal->model->name ?? '' }}</b>">
-                                {{ $goal->model->name ?? '' }}</span>
-                                <td>{{ $goal->model->name ?? '' }}</td>
+                                {{ $goal->model->name ?? '' }}</span></td>
                                 <td>{{date('M d, Y', strtotime($goal->due_date)) }}</td>
                                 <td>
                                     <span
