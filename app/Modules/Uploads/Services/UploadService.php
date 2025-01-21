@@ -36,7 +36,7 @@ class UploadService
 
     public function getAllByModel($id, $model)
     {
-        $scope = basename(str_getcsv('\\','/', $model));
+        $scope = basename(str_replace('\\','/', $model));
         return Upload::forBusiness(Auth::user()->business_id ?? null)
         ->$scope($id, $model)
         ->get();
