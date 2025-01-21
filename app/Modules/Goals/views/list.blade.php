@@ -60,18 +60,6 @@
                         </div>
                     </div>
                     
-                    <div class="d-flex align-items-center position-relative my-1">
-                        
-                        <div class="select-placeholder w-full">
-                            <select id="category_id" name="category_id" placeholder=""
-                                class=" select-bootstrap border border-gray-300 form-control form-control-solid ">
-                                <option value="0">Category</option>
-                                @foreach ($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name ?? ''}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                     <div class="flex flex-equal flex-end">
                         <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Goal.create')}}" data-modal="#new-goal-modal">
                         New goal </a>
@@ -84,10 +72,11 @@
                     <table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
                         <thead>
                             <tr>
-                                <th class="text-start">Code</th>
+                                <th class="text-start">#</th>
+                                <th class="text-start">Name</th>
                                 <th class="text-start">User</th>
-                                <th class="text-start">Amount</th>
-                                <th class="text-start">Date</th>
+                                <th class="text-start">Item</th>
+                                <th class="text-start">Due date</th>
                                 <th class="text-start">Status</th>
                                 <th class="text-start">Actions</th>
                             </tr>
