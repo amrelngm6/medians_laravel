@@ -163,7 +163,7 @@ class EstimateController extends Controller
 
         $projectTabs = $this->loadModuleTabs('Projects.tabs');
 
-        $estimates = $this->service->query($project->project_id, get_class($project));
+        $estimates = $this->service->query($request, $project->project_id, get_class($project));
         $statusList = $this->service->loadStatusList();
 
         $ItemService = new ItemService;
