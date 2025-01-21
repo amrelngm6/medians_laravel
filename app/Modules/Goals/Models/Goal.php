@@ -32,7 +32,7 @@ class Goal extends Model
      */
     public function user()
     {
-        return $this->hasOne(Staff::class, 'staff_id', 'created_by');
+        return $this->morphTo();
     }
 
     
