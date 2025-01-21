@@ -69,7 +69,9 @@ class BusinessController extends Controller
     public function create(Request $request)
     {
 
-        if ($request->user()->cannot('Business create')) {
+        $user = Auth::user();
+
+        if ($user->cannot('Business create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
         $categoryService = new CategoryService;
@@ -83,8 +85,9 @@ class BusinessController extends Controller
      */
     public function edit(Request $request)
     {
+        $user = Auth::user();
 
-        if ($request->user()->cannot('Business create')) {
+        if ($user->cannot('Business create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -102,7 +105,13 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         
+        if ($user->cannot('Business create') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
+
         // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -133,7 +142,12 @@ class BusinessController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
         
+        if ($user->cannot('Business edit') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
         // Validate updated data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -163,7 +177,12 @@ class BusinessController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
         
+        if ($user->cannot('Business delete') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
         $Business = Business::findOrFail($id);
         $Business->delete();
 
