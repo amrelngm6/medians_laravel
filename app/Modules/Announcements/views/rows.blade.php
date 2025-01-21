@@ -25,6 +25,4 @@
                                 </td>
                             </tr>
                             @endforeach
-                <script>
-                MediansSettings.tooltipsPopovers();
-                </script>
+<script>MediansSettings.tooltipsPopovers();</script>
