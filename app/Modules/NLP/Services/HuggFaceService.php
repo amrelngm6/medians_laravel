@@ -2,7 +2,6 @@
 
 namespace App\Modules\NLP\Services;
 
-use Swapinvidya\HuggingFaceClient\HuggingFaceClient;
 use App\Models\Auth;
 use GuzzleHttp\Client;
 
