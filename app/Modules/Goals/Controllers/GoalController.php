@@ -22,7 +22,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goals view') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Goal view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
@@ -51,7 +51,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goals create')) {
+        if ($user->cannot('Goal create')) {
             abort(403, 'Unauthorized');
         }
 
@@ -67,7 +67,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goals edit')) {
+        if ($user->cannot('Goal edit')) {
             abort(403, 'Unauthorized');
         }
 
@@ -118,7 +118,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goals view')) {
+        if ($user->cannot('Goal view')) {
             abort(403, 'Unauthorized');
         }
 
@@ -159,7 +159,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goals delete')) {
+        if ($user->cannot('Goal delete')) {
             return response()->json([
                 'success' => false,
                 'title' => 'Unauthorized',
