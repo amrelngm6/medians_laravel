@@ -10,7 +10,7 @@
                                 </td>
                                 <td>
                                 <span  rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
-                                        data-content="Related to <b>{{basename($goal->model_type)}}: {{ $goal->model->name ?? '' }}</b>">
+                                        data-content="Related to <b>{{$goal->modelName()}}: {{ $goal->model->name ?? '' }}</b>">
                                 {{ $goal->model->name ?? '' }}</span></td>
                                 <td>{{date('M d, Y', strtotime($goal->due_date)) }}</td>
                                 <td>

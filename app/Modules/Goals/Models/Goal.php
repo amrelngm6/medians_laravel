@@ -4,7 +4,6 @@ namespace App\Modules\Goals\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Core\Models\Status;
-use App\Modules\Core\Models\ModelCategory;
 use App\Modules\Customers\Models\Staff;
 
 
@@ -36,15 +35,15 @@ class Goal extends Model
     }
 
     
-
     /**
-     * Load related category
+     * Get Model Name
      */
-    public function category()
+    public function modelName()
     {
-        return $this->morphOne(ModelCategory::class, 'model')->with('category');
+        return basename(str_replace('\\', '/', $this->model_type));
     }
 
+    
     /**
      * Load related user
      */
