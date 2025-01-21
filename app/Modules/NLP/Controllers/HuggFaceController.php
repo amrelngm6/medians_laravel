@@ -25,4 +25,13 @@ class HuggFaceController extends Controller
         return view('nlp::list');
     }
 
+    public function store(Request $request)
+    {
+        $user = Auth::user();
+
+        $response = $this->service->generateText($request->message);
+        
+        return $response->generated_text ?? $response;
+    }
+
 }

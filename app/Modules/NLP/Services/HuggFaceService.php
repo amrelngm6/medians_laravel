@@ -37,6 +37,6 @@ class HuggFaceService
             'json' => ['inputs' => $text],
         ]);
     
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody()->getContents(), true)[0];
     }
 }
