@@ -10,16 +10,7 @@
                         data-container="#tabContainer" data-tab="#basic-tab" href="#!" aria-selected="true"
                         role="tab">
                         <span class="nav-text text-gray-600 fw-bold fs-6 mb-3">
-                            Basic
-                        </span>
-                        <span class="bullet-custom position-absolute z-index-2 bottom-0 w-100 h-1px bg-primary rounded"></span>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="tab-li nav-link btn btn-color-600 btn-active-color-primary d-flex justify-content-center px-0 w-100 border-0 h-100"
-                        data-container="#tabContainer" data-tab="#logo-tab" href="#!" aria-selected="false" tabindex="-1" role="tab">
-                        <span class="nav-text text-gray-600 fw-bold fs-6 mb-3">
-                            Logos
+                            WhatsApp API Credentials
                         </span>
                         <span class="bullet-custom position-absolute z-index-2 bottom-0 w-100 h-1px bg-primary rounded"></span>
                     </a>
@@ -32,33 +23,27 @@
             <div class="w-full tab-element " id="basic-tab">
 
                 <div class="form-group w-full">
-                    <label for="sitename" class=" control-label">Sitename </label>
-                    <input type="text" required placeholder="System name" class=" form-control form-control-solid  "
-                        id="sitename" name="sitename" class="form-control form-control-solid " value="{{$settings['sitename'] ?? ''}}">
+                    <label for="whatsapp_baid" class=" control-label">Business Account ID </label>
+                    <input type="text" required placeholder="Business Account ID (BAID)" class=" form-control form-control-solid  "
+                        id="whatsapp_baid" name="whatsapp_baid" class="form-control form-control-solid " value="{{$settings['whatsapp_baid'] ?? ''}}">
                 </div>
 
                 <div class="form-group w-full">
-                    <label for="currency_code" class=" control-label">Currency code </label>
-                    <input type="text" required placeholder="System name" class=" form-control form-control-solid  "
-                        id="currency_code" name="currency_code" class="form-control form-control-solid " value="{{$settings['currency_code'] ?? ''}}">
+                    <label for="whatsapp_pnid" class=" control-label">Phone Number ID </label>
+                    <input type="text" required placeholder="Phone number ID (PNID)" class=" form-control form-control-solid  "
+                        id="whatsapp_pnid" name="whatsapp_pnid" class="form-control form-control-solid " value="{{$settings['whatsapp_pnid'] ?? ''}}">
                 </div>
 
-            </div>
-            <div class="w-full tab-element hidden" id="logo-tab">
-
                 <div class="form-group w-full">
-                    <label for="default_language" class=" control-label">Default language </label>
-                    <input type="text"  placeholder="System name" class=" form-control form-control-solid  "
-                        id="default_language" name="default_language" class="form-control form-control-solid " value="{{$settings['default_language']}}">
+                    <label for="system_user_token" class=" control-label">System User Token </label>
+                    <input type="text" required placeholder="System User Token" class=" form-control form-control-solid  "
+                        id="system_user_token" name="system_user_token" class="form-control form-control-solid " value="{{$settings['system_user_token'] ?? ''}}">
                 </div>
 
             </div>
 
 
             <div class="text-end">
-                <button type="reset" id="modal_new_target_cancel" class="btn btn-light me-3">
-                    Cancel
-                </button>
 
                 <button type="submit" id="modal_new_target_submit" class="btn btn-primary">
                     <span class="indicator-label">
