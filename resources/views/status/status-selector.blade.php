@@ -20,7 +20,7 @@
                                         class="select-bootstrap border border-gray-300 form-control form-control-solid ">
                                         <option value="0"></option>
                                         @foreach ($statusList as $status)
-                                        <option value="{{$status->status_id}}" @if (isset($model) && $model->status_id == $status->status_id) selected @endif >
+                                        <option value="{{$status->status_id}}" @if (isset($model->status_id) && $model->status_id == $status->status_id) selected @endif >
                                             {{$status->name}}</option>
                                         @endforeach
                                     </select>

@@ -169,8 +169,7 @@ class StatusController extends Controller
         $taskService = new TaskService;
         $model = $task = $taskService->find($id);
 
-        $statusList = $this->statusService->query();
-
+        $statusList = $this->statusService->getByModel(get_class($model));
         $field = 'status.status-selector';
         
         $modalRoute = route('Tasks.project_task', $id);

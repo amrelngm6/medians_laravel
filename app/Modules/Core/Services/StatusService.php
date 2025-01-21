@@ -8,6 +8,12 @@ use App\Models\Auth;
 class StatusService
 {
 
+    public function getByModel($model)
+    {
+        // Status logic for creating a Status
+        return Status::forBusiness(Auth::user()->business_id ?? 0)->where('model', $model)->get();
+    }
+    
     public function query()
     {
         // Status logic for creating a Status
