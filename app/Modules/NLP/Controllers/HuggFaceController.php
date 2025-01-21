@@ -30,8 +30,8 @@ class HuggFaceController extends Controller
         $user = Auth::user();
 
         $response = $this->service->generateText($request->message);
-        
-        return $response->generated_text ?? $response;
+
+        return $response['generated_text'] ?? $response;
     }
 
 }

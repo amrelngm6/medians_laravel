@@ -32,7 +32,8 @@ class HuggFaceService
     
     public function generateText(string $text)
     {
-        $model = 'google/gemma-2-2b-it';
+        // $model = 'EleutherAI/gpt-neo-2.7B';
+        $model = 'openai-community/gpt2';
         $response = $this->client->post("models/$model", [
             'json' => ['inputs' => $text],
         ]);
