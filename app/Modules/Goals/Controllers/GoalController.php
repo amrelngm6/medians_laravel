@@ -67,7 +67,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goal edit')) {
+        if ($user->cannot('Goal edit') && Auth::guardName() != 'admin') {
             abort(403, 'Unauthorized');
         }
 
@@ -81,6 +81,10 @@ class GoalController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
+        if ($user->cannot('Goal create') && Auth::guardName() != 'admin') {
+            abort(403, 'Unauthorized');
+        }
 
         $validator = Validator::make($request->all(), [
             'amount' => 'required|integer|min:1',
@@ -99,12 +103,13 @@ class GoalController extends Controller
 
         $info = [
             'business_id'=> $user->business_id ?? 0,
-            'created_by'=> $user->staff_id ?? 0,
+            'user_id'=> $user->staff_id ?? 0,
+            'user_type'=> get_class($user),
             'model_id'=> $request->model_id ?? $user->staff_id,
             'model_type'=> $request->model_type ?? get_class($user),
         ];
 
-        $source = $this->goalService->createGoal(array_merge($request->only('amount', 'description', 'date', 'status_id', 'category_id'), $info));  
+        $source = $this->goalService->createGoal(array_merge($request->only('name', 'description', 'date','due_date', 'status_id'), $info));  
 
         return $source ? response()->json([
             'success' => true,
@@ -118,9 +123,10 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goal view')) {
+        if ($user->cannot('Goal view') && Auth::guardName() != 'admin') {
             abort(403, 'Unauthorized');
         }
+
 
         $modules = $this->goalService->modules();
 
@@ -133,6 +139,13 @@ class GoalController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        
+        if ($user->cannot('Goal edit') && Auth::guardName() != 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+
         $validator = Validator::make($request->all(), [
             'status_id' => 'integer',
             'date' => 'date',
@@ -159,7 +172,7 @@ class GoalController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Goal delete')) {
+        if ($user->cannot('Goal delete') && Auth::guardName() != 'admin') {
             return response()->json([
                 'success' => false,
                 'title' => 'Unauthorized',
