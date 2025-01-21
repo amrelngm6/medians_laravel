@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Modules\Core\Models\Business;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Customers\Models\Customer;
+use App\Modules\Customers\Models\Staff;
 
 class Client extends Authenticatable
 {
@@ -40,15 +41,21 @@ class Client extends Authenticatable
         return $this->first_name.' '.$this->last_name;
     }
 
+    public function id()
+    {
+        return $this->client_id;
+    }
+
     public function customers()
     {
         return $this->hasMany(Customer::class, 'client_id', 'client_id');
     }
 
-    public function id()
+    public function assignee()
     {
-        return $this->client_id;
+        return $this->hasOne(Staff::class, 'assigned_user', 'staff_id');
     }
+
 
     /**
      * Load Main Contact

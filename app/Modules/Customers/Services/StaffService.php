@@ -39,7 +39,7 @@ class StaffService
         return $Staff;
     }
 
-    public function updateStaff(array $data, $id)
+    public function updateStaff($id, array $data)
     {
         // Find the Staff
         $Staff = $this->find($id);

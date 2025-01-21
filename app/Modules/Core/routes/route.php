@@ -60,11 +60,11 @@ Route::prefix('business-subscription')->middleware(['web', 'auth:staff'])->group
  */
 Route::prefix('status_list')->middleware(['web', 'auth:superadmin,staff'])->group(function () {
     Route::get('/', [StatusController::class, 'index'])->name('StatusList');
+    Route::get('/create_modal', [StatusController::class, 'create'])->name('StatusList.create');
+    Route::get('/edit_modal/{id}', [StatusController::class, 'edit'])->name('StatusList.edit_modal');
     Route::post('/', [StatusController::class, 'store'])->name('StatusList.store');
     Route::post('{id}', [StatusController::class, 'update'])->name('StatusList.update');
     Route::delete('{id}', [StatusController::class, 'destroy'])->name('StatusList.delete');
-    Route::view('/create_modal', 'includes.modals.new-status-modal')->name('StatusList.create');
-    Route::view('/edit_modal/{id}', 'includes.modals.edit-status-modal')->name('StatusList.edit_modal');
 });
 
 /**

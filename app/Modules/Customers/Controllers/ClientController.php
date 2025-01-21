@@ -6,31 +6,34 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Modules\Customers\Models\Client;
+use App\Modules\Customers\Services\ClientService;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Auth;
 
 class ClientController extends Controller
 {
 
+    /** Page Tabs route prefix */
+    public $tabsPrefix = 'Client.tabs';
+
+    protected $service;
+
+    public function __construct(ClientService $service)
+    {
+        $this->service = $service;
+    }
+
+
     /**
-     * Display a listing of clients.
+     * Display a listing of clients::
      */
     public function index(Request $request)
     {
 
         // Optionally apply filters and pagination
-        $clients = Client::query();
+        $ClientList = $this->service->query($request);
 
-        // If search query is provided, filter by name or email
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $clients->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
-        }
-
-        $clients = $clients->paginate(10); // Paginate results
-
-        return view('customers.client.clients', compact('clients'));
-
+        return view('clients::index', compact('ClientList'));
     }
 
     /**
@@ -38,7 +41,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('customers.client.client_create');
+        return view('clients::client_create');
     }
 
     /**
@@ -52,7 +55,7 @@ class ClientController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'file' => 'image|max:2048',
-            // 'email' => 'required|email|unique:clients,email',
+            'email' => 'required|email|unique:clients,email',
         ]);
 
         if ($validator->fails()) {
@@ -61,25 +64,26 @@ class ClientController extends Controller
                 'message' => 'Validation failed',
                 'errors' => $validator->errors()
             ], 422);
-            // return redirect()->back()->withErrors($validator)->withInput();
         }
         
+        $data = [];
+        $data['business_id'] = Auth::user()->business_id ?? 0;
+        $data['created_by'] = Auth::user()->client_id ?? 0;
+        
         // Create and save the client
-        $client = Client::firstOrCreate($request->only('first_name', 'last_name', 'email'));
+        $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'email')));
 
         $handlePicture = $this->handleUploads($request, 'avatar', $client);
         
         return $handlePicture;
-        // return redirect()->route('clients.index')->with('success', 'Client created successfully');
     }
 
-    public function handleUploads($request, String $key = 'avatar', Client $client) 
+    public function handleUploads(Request $request, String $key = 'avatar', Client $client) 
     {
         if (!$request->hasFile($key)) {
             return;
         }
         
-
         $request->validate([
             $key => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the file
         ]);
@@ -103,8 +107,6 @@ class ClientController extends Controller
         
         $path = 'images/'.$fileName;
 
-        echo $path;
-        
         // Save the path to the user's profile
         $update = $client->update(['picture' => $path]);
         
@@ -115,19 +117,32 @@ class ClientController extends Controller
     /**
      * Display the specified client.
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $user = Auth::user();
+
         $client = Client::findOrFail($id);
-        return view('clients.show', compact('client'));
+        
+        $clientTabs = $this->loadModuleTabs($this->tabsPrefix);
+
+        return view('clients::overview', compact('client','clientTabs'));
     }
 
     /**
      * Show the form for editing a specific client.
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $user = Auth::user();
+
         $client = Client::findOrFail($id);
-        return view('clients.edit', compact('client'));
+        
+        $statusList = $this->service->loadStatusList(); 
+        
+        $clientTabs = $this->loadModuleTabs($this->tabsPrefix);
+
+        return view('clients::settings', compact('client','clientTabs', 'statusList'));
+
     }
 
     /**
@@ -153,18 +168,18 @@ class ClientController extends Controller
         // Update client details
         $client->update($request->only('name', 'email', 'phone', 'address'));
 
-        return redirect()->route('clients.index')->with('success', 'Client updated successfully');
+        return redirect()->route('clients::index')->with('success', 'Client updated successfully');
     }
 
     /**
      * Remove the specified client from the database.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $client = Client::findOrFail($id);
         $client->delete();
 
-        return redirect()->route('clients.index')->with('success', 'Client deleted successfully');
+        return redirect()->route('clients::index')->with('success', 'Client deleted successfully');
     }
 
     /**
@@ -177,7 +192,7 @@ class ClientController extends Controller
             ->orWhere('email', 'like', "%{$query}%")
             ->paginate(10);
 
-        return view('clients.index', compact('clients'));
+        return view('clients::index', compact('clients'));
     }
 
 
@@ -216,9 +231,9 @@ class ClientController extends Controller
         }
         
         // Create and save the client
-        $client = $this->clientService->createStaff(  $request->only('first_name', 'last_name', 'email', 'password') );
+        $client = $this->service->createClient(  $request->only('first_name', 'last_name', 'email', 'password') );
 
-        $handleOTP = $this->clientService->creteOTP($client);
+        $handleOTP = $this->service->creteOTP($client);
         
         return response()->json([
             'success' => true,

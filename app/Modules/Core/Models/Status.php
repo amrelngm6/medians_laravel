@@ -10,11 +10,16 @@ class Status extends Model
     
     protected $table = 'status_list';
 
-    protected $primaryKey = 'status_id';
+    protected $fillable = ['business_id', 'status_id', 'name', 'model', 'color', 'sort', 'created_by'];
 
-    protected $fillable = ['business_id', 'name', 'model', 'color', 'sort', 'created_by'];
-
-    
+    /**
+     * Load related modules with the same name
+     * 
+     */
+    public function models($id = null)
+    {
+        return $this->hasMany(Status::class, 'status_id', 'status_id')->where('business_id', $id ?? ($this->business_id ?? '0'));
+    }
 
     /**
      * Load Items of Business Scope

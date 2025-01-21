@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\Auth;
+use App\Models\Module;
 
 use App\Http\Controllers\Controller;
 
@@ -41,20 +42,6 @@ class StatusController extends Controller
         return view('status.list', compact('StatusList'));
     }
 
-    /**
-     * Display a overview of Status.
-     */
-    public function overview(Request $request, $id)
-    {
-        if ($request->user()->cannot('StatusList view')) {
-            abort(403, 'Unauthorized');
-        }
-
-        $StatusList = $this->statusService->find($id);
-        
-        return view('status.overview', compact('Status'));
-    }
-
     
     /**
      * Show the form for creating a new Status.
@@ -63,11 +50,28 @@ class StatusController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('StatusList create')) {
+        if ($user->cannot('StatusList create') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
-        return view('includes.modals.new-status-modal');
+        return view('status.new-status-modal');
+    }
+
+    /**
+     * Show the form for edit a Status.
+     */
+    public function edit(Request $request, $status_id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('StatusList edit') && Auth::guardName() != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+
+        $status = $this->statusService->find($status_id);
+        $modules = Module::get();
+
+        return view('status.edit-status-modal', compact('modules','status'));
     }
 
 
@@ -95,6 +99,7 @@ class StatusController extends Controller
         $source = $this->statusService->createStatus(array_merge($request->only('name', 'model','sort','color'), ['created_by' => auth()->user()->staff_id]));
 
         return $source ? response()->json([
+            'no_reset' => true,
             'success' => true,
             'title' => 'Done',
             'reload' => true,
@@ -125,7 +130,7 @@ class StatusController extends Controller
 
         return $update ? response()->json([
             'success' => true,
-            'reload' => true,
+            // 'reload' => true,
             'title' => 'Done',
             'result' => 'Updaetd',
         ], 200) : null;

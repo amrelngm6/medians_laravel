@@ -153,7 +153,7 @@ class StaffController extends Controller
         }
         
         // Update staff details
-        $update = $this->staffService->updateStaff($request->only( 'staff_id', 'location_info','first_name', 'last_name', 'email', 'phone', 'position', 'about', 'role_id', 'status'), $staff_id);
+        $update = $this->staffService->updateStaff($staff_id, $request->only( 'staff_id', 'location_info','first_name', 'last_name', 'email', 'phone', 'position', 'about', 'role_id', 'status'));
 
         $handlePicture = $this->staffService->handleUploads($request, 'avatar', $staff);
 

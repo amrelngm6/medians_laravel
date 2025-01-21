@@ -11,7 +11,7 @@ class StatusService
     public function query()
     {
         // Status logic for creating a Status
-        return Status::forBusiness(Auth::user()->business_id ?? 0)->get();
+        return Status::forBusiness(Auth::user()->business_id ?? 0)->get()->groupBy('name');
     }
 
 
@@ -19,20 +19,30 @@ class StatusService
     {
         $data['business_id'] = Auth::user()->business_id ?? 0;
         $data['created_by'] = Auth::user()->id();
-
-        // Status logic for creating a Status
-        return Status::firstOrCreate($data);
+        if (is_array($data['model'])) {
+            foreach ($data['model'] as $key => $value) {
+                $data['model'] = $value;
+                // Status logic for creating a Status
+                $saved = Status::firstOrCreate($data);
+            }
+            return $saved;
+        } else {
+            return Status::firstOrCreate($data);
+        }
 
     }
 
 
     public function updateStatus(array $data)
     {
-        // Find the Item
-        $Status = $this->find($data['status_id']);
+        // Clear old Items
+        $Status =  Status::forBusiness(Auth::user()->business_id ?? 0)
+        ->where('name', $data['name'])
+        ->whereNotIn('model', $data['model'])
+        ->delete();
+        
+        return $this->createStatus($data);
 
-        // Update Item details
-        return $Status->update($data);
     }
 
     public function deleteStatus($id)
@@ -45,6 +55,6 @@ class StatusService
 
     public function find($id)
     {
-        return  Status::forBusiness(Auth::user()->business_id ?? 0)->findOrFail($id);
+        return  Status::forBusiness(Auth::user()->business_id ?? 0)->with('models')->where( 'status_id',  $id ?? '0')->first();
     }
 }

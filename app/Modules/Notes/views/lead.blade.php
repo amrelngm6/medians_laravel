@@ -1,4 +1,4 @@
-@extends('leads.page')
+@extends('leads::page')
 
 @section('nav-title', 'Staff Notes')
 

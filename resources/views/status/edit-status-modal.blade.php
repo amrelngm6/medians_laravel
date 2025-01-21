@@ -1,6 +1,3 @@
-<?php $status = \App\Modules\Core\Models\Status::find($id); ?>
-<?php $Modules = \App\Models\Module::get(); ?>
-
 <div class="modal fade  active show" id="edit-status-modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -64,15 +61,15 @@
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Model</span>
+                            <span class="required">Model <i class="bx bx-help-circle"></i></span>
                         </label>
+                        <span>Added Items by Superadmin can't be removed</span>
                         <!--end::Label-->
-                        
-                        <select class="form-control form-control-solid select2" placeholder="Select a Team Member" name="model">
+                        <select class="form-control form-control-solid select2 multiple" multiple placeholder="Select a Team Member" name="model[]">
                             <option value=""></option>
-                            @foreach ($Modules as $Module)
+                            @foreach ($modules as $Module)
                             <option value="{{$Module->path}}\Models\{{$Module->name}}" 
-                            @if ($Module->path.'\\Models\\'.$Module->name == $status->model )
+                            @if ( in_array( $Module->path.'\\Models\\'.$Module->name, $status->models(Auth::user()->business_id ?? 0)->get()->pluck('model')->toArray()) )
                             selected
                             @endif
                             >{{$Module->name}}</option>

@@ -30,7 +30,7 @@ class LeadSourceController extends Controller
 
         $LeadSources = $this->leadSourceService->query($request);
         
-        return view('leads.lead_sources', compact('LeadSources'));
+        return view('leads::lead_sources', compact('LeadSources'));
         
     }
 
@@ -39,7 +39,7 @@ class LeadSourceController extends Controller
      */
     public function create()
     {
-        return view('leads.LeadSource_create');
+        return view('leads::LeadSource_create');
     }
 
     /**

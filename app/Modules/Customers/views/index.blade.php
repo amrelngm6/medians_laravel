@@ -1,11 +1,9 @@
 @extends('layout.master')
-@section('title', 'Status list')
+@section('title', 'Client')
 @section('css')
 <link href="/assets/plugins/datatables/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
 
-<link href="/assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
 @endsection
-
 @section('main-content')
             <div class="wrapper main-wrapper row" style=''>
 
@@ -14,7 +12,7 @@
 
                         <div class="pull-left">
                             <!-- PAGE HEADING TAG - START -->
-                            <h1 class="title">Status list </h1>
+                            <h1 class="title">Client list </h1>
                             <!-- PAGE HEADING TAG - END -->
                         </div>
 
@@ -24,10 +22,10 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">Status</a>
+                                    <a href="#">Client</a>
                                 </li>
                                 <li class="active">
-                                    <strong>All</strong>
+                                    <strong>All Client</strong>
                                 </li>
                             </ol>
                         </div>
@@ -41,12 +39,14 @@
 
                     <div class="card">
                         <div class="card-header align-items-center  gap-2 gap-md-5 w-full flex">
-                            <div class="card-title fw-bold">
-                                Status
+                            <div class="card-title">
+                                <div class="d-flex align-items-center position-relative my-1">
+                                    <input type="date" class="datepicker form-control form-control-solid py-1 w-200px" />
+                                </div>
                             </div>
 
-                            <a class="btn btn-md btn-primary me-2 open-modal " href="{{route('StatusList.create')}}">
-                                New Status </a>
+                            <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Client.create')}}">
+                                New Client </a>
                         </div>
 
                         <div class="card-body">
@@ -57,37 +57,31 @@
                                     id="productTable">
                                     <thead class="text-start bg-slate-100 dark:bg-zink-600">
                                         <tr>
-                                            <th class="text-start w-20" data-sort="id">Id</th>
-                                            <th class="text-start Lead_name" data-sort="name">Name</th>
-                                            <th class="text-start model" data-sort="model">Module</th>
-                                            <th class="text-start " >Color</th>
-                                            <th class="text-start sort" data-sort="sort">sort</th>
+                                            <th class="text-start w-20" data-sort="client_id">ID</th>
+                                            <th class="text-start Client_name" data-sort="Client_name">Name</th>
+                                            <th class="text-start Client_name" data-sort="Client_name">Assigned</th>
+                                            <th class="text-start" data-sort="type">Type</th>
+                                            <th class="text-start" data-sort="role_id">Role</th>
+                                            <th class="text-start status" data-sort="status">Status</th>
                                             <th class="text-start action">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="list">
-                                        @if  ($StatusList)
-                                        @foreach ($StatusList as $StatusGroup )
-                                        @php $Status = $StatusGroup[0]; @endphp
+                                        @foreach ($ClientList as $client )
                                         <tr>
                                             <td class="">
-                                                {{$Status->status_id}} 
+                                                {{$client->client_id}} 
                                             </td>
-                                            <td class=" ">
-                                                <h6 class="">{{$Status->name}} </h6>
-                                            </td>
-                                            <td class=" mw-200px ">
-                                                <div class="overflow-auto">
-                                                    @foreach($Status->models(Auth::user()->business_id ?? 0)->get() as $statusModule)    
-                                                    {{ isset($statusModule['model']) ?  class_basename($statusModule['model']) : '' }} , 
-                                                    @endforeach    
-                                                </div>
-                                            </td>
-                                            <td class=" ">
-                                                <span class="block fw-semibold bg-{{ $Status->color }} w-20px h-20px rounded-circle"> </span>
-                                            </td>
-                                            <td class=" ">
-                                                <h6 class="">{{$Status->sort}} </h6>
+                                            <td class=""> 
+                                                
+                                                <img alt="Pic" src="/{{ $client->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">
+                                                {{ $client->name ?? '' }}</td>
+                                            <td class=" ">{{$client->assignee->name ?? ''}} </td>
+                                            <td class=""> {{$client->type}} </td>
+                                            <td class=""> {{$client->role->name ?? ''}} </td>
+                                            <td class=" status">
+                                                <span
+                                                    class="badge round-danger px-2.5 py-0.5 inline-block text-xs font-medium rounded border bg-{{$client->status_model->color ?? 'danger' }} border-transparent text-orange-500">{{$client->status_model->name ?? ''}}</span>
                                             </td>
                                             <td class=" action">
                                                 <div class="relative show-child">
@@ -106,12 +100,17 @@
                                                     <ul class="show-on-hover absolute   z-50  py-2 mt-0 text-start list-none bg-white rounded-md shadow-md dropdown-menu min-w-[10rem] dark:bg-zink-600"
                                                         aria-labelledby="productAction1">
                                                         <li>
-                                                            <a class="open-modal block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
-                                                                href="{{route('StatusList.edit_modal', $Status->status_id ?? '0')}}">
+                                                            <a class="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
+                                                                href="{{route('Client.tabs.overview', $client->client_id)}}">
+                                                                <span class="align-middle">Overview</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
+                                                                href="{{route('Client.tabs.edit', $client->client_id)}}">
                                                                 <span class="align-middle">Edit</span></a>
                                                         </li>
                                                         <li>
-                                                            <a data-path="{{route('StatusList.delete', $Status->status_id ?? '0')}}" class="delete-item block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
+                                                            <a data-path="{{route('Client.delete', $client->client_id)}}" class="delete-item block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
                                                                 href="#!">
                                                                 <span class="align-middle">Delete</span></a>
                                                         </li>
@@ -120,7 +119,6 @@
                                             </td>
                                         </tr>
                                         @endforeach 
-                                        @endif
 
                                     </tbody>
                                 </table>
@@ -143,7 +141,6 @@
     <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
     
     
-    <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
     <script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>

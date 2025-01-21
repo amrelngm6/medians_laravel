@@ -9,12 +9,14 @@ use App\Modules\Customers\Controllers\StaffController;
 
 Route::prefix('clients')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [ClientController::class, 'index'])->name('Client');
-    Route::get('/create', [ClientController::class, 'create'])->name('Clients.create');
-    Route::get('/edit', [ClientController::class, 'edit'])->name('Clients.edit');
-    Route::post('/store', [ClientController::class, 'store'])->name('Clients.store');
-    Route::get('{id}', [ClientController::class, 'show']);
-    Route::put('{id}', [ClientController::class, 'update']);
-    Route::delete('{id}', [ClientController::class, 'destroy']);
+    Route::get('/create', [ClientController::class, 'create'])->name('Client.create');
+    Route::get('/edit', [ClientController::class, 'edit'])->name('Client.edit');
+    Route::get('{id}', [ClientController::class, 'show'])->name('Client.overview');
+    Route::post('/store', [ClientController::class, 'store'])->name('Client.store');
+    Route::put('{id}', [ClientController::class, 'update'])->name('Client.update');
+    Route::delete('{id}', [ClientController::class, 'destroy'])->name('Client.delete');
+    Route::get('{id}/overview', [ClientController::class, 'show'])->name('Client.tabs.overview');
+    Route::get('{id}/edit', [ClientController::class, 'edit'])->name('Client.tabs.edit');
 
 });
 

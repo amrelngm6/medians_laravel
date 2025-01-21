@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('status_list', function (Blueprint $table) {
-            $table->bigIncrements('status_id')->primary();
+            $table->id();
+            $table->integer('status_id')->default(0);
             $table->string('name', 50);
             $table->string('color', 50)->nullable();
             $table->integer('sort')->default(1);
