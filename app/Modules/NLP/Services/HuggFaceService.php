@@ -32,8 +32,9 @@ class HuggFaceService
     
     public function generateText(string $text)
     {
-        // $model = 'EleutherAI/gpt-neo-2.7B';
-        $model = 'openai-community/gpt2';
+        $model = 'deepset/roberta-base-squad2';
+        // $model = 'openai-community/gpt2';
+        // $model = 'openai-community/gpt2-large';
         $response = $this->client->post("models/$model", [
             'json' => ['inputs' => $text],
         ]);

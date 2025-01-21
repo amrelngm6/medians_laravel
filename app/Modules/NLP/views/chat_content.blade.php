@@ -38,6 +38,15 @@
                             </div>
                             <!--end::Card header-->
 
+                            <!--begin::Card body-->
+                            <div class="card-body" id="chat_messenger_body">
+                                <!--begin::Messages-->
+                                <div class="scroll-y me-n5 pe-5 h-300px h-lg-auto" id="chat-container" style="max-height: 224px;">
+                                    
+                                </div>
+                                <!--end::Messages-->
+                            </div>
+                            <!--end::Card body-->
 
                             <!--begin::Card footer-->
                             
@@ -82,24 +91,9 @@ function fetchData() {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.responseText)
-            {
+            
                 jQuery('#message-content').val('');
-
-                try {
-                    let res =JSON.parse(xhr.responseText)
-                    if (res.errors) {
-                        handleResponse(res)
-                    }
-                } catch (error) {
-                    let resContent = jQuery(xhr.responseText)
-                    jQuery('#chat_messenger_body').html(resContent.find('#chat_messenger_body').html());
-                    handleScroll() 
-
-                }
-            } else {
-                jQuery('#message-content').val('');
-            }
+                jQuery('#chat-container').html(xhr.responseText);
         }
     };
     try {
