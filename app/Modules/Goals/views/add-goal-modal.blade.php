@@ -38,11 +38,11 @@
                         
                         <div class="form-group w-full"><label for="date" class="control-label" rel="popover"
                                 data-animate=" animated fadeIn " data-container="body" data-toggle="popover"
-                                data-placement="top" data-content="Total paid amount"
-                                data-trigger="hover" data-html="true">Amount <i
+                                data-placement="top" data-content="Goal Name"
+                                data-trigger="hover" data-html="true">Name <i
                                 class="bx bx-help-circle"></i></label>
-                            <input type="number" class=" form-control form-control-solid  " id="amount" name="amount"
-                                class="form-control form-control-solid " value="0">
+                            <input type="text" class=" form-control form-control-solid  " id="name" name="name"
+                                class="form-control form-control-solid " value="">
                         </div>
                         
                         <div class="form-group w-full"><label for="date" class="control-label">Date</label>
@@ -94,3 +94,4 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+<script>MediansSettings.tooltipsPopovers()</script>
