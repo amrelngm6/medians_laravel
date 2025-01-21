@@ -32,7 +32,8 @@ class ModuleController extends Controller
         $handleRoles = $this->handleRoles($module->path);
         $path = str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations";
         $migrate = Artisan::call("migrate --path=$path");
-        return $update;
+
+        return response()->json(['success'=>1, 'reload'=>1, 'result' => 'Module updated successfully.']);
     }
 
 
