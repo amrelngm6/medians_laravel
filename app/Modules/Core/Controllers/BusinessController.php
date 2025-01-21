@@ -51,8 +51,9 @@ class BusinessController extends Controller
      */
     public function overview(Request $request, $id)
     {
+        $user = Auth::user();
 
-        if ($request->user()->cannot('Business view')) {
+        if ($user->cannot('Business view') && Auth::guardName() != 'superadmin') {
             abort(403, 'Unauthorized');
         }
 
