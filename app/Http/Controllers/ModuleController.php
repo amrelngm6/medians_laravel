@@ -29,8 +29,8 @@ class ModuleController extends Controller
     {
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
-        $handleRoles = $this->handleRoles($module->path);
-        $path = str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations";
+        $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
+        $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
         $migrate = Artisan::call("migrate --path=$path");
 
         return response()->json(['success'=>1, 'result' => 'Module updated successfully.']);
@@ -119,12 +119,10 @@ class ModuleController extends Controller
      */
     private function handleRoles($path)
     {
-        $configPath = app_path(str_replace(['App\\'],'',$path). '/Config/roles.php');
-
-        $configFileFullPath = app_path(str_replace(['\\', $_SERVER['DOCUMENT_ROOT'].'/app'],['/', ''],$configPath));
+        $configFileFullPath =  str_replace(': ',':', env('APP_ENV') == 'local' ? app_path($path."\\Config\\roles.php") :  app_path($path. '/Config/roles.php'));
 
         if (File::exists($configFileFullPath)) {
-            
+
             $rolesConfig = require $configFileFullPath;
 
             // Load roles

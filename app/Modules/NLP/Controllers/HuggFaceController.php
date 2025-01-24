@@ -29,8 +29,22 @@ class HuggFaceController extends Controller
     {
         $user = Auth::user();
 
-        $response = $this->service->generateText($request->message);
+        $response = $this->service->generateText($request->message, $request->model);
+        
+        $r = explode('\r\n\r\n', $response['generated_text']) ;
 
+        return $response['generated_text'] ?? $response;
+    }
+
+    /**
+     * DeepSeek API call
+     */
+    public function deepSeek(Request $request)
+    {
+        $user = Auth::user();
+
+        $response = $this->service->queryDeepSeek($request->message);
+        
         return $response['generated_text'] ?? $response;
     }
 

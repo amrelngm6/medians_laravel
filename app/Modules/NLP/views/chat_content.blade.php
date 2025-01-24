@@ -50,9 +50,10 @@
 
                             <!--begin::Card footer-->
                             
-                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.store')}}" id="wp_chat_messenger_form">
+                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('DeepSeek.store')}}" id="wp_chat_messenger_form">
                                 @csrf
 
+                                <input type="text" class="form-control" name="model" >
                                 
                                 <textarea class="form-control form-control-solid mb-3" rows="1" name="message" data-kt-element="input"
                                     placeholder="Type a message" id="message-content"></textarea>

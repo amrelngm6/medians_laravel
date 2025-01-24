@@ -180,7 +180,7 @@
                                 <div class="form-group w-full" app-field-wrapper="subject"><label for="subject"
                                         class="control-label">First name</label>
                                     <input type="text" id="fname" name="first_name" class="form-control form-control-solid"
-                                        autofocus="1" required>
+                                        autofocus="1" required  >
                                 </div>
 
 
