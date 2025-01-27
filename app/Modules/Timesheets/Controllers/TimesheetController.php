@@ -127,7 +127,7 @@ class TimesheetController extends Controller
             // Delete the specified Timesheet
             $delete = $this->service->deleteTimesheet($id);
 
-            return $delete ? response()->json(['message' => 'Timesheet deleted successfully'], 200) : null;
+            return $delete ? response()->json(['success'=>1, 'result' => 'Timesheet deleted successfully'], 200) : null;
             
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);

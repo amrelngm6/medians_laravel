@@ -3816,7 +3816,7 @@ and (orientation : portrait) {
     border-bottom-color: transparent;
     background-color: #ffffff;
 }
-.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+.nav-line-tabs .open>a, .nav-line-tabs .open>a:hover, .nav-line-tabs .open>a:focus {
     background-color: #f5f5f5;
     border-color: #eaeaea;
 }
@@ -10249,4 +10249,14 @@ body .select2-container .select2-choice
 
 .disabled {
     pointer-events: none;
+}
+.nav-item
+{
+    display: inline-block;
+}
+ul.nav-line-tabs {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
 }
