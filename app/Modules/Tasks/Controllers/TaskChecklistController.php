@@ -151,7 +151,7 @@ class TaskChecklistController extends Controller
             foreach ($response as $key => $value) 
             {
                 $taskList['sort'] = $key;
-                $taskList['description'] = $value['task'] ?? $value;
+                $taskList['description'] = $value['task'] ?? ($value['description'] ?? ($value['name'] ?? ''));
 
                 $save = $this->taskChecklistService->createItem($taskList);
             }
