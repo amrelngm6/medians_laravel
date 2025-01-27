@@ -42,16 +42,19 @@
                                     <h4 class="pt-2">Team</h4>
                                     <!--begin::Users group-->
                                     <div class="symbol-group symbol-hover flex-nowrap flex">
-                                        @foreach($project->team as $member)
+                                        
+                                        @foreach($project->members() as $key => $member)
+                                        @if ($key < 5)
                                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                            data-bs-original-title="{{ $member->name }}" data-kt-initialized="1">
-                                            <img alt="Pic" src="{{ $member->avatar }}">
+                                            data-bs-original-title="{{ $member->user->name ?? '' }}" data-kt-initialized="1">
+                                            <img alt="Pic" src="/{{ $member->user->picture ?? '' }}">
                                         </div>
+                                        @endif
                                         @endforeach
-                                        @if ($project->team->count() > 5)
+                                        @if ($project->members()->count() > 5)
                                         <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                             data-bs-target="#kt_modal_view_users">
-                                            <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->team->count() - 5 }}</span>
+                                            <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->members()->count() - 5 }}</span>
                                         </a>
                                         @endif
                                     </div>
@@ -98,6 +101,13 @@
 
                                     </div>
                                     <!--end::Stats-->
+                                    
+                                    <div class="mb-0 progress default-progress h-4px">
+                                        <div class="progress-bar bg-{{ $project->status->color ?? 'gradient1' }} progress-animated" 
+                                            style="width: {{$project->progress()}}%; " role="progressbar">
+                                            <span class="sr-only">{{$project->progress()}}% Complete</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!--end::Wrapper-->
                             </div>

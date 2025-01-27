@@ -26,7 +26,6 @@ class Task extends Model
         'due_date',
         'finished_date',
         'priority_id',
-        // 'milestone_id',
         'is_public',
         'is_paid',
         'points',
@@ -70,7 +69,7 @@ class Task extends Model
      */
     public function team()
     {
-        return $this->morphMany(ModelMember::class, 'model');
+        return $this->morphMany(ModelMember::class, 'model')->with('user');
     }
 
     /**

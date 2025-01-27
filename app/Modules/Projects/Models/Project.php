@@ -41,9 +41,9 @@ class Project extends Model
     /**
      * Project assigneed Team members
      */
-    public function team()
+    public function members()
     {
-        return $this->morphMany(ModelMember::class, 'model');
+        return $this->tasks()->with('team')->get()->pluck('team')->flatten()->unique('user_id');
     }
 
     
@@ -88,6 +88,16 @@ class Project extends Model
     {
         return $this->morphOne(ModelCategory::class, 'model');
     }
+
+    public function progress()
+    {
+        $all = $this->tasks->count();
+        $completed = $this->countByStatus('completed');
+        $percent = $all > 0 ? $completed / $all * 100 : 0;
+        return $percent;
+    }
+    
+
     
     /**
      * Project related status as Morph
