@@ -68,46 +68,42 @@ jQuery(document).ready(function(){
     
     // Initial fetch without filters
     fetchData();
-
-    
-
     // Add date range filtering logic
     $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
         fetchData();
     });
-
 })
 
 
-    // Function to fetch and update table data
-    // function fetchData(startDate = '', endDate = '') {
-    function fetchData() {
-        const form = document.getElementById('filter-form');
-    
-        // Get the form data as a FormData object
-        const formData = new FormData(form);
+// Function to fetch and update table data
+// function fetchData(startDate = '', endDate = '') {
+function fetchData() {
+    const form = document.getElementById('filter-form');
 
-        // Send the form data via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-        xhr.onreadystatechange = function () {
-            
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.responseText)
-                {
-                    jQuery('#tasks-container').html(xhr.responseText);
-                    handleSort();
-                }
-            }
-        };
-        xhr.send(formData);
+    // Get the form data as a FormData object
+    const formData = new FormData(form);
 
-    }
+    // Send the form data via AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', form.action, true);
+    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    function handleSort() {
+    xhr.onreadystatechange = function () {
         
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.responseText)
+            {
+                jQuery('#tasks-container').html(xhr.responseText);
+                handleSort();
+            }
+        }
+    };
+    xhr.send(formData);
+
+}
+
+function handleSort() {
+    
     jQuery(".tasks_container").sortable({
         connectWith: ".tasks_container",
         handle: "div.sort_item",
@@ -138,7 +134,7 @@ jQuery(document).ready(function(){
         },
     });
 
-    }
+}
 </script>
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->

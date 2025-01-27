@@ -5,6 +5,7 @@ namespace App\Modules\Tasks\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Modules\Tasks\Services\TaskService;
+use App\Modules\Tasks\Events\TaskFormRendering;
 use App\Modules\Tasks\Events\TaskSaved;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Auth;
@@ -25,13 +26,38 @@ class TaskController extends Controller
             case 'kanban':
                 return view('tasks::kanban');
                 break;
-            
-            default:
-                return view('tasks::list');
-                break;
         }
+
+        $statusList = $this->taskService->loadStatusList();   
+        return view('tasks::list', compact('statusList'));
     }
 
+    
+    public function filter(Request $request)
+    {
+        
+        $tasks = $this->taskService->query($request);   
+
+        return view('tasks::rows', compact('tasks'));
+    }
+
+    
+    public function create(Request $request)
+    {
+        $user = Auth::user();
+
+        $model_type = get_class($user);       
+        $model_id = $user->id();       
+        
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new TaskFormRendering($context, new $this->taskService->model));
+        $components = $event[0]->context['components'];
+        $custom_fields = $this->taskService->loadModelFields(); 
+
+        // List tasks
+        return view('tasks::add-task-modal', compact('model_id', 'model_type', 'components','custom_fields'));
+    }
 
     public function store(Request $request)
     {

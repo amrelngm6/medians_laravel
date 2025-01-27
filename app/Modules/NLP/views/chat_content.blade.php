@@ -54,6 +54,7 @@
                                 @csrf
 
                                 <select class="form-control form-control-solid" name="model" >
+                                    <option value="philschmid/instruct-igel-001">philschmid/instruct-igel-001</option>
                                     <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
                                     <option value="deepset/roberta-base-squad2">deepset/roberta-base-squad2</option>
                                 </select>

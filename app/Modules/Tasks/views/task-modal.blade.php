@@ -44,7 +44,7 @@
                         </a>
                         <div class="pt-2">
                             Status:
-                            <span class="badge bg-{{$task->status->color}} ">{{ $task->status->name ?? '' }}</span>
+                            <span class="badge bg-{{$task->status->color ?? ''}} ">{{ $task->status->name ?? '' }}</span>
                         </div>
                         <div class="flex gap-2">
 

@@ -89,13 +89,17 @@ class TaskService
 
 
 
-    public function query($request, $modelId, $modelType)
+    public function query($request, $modelId = null, $modelType = null)
     {
         // Business logic for querying tasks
         $query = Task::forBusiness(Auth::user()->business_id ?? null)
-                 ->where('model_id', $modelId)
-                 ->where('model_type', $modelType)
                  ->with('team','checklist');
+
+                 
+        if (!empty($modelId) && !empty($modelType))
+        {
+            $query->where('model_id', $modelId) ->where('model_type', $modelType);
+        }
 
         if (!empty($request->name))
         {
