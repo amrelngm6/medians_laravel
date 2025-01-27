@@ -86,7 +86,6 @@ class ModuleController extends Controller
             File::deleteDirectory($modulePath);
             File::move($extractPath . '/' . $moduleDir, $modulePath);
             File::deleteDirectory($extractPath. '/' . $moduleDir);
-            // return response()->json(['error' => 'Module already exists.'], 400);
         } else {
 
             File::move($extractPath . '/' . $moduleDir, $modulePath);
