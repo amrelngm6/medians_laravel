@@ -60,15 +60,35 @@ class HuggFaceService
             if (!empty($matches[0])) {
                 // Decode the JSON-like string into a PHP array
                 $jsonContent = trim($matches[0]); // The full match, including brackets
-                print_r($jsonContent);
                 $array = json_decode($jsonContent, true);
-                print_r($array);
             
                 // Check if decoding was successful
                 if (json_last_error() === JSON_ERROR_NONE) {
                     return $array; // Output the array
                 } else {
-                    return "Error decoding JSON: $jsonContent " . json_last_error_msg();
+
+                    // Step 1: Fix the JSON structure
+                    $fixedJsonResponse = preg_replace_callback(
+                        '/"task":\s*"(.*?)",\s*"sub_task":\s*"(.*?)"/s',
+                        function ($matches) {
+                            // Wrap the task and sub_task into an object
+                            return json_encode([
+                                "task" => $matches[1],
+                                "sub_task" => $matches[2],
+                            ]);
+                        },
+                        $jsonResponse
+                    );
+
+                    // Step 2: Decode the fixed JSON string
+                    $decodedArray = json_decode($fixedJsonResponse, true);
+
+                    // Step 3: Check for errors
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        return $decodedArray; // Output the fixed array
+                    } else {
+                        return "Error decoding JSON: $jsonContent " . json_last_error_msg();
+                    }
                 }
             }
 
