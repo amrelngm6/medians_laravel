@@ -130,7 +130,7 @@ class TaskChecklistController extends Controller
         
         $task = $this->taskService->find($task_id); 
 
-        $message = 'could you give me json list for tasks to '.$task->description.' for my CRM in laravel. Please make the response valid json only , and as short as possible';
+        $message = 'could you give me json list for tasks to '.$task->description.' for my CRM in laravel. Please make the response valid json  with 6 items only , and as short as possible';
 
         $nlpService = new HuggFaceService;
         $response = $nlpService->generateText($message, $request->model);
