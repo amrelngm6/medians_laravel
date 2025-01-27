@@ -29,10 +29,8 @@ class ModuleController extends Controller
     {
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
-        echo str_replace(['App\\', 'app/'],'',$module->path)."";
         $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
         $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
-        echo $path."";
         $migrate = Artisan::call("migrate --path=$path");
 
         return response()->json(['success'=>1, 'result' => 'Module updated successfully.']);
@@ -125,7 +123,7 @@ class ModuleController extends Controller
     private function handleRoles($path)
     {
         $configFileFullPath =  str_replace(': ',':', env('APP_ENV') == 'local' ? app_path($path."\\Config\\roles.php") :  app_path($path. '/Config/roles.php'));
-
+        echo $configFileFullPath;
         if (File::exists($configFileFullPath)) {
 
             $rolesConfig = require $configFileFullPath;
