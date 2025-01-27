@@ -31,6 +31,7 @@ class ModuleController extends Controller
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
         $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
         $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
+        echo $path."";
         $migrate = Artisan::call("migrate --path=$path");
 
         return response()->json(['success'=>1, 'result' => 'Module updated successfully.']);
