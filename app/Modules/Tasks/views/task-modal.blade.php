@@ -131,11 +131,13 @@
                                         <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
                                     </select>
                                     <!--begin::Input group-->
-                                    <div class="flex mb-8 ">
+                                    <!-- <div class="flex mb-8 ">
                                         <input class="form-control form-control-solid" name="message" placeholder="Type action details" />
-                                        <button type="submit" class="p-4" ><i class='bx bxs-magic-wand fs-2'></i></button>
-                                    </div>
+                                    </div> -->
                                     <!--end::Input group-->
+                                    <button  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        data-content="Generate checklist using AI"
+                                        type="submit" class="btn btn-primary " ><i class='bx bxs-magic-wand fs-2'></i></button>
 
                                 </form>
                             </div>
