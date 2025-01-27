@@ -93,7 +93,7 @@ class TaskService
     {
         // Business logic for querying tasks
         $query = Task::forBusiness(Auth::user()->business_id ?? null)
-                 ->with('team','checklist');
+                 ->with('team','checklist', 'model');
 
                  
         if (!empty($modelId) && !empty($modelType))

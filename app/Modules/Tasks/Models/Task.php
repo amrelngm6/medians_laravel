@@ -57,6 +57,14 @@ class Task extends Model
     }
     
     /**
+     * Related Model as Morph
+     */
+    public function model()
+    {
+        return $this->morphTo();
+    }
+    
+    /**
      * Project assigneed Team members
      */
     public function checklist()

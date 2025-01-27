@@ -60,8 +60,8 @@
                                         <tr>
                                             <th class=" task_code" data-sort="task_code">Task ID</th>
                                             <th class="text-start task_name" data-sort="task_name">Task Name</th>
-                                            <th class="text-start" data-sort="client">Client</th>
                                             <th class="text-start ">Assignees</th>
+                                            <th class="text-start" >Model</th>
                                             <th class="text-start  start" data-sort="start">Start</th>
                                             <th class="text-start  end" data-sort="end">Deadline</th>
                                             <th class="text-start  status" data-sort="status">Status</th>
