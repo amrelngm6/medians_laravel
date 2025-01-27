@@ -123,6 +123,21 @@
                                     <!--end::Input group-->
 
                                 </form>
+                                <p>OR Generate using AI</p>
+                                <form data-reload-link="{{$modalRoute}}" id="modal_generate_checklist_form" class="ajax-form form" action="{{route('TaskChecklist.generate', $task->task_id)}}">
+                                    @csrf
+
+                                    <select class="hidden" name="model" >
+                                        <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
+                                    </select>
+                                    <!--begin::Input group-->
+                                    <div class="flex mb-8 ">
+                                        <input class="form-control form-control-solid" name="message" placeholder="Type action details" />
+                                        <button type="submit" class="p-4" ><i class='bx bxs-magic-wand fs-2'></i></button>
+                                    </div>
+                                    <!--end::Input group-->
+
+                                </form>
                             </div>
                         </div>
 

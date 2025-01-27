@@ -19,6 +19,7 @@ Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
         Route::post('/{task_id}/store', [TaskChecklistController::class, 'store'])->name('TaskChecklist.store');
         Route::post('/{task_id}/update', [TaskChecklistController::class, 'update'])->name('TaskChecklist.update');
         Route::post('/{task_id}/update_sort', [TaskChecklistController::class, 'update_sort'])->name('TaskChecklist.updateSort');
+        Route::post('/{task_id}/generate_checklist', [TaskChecklistController::class, 'generateTaskChecklist'])->name('TaskChecklist.generate');
         Route::delete('/{id}/delete', [TaskChecklistController::class, 'destroy'])->name('TaskChecklist.delete');
     });
 
