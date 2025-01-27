@@ -131,9 +131,10 @@
                                         <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
                                     </select>
                                     <!--begin::Input group-->
-                                    <!-- <div class="flex mb-8 ">
+                                    <div class="flex mb-8 ">
+                                        <span class="text-muted ">Leave empty to send the Task description</span>
                                         <input class="form-control form-control-solid" name="message" placeholder="Type action details" />
-                                    </div> -->
+                                    </div>
                                     <!--end::Input group-->
                                     <button  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                         data-content="Generate checklist using AI"
