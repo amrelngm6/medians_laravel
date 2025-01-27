@@ -22,8 +22,8 @@
         </div>
     </td>
     <td>{{ $task->model->name ?? '' }}</td>
-    <td>{{date('M d, Y - H:i a', strtotime($task->start)) }}</td>
-    <td>{{date('M d, Y - H:i a', strtotime($task->end)) ?? '' }}</td>
+    <td>{{date('M d, Y', strtotime($task->start_date)) }}</td>
+    <td>{{date('M d, Y', strtotime($task->due_date)) ?? '' }}</td>
     <td class=" status">
         <span
             class="badge bg-{{$task->status->color ?? ''}} px-2.5 py-1 inline-block text-xs font-medium rounded border bg-orange-100 border-transparent text-orange-500 dark:bg-orange-500/20 dark:border-transparent">{{$task->status->name ?? ''}}</span>
