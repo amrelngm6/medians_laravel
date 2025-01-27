@@ -66,7 +66,7 @@ class HuggFaceService
                 if (json_last_error() === JSON_ERROR_NONE) {
                     return $array; // Output the array
                 } else {
-                    return "Error decoding JSON: " . json_last_error_msg();
+                    return "Error decoding JSON: $jsonContent " . json_last_error_msg();
                 }
             }
 
