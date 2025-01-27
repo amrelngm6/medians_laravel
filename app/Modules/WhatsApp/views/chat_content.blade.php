@@ -98,7 +98,7 @@ jQuery(document).ready(function(){
     }, 5000)
 })
 
-function loadConent()
+async function loadConent()
 {
     let res = await fetch("{{route('WhatsConversation.show', ['wa_id'=> $conversation->wa_id, 'display_phone_number' => $conversation->display_phone_number])}}?_token={{csrf_token()}}");
     res.text().then(a=> {
