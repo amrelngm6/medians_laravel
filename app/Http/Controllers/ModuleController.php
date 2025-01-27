@@ -82,6 +82,10 @@ class ModuleController extends Controller
 
         $modulePath = app_path('Modules/' . $moduleDir);
         if (File::exists($modulePath)) {
+            
+            File::deleteDirectory($modulePath);
+            File::move($extractPath . '/' . $moduleDir, $modulePath);
+            File::deleteDirectory($extractPath. '/' . $moduleDir);
             // return response()->json(['error' => 'Module already exists.'], 400);
         } else {
 
