@@ -80,7 +80,7 @@ class ModuleController extends Controller
         $moduleName = $moduleConfig[0]['name']; // Assuming the ZIP contains a single module directory
         $moduleDir = basename($moduleConfig[0]['path']); // Assuming the ZIP contains a single module directory
 
-        $modulePath = app_path('Modules/' . $moduleDir);
+        $modulePath = app_path('Modules/' . str_replace("App\\Modules\\", '', $moduleDir));
         if (File::exists($modulePath)) {
             
             File::deleteDirectory($modulePath);
