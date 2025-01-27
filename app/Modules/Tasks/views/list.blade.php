@@ -50,14 +50,6 @@
                 <div class="col-md-12">
 
                     <div class="card">
-                        <div class="card-header align-items-center  gap-2 gap-md-5 w-full flex">
-                            <div class="card-title">
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <input type="date" class="datepicker form-control form-control-solid py-1 w-200px" />
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="card-body">
 
                             <div class="table" data-pattern="priority-columns">
