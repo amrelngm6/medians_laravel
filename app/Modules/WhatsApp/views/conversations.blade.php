@@ -77,10 +77,10 @@
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 <script>
     
-function loadContacts()
+async function  loadContacts()
 {
     let res = await fetch("{{route('WhatsConversation.show_contacts')}}?_token={{csrf_token()}}");
-    res.text().then(a=> {
+    res.text().then(  (a)=> {
         jQuery('#new-contacts').html(resContent);
     })
 }
