@@ -157,6 +157,6 @@ class TaskChecklistController extends Controller
             return true;
         }
         
-        return $this->jsonResponse('Error generating task checklist' ,$response);
+        return $this->jsonResponse('Change task description to be more clear and short' ,'Error in description details');
     }
 }
