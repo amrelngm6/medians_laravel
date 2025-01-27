@@ -154,7 +154,7 @@ class TaskChecklistController extends Controller
                 $save = $this->taskChecklistService->createItem($taskList);
             }
 
-            return count($response);
+            return $response;
         }
         
         return $this->jsonResponse('Change task description to be more clear and short'. $response ,'Error in description details ');
