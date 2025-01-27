@@ -12,6 +12,7 @@
 
                                         <!--begin::Info-->
                                         <div class="mb-0 lh-1">
+                                            <span class="fs-7 fw-semibold text-muted">{{$conversation->contact->phone_number ?? ''}}</span>
                                             <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
                                             <span class="fs-7 fw-semibold text-muted">Active</span>
                                         </div>
