@@ -84,27 +84,32 @@
                             
                         </div>
                         <!--end::Messenger-->
-                        <script>
-                            var interval;
-                            var position;
-                            jQuery(document).ready(function(){
-                                handleScroll()
-                                if (interval)
-                                {
-                                    clearInterval(interval)   
-                                }
-                                interval = setInterval(async () => {
-                                    let res = await fetch("{{route('WhatsConversation.show', ['wa_id'=> $conversation->wa_id, 'display_phone_number' => $conversation->display_phone_number])}}?_token={{csrf_token()}}");
-                                    res.text().then(a=> {
-                                        position = document.getElementById('chat-container').scrollTop
-                                        let resContent = jQuery(a).find('#chat_messenger_body').html()
-                                        if (resContent) {
-                                            jQuery('#chat_messenger_body').html(resContent);
-                                            document.getElementById('chat-container').scrollTop = position
-                                        }
-                                    })
-                                }, 5000)
-                            })
+<script>
+var interval;
+var position;
+jQuery(document).ready(function(){
+    handleScroll()
+    if (interval)
+    {
+        clearInterval(interval)   
+    }
+    interval = setInterval(async () => {
+        loadConent();
+    }, 5000)
+})
+
+function loadConent()
+{
+    let res = await fetch("{{route('WhatsConversation.show', ['wa_id'=> $conversation->wa_id, 'display_phone_number' => $conversation->display_phone_number])}}?_token={{csrf_token()}}");
+    res.text().then(a=> {
+        position = document.getElementById('chat-container').scrollTop
+        let resContent = jQuery(a).find('#chat_messenger_body').html()
+        if (resContent) {
+            jQuery('#chat_messenger_body').html(resContent);
+            document.getElementById('chat-container').scrollTop = position
+        }
+    })
+}
 
 function handleScroll(newPosition = null)
 {

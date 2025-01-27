@@ -2,7 +2,6 @@
     <div class="d-flex flex-column align-items-start">
 
         <a title="{{ $message->message_text }}" href="{{ $message->media_path }}" class="glightbox tyn-video cursor-pointer" data-gallery="media-video">
-            <img src="/uploads/images/video.jpg" style="width:40px" height="80" width="100%" class="tyn-image" alt="">
             <div class="tyn-video-icon">
                 <!-- play-fill -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">

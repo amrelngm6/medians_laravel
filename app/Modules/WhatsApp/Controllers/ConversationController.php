@@ -40,7 +40,13 @@ class ConversationController extends Controller
         return view('whatsapp::conversations-rows', compact('conversations', 'model'));
     }
 
-
+    /**
+     * Load chat block based on conversation
+     * @param Request $request
+     * @param $wa_id
+     * @param $display_phone_number
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Request $request, $wa_id, $display_phone_number)
     {
         
@@ -49,6 +55,23 @@ class ConversationController extends Controller
         $conversation = $this->service->getCovnversation($wa_id, $display_phone_number);
 
         return view('whatsapp::chat_content', compact('conversation','user'));
+    }
+    
+
+    /**
+     * Load contacts list at sidebar
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show_contacts(Request $request)
+    {
+        $user = Auth::user();
+
+        $new_conversations = $this->service->getNew();
+
+        $my_conversations = $this->service->byUser($user->id());
+
+        return view('whatsapp::chat_content', compact('my_conversations', 'new_conversations','user'));
     }
     
     public function create(Request $request)
