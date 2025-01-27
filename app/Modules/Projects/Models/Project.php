@@ -91,8 +91,8 @@ class Project extends Model
 
     public function progress()
     {
-        $all = $this->tasks->count();
-        $completed = $this->countByStatus('completed');
+        $all = $this->tasks()->count();
+        $completed = $this->tasks()->first()->countByStatus('Completed');
         $percent = $all > 0 ? $completed / $all * 100 : 0;
         return $percent;
     }
