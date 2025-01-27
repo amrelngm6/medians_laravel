@@ -62,6 +62,7 @@ class HuggFaceService
                 $jsonContent = trim($matches[0]); // The full match, including brackets
                 print_r($jsonContent);
                 $array = json_decode($jsonContent, true);
+                print_r($array);
             
                 // Check if decoding was successful
                 if (json_last_error() === JSON_ERROR_NONE) {
