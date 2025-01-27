@@ -55,6 +55,7 @@ class HuggFaceService
         try {
             
             $responseText = json_decode($response->getBody()->getContents(), true)[0]['generated_text'];
+            print_r($responseText);
             preg_match('/\[(.*?)\]/s', $responseText, $matches);
 
             if (!empty($matches[0])) {
