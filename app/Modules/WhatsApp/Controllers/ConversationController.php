@@ -63,15 +63,13 @@ class ConversationController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show_contacts(Request $request)
+    public function show_contacts(Request $request, $type)
     {
         $user = Auth::user();
 
-        $new_conversations = $this->service->getNew();
+        $conversations = ($type == 'new') ? $this->service->getNew() : $this->service->byUser($user->id());
 
-        $my_conversations = $this->service->byUser($user->id());
-
-        return view('whatsapp::chat_content', compact('my_conversations', 'new_conversations','user'));
+        return view('whatsapp::contact', compact('conversations'));
     }
     
     public function create(Request $request)

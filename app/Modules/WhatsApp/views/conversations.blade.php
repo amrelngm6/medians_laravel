@@ -76,12 +76,19 @@
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 <script>
-    
+jQuery(document).ready(function(){
+    loadContacts()
+});
 async function  loadContacts()
 {
-    let res = await fetch("{{route('WhatsConversation.show_contacts')}}?_token={{csrf_token()}}");
-    res.text().then(  (a)=> {
-        jQuery('#new-contacts').html(resContent);
+    (await fetch("{{route('WhatsConversation.show_contacts', 'new')}}?_token={{csrf_token()}}"))
+    .text().then(  (res)=> {
+        jQuery('#new-contacts').html(res);
+    });
+    
+    (await fetch("{{route('WhatsConversation.show_contacts', 'old')}}?_token={{csrf_token()}}"))
+    .text().then(  (res)=> {
+        jQuery('#all-contacts').html(res);
     })
 }
 

@@ -17,7 +17,7 @@ Route::prefix('wp_conversations')->middleware(['web','auth:staff,superadmin'])->
 });
 
 Route::prefix('wp_contacts')->middleware(['web','auth:staff,superadmin'])->group(function () {
-    Route::get('/load-side', [ConversationController::class, 'show_contacts'])->name('WhatsConversation.show_contacts');
+    Route::get('/load-side/{type}', [ConversationController::class, 'show_contacts'])->name('WhatsConversation.show_contacts');
 });
 
 Route::prefix('wp_messages')->middleware(['web','auth:staff,superadmin'])->group(function () {
