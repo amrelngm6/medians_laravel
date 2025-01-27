@@ -59,7 +59,7 @@ class HuggFaceService
 
             if (!empty($matches[0])) {
                 // Decode the JSON-like string into a PHP array
-                $jsonContent = trim($matches[0]); // The full match, including brackets
+                $jsonContent = str_replace([",  ]", ",\n  \n]"], "]", str_replace( "\n", "", $matches[0])); // The full match, including brackets
                 $array = json_decode($jsonContent, true);
             
                 // Check if decoding was successful
