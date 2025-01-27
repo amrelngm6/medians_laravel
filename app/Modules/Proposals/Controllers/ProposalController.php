@@ -27,11 +27,10 @@ class ProposalController extends Controller
     public function index( Request $request)
     {
         // List all Proposals
-        
         $user = Auth::user();
 
         if ($user->cannot('Proposal view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         // Display a single Proposal
@@ -49,6 +48,14 @@ class ProposalController extends Controller
 
     public function store(Request $request)
     {
+        
+        // List all Proposals
+        $user = Auth::user();
+
+        if ($user->cannot('Proposal create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
         // Store a new Proposal
         try {
                 
@@ -139,6 +146,14 @@ class ProposalController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        
+        // List all Proposals
+        $user = Auth::user();
+
+        if ($user->cannot('Proposal delete') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
         // Delete the specified Proposal
         $this->service->deleteProposal($id);
 

@@ -19,6 +19,15 @@ class ProposalService
         return $Proposals->with('user','items')->paginate(100);
     }
     
+    /**
+     * Filter Proposals based on request
+     * 
+     * @param Request $request
+     * @param int $modelId
+     * @param string $modelType
+     * 
+     * @return Collection
+     */
     public function query($request, $modelId = null, $modelType = null)
     {
         $query = Proposal::query();
