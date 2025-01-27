@@ -29,6 +29,7 @@ class ModuleController extends Controller
     {
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
+        echo str_replace(['App\\', 'app/'],'',$module->path)."";
         $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
         $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
         echo $path."";
