@@ -17,7 +17,7 @@ class TaskChecklistService
     public function createItem(array $data)
     {
         // Business logic for creating a task
-        $task = TaskChecklist::create($data);
+        $task = TaskChecklist::firstOrCreate($data);
 
         return $task;
     }
