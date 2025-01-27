@@ -77,7 +77,7 @@ class HuggFaceService
                                 "sub_task" => $matches[2],
                             ]);
                         },
-                        $jsonResponse
+                        $jsonContent
                     );
 
                     // Step 2: Decode the fixed JSON string
