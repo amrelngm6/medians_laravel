@@ -134,9 +134,9 @@ class TaskChecklistController extends Controller
 
         $nlpService = new HuggFaceService;
         $response = $nlpService->generateText($message, $request->model);
-
+        print_r($response) ;
         error_log(json_encode($response));
-        
+
         if (is_array($response)) {
             $taskList = [];
             $taskList['user_id'] = $user->id();
