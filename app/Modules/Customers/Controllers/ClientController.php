@@ -30,7 +30,7 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $statusList = $this->service->loadStatusList();
-        
+
         return view('clients::index', compact('statusList'));
     }
 
@@ -159,27 +159,36 @@ class ClientController extends Controller
     /**
      * Update the specified client in the database.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id)
     {
         // Find the client
-        $client = Client::findOrFail($id);
+        $client = Client::findOrFail($client_id);
 
         // Validate updated data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => "required|email|unique:clients,email,{$id}",
-            'phone' => 'nullable|string|max:15',
-            'address' => 'nullable|string|max:500',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'file' => 'image|max:2048',
+            'email' => "required|email|unique:clients,email,{$client_id},client_id",
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ], 200);
+            
         }
 
         // Update client details
-        $client->update($request->only('name', 'email', 'phone', 'address'));
+        $update = $this->service->updateCustomer($client_id, $request->only('first_name','last_name', 'email', 'phone', 'about', 'status', 'location_info'));
 
-        return redirect()->route('clients::index')->with('success', 'Client updated successfully');
+        return $update ? response()->json([
+            'success' => true,
+            'result' => 'Client updated successfully',
+            'redirect' => $request->redirect ? route('Client.overview', $client_id) : null
+        ], 200) : '';
     }
 
     /**

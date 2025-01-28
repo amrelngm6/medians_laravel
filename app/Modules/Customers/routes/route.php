@@ -14,7 +14,7 @@ Route::prefix('clients')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('{id}', [ClientController::class, 'show'])->name('Client.overview');
     Route::post('/filter', [ClientController::class, 'filter'])->name('Client.filter');
     Route::post('/store', [ClientController::class, 'store'])->name('Client.store');
-    Route::put('{id}', [ClientController::class, 'update'])->name('Client.update');
+    Route::post('{id}', [ClientController::class, 'update'])->name('Client.update');
     Route::delete('{id}', [ClientController::class, 'destroy'])->name('Client.delete');
     Route::get('{id}/overview', [ClientController::class, 'show'])->name('Client.tabs.overview');
     Route::get('{id}/edit', [ClientController::class, 'edit'])->name('Client.tabs.edit');

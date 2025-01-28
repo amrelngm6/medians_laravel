@@ -37,7 +37,7 @@ class StaffController extends Controller
         $rolesList = $this->staffService->loadRoles(); 
 
         // Optionally apply filters and pagination
-        return view('staff::staff.index', compact('statusList', 'rolesList'));  
+        return view('staff::index', compact('statusList', 'rolesList'));  
     }
 
     /**
@@ -49,7 +49,7 @@ class StaffController extends Controller
         // Optionally apply filters and pagination
         $StaffList = $this->staffService->query($request);
 
-        return view('staff::staff.rows', compact('StaffList'));
+        return view('staff::rows', compact('StaffList'));
     }
 
     /**
@@ -131,7 +131,7 @@ class StaffController extends Controller
         $rolesList = $this->staffService->loadRoles(); 
         $staff = $this->staffService->find($id);
 
-        return view('customers.staff.settings', compact( 'staff', 'statusList','staffTabs','rolesList'));
+        return view('staff::settings', compact( 'staff', 'statusList','staffTabs','rolesList'));
     }
 
     
@@ -174,6 +174,7 @@ class StaffController extends Controller
         
         return response()->json([
             'success' => true,
+            'no_reset' => true,
             'result' => 'Staff updated successfully',
         ], 200);
     }

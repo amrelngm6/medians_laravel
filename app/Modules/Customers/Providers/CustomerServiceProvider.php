@@ -17,7 +17,7 @@ class CustomerServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__ . '/../views', 'clients');
-        $this->loadViewsFrom(__DIR__ . '/../views', 'staff');
+        $this->loadViewsFrom(__DIR__ . '/../views/staff', 'staff');
     }
 
     public function register()

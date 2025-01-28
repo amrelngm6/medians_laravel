@@ -17,6 +17,16 @@ class ClientService
     {
         $query = Client::forBusiness(Auth::user()->business_id);
         
+        if (!empty($request->name)) {
+            $searchTerm = $request->name;
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('first_name', 'like', "%$searchTerm%")
+                      ->orWhere('last_name', 'like', "%$searchTerm%")
+                      ->orWhere('email', 'like', "%$searchTerm%")
+                      ->orWhere('phone', 'like', "%$searchTerm%");
+            });
+        }
+
         if (isset($request->status_id) && is_numeric($request->status_id))
         {
             $query->where('status', $request->status_id ?? '0');

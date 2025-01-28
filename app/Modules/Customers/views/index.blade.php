@@ -42,7 +42,7 @@
                             <div class="card-title w-full gap-4">
                                 
                                 <div class="d-flex align-items-center position-relative my-1" 
-                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Name" >
+                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Name, Email or Phone" >
                                     <input type="text" name="name" id="filter-name" class="filter-on-change form-control form-control-solid py-1 w-200px" />
                                 </div>
                                 <div class="d-flex align-items-center position-relative my-1 ">

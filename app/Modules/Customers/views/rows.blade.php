@@ -4,9 +4,7 @@
         <tr>
             <th class="text-start w-20" data-sort="client_id">ID</th>
             <th class="text-start Client_name" data-sort="Client_name">Name</th>
-            <th class="text-start Client_name" data-sort="Client_name">Assigned</th>
-            <th class="text-start" data-sort="type">Type</th>
-            <th class="text-start" data-sort="role_id">Role</th>
+            <th class="text-start Client_name" data-sort="Client_name">Email</th>
             <th class="text-start status" data-sort="status">Status</th>
             <th class="text-start action">Actions</th>
         </tr>
@@ -22,9 +20,7 @@
                 <img alt="Pic" src="/{{ $client->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">
                 {{ $client->name ?? '' }}
             </td>
-            <td class=" ">{{$client->assignee->name ?? ''}} </td>
-            <td class=""> {{$client->type}} </td>
-            <td class=""> {{$client->role->name ?? ''}} </td>
+            <td class=" ">{{$client->email}} </td>
             <td class=" status">
                 <span
                     class="badge round-danger px-2.5 py-0.5 inline-block text-xs font-medium rounded border bg-{{$client->status_model->color ?? 'danger' }} border-transparent text-orange-500">{{$client->status_model->name ?? ''}}</span>
