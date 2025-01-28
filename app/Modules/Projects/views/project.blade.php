@@ -45,15 +45,17 @@
                                         
                                         @foreach($project->members() as $key => $member)
                                         @if ($key < 5)
-                                        <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                            data-bs-original-title="{{ $member->user->name ?? '' }}" data-kt-initialized="1">
+                                        <div class="symbol symbol-35px symbol-circle" 
+                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                            data-content="{{$member->user->name ?? ''}}">
                                             <img alt="Pic" src="/{{ $member->user->picture ?? '' }}">
                                         </div>
                                         @endif
                                         @endforeach
                                         @if ($project->members()->count() > 5)
-                                        <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_view_users">
+                                        <a href="#" class="symbol symbol-35px symbol-circle" 
+                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                            data-content="{{$project->members()->count() - 5 }} more">
                                             <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->members()->count() - 5 }}</span>
                                         </a>
                                         @endif
