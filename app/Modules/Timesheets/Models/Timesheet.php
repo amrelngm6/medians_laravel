@@ -28,4 +28,12 @@ class Timesheet extends Model
         return $this->morphTo();
     }
 
+    /**
+     * Scope for Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
 }
