@@ -2,9 +2,6 @@
                             data-content="Start Timesheet for this task" >
                                 <small>Timesheet</small>
                                 
-                                <a href="javascript:;" class="btn btn-primary btn-sm">
-                                    <i class='bx bx-time-five'></i> <span id="timer-track"></span> <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
-                                </a>
                                 @if (!$timesheet)
                                 <form action="{{route('Timesheet.store')}}" class="ajax-form " id="timesheet-form" >
                                     @csrf
@@ -18,7 +15,11 @@
                                         <i class='bx bx-time-five'></i> Start timer <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
                                     </button>
                                 </form>
-                                @endif
+                                @else 
+                                <a href="javascript:;" class="btn btn-primary btn-sm">
+                                    <i class='bx bx-time-five'></i> <span id="timer-track"></span> <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
+                                </a> 
+                                @endif 
                             </div>
 @if ($timesheet)
 <script>
