@@ -19,7 +19,7 @@ class StaffService
         
         if (isset($request->status_id))
         {
-            $query->where('status', $request->status_id);
+            $query->where('status', $request->status_id ?? 0);
         }
         
         if ($request->has('role_id')) {
