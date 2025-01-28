@@ -1,4 +1,17 @@
-
+<table id="example" class="text-start display datatable table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-start">ID</th>
+                                <th class="text-start">Title</th>
+                                <th class="text-start">Client</th>
+                                <th class="text-start">Item</th>
+                                <th class="text-start">Total</th>
+                                <th class="text-start">Due Date</th>
+                                <th class="text-start">Status</th>
+                                <th class="text-start">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows-proposals">
 
                             @foreach ($proposals as $proposal)
                             <tr>
@@ -28,4 +41,8 @@
                             </tr>
                             @endforeach
                 
-<script>MediansSettings.tooltipsPopovers();</script>
+                            </tbody>
+                    </table>
+<script>MediansSettings.tooltipsPopovers();
+MediansSettings.dataTablesInit();
+</script>

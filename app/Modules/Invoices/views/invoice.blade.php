@@ -1,7 +1,6 @@
 @extends('layout.master')
 @section('title', 'Invoice')
 @section('css')
-<link href="/assets/plugins/datatables/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
 @endsection
 @section('main-content')
 <div class="wrapper main-wrapper row" style=''>
@@ -215,9 +214,6 @@
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('assets/plugins/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('assets/plugins/jspdf/jspdf.umd.min.js')}}"></script>
 <script src="{{asset('assets/plugins/dom-to-image/dom-to-image.min.js')}}"></script>
