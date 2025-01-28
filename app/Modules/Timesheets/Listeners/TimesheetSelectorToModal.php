@@ -10,7 +10,8 @@ class TimesheetSelectorToModal
     public function handle($event)
     {
         $user = Auth::user();
-        $timesheet = Timesheet::forBusiness([$user->business_id ?? 0, 0])->find($event->model->id() ?? 0);
+        $timesheet = Timesheet::forBusiness($user->business_id ?? 0)
+        ->where('model_id', $event->model->id())->where('model_type', get_class($event->model))->first();
         $model = $event->model ?? null;
         $event->context['components'][] = view('timesheet::timesheet-selector', compact( 'user', 'timesheet', 'model'))->render();
         return $event;
