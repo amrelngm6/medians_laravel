@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title', 'Prohect Tasks')
+@section('title', 'Project Tasks')
 @section('css')
 <link href="/assets/plugins/datatables/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
 
@@ -23,7 +23,7 @@
                 <div class="clearfix"></div>
                 <!-- MAIN CONTENT AREA STARTS -->
 
-                <div class="col-lg-12">
+                <div class="col-lg-12 hidden">
 
                     <div class="card mb-5 mb-xl-10 py-0">
                         <div class="card-body py-0 flex w-full">

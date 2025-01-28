@@ -111,11 +111,13 @@ class TaskService
             $query->where('status_id', $request->status_id);
         }
         
-        if ($request->has('client_id')) {
+        if (!empty($request->client_id))
+        {
             $query->where('client_id', $request->client_id);
         }
 
-        if ($request->has('staff_id')) {
+        if (!empty($request->staff_id))
+        {
             $query->whereHas('team', function($q) use ($request){
                 return $q->where('user_id', $request->staff_id)->where('user_type', Staff::class);
             });

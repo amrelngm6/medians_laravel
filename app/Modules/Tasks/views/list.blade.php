@@ -1,10 +1,6 @@
 @extends('tasks::tasks_page')
 @section('tasks-views-menu')
-<!--begin::Nav item-->
-<li class="nav-item mt-2">
-    <a class="nav-link text-active-primary ms-0 me-10 py-5" href="{{route('Tasks')}}">
-        List </a>
-</li>
+
 <!--end::Nav item-->
 @endsection
 
@@ -14,35 +10,39 @@
 
     <div class="card mb-5 mb-xl-10 py-0">
         <div class="card-body p-0 flex w-full">
-            
+
             <form action="{{route('Task.filter')}}" id="filter-form" class="card-header ajax-form px-0">
                 @csrf
                 <div class="card-title gap-6">
-                    
-                    <div class="d-flex align-items-center position-relative my-1" 
-                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Search for tasks by name" >
-                        <input type="text" class="filter-on-change form-control form-control-solid w-150px " placeholder="Search in Tasks" name="name">
+
+                    <div class="d-flex align-items-center position-relative my-1" rel="popover" data-toggle="popover"
+                        data-placement="top" data-trigger="hover" data-content="Search for tasks by name">
+                        <input type="text" class="filter-on-change form-control form-control-solid w-150px "
+                            placeholder="Search in Tasks" name="name">
                     </div>
-                    <div class="d-flex align-items-center position-relative my-1"
-                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter tasks by Due date" >
-                        <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="invoices" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
-                    </div>  
-                    
+                    <div class="d-flex align-items-center position-relative my-1" rel="popover" data-toggle="popover"
+                        data-placement="top" data-trigger="hover" data-content="Filter tasks by Due date">
+                        <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date"
+                            data-form="filter-date" data-element="invoices"
+                            class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
+                    </div>
+
                     <div class="d-flex align-items-center position-relative my-1">
                         @include('status.status-field-inline')
                     </div>
-                    
+
                     <div class="d-flex align-items-center position-relative my-1">
                         @include('staff::search-input')
                     </div>
                 </div>
             </form>
-            
+
             <!--begin::Navs-->
             <span class="w-full"></span>
             <!--begin::Navs-->
             <div class="d-flex flex-none align-items-center position-relative my-1 gap-10">
-                <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Task.create')}}" data-modal="#add-task-modal">
+                <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Task.create')}}"
+                    data-modal="#add-task-modal">
                     Add Task </a>
             </div>
 
@@ -51,13 +51,13 @@
 </div>
 
 
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
-                        </div>
-                    </div>
-                </div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
+        </div>
+    </div>
+</div>
 @endsection
 
 
