@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 use App\Modules\Core\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\Business;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Customers\Models\Customer;
@@ -108,6 +109,14 @@ class Staff extends Authenticatable
     public function role()
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    /**
+     * Role of the Status
+     */
+    public function status_model()
+    {
+        return $this->hasOne(Status::class, 'status_id', 'status');
     }
 
     /**
