@@ -1,18 +1,18 @@
-
+@php $rand = rand(1, 9) @endphp
 <div class="select-placeholder w-full" 
     rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Staff Name" >
 
     <!-- <label for="assigned" class="control-label">Assigned To</label> -->
-    <select id="name-filter" name="staff_id" placeholder="A" data-live-search="true" 
-        class="filter-on-change with-ajax border border-gray-300 form-control form-control-solid ">
+    <select id="name-filter{{$rand}}" name="staff_id" placeholder="A" data-live-search="true" 
+        class="name-filter filter-on-change with-ajax border border-gray-300 form-control form-control-solid ">
         <option value=""></option>
     </select>
 </div>
 @section('search-scripts')
 <script>
-        alert(1)
         
-        jQuery('#name-filter').selectpicker({
+        
+        jQuery('.name-filter').selectpicker({
             liveSearch:true,
             // mobile:true,
             tickIcon:'glyphicon-ok',

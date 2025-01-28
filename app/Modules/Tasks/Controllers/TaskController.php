@@ -107,7 +107,10 @@ class TaskController extends Controller
             }
             
             $user = Auth::user();
-            $creator = ['created_by' => $user->staff_id];
+            $creator = [
+                'user_id' => $user->staff_id ?? $user->user_id,
+                'created_by' => $user->staff_id
+            ];
 
             // Create and save the Task
             $task = $this->taskService->createTeam(array_merge($creator, $request->only('model_id', 'model_type','user_type', 'staff_id')));
