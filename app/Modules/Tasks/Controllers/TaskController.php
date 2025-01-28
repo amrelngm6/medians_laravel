@@ -29,6 +29,7 @@ class TaskController extends Controller
         }
 
         $statusList = $this->taskService->loadStatusList();   
+        $staffList = $this->taskService->loadStatusList();   
         return view('tasks::list', compact('statusList'));
     }
 
@@ -96,7 +97,7 @@ class TaskController extends Controller
         try {
             // Validate incoming request data
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required|integer',
+                'staff_id' => 'required|integer',
                 'user_type' => 'required|string|max:255',
                 // 'status' => 'required|string|max:255',
             ]);
@@ -109,7 +110,7 @@ class TaskController extends Controller
             $creator = ['created_by' => $user->staff_id];
 
             // Create and save the Task
-            $task = $this->taskService->createTeam(array_merge($creator, $request->only('model_id', 'model_type','user_type', 'user_id')));
+            $task = $this->taskService->createTeam(array_merge($creator, $request->only('model_id', 'model_type','user_type', 'staff_id')));
 
             return $task ? $this->jsonResponse('Created successfully') : null;
             

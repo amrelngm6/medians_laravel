@@ -44,14 +44,10 @@
                             <span class="required">User</span>
                         </label>
                         <!--end::Label-->
-                        <select class="form-select form-select-solid "  
-                            data-hide-search="true" data-placeholder="Select a Team Member"
-                            name="user_id">
-                            <option value="">Select user...</option>
-                            @foreach($team as $user)
-                            <option value="{{$user->staff_id}}">{{$user->name}}</option>
-                            @endforeach
-                        </select>
+                        
+                        <div class="d-flex align-items-center position-relative my-1">
+                            @include('staff::search-input')
+                        </div>
                     </div>
                     <!--end::Input group-->
 
@@ -124,3 +120,5 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+
+@yield('search-scripts')
