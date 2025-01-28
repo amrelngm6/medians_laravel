@@ -55,7 +55,7 @@
             <div class="card-body" id="transactions">
                 <div class="w-full">
                     <!-- ********************************************** -->
-                    <table id="example" class="text-start display ajax-datatable table table-hover table-striped">
+                    <table id="example" class="text-start display datatable table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th class="text-start">Code</th>
