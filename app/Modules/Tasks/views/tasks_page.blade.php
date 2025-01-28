@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title', 'Project Tasks')
+@section('title', 'Tasks list')
 @section('css')
 <link href="/assets/plugins/datatables/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
 
