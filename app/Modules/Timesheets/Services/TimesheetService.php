@@ -15,10 +15,19 @@ class TimesheetService
         $this->model = $model;
     }
     
+
+    /**
+     * Find a Timesheet
+     */
+    public function find(int $id)
+    {
+        $user = Auth::user();
+        return Timesheet::forBusiness($user->business_id ?? 0)->findOrFail($id);
+    }
     
     
     /**
-     * Filter Proposals based on request
+     * Filter Timesheet based on request
      * 
      * @param Request $request
      * @param int $modelId

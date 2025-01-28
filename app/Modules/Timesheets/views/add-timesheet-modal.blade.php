@@ -1,5 +1,5 @@
 
-<div class="modal fade  active" id="add-member-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade  active" id="new-timesheet-modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -7,7 +7,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#add-member-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#new-timesheet-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->

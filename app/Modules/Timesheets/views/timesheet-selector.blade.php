@@ -16,7 +16,6 @@
                                     type="submit" id="modal_new_target_submit" class="btn btn-primary btn-sm">
                                         <i class='bx bx-time-five'></i> Start timer <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
                                     </button>
-                                <span>Log</span>
                                 </form>
                                 @else 
                                 <a rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
@@ -26,8 +25,11 @@
                                     href="{{route('Timesheet.end', $timesheet->id)}}?_token={{csrf_token()}}" class="ajax-link btn btn-primary btn-sm">
                                     <i class='bx bx-time-five'></i> <span id="timer-track"></span> <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
                                 </a> 
-                                <span>Log</span>
                                 @endif 
+                                
+                                <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Timesheet.show', ['model_id'=>$model->id() ?? '0', 'model_type' => get_class($model)])}}" data-modal="#new-timesheet-modal">
+                                    Log 
+                                </a>
                             </div>
 @if ($timesheet)
 <script>

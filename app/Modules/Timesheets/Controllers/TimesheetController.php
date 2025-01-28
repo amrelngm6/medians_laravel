@@ -37,7 +37,23 @@ class TimesheetController extends Controller
 
         $timesheets = $this->service->query($request);
 
+
         return view('timesheet::rows', compact('timesheets'));
+    }
+
+    
+    /**
+     * Filter timesheets
+     */
+    public function showTask(Request $request, $modelId, $modelType)
+    {
+        $user = Auth::user();
+
+        $timesheets = $this->service->query($request, $modelId, $modelType);
+
+        $modalRoute = route('Tasks.project_task', $modelId);
+
+        return view('timesheet::modal', compact('timesheets', 'modalRoute'));
     }
 
     /**

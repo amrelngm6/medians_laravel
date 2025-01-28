@@ -6,7 +6,7 @@ use App\Modules\Timesheets\Controllers\TimesheetController;
 Route::prefix('timesheets')->middleware(['web','auth:staff,superadmin'])->group(function () {
     Route::get('/', [TimesheetController::class, 'index'])->name('Timesheet');
     Route::get('/create', [TimesheetController::class, 'create'])->name('Timesheet.create');
-    Route::get('/{id}/show', [TimesheetController::class, 'show'])->name('Timesheet.show');
+    Route::get('/show_task/{model_id}/{model_type}/', [TimesheetController::class, 'showTask'])->name('Timesheet.show');
     Route::get('/{id}/edit', [TimesheetController::class, 'edit'])->name('Timesheet.edit');
     Route::post('/', [TimesheetController::class, 'store'])->name('Timesheet.store');
     Route::post('/filter', [TimesheetController::class, 'filter'])->name('Timesheet.filter');
