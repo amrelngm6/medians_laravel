@@ -104,7 +104,10 @@
                                     </div>
                                     <!--end::Stats-->
                                     
-                                    <div class="mb-0 progress default-progress h-4px">
+                                    <div class="mb-0 progress default-progress h-4px" 
+                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                            data-title="Progress"
+                                            data-content="{{$project->progress()}}% Completed">
                                         <div class="progress-bar bg-{{ $project->status->color ?? 'gradient1' }} progress-animated" 
                                             style="width: {{$project->progress()}}%; " role="progressbar">
                                             <span class="sr-only">{{$project->progress()}}% Complete</span>
