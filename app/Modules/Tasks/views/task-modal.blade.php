@@ -1,6 +1,6 @@
 <div class="modal fade active show" id="task-modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-800px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -66,7 +66,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full flex">
+                    <div class="w-full flex gap-10">
                         <!--begin::Description-->
 
                         <div class="w-full text-muted fw-semibold fs-5">
@@ -132,13 +132,15 @@
                                     <!--end::Input group-->
                                     <button  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                         data-content="Generate checklist using AI"
+                                        onClick="(function(){jQuery('#loader-svg').toggleClass('hidden')})()"
                                         type="submit" class="btn btn-primary " ><i class='bx bxs-magic-wand fs-2'></i></button>
+                                        <img src="/load.svg" id="loader-svg" class="w-20 p-2 hidden" />
 
                                 </form>
                             </div>
                         </div>
 
-                        <div class="w-150px text-muted fw-semibold fs-5">
+                        <div class="w-175px text-muted fw-semibold fs-5">
                             <!-- Render dynamic components -->
                             @foreach ($components as $component)
                             {!! $component !!}
