@@ -32,12 +32,24 @@ class StaffController extends Controller
     public function index(Request $request)
     {
 
+        $statusList = $this->staffService->loadStatusList(); 
+
+        $rolesList = $this->staffService->loadRoles(); 
+
+        // Optionally apply filters and pagination
+        return view('staff::staff.index', compact('statusList', 'rolesList'));  
+    }
+
+    /**
+     * Display a listing of staff.
+     */
+    public function filter(Request $request)
+    {
+
         // Optionally apply filters and pagination
         $StaffList = $this->staffService->query($request);
-        
 
-        return view('customers.staff.index', compact('StaffList'));
-
+        return view('staff::staff.rows', compact('StaffList'));
     }
 
     /**

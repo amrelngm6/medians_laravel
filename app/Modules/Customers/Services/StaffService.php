@@ -13,9 +13,20 @@ use App\Models\Auth;
 class StaffService
 {
     
-    public function query()
+    public function query($request = null)
     {
-        return Staff::forBusiness(Auth::user()->business_id ?? 0)->with('business','location_info')->get();
+        $query = Staff::forBusiness(Auth::user()->business_id);
+        
+        if (!empty($request->status_id))
+        {
+            $query->where('status_id', $request->status_id);
+        }
+        
+        if ($request->has('role_id')) {
+            $query->where('role_id', $request->role_id);
+        }
+
+        return $query->with('business','location_info')->get();
     }
     
     public function find($id)

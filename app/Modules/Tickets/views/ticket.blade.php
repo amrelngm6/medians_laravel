@@ -1,7 +1,6 @@
 @extends('layout.master')
 @section('title', 'Ticket')
 @section('css')
-<link href="/assets/plugins/datatables/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />
 @endsection
 @section('main-content')
 <div class="wrapper main-wrapper row" style=''>

@@ -68,22 +68,10 @@
             </form>
             <div class="card-body" id="timesheets">
                 <div class="w-full">
-                    <!-- ********************************************** -->
-                    <table id="example" class="text-start display datatable table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th class="text-start">ID</th>
-                                <th class="text-start">User</th>
-                                <th class="text-start">Model</th>
-                                <th class="text-start">Start</th>
-                                <th class="text-start">End</th>
-                                <th class="text-start">Notes</th>
-                                <th class="text-start">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rows-timesheets">
-                        </tbody>
-                    </table>
+                    
+                    <div class="card-body">
+                        <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -94,64 +82,8 @@
 
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-
-
-<script>
-    var table = $('#example').DataTable({
-        // Disable automatic processing (as we manage it manually)
-        paging: true,     // Enable pagination
-        searching: true,  // Enable search box
-        ordering: true,   // Enable column sorting
-        info: true,       // Show table info (e.g., "Showing X of Y entries")
-        autoWidth: false, // Disable auto-width
-        responsive: true  // Make it responsive
-    });
-
-    // Function to fetch and update table data
-    // function fetchData(startDate = '', endDate = '') {
-    function fetchData(dates) {
-        const form = document.getElementById('filter-form');
-    
-        // Get the form data as a FormData object
-        const formData = new FormData(form);
-
-        // Send the form data via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.responseText)
-                {
-                    jQuery('tbody#rows-timesheets').html(xhr.responseText);
-                    table.clear();
-                    table.responsive.recalc();
-                } else {
-                    jQuery('tbody#rows-timesheets').html(' ');
-                }
-            }
-        };
-        xhr.send(formData);
-
-    }
-
-    // Initial fetch without filters
-    // fetchData();
-
-    // Add date range filtering logic
-    $('#filter-date,#status_id,#category_id').on('change', function (ev, picker) {
-        const dates = ev.target.value.split(' - ');
-        const startDate = dates[0];
-        const endDate = dates[1];
-        fetchData(dates);
-    });
-
-</script>
+ 
+@include('assets.datatable-scripts')
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
