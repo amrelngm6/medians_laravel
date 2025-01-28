@@ -40,23 +40,9 @@
             </form>
             <div class="card-body" id="estimates">
                 <div class="w-full">
-                    <!-- ********************************************** -->
-                    <table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th class="text-start">Code</th>
-                                <th class="text-start">Title</th>
-                                <th class="text-start">Client</th>
-                                <th class="text-start">Item</th>
-                                <th class="text-start">Total</th>
-                                <th class="text-start">Due Date</th>
-                                <th class="text-start">Status</th>
-                                <th class="text-start">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rows-estimates">
-                        </tbody>
-                    </table>
+                    <div class="card-body">
+                        <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -117,64 +103,16 @@
     
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
-
-
+<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+ 
 <script>
-    var table = $('#example').DataTable({
-        // Disable automatic processing (as we manage it manually)
-        paging: true,     // Enable pagination
-        searching: true,  // Enable search box
-        ordering: true,   // Enable column sorting
-        info: true,       // Show table info (e.g., "Showing X of Y entries")
-        autoWidth: false, // Disable auto-width
-        responsive: true  // Make it responsive
-    });
-
-    // Function to fetch and update table data
-    // function fetchData(startDate = '', endDate = '') {
-    function fetchData() {
-        jQuery('tbody#rows-estimates').html(' ');
-        const form = document.getElementById('filter-form');
-    
-        // Get the form data as a FormData object
-        const formData = new FormData(form);
-
-        // Send the form data via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-        xhr.onreadystatechange = function () {
-            
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.responseText)
-                {
-                    jQuery('tbody#rows-estimates').html(xhr.responseText);
-                    table.clear();
-                    table.responsive.recalc();
-                }
-            }
-        };
-        xhr.send(formData);
-
-    }
-
-    // Initial fetch without filters
-    // fetchData();
-
-    // Add date range filtering logic
-    $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
-        fetchData();
-    });
-
-    jQuery(document).ready(function() {
-        setInterval(calcTotal, 1000);
-    })
-
+jQuery(document).ready(function() {
+    setInterval(calcTotal, 1000);
+})
 </script>
+
+<!-- Load required assets for the datatable -->
+@include('assets.datatable-scripts')
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

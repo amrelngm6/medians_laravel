@@ -1,5 +1,16 @@
 
-
+<table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Code</th>
+                                <th class="text-start">User</th>
+                                <th class="text-start">Amount</th>
+                                <th class="text-start">Date</th>
+                                <th class="text-start">Status</th>
+                                <th class="text-start">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows-expenses">
                             @foreach ($expenses as $expense)
                             <tr>
                                 <td>{{ $expense->code }}</td>
@@ -23,3 +34,9 @@
                             </tr>
                             @endforeach
                 
+                            </tbody>
+                    </table>
+                    <script>
+                        MediansSettings.tooltipsPopovers();
+                        MediansSettings.dataTablesInit();
+                    </script>

@@ -80,16 +80,16 @@
                         <div class="col">
                             <p class="m-0 mb-2">Members</p>
                             <div class="symbol-group symbol-hover flex-nowrap flex">
-                                @foreach($project->team as $member)
-                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                    data-bs-original-title="{{ $member->name }}" data-kt-initialized="1">
-                                    <img alt="Pic" src="{{ $member->avatar }}">
+                                @foreach($project->members() as $member)
+                                <div class="symbol symbol-35px symbol-circle" rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
+                                    data-content="<b>{{$member->user->name ?? ''}}">
+                                    <img alt="Pic" src="/{{ $member->user->picture ?? '' }}">
                                 </div>
                                 @endforeach
-                                @if ($project->team->count() > 5)
+                                @if ($project->members()->count() > 5)
                                 <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                     data-bs-target="#kt_modal_view_users">
-                                    <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->team->count() - 5 }}</span>
+                                    <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->members()->count() - 5 }}</span>
                                 </a>
                                 @endif
                             </div>

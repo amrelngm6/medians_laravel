@@ -52,27 +52,8 @@
                     </div>
                 </div>
             </form>
-            <div class="card-body" id="credit_notes">
-                <div class="w-full">
-                    <!-- ********************************************** -->
-                    <table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th class="text-start">Code</th>
-                                <th class="text-start">User</th>
-                                <th class="text-start">Invoice</th>
-                                <th class="text-start">Subtotal</th>
-                                <th class="text-start">Tax Amount</th>
-                                <th class="text-start">Total</th>
-                                <th class="text-start">Date</th>
-                                <th class="text-start">Status</th>
-                                <th class="text-start">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rows-credit_notes">
-                        </tbody>
-                    </table>
-                </div>
+            <div class="card-body">
+                <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
             </div>
         </section>
     </div>
@@ -82,62 +63,10 @@
 
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
 
 
-<script>
-    var table = $('#example').DataTable({
-        // Disable automatic processing (as we manage it manually)
-        paging: true,     // Enable pagination
-        searching: true,  // Enable search box
-        ordering: true,   // Enable column sorting
-        info: true,       // Show table info (e.g., "Showing X of Y entries")
-        autoWidth: false, // Disable auto-width
-        responsive: true  // Make it responsive
-    });
-
-    // Function to fetch and update table data
-    // function fetchData(startDate = '', endDate = '') {
-    function fetchData() {
-        jQuery('tbody#rows-credit_notes').empty();
-        const form = document.getElementById('filter-form');
-    
-        // Get the form data as a FormData object
-        const formData = new FormData(form);
-
-        // Send the form data via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.responseText)
-                {
-                    jQuery('tbody#rows-credit_notes').html(xhr.responseText);
-                    table.clear();
-                    table.responsive.recalc();
-                } else {
-                    jQuery('tbody#rows-credit_notes').html(' ');
-                }
-            }
-        };
-        xhr.send(formData);
-
-    }
-
-    // Initial fetch without filters
-    // fetchData();
-
-    // Add date range filtering logic
-    $('#filter-date,.filter-on-change,#category_id').on('change', function (ev, picker) {
-        fetchData();
-    });
-
-</script>
+@include('assets.datatable-scripts')
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

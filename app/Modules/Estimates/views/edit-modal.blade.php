@@ -60,7 +60,7 @@
                                     data-placement="top" data-content="Set the End date of the estimate to approve"
                                     data-title="Expiry Date" data-trigger="hover" data-html="true">Expiry Date <i
                                         class="bx bx-help-circle"></i></label>
-                                <input type="date" class=" form-control form-control-solid  " min="{{date('Y-m-d')}}"
+                                <input type="date" class=" form-control form-control-solid  " min="{{$estimate->date ?? date('Y-m-d')}}"
                                     id="expiry_date" name="expiry_date" class="form-control form-control-solid " value="{{$estimate->expiry_date}}" >
                             </div>
                         </div>

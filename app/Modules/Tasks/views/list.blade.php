@@ -48,31 +48,9 @@
 
 
                 <div class="col-md-12">
-
                     <div class="card">
                         <div class="card-body">
-
-                            <div class="table" data-pattern="priority-columns">
-                                <table
-                                    class="w-full whitespace-nowrap table  table-small-font no-mb table-bordered table-striped"
-                                    id="example">
-                                    <thead class="text-start bg-slate-100 dark:bg-zink-600">
-                                        <tr>
-                                            <th class=" task_code" data-sort="task_code">Task ID</th>
-                                            <th class="text-start task_name" data-sort="task_name">Task Name</th>
-                                            <th class="text-start ">Assignees</th>
-                                            <th class="text-start" >Model</th>
-                                            <th class="text-start  start" data-sort="start">Start</th>
-                                            <th class="text-start  end" data-sort="end">Deadline</th>
-                                            <th class="text-start  status" data-sort="status">Status</th>
-                                            <th class="text-start  action">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="rows-tasks">
-                                    </tbody>
-                                </table>
-
-                            </div>
+                            <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
                         </div>
                     </div>
                 </div>
@@ -81,68 +59,10 @@
 
 
 @section('script')
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-    <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-    
-    
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
 
-    <script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-    
-<script>
-    var table = $('#example').DataTable({
-        // Disable automatic processing (as we manage it manually)
-        paging: true,     // Enable pagination
-        searching: true,  // Enable search box
-        ordering: true,   // Enable column sorting
-        info: true,       // Show table info (e.g., "Showing X of Y entries")
-        autoWidth: false, // Disable auto-width
-        responsive: true  // Make it responsive
-    });
-
-    // Function to fetch and update table data
-    // function fetchData(startDate = '', endDate = '') {
-    function fetchData(dates) {
-        const form = document.getElementById('filter-form');
-    
-        // Get the form data as a FormData object
-        const formData = new FormData(form);
-
-        // Send the form data via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.responseText)
-                {
-                    jQuery('tbody#rows-tasks').html(xhr.responseText);
-                    table.clear();
-                    table.responsive.recalc();
-                } else {
-                    jQuery('tbody#rows-tasks').html(' ');
-                }
-            }
-        };
-        xhr.send(formData);
-
-    }
-
-    // Initial fetch without filters
-    // fetchData();
-
-    // Add date range filtering logic
-    $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
-        const dates = ev.target.value.split(' - ');
-        const startDate = dates[0];
-        const endDate = dates[1];
-        fetchData(dates);
-    });
-
-</script>
+<!-- Load required assets for the datatable -->
+@include('assets.datatable-scripts')
 
 @endsection
