@@ -21,7 +21,7 @@
                                 @else 
                                 <a rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                     data-content="End current Timesheet for this task"  
-                                    data-confirm="End a new Timesheet "
+                                    data-confirm="End Timesheet ?"
                                     data-confirm-text="Are you sure you want to end this active Timesheet ?"
                                     href="{{route('Timesheet.end', $timesheet->id)}}?_token={{csrf_token()}}" class="ajax-link btn btn-primary btn-sm">
                                     <i class='bx bx-time-five'></i> <span id="timer-track"></span> <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
