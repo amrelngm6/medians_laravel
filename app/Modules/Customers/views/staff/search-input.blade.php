@@ -26,8 +26,9 @@
           url: '{{route("Staff.search-input")}}?_token={{csrf_token()}}', // Replace with your API endpoint
         //   url: 'https://jsonplaceholder.typicode.com/users', // Replace with your API endpoint
           data: function () {
+            @php $q = '{{{q}}}' @endphp
             return {
-              q: 'q' // The search query
+              name: '{{$q}}' // The search query
             };
           },
         },
