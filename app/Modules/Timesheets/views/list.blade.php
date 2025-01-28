@@ -69,7 +69,7 @@
             <div class="card-body" id="timesheets">
                 <div class="w-full">
                     <!-- ********************************************** -->
-                    <table id="example" class="text-start display ajax-datatable table table-hover table-condensed">
+                    <table id="example" class="text-start display ajax-datatable table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th class="text-start">ID</th>
