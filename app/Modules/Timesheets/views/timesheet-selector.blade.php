@@ -1,5 +1,4 @@
-                            <div class=" " rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                            data-content="Start Timesheet for this task" >
+                            <div class=" w-full" >
                                 <small>Timesheet</small>
                                 
                                 @if (!$timesheet)
@@ -11,14 +10,21 @@
                                     <input type="hidden" name="user_type" value="{{get_class($user)}}" />
                                     <input type="hidden" name="start" value="{{date('Y-m-d H:i')}}">
 
-                                    <button type="submit" id="modal_new_target_submit" class="btn btn-primary btn-sm">
+                                    <button 
+                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                    data-content="Start Timesheet for this task" 
+                                    type="submit" id="modal_new_target_submit" class="btn btn-primary btn-sm">
                                         <i class='bx bx-time-five'></i> Start timer <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
                                     </button>
+                                <span>Log</span>
                                 </form>
                                 @else 
-                                <a href="javascript:;" class="btn btn-primary btn-sm">
+                                <a rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                    data-content="End current Timesheet for this task"  
+                                    href="{{route('Timesheet.end', $timesheet->id)}}?_token={{csrf_token()}}" class="ajax-link btn btn-primary btn-sm">
                                     <i class='bx bx-time-five'></i> <span id="timer-track"></span> <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
                                 </a> 
+                                <span>Log</span>
                                 @endif 
                             </div>
 @if ($timesheet)

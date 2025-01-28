@@ -36,12 +36,6 @@
                     <h1 class="mb-3">{{ $task->name }}</h1>
                     <!--end::Title-->
                     <div class="flex gap-10 pb-6">
-                        <a class="pt-2 open-modal text-primary"
-                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                            data-content="Start Date"
-                            href="{{route('Task.edit_field',['id' => $task->task_id, 'field' => 'tasks::components.start_date'])}}">
-                            <i class="bx bx-calendar"></i> {{ date('M d, Y', strtotime($task->start_date)) }}
-                        </a>
                         <div class="pt-2">
                             Status:
                             <span class="badge bg-{{$task->status->color ?? ''}} ">{{ $task->status->name ?? '' }}</span>

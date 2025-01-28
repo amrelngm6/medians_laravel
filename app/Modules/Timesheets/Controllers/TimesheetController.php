@@ -107,6 +107,41 @@ class TimesheetController extends Controller
     }
 
     /**
+     * End active timesheet
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function end(Request $request, $id)
+    {
+        // Store a new Timesheet
+        try {
+                
+            $user = Auth::user();
+            $userInfo = [
+                'end' => now(),
+                'status_id' => $this->status('Completed', $this->service->model),
+            ];
+
+            $create = $this->service->updateTimesheet($id, $userInfo);
+
+            return response()->json([
+                'success' => !empty($create),
+                'reload' => !empty($create),
+                'title' => $create ? 'Done' : 'Error',
+                'result' => $create ? 'Timesheet created successfully' : 'Failed to store' ], 
+                $create ? 201 : 422);
+        } catch (\Throwable $th) {
+            
+            return response()->json([
+                'error' => $th->getMessage(),
+                'title' => 'Error',
+                'result' =>'Failed to store' 
+                ], 422);
+        }
+
+    }
+
+    /**
      * Delete the specified timesheet
      * 
      * @param Request $request

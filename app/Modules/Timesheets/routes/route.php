@@ -10,6 +10,7 @@ Route::prefix('timesheets')->middleware(['web','auth:staff,superadmin'])->group(
     Route::get('/{id}/edit', [TimesheetController::class, 'edit'])->name('Timesheet.edit');
     Route::post('/', [TimesheetController::class, 'store'])->name('Timesheet.store');
     Route::post('/filter', [TimesheetController::class, 'filter'])->name('Timesheet.filter');
+    Route::post('{id}/end', [TimesheetController::class, 'end'])->name('Timesheet.end');
     Route::post('{id}/update', [TimesheetController::class, 'update'])->name('Timesheet.update');
     Route::delete('{id}/delete', [TimesheetController::class, 'destroy'])->name('Timesheet.delete');
 

@@ -68,9 +68,9 @@ abstract class Controller
     /**
      * Handle Module Tabs Menu 
      */
-    public function status($id, $model)
+    public function status($name, $model)
     {
-        return Status::default([Auth::user()->business_id ?? 0, 0])->where('model', $model)->where('name', 'LIKE',  '%'. $id .'%',)->first()->status_id ?? null;
+        return Status::default([Auth::user()->business_id ?? 0, 0])->where('model', $model)->where('name', 'LIKE',  '%'. $name .'%',)->first()->status_id ?? 0;
     }
     
     /**

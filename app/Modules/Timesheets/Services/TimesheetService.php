@@ -8,7 +8,7 @@ use App\Models\Auth;
 
 class TimesheetService
 {
-    protected $model;
+    public $model;
 
     public function __construct(Timesheet $model)
     {
@@ -62,6 +62,16 @@ class TimesheetService
         $timesheet = Timesheet::firstOrCreate($data);
 
         return $timesheet;
+    }
+
+    /**
+     * update a new Timesheet
+     */
+    public function updateTimesheet($id, array $data)
+    {
+        $timesheet = Timesheet::find($id);
+
+        return $timesheet->update($data);
     }
 
     /**
