@@ -5,7 +5,7 @@
                                 <a href="javascript:;" class="btn btn-primary btn-sm">
                                     <i class='bx bx-time-five'></i> <span id="timer-track"></span> <span class="h-10px inline-block rounded-full w-10px bg-{{$timesheet->status->color ?? ''}}"></span>
                                 </a>
-                                @if ($timesheet->end != null)
+                                @if (!$timesheet)
                                 <form action="{{route('Timesheet.store')}}" class="ajax-form " id="timesheet-form" >
                                     @csrf
                                     <input type="hidden" name="model_id" value="{{$model->task_id}}" />
