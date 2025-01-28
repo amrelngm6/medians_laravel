@@ -64,7 +64,6 @@
                         
                         <div class="card" id="staff">
                             <div class="w-full">
-
                                 <div class="card-body">
                                     <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
                                 </div>                    
