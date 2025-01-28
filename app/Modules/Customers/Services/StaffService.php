@@ -22,7 +22,7 @@ class StaffService
             $query->where('status', $request->status_id ?? '0');
         }
         
-        if ($request->has('role_id')) {
+        if (isset($request->role_id) && is_numeric($request->role_id)){
             $query->where('role_id', $request->role_id);
         }
 
