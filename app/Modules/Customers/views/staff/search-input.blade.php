@@ -11,7 +11,6 @@
 @section('search-scripts')
 <script>
         
-    $(document).ready(function () {
         
         jQuery('#name-filter').selectpicker({
             liveSearch:true,
@@ -55,7 +54,6 @@
         preserveSelected: false, // Preserve selected items
         liveSearch: true // Enable live search
       });
-    });
 
 </script>
 @endsection
