@@ -18,7 +18,10 @@
                 <img alt="Pic" src="/{{ $timesheet->user->picture ?? '' }}" class="w-6 symbol me-1 symbol-circle">
                 {{ $timesheet->user->name ?? '' }}
             </td>
-            <td>{{ $timesheet->model->name ?? '' }}</td>
+            <td><span  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                    data-title="{{basename($timesheet->model_type)}}"
+                    data-content="Related to {{$timesheet->model->name ?? ''}}" >{{ $timesheet->model->name ?? '' }}</span>
+            </td>
             <td>{{date('M d, Y - H:i a', strtotime($timesheet->start)) }}</td>
             <td>{{date('M d, Y - H:i a', strtotime($timesheet->end)) ?? '' }}</td>
             <td>{{$timesheet->notes}}</td>
