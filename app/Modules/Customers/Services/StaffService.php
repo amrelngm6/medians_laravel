@@ -17,9 +17,9 @@ class StaffService
     {
         $query = Staff::forBusiness(Auth::user()->business_id);
         
-        if (isset($request->status_id) && $request->status_id > -1)
+        if (!empty($request->status_id))
         {
-            $query->where('status', $request->status_id ?? '0');
+            $query->where('status', $request->status_id);
         }
         
         if ($request->has('role_id')) {
