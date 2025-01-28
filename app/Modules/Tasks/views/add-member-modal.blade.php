@@ -44,7 +44,6 @@
                             <span class="required">User</span>
                         </label>
                         <!--end::Label-->
-                        
                         <div class="d-flex align-items-center position-relative my-1">
                             @include('staff::search-input')
                         </div>
