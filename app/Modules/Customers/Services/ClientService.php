@@ -26,6 +26,12 @@ class ClientService
             $query->where('role_id', $request->role_id);
         }
 
+        if ($request->has('date') ) {
+            $date = explode(' - ', $request->date);
+            $transaction->whereDate('created_at', '>=', date('Y-m-d', strtotime($date[0])));
+            $transaction->whereDate('created_at', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
+        }
+
         return $query->with('business','location_info')->get();
     }
     

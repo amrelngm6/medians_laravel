@@ -34,7 +34,7 @@
     }
 
     // Initial fetch without filters
-    // fetchData();
+    fetchData();
 
     // Add date range filtering logic
     $('#filter-date,.filter-on-change').on('change', function (ev, picker) {

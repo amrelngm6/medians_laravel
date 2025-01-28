@@ -42,8 +42,8 @@
                             <div class="card-title w-full gap-4">
                                 
                                 <div class="d-flex align-items-center position-relative my-1" 
-                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Created date" >
-                                    <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="estimates" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
+                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Name" >
+                                    <input type="text" name="name" id="filter-name" class="filter-on-change form-control form-control-solid py-1 w-200px" />
                                 </div>
                                 <div class="d-flex align-items-center position-relative my-1 ">
                                     @include('status.status-field-inline')
