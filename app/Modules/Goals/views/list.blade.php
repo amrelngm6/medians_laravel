@@ -48,16 +48,7 @@
                     </div>
                     
                     <div class="d-flex align-items-center position-relative my-1">
-                        
-                        <div class="select-placeholder w-full">
-                            <select id="status_id" name="status_id" placeholder=""
-                                class=" select-bootstrap border border-gray-300 form-control form-control-solid ">
-                                <option value="0">Status</option>
-                                @foreach ($statusList as $status)
-                                <option value="{{$status->status_id}}">{{$status->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @include('status.status-field-inline')
                     </div>
                     
                     <div class="flex flex-equal flex-end">
