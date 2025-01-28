@@ -35,18 +35,30 @@
                 <!-- MAIN CONTENT AREA STARTS -->
 
                 <div class="col-md-12">
-                    <div class="card">
-                        <form action="{{route('Staff.filter')}}" id="filter-form" class="card-header ajax-form">
+                    <div class="card w-full">
+                        <form action="{{route('Staff.filter')}}" id="filter-form" class="card-header w-full ajax-form">
                             @csrf
                             <div class="card-title w-full gap-4">
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="timesheets" class="filter-on-change datepicker form-control form-control-solid  w-200px" />
-                                </div>
                                 
-                                <div class="d-flex align-items-center position-relative my-1">
+                                <input class="datepicker filter-on-change" value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="hidden" />
+                                
+                                <div class="d-flex align-items-center position-relative my-1 ">
+                                    <div class="select-placeholder w-full" 
+                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Role" >
+                                    
+                                        <select id="role_id" name="role_id" placeholder="A"
+                                            class="filter-on-change select-bootstrap border border-gray-300 form-control form-control-solid ">
+                                            <option value=""></option>
+                                            @foreach ($rolesList as $role)
+                                            <option value="{{$role->role_id}}">{{$role->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center position-relative my-1 ">
                                     @include('status.status-field-inline')
                                 </div>
-                                
+                                <span class="w-full"></span>
                                 <a class="btn btn-md btn-primary me-2 " href="{{route('Staff.create')}}">
                                     New Staff </a>
                                 </div>
