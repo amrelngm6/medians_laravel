@@ -82,7 +82,7 @@ class TaskController extends Controller
 
             event(new TaskSaved($request, $task));
 
-            return $task ? $this->jsonResponse('Created successfully', 'Done', true) : null;
+            return $task ? $this->jsonResponse('Created successfully', 'Done', false) : null;
             
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage(), 'Validation Error');
