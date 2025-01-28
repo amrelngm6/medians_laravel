@@ -120,5 +120,3 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-
-@yield('search-scripts')

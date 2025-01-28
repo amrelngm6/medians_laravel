@@ -10,7 +10,7 @@
 </div>
 @section('search-scripts')
 <script>
-        
+        alert(1)
         
         jQuery('#name-filter').selectpicker({
             liveSearch:true,

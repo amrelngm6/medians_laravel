@@ -398,4 +398,6 @@ jQuery(document).ready(function() {
         },
     });
 })
+
 </script>
+@yield('search-scripts')
