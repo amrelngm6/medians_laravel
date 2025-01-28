@@ -8,6 +8,7 @@
     <script src="{{asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('assets/plugins/viewport/viewportchecker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-select/dist/js/bootstrap-select.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-select/dist/js/ajax-bootstrap-select.min.js')}}"></script>
     <script src="{{asset('assets/plugins/calendar/moment.min.js')}}"></script>
     <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
     <!-- CORE JS FRAMEWORK - END -->

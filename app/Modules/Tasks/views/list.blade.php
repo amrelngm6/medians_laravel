@@ -31,6 +31,10 @@
                     <div class="d-flex align-items-center position-relative my-1">
                         @include('status.status-field-inline')
                     </div>
+                    
+                    <div class="d-flex align-items-center position-relative my-1">
+                        @include('staff::search-input')
+                    </div>
                 </div>
             </form>
             
@@ -64,5 +68,7 @@
 
 <!-- Load required assets for the datatable -->
 @include('assets.datatable-scripts')
+
+@yield('search-scripts')
 
 @endsection

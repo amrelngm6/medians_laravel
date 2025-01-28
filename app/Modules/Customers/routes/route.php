@@ -32,6 +32,7 @@ Route::prefix('staff')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/create', [StaffController::class, 'create'])->name('Staff.create');
     Route::get('{id}/settings', [StaffController::class, 'settings'])->name('Staff.setting');
     Route::post('/filter', [StaffController::class, 'filter'])->name('Staff.filter');
+    Route::post('/search-input', [StaffController::class, 'searchInput'])->name('Staff.search-input');
     Route::post('/store', [StaffController::class, 'store'])->name('Staff.store');
     Route::post('{id}', [StaffController::class, 'update'])->name('Staff.update');
     Route::delete('{id}', [StaffController::class, 'destroy'])->name('Staff.delete');

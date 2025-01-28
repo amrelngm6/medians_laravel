@@ -53,6 +53,18 @@ class StaffController extends Controller
     }
 
     /**
+     * Display a listing of staff as JSON.
+     */
+    public function searchInput(Request $request)
+    {
+
+        // Optionally apply filters and pagination
+        $StaffList = $this->staffService->query($request);
+
+        return response()->json($StaffList->select('staff_id', 'first_name', 'last_name'));
+    }
+
+    /**
      * Show the form for creating a new staff.
      */
     public function create()

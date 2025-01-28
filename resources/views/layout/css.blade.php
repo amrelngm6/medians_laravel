@@ -14,6 +14,7 @@
     <link href="/assets/css/animate.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/bootstrap-select/dist/css/ajax-bootstrap-select.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
     <!-- CORE CSS FRAMEWORK - END -->
 

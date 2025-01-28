@@ -160,6 +160,7 @@ class TaskService
         return Status::default([Auth::user()->business_id, '0'])->where('model', Task::class)->orderBy('sort', 'ASC')->get();
     }
     
+    
     public function loadModelFields()
     {
         return CustomField::where('business_id', Auth::user()->business_id ?? 0)->where('model', Task::class)->get();

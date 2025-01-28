@@ -49,7 +49,15 @@ class HuggFaceService
         // $model = 'deepset/roberta-base-squad2';
         // $model = 'openai-community/gpt2-large';
         $response = $this->client->post("models/$model", [
-            'json' => ['inputs' => $text],
+            'json' => ['inputs' => $text  , 
+                    'parameters' => [
+                        'max_length' => 100,
+                    ],
+                    'options' => [
+                        'use_cache' => true,
+                        'wait_for_model' => true, // Wait if the model is loading
+                    ]],
+            
         ]);
         
         try {
