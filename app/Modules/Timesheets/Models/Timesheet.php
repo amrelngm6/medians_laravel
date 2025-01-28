@@ -28,6 +28,11 @@ class Timesheet extends Model
         return $this->morphTo();
     }
 
+    public function model_name()
+    {
+        return basename(str_replace('\\', '/', $this->model_type));
+    }
+
     /**
      * Scope for Business
      */

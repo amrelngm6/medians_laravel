@@ -19,7 +19,7 @@
                 {{ $timesheet->user->name ?? '' }}
             </td>
             <td><span  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                    data-title="{{basename($timesheet->model_type)}}"
+                    data-title="{{$timesheet->model_name()}}"
                     data-content="Related to {{$timesheet->model->name ?? ''}}" >{{ $timesheet->model->name ?? '' }}</span>
             </td>
             <td>{{date('M d, Y - H:i a', strtotime($timesheet->start)) }}</td>
