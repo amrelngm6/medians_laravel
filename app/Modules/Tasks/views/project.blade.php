@@ -26,6 +26,10 @@
                         <div class="d-flex align-items-center position-relative my-1">
                             @include('status.status-field-inline')
                         </div>
+                        
+                        <div class="d-flex align-items-center position-relative my-1">
+                            @include('staff::search-input')
+                        </div>
                     </div>
                 </form>
                 
@@ -44,8 +48,6 @@
     <div class="col-sm-12   post-wrapper">
         <div class="w-full flex gap-10 overflow-auto  mb-10" id="tasks-container">
     
-           
-            
         </div>
     </div>
 
@@ -136,6 +138,7 @@ function handleSort() {
 
 }
 </script>
+@yield('search-scripts')
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
