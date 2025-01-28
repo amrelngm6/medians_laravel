@@ -23,14 +23,15 @@
                             </div>
 @if ($timesheet)
 <script>
-    // Calculate the time difference between the start time and now
+// Calculate the time difference between the start time and now using moment.js
 setInterval(()=> {
-    let start = new Date('{{$timesheet->start ?? ''}}')
-    let now = new Date()
-    let diff = now - start
-    let hours = Math.floor(diff / 1000 / 60 / 60)
-    let minutes = Math.floor(diff / 1000 / 60) - (hours * 60)
-    let seconds = Math.floor(diff / 1000) - (minutes * 60)
+    let startTime = moment("{{$timesheet->start}}", "YYYY-MM-DD HH:mm:ss");
+    let now = moment();
+    let duration = moment.duration(now.diff(startTime));
+
+    let hours = String(duration.hours()).padStart(2, '0');
+    let minutes = String(duration.minutes()).padStart(2, '0');
+    let seconds = String(duration.seconds()).padStart(2, '0');
     jQuery('#timer-track').html(`${hours}:${minutes}:${seconds}`)
 }, 1000)
 </script>
