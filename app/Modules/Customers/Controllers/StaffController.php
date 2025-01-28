@@ -129,8 +129,9 @@ class StaffController extends Controller
         $statusList = $this->staffService->loadStatusList(); 
 
         $rolesList = $this->staffService->loadRoles(); 
+        $staff = $this->staffService->find($id);
 
-        return view('customers.staff.settings', compact( 'statusList','staffTabs','rolesList'));
+        return view('customers.staff.settings', compact( 'staff', 'statusList','staffTabs','rolesList'));
     }
 
     
