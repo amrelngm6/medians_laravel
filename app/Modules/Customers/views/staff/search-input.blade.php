@@ -5,7 +5,6 @@
     <!-- <label for="assigned" class="control-label">Assigned To</label> -->
     <select id="name-filter{{$rand}}" name="staff_id" placeholder="A" data-live-search="true" 
         class="name-filter filter-on-change with-ajax border border-gray-300 form-control form-control-solid ">
-        <option value=""></option>
     </select>
 </div>
 @section('search-scripts')

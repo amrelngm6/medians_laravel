@@ -1,5 +1,5 @@
 
-<div class="modal fade  active" id="add-task-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade  active" id="edit-task-modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -7,7 +7,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#add-task-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#edit-task-modal" onClick="(function(){fetchData()})()">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
