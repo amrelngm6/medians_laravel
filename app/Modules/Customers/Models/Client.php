@@ -6,6 +6,7 @@ namespace App\Modules\Customers\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\Business;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Customers\Models\Customer;
@@ -91,6 +92,15 @@ class Client extends Authenticatable
         return $this->hasOne(Business::class, 'business_id', 'business_id');
     }
     
+    /**
+     * Role of the Status
+     */
+    public function status_model()
+    {
+        return $this->hasOne(Status::class, 'status_id', 'status');
+    }
+
+
     
     /**
      * Load Items of Business

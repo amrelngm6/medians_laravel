@@ -37,19 +37,30 @@
                 <div class="col-md-12">
 
                     <div class="card">
-                        <div class="card-header align-items-center  gap-2 gap-md-5 w-full flex">
-                            <div class="card-title">
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <input type="date" class="datepicker form-control form-control-solid py-1 w-200px" />
+                        <form action="{{route('Client.filter')}}" id="filter-form" class="card-header w-full ajax-form">
+                            @csrf
+                            <div class="card-title w-full gap-4">
+                                
+                                <div class="d-flex align-items-center position-relative my-1" 
+                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Created date" >
+                                    <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="estimates" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
+                                </div>
+                                <div class="d-flex align-items-center position-relative my-1 ">
+                                    @include('status.status-field-inline')
+                                </div>
+                                <span class="w-full"></span>
+                                <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Client.create')}}">
+                                    New Client </a>
                                 </div>
                             </div>
+                        </form>
 
-                            <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Client.create')}}">
-                                New Client </a>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
+                        <div class="card" id="client-list">
+                            <div class="w-full">
+                                <div class="card-body">
+                                    <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
+                                </div>                    
+                            </div>
                         </div>
                     </div>
                 </div>

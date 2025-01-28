@@ -29,12 +29,23 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
+        $statusList = $this->service->loadStatusList();
+        
+        return view('clients::index', compact('statusList'));
+    }
+
+    /**
+     * Display a listing of staff.
+     */
+    public function filter(Request $request)
+    {
 
         // Optionally apply filters and pagination
         $ClientList = $this->service->query($request);
 
-        return view('clients::index', compact('ClientList'));
+        return view('clients::rows', compact('ClientList'));
     }
+
 
     /**
      * Show the form for creating a new client.

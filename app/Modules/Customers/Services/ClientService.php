@@ -12,9 +12,21 @@ use App\Models\Auth;
 class ClientService
 {
     
-    public function query()
+    
+    public function query($request = null)
     {
-        return Client::forBusiness(Auth::user()->business_id ?? 0)->with('business','location_info')->get();
+        $query = Client::forBusiness(Auth::user()->business_id);
+        
+        if (isset($request->status_id) && is_numeric($request->status_id))
+        {
+            $query->where('status', $request->status_id ?? '0');
+        }
+        
+        if (isset($request->role_id) && is_numeric($request->role_id)){
+            $query->where('role_id', $request->role_id);
+        }
+
+        return $query->with('business','location_info')->get();
     }
     
     public function find($id)
