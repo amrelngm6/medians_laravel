@@ -50,7 +50,7 @@
                                             class="filter-on-change select-bootstrap border border-gray-300 form-control form-control-solid ">
                                             <option value=""></option>
                                             @foreach ($rolesList as $role)
-                                            <option value="{{$role->role_id}}">{{$role->name}}</option>
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

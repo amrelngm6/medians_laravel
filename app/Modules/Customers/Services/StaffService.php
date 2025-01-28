@@ -25,6 +25,7 @@ class StaffService
         if (isset($request->role_id) && is_numeric($request->role_id)){
             $query->where('role_id', $request->role_id);
         }
+        echo $query->toSql();
 
         return $query->with('business','location_info')->get();
     }
