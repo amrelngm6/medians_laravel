@@ -73,7 +73,7 @@ class TimesheetController extends Controller
                 
             $validator = Validator::make($request->all(), [
                 'start' => 'required|date',
-                'end' => 'required|date',
+                'end' => 'date',
             ]);
 
             if ($validator->fails()) {
@@ -83,6 +83,7 @@ class TimesheetController extends Controller
             $user = Auth::user();
             $userInfo = [
                 'business_id' => $user->business_id ?? 0, 
+                'user_id' => $user->id() ?? 0, 
                 'created_by' => $user->id() ?? 0
             ];
 
