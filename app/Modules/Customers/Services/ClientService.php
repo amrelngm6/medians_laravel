@@ -36,7 +36,7 @@ class ClientService
             $query->where('role_id', $request->role_id);
         }
 
-        if ($request->has('date') ) {
+        if (!empty($request->date) ) {
             $date = explode(' - ', $request->date);
             $transaction->whereDate('created_at', '>=', date('Y-m-d', strtotime($date[0])));
             $transaction->whereDate('created_at', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
