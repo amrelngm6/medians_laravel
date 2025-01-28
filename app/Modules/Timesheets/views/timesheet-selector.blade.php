@@ -20,10 +20,11 @@
                                 </form>
                                 @endif
                             </div>
+@if ($timesheet)
 <script>
     // Calculate the time difference between the start time and now
 setInterval(()=> {
-    let start = new Date('{{$timesheet->start}}')
+    let start = new Date('{{$timesheet->start ?? ''}}')
     let now = new Date()
     let diff = now - start
     let hours = Math.floor(diff / 1000 / 60 / 60)
@@ -32,3 +33,4 @@ setInterval(()=> {
     jQuery('#timer-track').html(`${hours}:${minutes}:${seconds}`)
 }, 1000)
 </script>
+@endif
