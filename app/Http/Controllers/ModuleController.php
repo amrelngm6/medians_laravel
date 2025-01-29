@@ -152,8 +152,6 @@ class ModuleController extends Controller
                     }
                 }
             }
-        }else {
-        echo $configFileFullPath;
 
         }
     }
