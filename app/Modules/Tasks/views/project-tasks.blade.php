@@ -21,7 +21,7 @@
                             <div class="sort_item card-body pb-0" data-id="{{$task->task_id}}">
                                 <div class="w-full">
                                     <div class="block w-full">
-                                        <h4 class="mb-4 block"> <a href="{{route('Tasks.project_task', $task->task_id)}}" class="open-modal"
+                                        <h4 class="mb-4 block"> <a href="{{route('Tasks.project_task', $task->task_id)}}" data-id="{{$task->task_id}}" class="open-modal"
                                                 data-modal="#task-modal">{{ $task->name }} </a></h4>
                                         <p class="block w-full">{{ $task->description }}</p>
                                     </div>
@@ -90,4 +90,3 @@
                 </div>
             </div>
             @endforeach
-            

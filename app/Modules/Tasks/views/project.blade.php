@@ -70,6 +70,13 @@ jQuery(document).ready(function(){
     
     // Initial fetch without filters
     fetchData();
+    setTimeout(() => {
+        // Check if GET request has task_id and open the task modal
+        if (window.location.search.includes('task_id')) {
+            let taskId = window.location.search.split('task_id=')[1];
+            jQuery('.open-modal[data-id='+taskId+']').trigger('click');
+        }
+    }, 3000);
     // Add date range filtering logic
     $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
         fetchData();
