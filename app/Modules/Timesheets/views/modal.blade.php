@@ -37,19 +37,18 @@
                         <tr class="bg-gray-200">
                             <th class="py-4 px-6 text-left text-gray-700 font-bold">Date</th>
                             <th class="py-4 px-6 text-left text-gray-700 font-bold">Start</th>
+                            <th class="py-4 px-6 text-left text-gray-700 font-bold">End</th>
                             <th class="py-4 px-6 text-left text-gray-700 font-bold">Duration</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($timesheets as $timesheet)
                         <tr class="border-b border-gray-200">
-                            {{ now()->diffInDays($timesheet->start) }}
-                            <!-- ->diff($startTime)->format('%H:%I:%S'); -->
-
+                            @php $diffTime = strtotime($timesheet->end) - strtotime($timesheet->start); @endphp
                             <td class="py-4 px-6 text-left">{{date('M d, Y', strtotime($timesheet->start))}} </td>
                             <td class="py-4 px-6 text-left">{{date('H:i a', strtotime($timesheet->start))}} </td>
                             <td class="py-4 px-6 text-left">{{date('H:i a', strtotime($timesheet->end))}} </td>
-                            <td class="py-4 px-6 text-left">{{date('h:i:s', strtotime($timesheet->end))}} </td>
+                            <td class="py-4 px-6 text-left">{{$diffTime > 86400 ? '1 Day + ' : ''}}{{date('H:i:s', $diffTime)}} </td>
                         </tr>
                         @endforeach
                     </tbody>
