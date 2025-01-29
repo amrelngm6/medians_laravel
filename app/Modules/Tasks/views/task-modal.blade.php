@@ -7,7 +7,8 @@
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
                 <div class="cursor-pointer text-danger close-modal" data-modal="#task-modal"
-                    onClick="(function(){fetchData()})()">
+                    onClick="(function(){fetchData(); window.history.pushState('Projects', window.title, window.location.href.replace('?task_id={{$task->task_id}}', ''))})()" >
+
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
