@@ -36,7 +36,8 @@ class HuggFaceController extends Controller
             $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', $response);
 
 
-            return nl2br(  $result);
+            // return nl2br(  $result);
+            return $result;
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage());
         }
