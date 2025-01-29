@@ -47,8 +47,8 @@
                             @php $diffTime = strtotime($timesheet->end) - strtotime($timesheet->start); @endphp
                             <td class="py-4 px-6 ">{{date('M d, Y', strtotime($timesheet->start))}} </td>
                             <td class="py-4 px-6 ">{{date('H:i a', strtotime($timesheet->start))}} </td>
-                            <td class="py-4 px-6 ">{{date('H:i a', strtotime($timesheet->end))}} </td>
-                            <td class="py-4 px-6 fw-bold text-primary">{{$diffTime > 86400 ? '1 Day + ' : ''}}{{date('H:i:s', $diffTime)}} </td>
+                            <td class="py-4 px-6 ">{{$timesheet->end ? date('H:i a', strtotime($timesheet->end)) : '--'}} </td>
+                            <td class="py-4 px-6 fw-bold text-primary">{{$timesheet->end ? ($diffTime > 86399 ? '1 Day + '.date('H:i:s', $diffTime) : date('H:i:s', $diffTime)) : ''}} </td>
                         </tr>
                         @endforeach
                     </tbody>
