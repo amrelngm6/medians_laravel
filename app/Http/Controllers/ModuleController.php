@@ -123,7 +123,7 @@ class ModuleController extends Controller
     private function handleRoles($path)
     {
         $configFileFullPath =  str_replace([': ', "\\"],[':', '/'], env('APP_ENV') == 'local' ? app_path($path."\\Config\\roles.php") :  app_path($path. '/Config/roles.php'));
-        echo $configFileFullPath;
+
         if (File::exists($configFileFullPath)) {
 
             $rolesConfig = require $configFileFullPath;
@@ -152,6 +152,9 @@ class ModuleController extends Controller
                     }
                 }
             }
+        }else {
+        echo $configFileFullPath;
+
         }
     }
 }
