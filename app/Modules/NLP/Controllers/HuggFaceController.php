@@ -31,7 +31,7 @@ class HuggFaceController extends Controller
 
         $response = $this->service->generateText($request->message, $request->model);
 
-        return $response;
+        return nl2br($response);
     }
 
     /**
