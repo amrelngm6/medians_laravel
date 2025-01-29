@@ -47,6 +47,6 @@ class ParticipantController extends Controller
     {
         // Delete the specified Participant
         $this->roomService->removeParticipant($roomId, $participantId);
-        return response()->json(['message' => 'Participant removed successfully']);
+        return response()->json(['success'=>true, 'result' => 'Participant removed successfully']);
     }
 }

@@ -1,4 +1,4 @@
-<div class="modal fade show active" id="add-item_group-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade show active" id="add-item_group-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->

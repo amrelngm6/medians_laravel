@@ -120,7 +120,7 @@ class ProposalController extends Controller
         // Display a single Proposal
         $proposal = $this->service->find($id);
 
-        return view('proposals::edit-modal', compact('proposal', 'items', 'clients','statusList'));
+        return view('proposals::edit', compact('proposal', 'items', 'clients','statusList'));
     
     }
 
@@ -141,7 +141,7 @@ class ProposalController extends Controller
 
         $this->service->updateProposal($id, $request->all());
 
-        return response()->json(['message' => 'Proposal updated successfully'], 200);
+        return response()->json(['success'=>true, 'result' => 'Proposal updated successfully'], 200);
     }
 
     public function destroy(Request $request, $id)
@@ -157,7 +157,7 @@ class ProposalController extends Controller
         // Delete the specified Proposal
         $this->service->deleteProposal($id);
 
-        return response()->json(['message' => 'Proposal deleted successfully'], 200);
+        return response()->json(['success'=>true, 'result' => 'Proposal deleted successfully'], 200);
     }
 
     

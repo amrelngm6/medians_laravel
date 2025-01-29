@@ -1,5 +1,5 @@
 
-    <div class="modal fade  active " id="create-project-milestone" tabindex="-1" aria-hidden="true">
+    <div class="modal fade  active " id="create-project-milestone" tabindex="-1" >
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-800px">
             <!--begin::Modal content-->

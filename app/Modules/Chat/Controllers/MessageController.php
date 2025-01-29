@@ -72,6 +72,6 @@ class RoomController extends Controller
     {
         // Delete the specified Message
         $this->roomService->deleteMessage($roomId, $messageId);
-        return response()->json(['message' => 'Message deleted successfully']);
+        return response()->json(['success'=>true, 'result' => 'Message deleted successfully']);
     }
 }

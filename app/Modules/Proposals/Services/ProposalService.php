@@ -111,9 +111,7 @@ class ProposalService
      */
     public function loadStatusList()
     {
-        print_r(Status::default([Auth::user()->business_id, '0'])->where('model', Proposal::class)->groupBy('status_id')->get());
-
-        return Status::default([Auth::user()->business_id, '0'])->where('model', Proposal::class)->orderBy('sort', 'ASC')->groupBy('status_id');
+        return Status::default([Auth::user()->business_id, '0'])->where('model', Proposal::class)->get()->unique('status_id');
     }
 
 }

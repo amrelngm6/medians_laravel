@@ -28,6 +28,8 @@ Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/{id}/edit_field', [StatusController::class, 'edit_task_field'])->name('StatusList.edit_task_field');
     Route::post('/updateSort', [TaskController::class, 'updateOrder'])->name('Tasks.updateOrder');
 
+    Route::get('/{id}/duplicate', [TaskController::class, 'duplicate'])->name('Task.duplicate');
+
 });
 
 

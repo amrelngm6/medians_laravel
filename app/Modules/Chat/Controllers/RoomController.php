@@ -47,6 +47,6 @@ class RoomController extends Controller
     {
         // Delete the specified Room
         $this->roomService->deleteRoom($id);
-        return response()->json(['message' => 'Room deleted successfully']);
+        return response()->json(['success'=>true, 'result' => 'Room deleted successfully']);
     }
 }

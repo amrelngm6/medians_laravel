@@ -1,4 +1,4 @@
-<div class="modal fade show active " id="create-creditnote-invoice" tabindex="-1" aria-hidden="true">
+<div class="modal fade show active " id="create-creditnote-invoice" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-1000px">
         <!--begin::Modal content-->

@@ -1,37 +1,44 @@
+@extends('layout.master')
+@section('title', 'All Projects')
+@section('css')
 
-    <div class="modal fade show active " id="edit-proposal-modal" tabindex="-1" >
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-800px">
-            <!--begin::Modal content-->
-            <div class="modal-content rounded">
-                <!--begin::Modal header-->
-                <div class="modal-header pb-0 border-0 justify-content-end">
-                    <!--begin::Close-->
-                    <a class="cursor-pointer text-danger close-modal" data-modal="#edit-proposal-modal">
-                        <i class='bx bx-message-square-x fs-2qx'></i>
-                    </a>
-                    <!--end::Close-->
-                </div>
-                <!--begin::Modal header-->
+@endsection
+@section('main-content')
 
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <!--begin:Form-->
-                    <!--begin::Heading-->
-                    <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">Edit Proposal</h1>
-                        <!--end::Title-->
+<div class="wrapper main-wrapper row" style=''>
 
-                        <!--begin::Description-->
-                        <div class="text-muted fw-semibold fs-5">
-                            Update the information of this Proposal .
-                        </div>
-                        <!--end::Description-->
-                    </div>
-                    <!--end::Heading-->
+    <div class='col-xs-12'>
+        <div class="page-title">
 
-                    <form action="{{route('Proposal.update', $proposal->id)}}" class="w-full ajax-form card-body " data-append="true"
+            <div class="pull-left">
+                <!-- PAGE HEADING TAG - START -->
+                <h1 class="title">Proposal details</h1>
+                <!-- PAGE HEADING TAG - END -->
+            </div>
+            <div class="pull-right hidden-xs">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/"><i class="fa fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="{{route('Proposal')}}">Proposals</a>
+                    </li>
+                    <li class="active">
+                        <strong>{{$proposal->title ?? ''}}</strong>
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <!-- MAIN CONTENT AREA STARTS -->
+
+    <div class="col-lg-12">
+        <div class="card w-full">
+
+                <form action="{{route('Proposal.update', $proposal->id)}}" class="w-full ajax-form card-body " data-append="true"
                         data-element="variants-container" id="edit-proposal-form">
                         @csrf
 
@@ -165,11 +172,30 @@
                         </div>
                         <!--end::Actions-->
                     </form>
-                    <!--end:Form-->
+
                 </div>
-                <!--end::Modal body-->
             </div>
-            <!--end::Modal content-->
         </div>
-        <!--end::Modal dialog-->
     </div>
+    
+    <!-- MAIN CONTENT AREA ENDS -->
+</div>
+@include('proposals::items-modal')
+
+@endsection
+
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+    
+@section('script')
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+ 
+<script>
+    jQuery(document).ready(function () {
+        setInterval(calcTotal, 1000);
+    });
+</script>  
+
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
+@endsection

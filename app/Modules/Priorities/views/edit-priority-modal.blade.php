@@ -1,6 +1,6 @@
 <?php $Modules = \App\Models\Module::get(); ?>
 
-<div class="modal fade  active show" id="edit-priority-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade  active show" id="edit-priority-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->

@@ -62,6 +62,16 @@ class TaskService
         return $task;
     }
 
+    public function duplicateWithRelations($id , array $relations)
+    {
+        // Business logic for duplicating a task
+        $task = Task::find($id);
+
+        $newTask = $task->duplicateWithRelations($relations);
+
+        return $newTask;
+    }
+
     
     public function storeCustomFields(Task $Task, $data)
     {
@@ -150,7 +160,14 @@ class TaskService
     public function deleteTask($id)
     {
         // Business logic for deleting a task
-        return Task::forBusiness(Auth::user()->business_id ?? null)->where('task_id', $id)->delete();
+        $task = Task::forBusiness(Auth::user()->business_id ?? null)->find($id);
+
+        if ($task)
+        {
+            $deleteRelations = $task->deleteRelations(['comments', 'checklist', 'team']);
+            $delete = $task->delete();
+            return $delete;
+        }
     }
     
     

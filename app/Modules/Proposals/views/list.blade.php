@@ -51,7 +51,7 @@
 
 
 
-    <div class="modal fade  active " id="new-proposal-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade  active " id="new-proposal-modal" tabindex="-1" >
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-1000px">
             <!--begin::Modal content-->
@@ -104,6 +104,9 @@
     
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+ 
 <script>
     jQuery(document).ready(function () {
         setInterval(calcTotal, 1000);

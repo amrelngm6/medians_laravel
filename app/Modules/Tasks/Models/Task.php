@@ -106,6 +106,68 @@ class Task extends Model
         return $this->morphMany(ModelField::class, 'model')->with('field');
     }
 
+
+
+
+
+    
+    /**
+     * Duplicate a model with its relations
+     * 
+     * @param $model Model
+     * @param $relations Array
+     */
+    public function deleteRelations($relations)
+    {
+        $data = [];
+        foreach ($relations as $relation) {
+            foreach ($this->$relation as $related) {
+                $data =  $related->delete();
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Duplicate a model with its relations
+     * 
+     * @param $model Model
+     * @param $relations Array
+     */
+    public function duplicateWithRelations($relations)
+    {
+        
+        $data = array();
+        $i = 0;
+        $newModel = $this->replicate();
+        $newModel->push(); // Save the duplicated model first
+        
+        foreach ($relations as $relation) {
+            foreach ($this->$relation as $related) {
+
+                $newRelated = $related->replicate();
+                if (isset($newRelated->model_id)) {
+                    $newRelated->model_id = $newModel->task_id; // Set new foreign key
+                } else {
+                    $newRelated->task_id = $newModel->task_id; // Set new foreign key
+                }
+                $newRelated->push();
+                $data[$i] = $newRelated;
+                $i++;
+            }
+        }
+
+
+        return $data;
+    }
+
+
+
+
+
+
+
+
     /**
      * Project related status as Morph
      */

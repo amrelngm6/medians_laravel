@@ -216,4 +216,25 @@ class TaskController extends Controller
             return $this->hasError($th->getMessage(), 'Validation Error');
         }
     }
+
+    /**
+     * Duplicate a task
+     *  
+     */
+    public function duplicate(Request $request)
+    {
+        try {
+
+            $relations = $request->all() ? $request->all() : ['comments', 'checklist', 'team'];
+            
+
+            $task = $this->taskService->duplicateWithRelations($request->id, $relations);
+
+            return $task ? $this->jsonResponse('') : null;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage(), 'Validation Error');
+        }
+    }
+
 }
