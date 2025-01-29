@@ -7,7 +7,7 @@
                                 <div class="card-title">
                                     <!--begin::User-->
                                     <div class="d-flex justify-content-center flex-column me-3">
-                                        <a href="#"
+                                        <a href="javascript:;"
                                             class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{$conversation->contact->name ?? ''}}</a>
 
                                         <!--begin::Info-->

@@ -97,7 +97,7 @@
                                         <!--begin::Content-->
                                         <div class="me-5">
                                             <!--begin::Title-->
-                                            <a href="#"
+                                            <a href="javascript:;"
                                                 class="text-gray-800 fw-bold text-hover-primary fs-6">{{$module->name}}</a>
                                             <!--end::Title-->
                                         </div>

@@ -57,7 +57,7 @@
                                         <img alt="Pic" src="/{{$member->user->picture ?? ''}}">
                                     </a>
                                     @endforeach
-                                    <a href="#" class="symbol symbol-35px symbol-circle show-modal"
+                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle show-modal"
                                         data-modal="#add-member-modal">
                                         <span class="symbol-label bg-dark text-gray-300 fs-3 fw-bold">+</span>
                                     </a>

@@ -571,7 +571,7 @@
                             <!--end::Content-->
 
                             <!--begin::Action-->
-                            <a href="#" class="btn btn-primary px-6 align-self-center text-nowrap"
+                            <a href="javascript:;" class="btn btn-primary px-6 align-self-center text-nowrap"
                                 data-bs-toggle="modal" data-bs-target="#kt_modal_two_factor_authentication">
                                 Enable </a>
                             <!--end::Action-->

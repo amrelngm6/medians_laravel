@@ -57,17 +57,17 @@
                                     <i class="fa fa-star text-grey star"></i>
                                 </div>
                                 <div class="show-child">
-                                    <a href="#" class="option-dots fs-3" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    <a href="javascript:;" class="option-dots fs-3" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false"><i class='bx bx-dots-vertical-rounded'></i></a>
                                     <div class="show-on-hover dropdown-menu dropdown-menu-start">
                                         <a class="dropdown-item open-modal" href="{{route('Projects.edit', $project->project_id)}}" data-modal="#edit-project-modal"
                                         ><i class="fe fe-edit me-2"></i>
                                             Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="fe fe-share me-2"></i>
+                                        <a class="dropdown-item" href="javascript:;"><i class="fe fe-share me-2"></i>
                                             Share</a>
-                                        <a class="dropdown-item" href="#"><i class="fe fe-download me-2"></i>
+                                        <a class="dropdown-item" href="javascript:;"><i class="fe fe-download me-2"></i>
                                             Clone</a>
-                                        <a class="dropdown-item" href="#"><i class="fe fe-trash me-2"></i>
+                                        <a class="dropdown-item" href="javascript:;"><i class="fe fe-trash me-2"></i>
                                             Delete</a>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 </div>
                                 @endforeach
                                 @if ($project->members()->count() > 5)
-                                <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                     data-bs-target="#kt_modal_view_users">
                                     <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->members()->count() - 5 }}</span>
                                 </a>

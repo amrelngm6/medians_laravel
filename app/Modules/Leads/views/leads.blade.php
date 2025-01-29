@@ -22,7 +22,7 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">Leads</a>
+                                    <a href="javascript:;">Leads</a>
                                 </li>
                                 <li class="active">
                                     <strong>All Leads</strong>

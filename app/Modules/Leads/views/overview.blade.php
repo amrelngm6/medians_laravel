@@ -73,7 +73,7 @@
 
                             <!--begin::Col-->
                             <div class="col-lg-8">
-                                <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{$lead->location_info->website ?? ''}}</a>
+                                <a href="javascript:;" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{$lead->location_info->website ?? ''}}</a>
                             </div>
                             <!--end::Col-->
                         </div>
@@ -87,7 +87,7 @@
 
                             <!--begin::Col-->
                             <div class="col-lg-8">
-                                <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{$lead->email}}</a>
+                                <a href="javascript:;" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{$lead->email}}</a>
                             </div>
                             <!--end::Col-->
                         </div>

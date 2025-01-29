@@ -24,7 +24,7 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">Priorities</a>
+                                    <a href="javascript:;">Priorities</a>
                                 </li>
                                 <li class="active">
                                     <strong>All</strong>

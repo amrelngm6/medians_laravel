@@ -35,7 +35,7 @@
                                         <div class="d-flex flex-column">
                                             <!--begin::Name-->
                                             <div class="d-flex align-items-center mb-2">
-                                                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Flutter
+                                                <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Flutter
                                                     Mobile APP</a>
                                             </div>
                                             <!--end::Name-->
@@ -83,7 +83,7 @@
                                                         data-kt-initialized="1">
                                                         <img alt="Pic" src="/data/profile/avatar-3.png">
                                                     </div>
-                                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                                         data-bs-target="#kt_modal_view_users">
                                                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+42</span>
                                                     </a>
@@ -286,7 +286,7 @@
                                         <!--begin::Timeline heading-->
                                         <div class="mb-5 pe-3">
                                             <!--begin::Title-->
-                                            <a href="#" class="fs-5 fw-bold text-gray-800 text-hover-primary mb-2">Incoming
+                                            <a href="javascript:;" class="fs-5 fw-bold text-gray-800 text-hover-primary mb-2">Incoming
                                                 Project Files:</a>
                                             <!--end::Title-->
 
@@ -410,7 +410,7 @@
                                         <div class="pe-3 mb-5">
                                             <!--begin::Title-->
                                             <div class="fs-5 fw-bold mb-2">
-                                                New case <a href="#" class="text-primary fw-bold me-1">#67890</a>
+                                                New case <a href="javascript:;" class="text-primary fw-bold me-1">#67890</a>
                                                 is assigned to you in Multi-platform Database Design project
                                             </div>
                                             <!--end::Title-->
@@ -424,7 +424,7 @@
                                                     <!--end::Info-->
 
                                                     <!--begin::User-->
-                                                    <a href="#" class="text-primary fw-bold me-1">Alice Tan</a>
+                                                    <a href="javascript:;" class="text-primary fw-bold me-1">Alice Tan</a>
                                                     <!--end::User-->
                                                 </div>
                                                 <!--end::Wrapper-->
@@ -505,7 +505,7 @@
                                                 <!--end::Info-->
 
                                                 <!--begin::User-->
-                                                <a href="#" class="text-primary fw-bold me-1">Jimmy Bold</a>
+                                                <a href="javascript:;" class="text-primary fw-bold me-1">Jimmy Bold</a>
                                                 <!--end::User-->
                                             </div>
                                             <!--end::Description-->

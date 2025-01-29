@@ -131,7 +131,7 @@
                 </div>
                 <!--end::Step 4-->
                 @endif
-                
+
                 <!--begin::Step 5-->
                 <div class="stepper-item cursor-pointer " data-id="business-form">
                     <!--begin::Wrapper-->
@@ -226,6 +226,24 @@
                         </div>
                         <div class="w-full">
                             <div class="w-full">
+
+                            <div class="form-group" app-field-wrapper="position"><label for="position"
+                                    class="control-label">Position</label><input type="text" id="position"
+                                    name="position" class="form-control form-control-solid "
+                                    placeholder="Postition title" value="{{$staff->position}}"></div>
+
+                            <div class="form-group w-full select-placeholder">
+                                <label for="rel_type" class="control-label">Role</label>
+                                <select id="role_id" name="role_id"
+                                    class="select-bootstrap form-control form-control-solid py-2">
+                                    <option value=""></option>
+                                    @foreach ($rolesList as $role)
+                                    <option value="{{$role->id}}" {{$staff->role_id == $role->id ? 'selected' : ''}}>
+                                        {{$role->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
 
 
                                 <div class="w-full form-group select-placeholder ">
@@ -553,7 +571,7 @@
                             <!--end::Content-->
 
                             <!--begin::Action-->
-                            <a href="#" class="btn btn-primary px-6 align-self-center text-nowrap"
+                            <a href="javascript:;" class="btn btn-primary px-6 align-self-center text-nowrap"
                                 data-bs-toggle="modal" data-bs-target="#kt_modal_two_factor_authentication">
                                 Enable </a>
                             <!--end::Action-->

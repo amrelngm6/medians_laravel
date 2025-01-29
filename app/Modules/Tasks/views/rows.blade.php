@@ -30,7 +30,7 @@
                     @endif
                     @endforeach
                     @if ($task->team->count() > 5)
-                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                    <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                         data-bs-target="#kt_modal_view_users">
                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $task->team->count() - 5 }}</span>
                     </a>

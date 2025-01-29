@@ -76,7 +76,7 @@
                                                         data-kt-initialized="1">
                                                         <img alt="Pic" src="/data/profile/avatar-1.png">
                                                     </div>
-                                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                                         data-bs-target="#kt_modal_view_users">
                                                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+3</span>
                                                     </a>
@@ -84,7 +84,7 @@
                                             </td>
                                             <td>Dec 23, 2024</td>
                                             <td><span class="badge round-primary">Pending</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -117,7 +117,7 @@
                                             </td>
                                             <td>Dec 31, 2024</td>
                                             <td><span class="badge round-danger">Completed</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -150,7 +150,7 @@
                                             </td>
                                             <td>Jan 15, 2024</td>
                                             <td><span class="badge round-primary">Pending</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -174,7 +174,7 @@
                                             </td>
                                             <td>Fab 15, 2024</td>
                                             <td><span class="badge round-primary">Pending</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -203,7 +203,7 @@
                                                         data-bs-original-title="Alan Warden" data-kt-initialized="1">
                                                         <span class="symbol-label bg-warning text-inverse-warning fw-bold">A</span>
                                                     </div>
-                                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                                         data-bs-target="#kt_modal_view_users">
                                                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+1</span>
                                                     </a>
@@ -211,7 +211,7 @@
                                             </td>
                                             <td>Fab 15, 2024</td>
                                             <td><span class="badge round-danger">Answered</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
 
                                         <tr>
@@ -241,7 +241,7 @@
                                                         data-kt-initialized="1">
                                                         <img alt="Pic" src="/data/profile/avatar-1.png">
                                                     </div>
-                                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                                         data-bs-target="#kt_modal_view_users">
                                                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+3</span>
                                                     </a>
@@ -249,7 +249,7 @@
                                             </td>
                                             <td>Dec 23, 2024</td>
                                             <td><span class="badge round-primary">Pending</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -282,7 +282,7 @@
                                             </td>
                                             <td>Dec 31, 2024</td>
                                             <td><span class="badge round-danger">Completed</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -315,7 +315,7 @@
                                             </td>
                                             <td>Jan 15, 2024</td>
                                             <td><span class="badge round-primary">Pending</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -344,7 +344,7 @@
                                                         data-bs-original-title="Alan Warden" data-kt-initialized="1">
                                                         <span class="symbol-label bg-warning text-inverse-warning fw-bold">A</span>
                                                     </div>
-                                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
                                                         data-bs-target="#kt_modal_view_users">
                                                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+1</span>
                                                     </a>
@@ -352,7 +352,7 @@
                                             </td>
                                             <td>Fab 15, 2024</td>
                                             <td><span class="badge round-danger">Answered</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -376,7 +376,7 @@
                                             </td>
                                             <td>Fab 15, 2024</td>
                                             <td><span class="badge round-primary">Pending</span></td>
-                                            <td><a href="#" class="btn btn-light btn-sm">View</a></td>
+                                            <td><a href="javascript:;" class="btn btn-light btn-sm">View</a></td>
                                         </tr>
 
                                     </tbody>

@@ -24,7 +24,7 @@
                             <div class="d-flex flex-column">
                                 <!--begin::Name-->
                                 <div class="d-flex align-items-center mb-2">
-                                    <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $project->name }}</a>
+                                    <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $project->name }}</a>
                                 </div>
                                 <!--end::Name-->
 
@@ -53,7 +53,7 @@
                                         @endif
                                         @endforeach
                                         @if ($project->members()->count() > 5)
-                                        <a href="#" class="symbol symbol-35px symbol-circle" 
+                                        <a href="javascript:;" class="symbol symbol-35px symbol-circle" 
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="{{$project->members()->count() - 5 }} more">
                                             <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+{{ $project->members()->count() - 5 }}</span>

@@ -36,7 +36,7 @@
                                         <div class="d-flex flex-column">
                                             <!--begin::Name-->
                                             <div class="d-flex align-items-center mb-2">
-                                                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Flutter
+                                                <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Flutter
                                                     Mobile APP</a>
                                             </div>
                                             <!--end::Name-->
@@ -84,7 +84,7 @@
                                                         data-kt-initialized="1">
                                                         <img alt="Pic" src="/data/profile/avatar-3.png">
                                                     </div>
-                                                    <a href="#" class="symbol symbol-35px symbol-circle">
+                                                    <a href="javascript:;" class="symbol symbol-35px symbol-circle">
                                                         <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bold">+42</span>
                                                     </a>
                                                 </div>

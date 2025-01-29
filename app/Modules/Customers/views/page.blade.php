@@ -22,7 +22,7 @@
                                 <a href="{{route('dashboard')}}"><i class="fa fa-home"></i>Home</a>
                             </li>
                             <li>
-                                <a href="#">Clients</a>
+                                <a href="javascript:;">Clients</a>
                             </li>
                             <li class="active">
                                 <strong>Client Page</strong>
@@ -50,15 +50,15 @@
                                     <div class="d-flex flex-column">
                                         <!--begin::Name-->
                                         <div class="d-flex align-items-center mb-2">
-                                            <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$client->name ?? ''}}</a>
-                                            <a href="#"><i class="ki-duotone ki-verify fs-1 text-primary"><span
+                                            <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$client->name ?? ''}}</a>
+                                            <a href="javascript:;"><i class="ki-duotone ki-verify fs-1 text-primary"><span
                                                         class="path1"></span><span class="path2"></span></i></a>
                                         </div>
                                         <!--end::Name-->
 
                                         <!--begin::Info-->
                                         <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 ">
-                                            <a href="#"
+                                            <a href="javascript:;"
                                                 class="d-flex align-items-center text-muted text-hover-primary me-5 mb-2">
                                                  {{$client->position}} ,  {{$client->company}}
                                             </a>
@@ -160,12 +160,12 @@
                                                         <!--begin::Info-->
                                                         <div class="d-flex flex-column">
                                                             <!--begin::Name-->
-                                                            <a href="#"
+                                                            <a href="javascript:;"
                                                                 class="fs-4 fw-bold text-gray-900 text-hover-primary me-2">{{$client->company}}</a>
                                                             <!--end::Name-->
 
                                                             <!--begin::Email-->
-                                                            <a href="#"
+                                                            <a href="javascript:;"
                                                                 class="fw-semibold text-gray-600 text-hover-primary">Company</a>
                                                             <!--end::Email-->
                                                         </div>

@@ -24,7 +24,7 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">Customers</a>
+                                    <a href="javascript:;">Customers</a>
                                 </li>
                                 <li class="active">
                                     <strong>Clients</strong>

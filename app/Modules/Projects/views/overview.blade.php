@@ -134,7 +134,7 @@
                     <div class=" fw-semibold">
 
                         <div class="fs-6 text-gray-700 "> Some Tasks status are being changed based on the
-                            task Due date and you change it from <a href="#" class="fw-bold me-1">
+                            task Due date and you change it from <a href="javascript:;" class="fw-bold me-1">
                                 Settings</a> </div>
                     </div>
                     <!--end::Content-->
@@ -201,7 +201,7 @@
 
                             <!--begin::Info-->
                             <div class="d-flex flex-column">
-                                <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{ $comment->user->name }}</a>
+                                <a href="javascript:;" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{ $comment->user->name }}</a>
                                 <span class="text-gray-500 fw-bold">{{ date('h:i a', strtotime($comment->created_at)) }}</span>
                             </div>
                             <!--end::Info-->
@@ -257,10 +257,10 @@
 
                         <!--begin::Details-->
                         <div class="fw-semibold">
-                            <a class="fs-6 fw-bold text-gray-900 text-hover-primary" href="#">{{ $file->name }}</a>
+                            <a class="fs-6 fw-bold text-gray-900 text-hover-primary" href="javascript:;">{{ $file->name }}</a>
 
                             <div class="text-gray-500">
-                                {{ $file->created_at->diffForHumans() }} <a href="#">{{ $file->user->name }}</a>
+                                {{ $file->created_at->diffForHumans() }} <a href="javascript:;">{{ $file->user->name }}</a>
                             </div>
                         </div>
                         <!--end::Details-->

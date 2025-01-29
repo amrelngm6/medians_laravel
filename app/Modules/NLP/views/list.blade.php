@@ -21,7 +21,7 @@
                                     <a href="/index.html"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">APPs</a>
+                                    <a href="javascript:;">APPs</a>
                                 </li>
                                 <li class="active">
                                     <strong>Chat</strong>
