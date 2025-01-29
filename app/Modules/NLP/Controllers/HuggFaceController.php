@@ -23,8 +23,8 @@ class HuggFaceController extends Controller
         $user = Auth::user();
 
         // Get response from python flask at http://127.0.0.1:5000
-        $response =  file_get_contents('http://127.0.0.1:5000');
-        echo $response;
+        // $response =  file_get_contents('http://127.0.0.1:5000');
+        // echo $response;
 
         return view('nlp::list');
     }

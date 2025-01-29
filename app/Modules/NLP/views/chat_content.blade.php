@@ -51,7 +51,8 @@
                             <!--begin::Card footer-->
                             
                             <!-- <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.store')}}" id="wp_chat_messenger_form"> -->
-                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.context')}}" id="wp_chat_messenger_form">
+                            <!-- <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.context')}}" id="wp_chat_messenger_form"> -->
+                            <form class="flex gap-2 pt-4 ajax-form" action="http://127.0.0.1:5000/answer" id="wp_chat_messenger_form">
                                 @csrf
                                 <!-- 
                                 <select class="form-control form-control-solid" name="model" >
