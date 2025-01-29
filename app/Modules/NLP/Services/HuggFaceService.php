@@ -60,6 +60,41 @@ class HuggFaceService
             
         ]);
         
+        return $this->formatResponse($response, $text);
+    }
+
+
+
+    
+    public function generateTextTwoInputs(string $text, string $context, $model = '')
+    {
+        $response = $this->client->post("models/$model", [
+            'json' => ['inputs' => [
+                        'question' => $text,
+                        'context' => $context,
+                    ]  , 
+                    // 'parameters' => [
+                    //     'max_length' => 100,
+                    // ],
+                    'options' => [
+                        'use_cache' => true,
+                        'wait_for_model' => true, // Wait if the model is loading
+                    ]],
+            
+        ]);
+        
+        return $response->getBody()->getContents();
+    }
+
+
+
+
+    /**
+     * Format response
+     */
+    public function formatResponse($response, $text = '')
+    {
+        
         try {
             
             $responseText = json_decode($response->getBody()->getContents(), true)[0]['generated_text'];

@@ -42,6 +42,24 @@ class HuggFaceController extends Controller
         }
     }
 
+    public function generateTextTwoInputs(Request $request)
+    {
+        try {
+            
+            $user = Auth::user();
+
+            $response = $this->service->generateTextTwoInputs($request->question, $request->context, $request->model);
+
+            $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', is_array($response) ? json_encode($response) : $response);
+
+
+            return nl2br(  $result );
+            
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
+    }
+
     /**
      * DeepSeek API call
      */

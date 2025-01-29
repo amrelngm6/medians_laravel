@@ -50,7 +50,8 @@
 
                             <!--begin::Card footer-->
                             
-                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.store')}}" id="wp_chat_messenger_form">
+                            <!-- <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.store')}}" id="wp_chat_messenger_form"> -->
+                            <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.context')}}" id="wp_chat_messenger_form">
                                 @csrf
                                 <!-- 
                                 <select class="form-control form-control-solid" name="model" >
@@ -61,7 +62,8 @@
                                     <option value="deepset/roberta-base-squad2">deepset/roberta-base-squad2</option>
                                 </select> -->
                                 <input name="model"  value="google/gemma-2-2b-it">
-                                <textarea class="form-control form-control-solid mb-3" rows="1" name="message" data-kt-element="input"
+                                <input name="context"  value="context">
+                                <textarea class="form-control form-control-solid mb-3" rows="1" name="question" data-kt-element="input"
                                     placeholder="Type a message" id="message-content"></textarea>
                                 <!--end::Input-->
 
