@@ -1,4 +1,4 @@
-<div class="modal fade active show" id="task-modal" tabindex="-1" >
+<div class="modal fade active show" id="task-modal" tabindex="-1">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-800px">
         <!--begin::Modal content-->
@@ -6,7 +6,8 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#task-modal" onClick="(function(){fetchData()})()">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#task-modal"
+                    onClick="(function(){fetchData()})()">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
@@ -26,6 +27,15 @@
                         <div class="text-muted fw-semibold fs-5">
                             Custom task at project <a href="#!"
                                 class="fw-bold link-primary">{{ $task->project->name ?? '' }}</a>.
+                            <a href="{{route('Task.duplicate', $task->task_id)}}?_token={{csrf_token()}}" rel="popover"
+                                data-toggle="popover" data-placement="top" data-trigger="hover"
+                                data-content="Duplicate this task" type="submit" id="task_duplicate"
+                                class="btn btn-primary btn-sm ajax-link"
+                                data-confirm="Duplicate this task ?"
+                                data-confirm-text="Are you sure you want to duplicate this task ?">
+                                <i class="bx bx-copy"></i>Duplicate task <span
+                                    class="h-10px inline-block rounded-full w-10px bg-"></span>
+                            </a>
                         </div>
                         <!--end::Description-->
                 </div>
@@ -38,7 +48,8 @@
                     <div class="flex gap-10 pb-6">
                         <div class="pt-2">
                             Status:
-                            <span class="badge bg-{{$task->status->color ?? ''}} ">{{ $task->status->name ?? '' }}</span>
+                            <span
+                                class="badge bg-{{$task->status->color ?? ''}} ">{{ $task->status->name ?? '' }}</span>
                         </div>
                         <div class="flex gap-2">
 
@@ -51,8 +62,8 @@
                                         data-confirm-text="Confirm remove this member"
                                         href="{{route('Task.delete_team', $member->id)}}"
                                         data-params='{"_token":"{{csrf_token()}}", "model_id": "{{$task->task_id}}", "id": "{{$member->id}}" }'
-                                        class="ajax-link symbol symbol-35px symbol-circle" 
-                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        class="ajax-link symbol symbol-35px symbol-circle" rel="popover"
+                                        data-toggle="popover" data-placement="top" data-trigger="hover"
                                         data-content="{{$member->user->name ?? ''}}">
                                         <img alt="Pic" src="/{{$member->user->picture ?? ''}}">
                                     </a>
@@ -84,57 +95,72 @@
                                 </div>
                                 <div class="w-full tasks_checklist_container">
 
-                                @foreach ($task->checklist as $checklist)
+                                    @foreach ($task->checklist as $checklist)
 
-                                <div  data-id="{{$checklist->id}}"
-                                    class="w-full  inline-block  ">
-                                    <div data-id="{{$checklist->id}}"
-                                    class="checklist_item  flex px-5 py-3">
-                                        <form data-reload-link="{{$modalRoute}}" id="checklist-form-{{$checklist->id}}" action="{{route('TaskChecklist.update', $checklist->id)}}?_token={{csrf_token()}}" class="cursor-move ajax-form mr-5 flex flex-none items-center">
+                                    <div data-id="{{$checklist->id}}" class="w-full  inline-block  ">
+                                        <div data-id="{{$checklist->id}}" class="checklist_item  flex px-5 py-3">
+                                            <form data-reload-link="{{$modalRoute}}"
+                                                id="checklist-form-{{$checklist->id}}"
+                                                action="{{route('TaskChecklist.update', $checklist->id)}}?_token={{csrf_token()}}"
+                                                class="cursor-move ajax-form mr-5 flex flex-none items-center">
 
-                                            <input name="sort"  value="{{$checklist->sort}}" type="hidden"> 
-                                            <label class="form-check form-check-custom form-check-solid"> 
-                                                <input @if ($checklist->finished)  checked @endif class="form-check-input submit-on-change w-20px h-20px" data-element="1" data-form="checklist-form-{{$checklist->id}}" name="status" value="1" type="checkbox"> 
-                                            </label>
-                                        </form>
-                                        <a href="#!" class="cursor-move w-full  @if ($checklist->finished) line-through  @endif  ">
-                                            <span class=" font-medium @if ($checklist->finished) line-through  @endif ">{{$checklist->description}}</span>
-                                        </a>
-                                        <a href="javascript:;" id="checklist-{{$checklist->id}}" data-reload-link="{{$modalRoute}}" data-path="{{route('TaskChecklist.delete', $checklist->id)}}" class="delete-item"> <i class='bx bx-message-square-x p-2 fs-4'></i></a>
+                                                <input name="sort" value="{{$checklist->sort}}" type="hidden">
+                                                <label class="form-check form-check-custom form-check-solid">
+                                                    <input @if ($checklist->finished) checked @endif
+                                                    class="form-check-input submit-on-change w-20px h-20px"
+                                                    data-element="1" data-form="checklist-form-{{$checklist->id}}"
+                                                    name="status" value="1" type="checkbox">
+                                                </label>
+                                            </form>
+                                            <a href="#!"
+                                                class="cursor-move w-full  @if ($checklist->finished) line-through  @endif  ">
+                                                <span
+                                                    class=" font-medium @if ($checklist->finished) line-through  @endif ">{{$checklist->description}}</span>
+                                            </a>
+                                            <a href="javascript:;" id="checklist-{{$checklist->id}}"
+                                                data-reload-link="{{$modalRoute}}"
+                                                data-path="{{route('TaskChecklist.delete', $checklist->id)}}"
+                                                class="delete-item"> <i class='bx bx-message-square-x p-2 fs-4'></i></a>
+                                        </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
-                                </div>
-                                <form data-reload-link="{{$modalRoute}}" id="modal_new_checklist_form" class="ajax-form form" action="{{route('TaskChecklist.store', $task->task_id)}}">
+                                <form data-reload-link="{{$modalRoute}}" id="modal_new_checklist_form"
+                                    class="ajax-form form" action="{{route('TaskChecklist.store', $task->task_id)}}">
                                     @csrf
                                     <input type="hidden" name="task_id" value="{{$task->task_id}}">
 
                                     <!--begin::Input group-->
                                     <div class="flex mb-8 ">
-                                        <input class="form-control form-control-solid" name="description" placeholder="Type action details" />
-                                        <button type="submit" class="p-4" ><i class='bx bx-message-square-add fs-2'></i></button>
+                                        <input class="form-control form-control-solid" name="description"
+                                            placeholder="Type action details" />
+                                        <button type="submit" class="p-4"><i
+                                                class='bx bx-message-square-add fs-2'></i></button>
                                     </div>
                                     <!--end::Input group-->
 
                                 </form>
                                 <p>OR Generate using AI</p>
-                                <form data-reload-link="{{$modalRoute}}" id="modal_generate_checklist_form" class="ajax-form form" action="{{route('TaskChecklist.generate', $task->task_id)}}">
+                                <form data-reload-link="{{$modalRoute}}" id="modal_generate_checklist_form"
+                                    class="ajax-form form" action="{{route('TaskChecklist.generate', $task->task_id)}}">
                                     @csrf
 
-                                    <select class="hidden" name="model" >
+                                    <select class="hidden" name="model">
                                         <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
                                     </select>
                                     <!--begin::Input group-->
                                     <div class="w-full mb-8 hidden">
                                         <span class="text-muted ">Leave empty to send the Task description</span>
-                                        <input class="form-control form-control-solid" name="message" placeholder="Type action details" />
+                                        <input class="form-control form-control-solid" name="message"
+                                            placeholder="Type action details" />
                                     </div>
                                     <!--end::Input group-->
-                                    <button  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="Generate checklist using AI"
+                                    <button rel="popover" data-toggle="popover" data-placement="top"
+                                        data-trigger="hover" data-content="Generate checklist using AI"
                                         onClick="(function(){jQuery('#loader-svg').toggleClass('hidden')})()"
-                                        type="submit" class="btn btn-primary " ><i class='bx bxs-magic-wand fs-2'></i></button>
-                                        <img src="/load.svg" id="loader-svg" class="w-20 p-2 hidden" />
+                                        type="submit" class="btn btn-primary "><i
+                                            class='bx bxs-magic-wand fs-2'></i></button>
+                                    <img src="/load.svg" id="loader-svg" class="w-20 p-2 hidden" />
 
                                 </form>
                             </div>
@@ -218,26 +244,33 @@
                                     <!--end::Info-->
                                 </div>
                                 <!--end::Description-->
-                                
+
                                 @if ($comment->file)
-                                    <div class="flex items-center gap-10 !py-3 border-y border-dashed rounded-md card-body pb-0 border-slate-200 dark:border-zink-500 mb-10">
-                                        <div class="flex items-center justify-center text-sm font-semibold rounded-md size-9 text-info shrink-0">
-                                            @if ( in_array($comment->file->filetype, ['jpg', 'png', 'gif']) )
-                                            <img src="{{route('Uploads.download', $comment->file->id)}}?_token={{csrf_token()}}" /> 
-                                            @else
-                                            <i class="bx bxs-file-doc fs-2hx"></i>
-                                            @endif
-                                        </div>
-                                        <div class="grow min-w-150px">
-                                            <h6>{{$comment->file->file_name}}</h6>
-                                            <p class="text-slate-500 dark:text-zink-200">{{ $comment->file->size ? number_format($comment->file->size / 1000000, 2) : 0 }} MB</p>
-                                        </div>
-                                        <div class="flex items-center justify-end gap-2">
-                                            <a href="{{route('Uploads.download', $comment->file->id)}}?_token={{csrf_token()}}" target="_blank" class="flex items-center justify-center transition-all duration-150 ease-linear rounded-md size-8 bg-slate-100 hover:bg-slate-200 dark:bg-zink-600 dark:hover:bg-zink-500">
-                                                <i class="bx bx-download fs-4"></i></a>
-                                        </div>
+                                <div
+                                    class="flex items-center gap-10 !py-3 border-y border-dashed rounded-md card-body pb-0 border-slate-200 dark:border-zink-500 mb-10">
+                                    <div
+                                        class="flex items-center justify-center text-sm font-semibold rounded-md size-9 text-info shrink-0">
+                                        @if ( in_array($comment->file->filetype, ['jpg', 'png', 'gif']) )
+                                        <img
+                                            src="{{route('Uploads.download', $comment->file->id)}}?_token={{csrf_token()}}" />
+                                        @else
+                                        <i class="bx bxs-file-doc fs-2hx"></i>
+                                        @endif
                                     </div>
-                                    @endif
+                                    <div class="grow min-w-150px">
+                                        <h6>{{$comment->file->file_name}}</h6>
+                                        <p class="text-slate-500 dark:text-zink-200">
+                                            {{ $comment->file->size ? number_format($comment->file->size / 1000000, 2) : 0 }}
+                                            MB</p>
+                                    </div>
+                                    <div class="flex items-center justify-end gap-2">
+                                        <a href="{{route('Uploads.download', $comment->file->id)}}?_token={{csrf_token()}}"
+                                            target="_blank"
+                                            class="flex items-center justify-center transition-all duration-150 ease-linear rounded-md size-8 bg-slate-100 hover:bg-slate-200 dark:bg-zink-600 dark:hover:bg-zink-500">
+                                            <i class="bx bx-download fs-4"></i></a>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                             <!--end::Timeline heading-->
                         </div>
@@ -263,7 +296,7 @@
     <!--end::Modal dialog-->
 </div>
 
-<div class="modal fade active" id="add-comment-modal" tabindex="-1" >
+<div class="modal fade active" id="add-comment-modal" tabindex="-1">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -365,12 +398,14 @@
 <script>
 jQuery(document).ready(function() {
     MediansSettings.tooltipsPopovers();
-    
+
     jQuery(".tasks_checklist_container").sortable({
         connectWith: ".tasks_checklist_container",
         handle: "div.checklist_item",
         update: function(event, ui) {
-            var sortedIDs = $(this).sortable("toArray", { attribute: 'data-id' });
+            var sortedIDs = $(this).sortable("toArray", {
+                attribute: 'data-id'
+            });
             // You can make an AJAX call here to save the new order to the server
             var listContainerId = $(this).attr('data-id');
 
@@ -394,6 +429,5 @@ jQuery(document).ready(function() {
         },
     });
 })
-
 </script>
 @yield('search-scripts')

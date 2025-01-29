@@ -14,6 +14,7 @@ Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
     Route::post('/{id}/add_team', [TaskController::class, 'add_team'])->name('Task.add_team');
     Route::post('/{id}/delete_team', [TaskController::class, 'delete_team'])->name('Task.delete_team');
     Route::post('{id}/update', [TaskController::class, 'update'])->name('Task.update');
+    Route::post('/{id}/duplicate', [TaskController::class, 'duplicate'])->name('Task.duplicate');
     Route::delete('{id}', [TaskController::class, 'destroy'])->name('Task.delete');
     
     // Add Tab menu to projects Page
@@ -28,7 +29,6 @@ Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/{id}/edit_field', [StatusController::class, 'edit_task_field'])->name('StatusList.edit_task_field');
     Route::post('/updateSort', [TaskController::class, 'updateOrder'])->name('Tasks.updateOrder');
 
-    Route::get('/{id}/duplicate', [TaskController::class, 'duplicate'])->name('Task.duplicate');
 
 });
 

@@ -121,8 +121,11 @@ class Task extends Model
     {
         $data = [];
         foreach ($relations as $relation) {
-            foreach ($this->$relation as $related) {
-                $data =  $related->delete();
+            if ($this->$relation)
+            {
+                foreach ($this->$relation as $related) {
+                    $data =  $related->delete();
+                }
             }
         }
         return $data;
@@ -144,21 +147,24 @@ class Task extends Model
         
         foreach ($relations as $relation) {
             foreach ($this->$relation as $related) {
+                if ($this->$relation) {
+                    $newRelated = $related->replicate();
+                    if (isset($newRelated->model_id)) {
+                        $newRelated->model_id = $newModel->task_id; // Set new foreign key
+                    } else {
+                        $newRelated->task_id = $newModel->task_id; // Set new foreign key
+                    }
+                    $newRelated->push();
+                    $data[$i] = $newRelated;
+                    $i++;
 
-                $newRelated = $related->replicate();
-                if (isset($newRelated->model_id)) {
-                    $newRelated->model_id = $newModel->task_id; // Set new foreign key
-                } else {
-                    $newRelated->task_id = $newModel->task_id; // Set new foreign key
                 }
-                $newRelated->push();
-                $data[$i] = $newRelated;
-                $i++;
+
             }
         }
 
 
-        return $data;
+        return $newModel;
     }
 
 
