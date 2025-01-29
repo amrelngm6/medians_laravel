@@ -36,8 +36,7 @@ class HuggFaceController extends Controller
             $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', $response);
 
 
-            // return nl2br(  $result);
-            return $result;
+            return nl2br(  is_array($result) ? json_encode($result) : $result );
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage());
         }
