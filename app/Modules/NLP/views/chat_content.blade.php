@@ -52,12 +52,13 @@
                             
                             <form class="flex gap-2 pt-4 ajax-form" action="{{route('HuggFace.store')}}" id="wp_chat_messenger_form">
                                 @csrf
-
+                                <!-- 
                                 <select class="form-control form-control-solid" name="model" >
                                     <option value="philschmid/instruct-igel-001">philschmid/instruct-igel-001</option>
                                     <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
                                     <option value="deepset/roberta-base-squad2">deepset/roberta-base-squad2</option>
-                                </select>
+                                </select> -->
+                                <input name="model"  value="google/gemma-2-2b-it">
                                 <textarea class="form-control form-control-solid mb-3" rows="1" name="message" data-kt-element="input"
                                     placeholder="Type a message" id="message-content"></textarea>
                                 <!--end::Input-->
