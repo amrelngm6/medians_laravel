@@ -1,7 +1,7 @@
 <?php
 return [
     'permissions' => [ 
-        'ToDo' => [
+        'Todo' => [
             'view',
             'create',
             'edit',
