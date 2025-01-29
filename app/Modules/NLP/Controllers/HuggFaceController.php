@@ -33,7 +33,7 @@ class HuggFaceController extends Controller
 
             $response = $this->service->generateText($request->message, $request->model);
 
-            return nl2br($response);
+            return nl2br( str_replace(['** ', '**'], ['<b>','</b>'], $response));
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage());
         }
