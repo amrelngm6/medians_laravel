@@ -34,7 +34,7 @@ class StatusController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('StatusList view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $StatusList = $this->statusService->query($request);
@@ -51,7 +51,7 @@ class StatusController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('StatusList create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $newId = $this->statusService->lastStatusId() + 1;
@@ -67,7 +67,7 @@ class StatusController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('StatusList edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $status = $this->statusService->find($status_id);

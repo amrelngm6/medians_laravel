@@ -24,7 +24,7 @@ class CreditNoteController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('CreditNotes view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $credit_notes = $this->credit_noteService->query($request);
@@ -52,7 +52,7 @@ class CreditNoteController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('CreditNotes create')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $invoiceService = new InvoiceService;
@@ -71,7 +71,7 @@ class CreditNoteController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('CreditNotes edit')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->credit_noteService->modules();
@@ -137,7 +137,7 @@ class CreditNoteController extends Controller
         $user = Auth::user();
 
         // if ($user->cannot('CreditNotes view')) {
-        //     abort(403, 'Unauthorized');
+        //     abort(401, 'Unauthorized');
         // }
 
         $modules = $this->credit_noteService->modules();

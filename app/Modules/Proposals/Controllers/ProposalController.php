@@ -107,7 +107,7 @@ class ProposalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Proposal edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $statusList = $this->service->loadStatusList();
@@ -169,7 +169,7 @@ class ProposalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Proposal create')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $ItemService = new ItemService;

@@ -31,7 +31,7 @@ class AnnouncementController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Announcement view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         // Display a single Announcement

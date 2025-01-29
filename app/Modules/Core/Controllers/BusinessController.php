@@ -36,7 +36,7 @@ class BusinessController extends Controller
         $user = Auth::user();
 
         // if (!$user->load('role.permissions')->role->hasPermissionTo('Business view')) {
-        //     abort(403, 'Unauthorized');
+        //     abort(401, 'Unauthorized');
         // }
 
         $BusinessList = Auth::guardName() == 'superadmin' ? $this->businessService->all($request) : [$this->businessService->find($user->business->business_id ?? 0)];
@@ -54,7 +54,7 @@ class BusinessController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Business view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $Business = $this->businessService->find($id);
@@ -72,7 +72,7 @@ class BusinessController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Business create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
         $categoryService = new CategoryService;
         $categories = $categoryService->getBusinessCats();
@@ -88,7 +88,7 @@ class BusinessController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Business create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $business_id = $request->business_id;
@@ -108,7 +108,7 @@ class BusinessController extends Controller
         $user = Auth::user();
         
         if ($user->cannot('Business create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
 
@@ -145,7 +145,7 @@ class BusinessController extends Controller
         $user = Auth::user();
         
         if ($user->cannot('Business edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         // Validate updated data
@@ -180,7 +180,7 @@ class BusinessController extends Controller
         $user = Auth::user();
         
         if ($user->cannot('Business delete') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $Business = Business::findOrFail($id);

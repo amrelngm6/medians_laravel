@@ -23,7 +23,7 @@ class ExpenseController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Expenses view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $expenses = $this->expenseService->query($request);
@@ -52,7 +52,7 @@ class ExpenseController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Expenses create')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->expenseService->modules();
@@ -68,7 +68,7 @@ class ExpenseController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Expenses edit')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->expenseService->modules();
@@ -119,7 +119,7 @@ class ExpenseController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Expenses view')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->expenseService->modules();

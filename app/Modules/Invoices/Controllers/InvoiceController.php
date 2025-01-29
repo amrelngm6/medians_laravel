@@ -24,7 +24,7 @@ class InvoiceController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Invoices view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $invoices = $this->invoiceService->query($request);
@@ -52,7 +52,7 @@ class InvoiceController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Invoices create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->invoiceService->modules();
@@ -65,7 +65,7 @@ class InvoiceController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Invoices edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->invoiceService->modules();
@@ -115,7 +115,7 @@ class InvoiceController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Invoices view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->invoiceService->modules();

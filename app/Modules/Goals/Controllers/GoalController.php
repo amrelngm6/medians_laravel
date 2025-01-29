@@ -23,7 +23,7 @@ class GoalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Goal view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $goals = $this->goalService->query($request);
@@ -52,7 +52,7 @@ class GoalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Goal create')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->goalService->modules();
@@ -68,7 +68,7 @@ class GoalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Goal edit') && Auth::guardName() != 'admin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->goalService->modules();
@@ -83,7 +83,7 @@ class GoalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Goal create') && Auth::guardName() != 'admin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $validator = Validator::make($request->all(), [
@@ -124,7 +124,7 @@ class GoalController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Goal view') && Auth::guardName() != 'admin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
 
@@ -142,7 +142,7 @@ class GoalController extends Controller
         $user = Auth::user();
         
         if ($user->cannot('Goal edit') && Auth::guardName() != 'admin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
 

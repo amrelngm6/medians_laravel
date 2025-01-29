@@ -31,7 +31,7 @@ class CustomFieldController extends Controller
     {
 
         if (Auth::user()->cannot('CustomField view')  && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $fields = $this->customFieldService->query($request);

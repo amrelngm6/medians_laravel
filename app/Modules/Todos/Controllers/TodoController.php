@@ -23,7 +23,7 @@ class TodoController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Todo view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $todos = $this->todoService->query($request);
@@ -37,7 +37,7 @@ class TodoController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Todo create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
         
         $context = ['components' => []];
@@ -54,7 +54,7 @@ class TodoController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Todo edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $todo = $this->todoService->find($id);
@@ -67,7 +67,7 @@ class TodoController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Todo create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $validator = Validator::make($request->all(), [
@@ -110,7 +110,7 @@ class TodoController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Todo edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $validator = Validator::make($request->all(), [
@@ -140,7 +140,7 @@ class TodoController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Todo delete') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $delete = $this->todoService->deleteTodo($id);

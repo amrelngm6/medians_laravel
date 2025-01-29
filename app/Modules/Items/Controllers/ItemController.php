@@ -29,7 +29,7 @@ class ItemController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Items view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $items = $this->itemService->query($request);
@@ -47,7 +47,7 @@ class ItemController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Items create')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $groups = $this->itemService->groups();
@@ -64,7 +64,7 @@ class ItemController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Items edit')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $groups = $this->itemService->groups();

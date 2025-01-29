@@ -29,7 +29,7 @@ class TemplateController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Templates view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $templates = $this->templateService->query($request);
@@ -47,7 +47,7 @@ class TemplateController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Templates create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->templateService->modules();
@@ -65,7 +65,7 @@ class TemplateController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Templates edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->templateService->modules();

@@ -22,7 +22,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Transactions view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $transactions = $this->transactionService->query($request);
@@ -50,7 +50,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Transactions create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->transactionService->modules();
@@ -63,7 +63,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Transactions edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->transactionService->modules();
@@ -112,7 +112,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Transactions view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->transactionService->modules();
@@ -153,7 +153,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Transactions delete') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $delete = $this->transactionService->deleteTransaction($id);

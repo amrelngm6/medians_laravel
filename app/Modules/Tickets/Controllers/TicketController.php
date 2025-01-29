@@ -25,7 +25,7 @@ class TicketController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Tickets view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $tickets = [];
@@ -60,7 +60,7 @@ class TicketController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Tickets create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $context = ['components' => []];

@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $user = Auth::user();
         
         if ($user->cannot('Category view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $Category = $this->categoryService->find($id);

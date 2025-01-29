@@ -23,7 +23,7 @@ class MilestoneController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Milestones view') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $milestones = $this->milestoneService->query($request);
@@ -36,7 +36,7 @@ class MilestoneController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Milestones create')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->milestoneService->modules();
@@ -49,7 +49,7 @@ class MilestoneController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Milestones edit')) {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $modules = $this->milestoneService->modules();

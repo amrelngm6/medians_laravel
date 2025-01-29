@@ -49,7 +49,7 @@ class PriorityController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Priority create') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }
 
         $model = $request->model ?? '';
@@ -119,7 +119,7 @@ class PriorityController extends Controller
         $user = Auth::user();
 
         if ($user->cannot('Priority edit') && Auth::guardName() != 'superadmin') {
-            abort(403, 'Unauthorized');
+            abort(401, 'Unauthorized');
         }   
 
         $priority = $this->priorityService->find($id);
