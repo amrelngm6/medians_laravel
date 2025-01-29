@@ -35,20 +35,20 @@
                 <table class="w-full bg-white rounded-lg shadow-lg">
                     <thead>
                         <tr class="bg-gray-200">
-                            <th class="py-4 px-6 text-left text-gray-700 font-bold">Date</th>
-                            <th class="py-4 px-6 text-left text-gray-700 font-bold">Start</th>
-                            <th class="py-4 px-6 text-left text-gray-700 font-bold">End</th>
-                            <th class="py-4 px-6 text-left text-gray-700 font-bold">Duration</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Date</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Start</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">End</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Duration</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($timesheets as $timesheet)
                         <tr class="border-b border-gray-200">
                             @php $diffTime = strtotime($timesheet->end) - strtotime($timesheet->start); @endphp
-                            <td class="py-4 px-6 text-left">{{date('M d, Y', strtotime($timesheet->start))}} </td>
-                            <td class="py-4 px-6 text-left">{{date('H:i a', strtotime($timesheet->start))}} </td>
-                            <td class="py-4 px-6 text-left">{{date('H:i a', strtotime($timesheet->end))}} </td>
-                            <td class="py-4 px-6 text-left">{{$diffTime > 86400 ? '1 Day + ' : ''}}{{date('H:i:s', $diffTime)}} </td>
+                            <td class="py-4 px-6 ">{{date('M d, Y', strtotime($timesheet->start))}} </td>
+                            <td class="py-4 px-6 ">{{date('H:i a', strtotime($timesheet->start))}} </td>
+                            <td class="py-4 px-6 ">{{date('H:i a', strtotime($timesheet->end))}} </td>
+                            <td class="py-4 px-6 fw-bold text-primary">{{$diffTime > 86400 ? '1 Day + ' : ''}}{{date('H:i:s', $diffTime)}} </td>
                         </tr>
                         @endforeach
                     </tbody>
