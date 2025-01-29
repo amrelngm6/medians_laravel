@@ -27,11 +27,16 @@ class HuggFaceController extends Controller
 
     public function generateText(Request $request)
     {
-        $user = Auth::user();
+        try {
+            
+            $user = Auth::user();
 
-        $response = $this->service->generateText($request->message, $request->model);
+            $response = $this->service->generateText($request->message, $request->model);
 
-        return nl2br($response);
+            return nl2br($response);
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
     }
 
     /**
