@@ -54,6 +54,8 @@
                                 @csrf
                                 <!-- 
                                 <select class="form-control form-control-solid" name="model" >
+                                    <option value="Qwen/Qwen2.5-Coder-32B-Instruct">Qwen/Qwen2.5-Coder-32B-Instruct</option>
+                                    <option value="suriya7/MaxMini-Instruct-248M">suriya7/MaxMini-Instruct-248M</option>
                                     <option value="philschmid/instruct-igel-001">philschmid/instruct-igel-001</option>
                                     <option value="google/gemma-2-2b-it">google/gemma-2-2b-it</option>
                                     <option value="deepset/roberta-base-squad2">deepset/roberta-base-squad2</option>
