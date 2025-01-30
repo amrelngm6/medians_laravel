@@ -38,7 +38,8 @@
                     @foreach($tasks as $task)
                     {
                         title: '{{ $task->name }}',
-                        description: '{{ $task->description }}',
+                        // Set the description at one line
+                        description: '{{ str_replace(["\r\n", "\r", "\n"], ' ', $task->description) }}',
                         start: '{{ $task->start_date }}',
                         end: '{{ $task->due_date }}',
                         url: '{{ route('Tasks.project_task', $task->task_id) }}',
