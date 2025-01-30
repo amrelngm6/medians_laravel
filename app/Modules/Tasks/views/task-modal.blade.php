@@ -29,7 +29,7 @@
                             Custom task at project <a href="#!"
                                 class="fw-bold link-primary">{{ $task->project->name ?? '' }}</a>.
                             <a href="{{route('Task.duplicate', $task->task_id)}}?_token={{csrf_token()}}" rel="popover"
-                                data-toggle="popover" data-placement="top" data-trigger="hover"
+                                data-toggle="popover" data-placement="bottom" data-trigger="hover"
                                 data-content="Duplicate this task" type="submit" id="task_duplicate"
                                 class="btn btn-primary btn-sm ajax-link"
                                 data-confirm="Duplicate this task ?"
