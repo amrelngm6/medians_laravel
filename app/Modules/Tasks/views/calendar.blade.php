@@ -52,7 +52,7 @@
                 eventDidMount: function(info) {
                     info.el.setAttribute('data-trigger', 'hover');
                     info.el.setAttribute('data-toggle', 'popover');
-                    info.el.setAttribute('data-placement', 'left');
+                    info.el.setAttribute('data-placement', 'bottom');
                     info.el.setAttribute('data-html', true);
                     info.el.setAttribute('data-title', info.event.title);
                     
@@ -81,5 +81,7 @@
             });
         });
         </script>
+    <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
