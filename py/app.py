@@ -1,3 +1,5 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1' 
 from transformers import pipeline
 from flask import Flask, request, jsonify
 
