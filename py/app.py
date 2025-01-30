@@ -25,7 +25,7 @@ def query_sql():
     # Load the model if empty use the default model
 
     # Convert text to SQL
-    text2sql_pipeline = pipeline("text2text-generation", model=)
+    text2sql_pipeline = pipeline("text2text-generation", model=model)
     sql_query = generate_sql_query(user_input, db_schema)
     
     return jsonify({"query": sql_query})
