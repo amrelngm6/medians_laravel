@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pipelines', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->text('description')->nullable();
             $table->string('color', 50);
             $table->integer('sort')->default(1);
             $table->string('model', 191);
@@ -25,6 +26,7 @@ return new class extends Migration
         Schema::create('pipeline_stages', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->text('description')->nullable();
             $table->integer('pipeline_id');
             $table->integer('sort')->default(1);
             $table->integer('created_by');
