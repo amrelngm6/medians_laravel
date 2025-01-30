@@ -56,9 +56,9 @@ class TaskController extends Controller
         $data = [];
         foreach ($tasks as $key => $task) {
 
-            $data[$key]['title'] = isset($task->status->name) ? "(".$task->status->name.") " : "";
-            $data[$key]['title'] .= $task->name;
-            $data[$key]['description'] = $task->description;
+            $data[$key]['title'] = $task->name;
+            $data[$key]['description'] = isset($task->status->name) ? "<b class='text-primary'>".$task->status->name."</b> " : "";
+            $data[$key]['description'] .= $task->description;
             $data[$key]['start'] = $task->start_date;
             $data[$key]['end'] = $task->due_date;
             $data[$key]['url'] = route('Tasks.project_task', $task->task_id);
