@@ -34,8 +34,8 @@ class TaskController extends Controller
 
     public function calendar(Request $request)
     {
-        $tasks = $this->taskService->query($request);    // List tasks
-        
+        $tasks = $this->taskService->query($request)->unique('task_id');    // List tasks
+
         // List tasks
         return view('tasks::calendar', compact('tasks'));
     }
@@ -46,6 +46,29 @@ class TaskController extends Controller
         $tasks = $this->taskService->query($request);   
 
         return view('tasks::rows', compact('tasks'));
+    }
+
+    public function filterJson(Request $request)
+    {
+        
+        $tasks = $this->taskService->query($request);   
+
+        $data = [];
+        foreach ($tasks as $key => $task) {
+
+            $data[$key]['title'] = $task->name;
+            $data[$key]['description'] = $task->description;
+            $data[$key]['start'] = $task->start_date;
+            $data[$key]['end'] = $task->due_date;
+            $data[$key]['url'] = route('Tasks.project_task', $task->task_id);
+            $color = $task->status->color ?? 'primary';
+            $data[$key]['classNames'] = ["bg-".$color, 'p-1'];
+            $data[$key]['borderColor'] = 'white';
+            $data[$key]['textColor'] = 'white';
+
+            # code...
+        }
+        return $data;
     }
 
     

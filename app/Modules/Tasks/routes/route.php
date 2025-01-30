@@ -12,6 +12,7 @@ Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/create', [TaskController::class, 'create'])->name('Task.create');
     Route::post('/', [TaskController::class, 'store'])->name('Tasks.store');
     Route::post('/filter', [TaskController::class, 'filter'])->name('Task.filter');
+    Route::post('/filter-json', [TaskController::class, 'filterJson'])->name('Task.filter-json');
     Route::post('/{id}/add_team', [TaskController::class, 'add_team'])->name('Task.add_team');
     Route::post('/{id}/delete_team', [TaskController::class, 'delete_team'])->name('Task.delete_team');
     Route::post('{id}/update', [TaskController::class, 'update'])->name('Task.update');

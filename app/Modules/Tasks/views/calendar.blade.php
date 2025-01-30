@@ -34,21 +34,33 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                events: [
-                    @foreach($tasks as $task)
-                    {
-                        title: '{{ $task->name }}',
-                        // Set the description at one line
-                        description: '{{ str_replace(["\r\n", "\r", "\n"], ' ', $task->description) }}',
-                        start: '{{ $task->start_date }}',
-                        end: '{{ $task->due_date }}',
-                        url: '{{ route('Tasks.project_task', $task->task_id) }}',
-                        classNames: ['bg-{{ $task->status->color ?? 'primary' }}', 'p-1'],
-                        borderColor: 'white',
-                        textColor: 'white',
+                // events: "{{route('Project.tasks.filter', 0)}}",
+                events: {
+                    url: "{{route('Task.filter-json')}}",
+                    method: 'POST',
+                    extraParams: {
+                        _token: '{{csrf_token()}}',
                     },
-                    @endforeach
-                ],
+                    failure: function() {
+                    alert('there was an error while fetching events!');
+                    },
+                    textColor: 'black' // a non-ajax option
+                },
+                // events: [
+                //     @foreach($tasks as $task)
+                //     {
+                //         title: '{{ $task->name }}',
+                //         // Set the description at one line
+                //         description: '{{ str_replace(["\r\n", "\r", "\n"], ' ', $task->description) }}',
+                //         start: '{{ $task->start_date }}',
+                //         end: '{{ $task->due_date }}',
+                //         url: '{{ route('Tasks.project_task', $task->task_id) }}',
+                //         classNames: ['bg-{{ $task->status->color ?? 'primary' }}', 'p-1'],
+                //         borderColor: 'white',
+                //         textColor: 'white',
+                //     },
+                //     @endforeach
+                // ],
                 eventDidMount: function(info) {
                     info.el.setAttribute('data-trigger', 'hover');
                     info.el.setAttribute('data-toggle', 'popover');
