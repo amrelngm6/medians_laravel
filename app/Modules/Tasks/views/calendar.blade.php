@@ -52,7 +52,7 @@
                 eventDidMount: function(info) {
                     info.el.setAttribute('data-trigger', 'hover');
                     info.el.setAttribute('data-toggle', 'popover');
-                    info.el.setAttribute('data-placement', 'right');
+                    info.el.setAttribute('data-placement', 'left');
                     info.el.setAttribute('data-html', true);
                     info.el.setAttribute('data-title', info.event.title);
                     
