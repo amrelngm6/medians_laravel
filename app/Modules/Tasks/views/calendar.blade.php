@@ -38,6 +38,7 @@
                     @foreach($tasks as $task)
                     {
                         title: '{{ $task->name }}',
+                        description: '{{ $task->description }}',
                         start: '{{ $task->start_date }}',
                         end: '{{ $task->due_date }}',
                         url: '{{ route('Tasks.project_task', $task->task_id) }}',
@@ -45,7 +46,27 @@
                         textColor: 'white',
                     },
                     @endforeach
-                ]
+                ],
+                eventDidMount: function(info) {
+                    info.el.setAttribute('data-trigger', 'hover');
+                    info.el.setAttribute('data-toggle', 'popover');
+                    info.el.setAttribute('data-placement', 'top');
+                    info.el.setAttribute('data-html', true);
+                    info.el.setAttribute('data-title', info.event.title);
+                    
+                    info.el.setAttribute('data-content', info.event.extendedProps.description);
+
+                    jQuery(info.el).popover({
+                        template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+                    });
+                
+                    // var tooltip = new Tooltip(info.el, {
+                    //     title: info.event.extendedProps.description,
+                    //     placement: 'top',
+                    //     trigger: 'hover',
+                    //     container: 'body'
+                    // });
+                },
             });
             calendar.render();
 
