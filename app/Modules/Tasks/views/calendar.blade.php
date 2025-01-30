@@ -43,7 +43,8 @@
                         start: '{{ $task->start_date }}',
                         end: '{{ $task->due_date }}',
                         url: '{{ route('Tasks.project_task', $task->task_id) }}',
-                        classNames: ['bg-{{ $task->status->color ?? 'primary' }}'],
+                        classNames: ['bg-{{ $task->status->color ?? 'primary' }}', 'p-1'],
+                        borderColor: 'white',
                         textColor: 'white',
                     },
                     @endforeach
