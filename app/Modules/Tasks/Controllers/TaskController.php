@@ -29,10 +29,16 @@ class TaskController extends Controller
         }
 
         $statusList = $this->taskService->loadStatusList();   
-        $staffList = $this->taskService->loadStatusList();   
         return view('tasks::list', compact('statusList'));
     }
 
+    public function calendar(Request $request)
+    {
+        $tasks = $this->taskService->query($request);    // List tasks
+        
+        // List tasks
+        return view('tasks::calendar', compact('tasks'));
+    }
     
     public function filter(Request $request)
     {

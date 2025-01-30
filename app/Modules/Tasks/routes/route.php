@@ -8,6 +8,7 @@ use App\Modules\Core\Controllers\StatusController;
 
 Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [TaskController::class, 'index'])->name('Tasks');
+    Route::get('/calendar', [TaskController::class, 'calendar'])->name('Tasks.calendar');
     Route::get('/create', [TaskController::class, 'create'])->name('Task.create');
     Route::post('/', [TaskController::class, 'store'])->name('Tasks.store');
     Route::post('/filter', [TaskController::class, 'filter'])->name('Task.filter');

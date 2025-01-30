@@ -16,6 +16,20 @@
                             <h1 class="title">Tasks</h1>
                             <!-- PAGE HEADING TAG - END -->
                         </div>
+                        
+                        <div class="pull-right hidden-xs">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <a href="/"><i class="fa fa-home"></i>Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tasks</a>
+                                </li>
+                                <li class="active">
+                                    <strong>Calendar view</strong>
+                                </li>
+                            </ol>
+                        </div>
 
                     </div>
                 </div>
@@ -23,7 +37,7 @@
                 <div class="clearfix"></div>
                 <!-- MAIN CONTENT AREA STARTS -->
 
-                <div class="col-lg-12 hidden">
+                <div class="col-lg-12 ">
 
                     <div class="card mb-5 mb-xl-10 py-0">
                         <div class="card-body py-0 flex w-full">
@@ -38,8 +52,8 @@
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
                                 <li class="nav-item mt-2">
-                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="{{route('Tasks')}}?view=kanban">
-                                        Kanban </a>
+                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="{{route('Tasks.calendar')}}">
+                                        Calendar </a>
                                 </li>
                                 <!--end::Nav item-->
                             </ul>
