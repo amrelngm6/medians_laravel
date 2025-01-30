@@ -44,77 +44,82 @@ class ModuleController extends Controller
      */
     public function install(Request $request)
     {
-        $request->validate([
-            'module' => 'required|file|mimes:zip',
-        ]);
-
-        $zipFile = $request->file('module');
-        $tempPath = storage_path('app/temp_modules');
-        $extractPath = $tempPath ;
-
-        // Create temporary directory
-        if (!File::exists($tempPath)) {
-            File::makeDirectory($tempPath, 0755, true);
-        }
-
-        // Extract ZIP file
-        $zip = new \ZipArchive();
-        if ($zip->open($zipFile->path()) === true) {
-            $zip->extractTo($extractPath);
-            $zip->close();
-        } else {
-            return response()->json(['error' => 'Failed to extract ZIP file.'], 500);
-        }
-
-        // Check for module.json
-        // Read Config
-        $moduleConfigPath = $extractPath . '/module.json';
-        if (!File::exists($moduleConfigPath)) {
-            return response()->json(['error' => 'module.json not found in the module.'], 400);
-        }
-
-        $moduleConfig = json_decode(File::get($moduleConfigPath), true);
-
-
-        // Move module to app/Modules
-        $moduleName = $moduleConfig[0]['name']; // Assuming the ZIP contains a single module directory
-        $moduleDir = str_replace("App\\Modules\\", '', basename($moduleConfig[0]['path'])); // Assuming the ZIP contains a single module directory
-
-        $modulePath = app_path('Modules/' . $moduleDir);
-        if (File::exists($modulePath)) {
+        try {
             
-            File::deleteDirectory($modulePath);
-            File::move($extractPath . '/' . $moduleDir, $modulePath);
-            File::deleteDirectory($extractPath. '/' . $moduleDir);
-        } else {
-
-            File::move($extractPath . '/' . $moduleDir, $modulePath);
-            File::deleteDirectory($extractPath. '/' . $moduleDir);
-        }
-
-        foreach ($moduleConfig as $key => $value) {
-            
-            
-            // Add to database
-            Module::firstOrCreate([
-                'name' => $value['name'],
-                'path' => $value['path'],
-                'provider' => $value['provider'], 
-                'has_settings' => $value['has_settings'] ?? null,
-                'business_access' => $value['business_access'] ?? null,
-                'limited_features' => $value['limited_features'] ?? null,
-                'is_enabled' => true
+            $request->validate([
+                'module' => 'required|file|mimes:zip',
             ]);
 
-            $this->handleRoles($value['path']);
-            $path = $value['path'];
-            $migrate = Artisan::call("migrate --path=$path/Migrations");
+            $zipFile = $request->file('module');
+            $tempPath = storage_path('app/temp_modules');
+            $extractPath = $tempPath ;
+
+            // Create temporary directory
+            if (!File::exists($tempPath)) {
+                File::makeDirectory($tempPath, 0755, true);
+            }
+
+            // Extract ZIP file
+            $zip = new \ZipArchive();
+            if ($zip->open($zipFile->path()) === true) {
+                $zip->extractTo($extractPath);
+                $zip->close();
+            } else {
+                return response()->json(['error' => 'Failed to extract ZIP file.'], 500);
+            }
+
+            // Check for module.json
+            // Read Config
+            $moduleConfigPath = $extractPath . '/module.json';
+            if (!File::exists($moduleConfigPath)) {
+                return response()->json(['error' => 'module.json not found in the module.'], 400);
+            }
+
+            $moduleConfig = json_decode(File::get($moduleConfigPath), true);
+
+
+            // Move module to app/Modules
+            $moduleName = $moduleConfig[0]['name']; // Assuming the ZIP contains a single module directory
+            $moduleDir = str_replace("App\\Modules\\", '', basename($moduleConfig[0]['path'])); // Assuming the ZIP contains a single module directory
+
+            $modulePath = app_path('Modules/' . $moduleDir);
+            if (File::exists($modulePath)) {
+                
+                File::deleteDirectory($modulePath);
+                File::move($extractPath . '/' . $moduleDir, $modulePath);
+                File::deleteDirectory($extractPath. '/' . $moduleDir);
+            } else {
+
+                File::move($extractPath . '/' . $moduleDir, $modulePath);
+                File::deleteDirectory($extractPath. '/' . $moduleDir);
+            }
+
+            foreach ($moduleConfig as $key => $value) {
+                
+                
+                // Add to database
+                Module::firstOrCreate([
+                    'name' => $value['name'],
+                    'path' => $value['path'],
+                    'provider' => $value['provider'], 
+                    'has_settings' => $value['has_settings'] ?? null,
+                    'business_access' => $value['business_access'] ?? null,
+                    'limited_features' => $value['limited_features'] ?? null,
+                    'is_enabled' => true
+                ]);
+
+                $this->handleRoles($value['path']);
+                $path = $value['path'];
+                $migrate = Artisan::call("migrate --path=$path/Migrations");
+            }
+
+            Artisan::call('migrate');
+
+
+            return response()->json(['success'=>1, 'result' => 'Module installed successfully.']);
+        } catch (\Throwable $th) {
+            return response()->json(['success'=> 0, 'error'=>$th->getMessage()]);
         }
-
-        Artisan::call('migrate');
-
-
-        return response()->json(['success'=>1, 'result' => 'Module installed successfully.']);
     }
 
     /**
