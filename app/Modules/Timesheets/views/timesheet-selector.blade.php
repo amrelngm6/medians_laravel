@@ -35,8 +35,9 @@
                             </div>
 @if ($timesheet)
 <script>
+let interval;   
 // Calculate the time difference between the start time and now using moment.js
-setInterval(()=> {
+interval = setInterval(()=> {
     let startTime = moment("{{$timesheet->start}}", "YYYY-MM-DD HH:mm:ss");
     let now = moment();
     let duration = moment.duration(now.diff(startTime));

@@ -58,7 +58,8 @@ class HuggFaceController extends Controller
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json'
-            ])->post('http://127.0.0.1:5000/t5', [
+            ])->post('http://127.0.0.1:5000/analyse', [
+                'message' => $request->question,
                 'query' => $request->question,
                 'schema' => $request->context,
                 'model'=> $request->model,
