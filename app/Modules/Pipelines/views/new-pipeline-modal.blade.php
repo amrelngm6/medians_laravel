@@ -1,5 +1,5 @@
 
-<div class="modal fade  active show" id="new-Business-modal" tabindex="-1" >
+<div class="modal fade  active show" id="new-pipeline-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -7,7 +7,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#new-Business-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#new-pipeline-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
@@ -27,7 +27,8 @@
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Start with the Models pipelines list.
+                            Pipelines used to guide the Targets stages, 
+                            and you can set pipeline for multiple Models
                         </div>
                         <!--end::Description-->
                     </div>
@@ -49,10 +50,10 @@
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Sort</span>
+                            <span class="required">Description</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" type="number" placeholder="Sort" value="1" name="sort" />
+                        <textarea class="form-control form-control-solid" placeholder="Pipeline description" name="description" ></textarea>
                     </div>
                     <!--end::Input group-->
 
@@ -73,37 +74,7 @@
                         </select>
                     </div>
                     <!--end::Input group-->
-
-                    <!--begin::Input group-->
-                    <div class="mb-15 fv-row">
-                        <!--begin::Wrapper-->
-                        <div class="flex flex-column">
-                            <!--begin::Label-->
-                            <div class="fw-semibold me-5 flex gap-10">
-                                <label class="fs-6">Color</label>
-
-                                <div class="pt-1 fs-7 text-muted">Select pipeline color</div>
-                            </div>
-                            <!--end::Label-->
-
-                            <!--begin::Checkboxes-->
-                            <div class="d-flex align-items-center pt-6">
-                                @foreach (['primary', 'success', 'info', 'accent', 'dark'] as $color )
-                                <!--begin::Checkbox-->
-                                <label class="form-check form-check-custom form-check-solid me-10">
-                                    <input class="form-check-input h-20px w-20px" type="radio"
-                                        name="color" value="{{$color}}" />
-
-                                    <span class="form-check-label fw-semibold bg-{{$color}} w-20px h-20px"> </span>
-                                </label>
-                                <!--end::Checkbox-->
-                                @endforeach
-                            </div>
-                            <!--end::Checkboxes-->
-                        </div>
-                        <!--end::Wrapper-->
-                    </div>
-                    <!--end::Input group-->
+                    
 
                     <!--begin::Actions-->
                     <div class="text-center">
