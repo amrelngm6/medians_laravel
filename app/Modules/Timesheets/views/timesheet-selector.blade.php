@@ -37,14 +37,11 @@
 <script>
 let interval;   
 // Calculate the time difference between the start time and now using moment.js
-moment.tz.setDefault({{env('APP_TIMEZONE')}});
+moment.tz.setDefault('{{env('APP_TIMEZONE')}}');
 interval = setInterval(()=> {
     let startTime = moment("{{$timesheet->start}}", "YYYY-MM-DD HH:mm:ss");
-    console.log(startTime)
     let now = moment.utc();
-    console.log(now)
-    let duration = moment.duration(now.tz({{env('APP_TIMEZONE')}}).diff(startTime));
-
+    let duration = moment.duration(now.tz('{{env('APP_TIMEZONE')}}').diff(startTime));
     let hours = String(duration.hours()).padStart(2, '0');
     let minutes = String(duration.minutes()).padStart(2, '0');
     let seconds = String(duration.seconds()).padStart(2, '0');
