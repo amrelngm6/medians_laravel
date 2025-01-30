@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->text('description')->nullable();
-            $table->string('color', 50);
             $table->integer('sort')->default(1);
             $table->string('model', 191);
             $table->integer('created_by');
@@ -29,6 +28,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('pipeline_id');
             $table->integer('sort')->default(1);
+            $table->string('color', 50);
             $table->integer('created_by');
             $table->integer('business_id');
             $table->timestamps();
@@ -37,6 +37,7 @@ return new class extends Migration
         Schema::create('pipeline_selected', function (Blueprint $table) {
             $table->id();
             $table->integer('pipeline_id');
+            $table->integer('pipeline_stage_id');
             $table->morphs('model');
             $table->integer('created_by');
             $table->integer('business_id');
