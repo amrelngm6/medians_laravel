@@ -5,6 +5,7 @@ namespace App\Modules\NLP\Services;
 use App\Models\Auth;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use DeepseekClient;
 
 class HuggFaceService
@@ -198,5 +199,19 @@ class HuggFaceService
                     : 'No response'
             ];
         }
+    }
+
+
+
+    public function tableSchema($table)
+    {
+        $columns = DB::select('DESCRIBE '.$table);
+        $query = $table.'(';     
+        foreach ($columns as $column) {
+            $query .= $column->Field.' '.$column->Type.', ';
+        }
+        $query .= $table.') ';   
+
+        return $query;
     }
 }
