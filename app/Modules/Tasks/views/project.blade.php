@@ -76,7 +76,7 @@ jQuery(document).ready(function(){
             let taskId = window.location.search.split('task_id=')[1];
             jQuery('.open-modal[data-id='+taskId+']').trigger('click');
         }
-    }, 3000);
+    }, 2000);
     // Add date range filtering logic
     $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
         fetchData();
