@@ -32,16 +32,19 @@ var MediansSettings = window.MediansSettings || {};
     async function showFormTargetModal(formId)
     {
         let url = jQuery('#'+formId).attr('data-reload-link');
+        let targetModal = jQuery('#'+formId).data('target-modal');
         if (!url)
             return;
 
+        let position;
         let res = await fetch(url);
         res.text().then(a=> {
-            jQuery('#modals').html(a)
-            jQuery('#'+formId).data('target-modal') ? jQuery(jQuery('#'+formId).data('target-modal')).removeClass('fade').addClass('show') : null
+            position = document.getElementById(targetModal).scrollTop
+            jQuery('#modals').html(a) ? jQuery('#'+targetModal).removeClass('fade').addClass('show') : null
+            document.getElementById(targetModal).scrollTop = position
         })
 
-        jQuery('#'+formId).data('target-modal') ? jQuery('#'+formId).data('target-modal').removeClass('fade').addClass('show') : null
+        targetModal ? jQuery('#'+targetModal).removeClass('fade').addClass('show') : null
     }
     
     function submitForm(formId, elementId, append = null) {
@@ -142,8 +145,6 @@ jQuery(function($) {
         
         jQuery(document).on('submit', '.ajax-form', function (e) {
             e.preventDefault();
-            console.log(e)
-            console.log(e.target.id)
             let element = jQuery(this).data('element'); 
             let append = jQuery(this).data('append');
             submitForm(e.target.id, element, append);

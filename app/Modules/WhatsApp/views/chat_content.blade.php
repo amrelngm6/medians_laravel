@@ -111,7 +111,7 @@ async function loadConent()
     })
 }
 
-function handleScroll(newPosition = null)
+function handleScroll()
 {
     const chatContainer = document.getElementById('chat-container');
     chatContainer.scrollTop = chatContainer.scrollHeight;

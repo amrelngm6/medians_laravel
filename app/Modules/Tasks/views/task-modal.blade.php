@@ -120,6 +120,7 @@
                                             </a>
                                             <a href="javascript:;" id="checklist-{{$checklist->id}}"
                                                 data-reload-link="{{$modalRoute}}"
+                                                data-target-modal="task-modal"
                                                 data-path="{{route('TaskChecklist.delete', $checklist->id)}}"
                                                 class="delete-item"> <i class='bx bx-message-square-x p-2 fs-4'></i></a>
                                         </div>
