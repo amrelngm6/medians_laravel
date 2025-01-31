@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\Auth;
-use App\Modules\Deals\Services\service;
+use App\Modules\Deals\Services\DealService;
 use App\Modules\Tasks\Services\TaskService;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +16,7 @@ class DealController extends Controller
 
     protected $service;
 
-    public function __construct(service $service)
+    public function __construct(DealService $service)
     {
         $this->service = $service;
     }
