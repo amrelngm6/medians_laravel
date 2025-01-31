@@ -1,5 +1,6 @@
+<?php $Modules = \App\Models\Module::get(); ?>
 
-<div class="modal fade  active show" id="new-Business-modal" tabindex="-1" >
+<div class="modal fade  active show" id="edit-stage-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -7,7 +8,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#new-Business-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#edit-stage-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
@@ -17,17 +18,17 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_new_pipeline_form" method="POST" class="ajax-form form" action="{{route('Pipeline.store')}}">
+                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('PipelineStage.update', $stage->id)}}">
                     @csrf
+                    <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Create pipeline</h1>
+                        <h1 class="mb-3">Update stage</h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Pipelines used to guide the Targets stages, 
-                            and you can set pipeline for multiple Models
+                            Update <span class="text-danger">{{$stage->name}}</span> stage.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -40,7 +41,8 @@
                             <span class="required">Name</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" placeholder="Pipeline name " name="name">
+                        <input class="form-control form-control-solid" placeholder="stage name " value="{{$stage->name}}"
+                                name="name" />
                     </div>
                     <!--end::Input group-->
 
@@ -51,32 +53,31 @@
                             <span class="required">Description</span>
                         </label>
                         <!--end::Label-->
-                        <textarea class="form-control form-control-solid" placeholder="Pipeline description" name="description"></textarea>
+                        <textarea class="form-control form-control-solid" placeholder="Stage description" name="description">{{$stage->description}}</textarea>
                     </div>
                     <!--end::Input group-->
 
-                    
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Model</span>
+                            <span class="required">Sort</span>
                         </label>
                         <!--end::Label-->
-                        <select class="form-control form-control-solid select2" placeholder="Select a Team Member" name="model">
-                            <?php $Modules = \App\Models\Module::get(); ?>
-                            <option value=""></option>
-                            @foreach ($Modules as $Module)
-                            <option @if($Module->name == $model) selected @endif value="{{$Module->path}}\Models\{{$Module->name}}">{{$Module->name}}</option>
-                            @endforeach 
-                        </select>
+                        <input class="form-control form-control-solid" type="number" placeholder="Sort" value="{{$stage->sort}}" name="sort" />
                     </div>
                     <!--end::Input group-->
+                    @php $model = $stage; @endphp
+                    @include('components.color-field')
+
 
                     <!--begin::Actions-->
                     <div class="text-center">
+                        <button type="reset" id="modal_edit_target_cancel" class="btn btn-light me-3">
+                            Cancel
+                        </button>
 
-                        <button type="submit" id="modal_new_target_submit" class="btn btn-primary">
+                        <button type="submit" id="modal_edit_target_submit" class="btn btn-primary">
                             <span class="indicator-label">
                                 Submit
                             </span>

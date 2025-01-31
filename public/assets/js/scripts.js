@@ -45,6 +45,7 @@ var MediansSettings = window.MediansSettings || {};
     }
     
     function submitForm(formId, elementId, append = null) {
+
         // Get the form and submit button elements
         const form = document.getElementById(formId);
         const element = document.getElementById(elementId);
@@ -141,6 +142,8 @@ jQuery(function($) {
         
         jQuery(document).on('submit', '.ajax-form', function (e) {
             e.preventDefault();
+            console.log(e)
+            console.log(e.target.id)
             let element = jQuery(this).data('element'); 
             let append = jQuery(this).data('append');
             submitForm(e.target.id, element, append);

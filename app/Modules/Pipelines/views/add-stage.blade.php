@@ -18,18 +18,18 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Pipeline.update', $pipeline->id)}}">
+                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Pipeline.store-stage', $pipeline->id)}}">
                     @csrf
-                    <input name="id" type="hidden" value="{{$pipeline->id}}" />
+                    <input type="hidden" value="{{$pipeline->id}}" name="pipeline_id" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Update Pipeline</h1>
+                        <h1 class="mb-3">Create Stage for Pipeline</h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Update <span class="text-danger">{{$pipeline->name}}</span> Models Pipeline list.
+                            Create stage for <span class="text-danger">{{$pipeline->name}}</span>  Pipeline.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -42,11 +42,21 @@
                             <span class="required">Name</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" placeholder="Pipeline name " value="{{$pipeline->name}}"
-                                name="name" />
+                        <input class="form-control form-control-solid" placeholder="Stage name " name="name" />
                     </div>
                     <!--end::Input group-->
 
+                    
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Description</span>
+                        </label>
+                        <!--end::Label-->
+                        <textarea class="form-control form-control-solid" placeholder="Stage description" name="description"></textarea>
+                    </div>
+                    <!--end::Input group-->
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
@@ -58,59 +68,7 @@
                     </div>
                     <!--end::Input group-->
 
-                    
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Model</span>
-                        </label>
-                        <!--end::Label-->
-                        
-                        <select class="form-control form-control-solid select2" placeholder="Select a Team Member" name="model">
-                            <option value=""></option>
-                            @foreach ($Modules as $Module)
-                            <option value="{{$Module->path}}\Models\{{$Module->name}}" 
-                            @if ($Module->path.'\\Models\\'.$Module->name == $pipeline->model )
-                            selected
-                            @endif
-                            >{{$Module->name}}</option>
-                            @endforeach 
-                        </select>
-                    </div>
-                    <!--end::Input group-->
-
-                    
-                    <!--begin::Input group-->
-                    <div class="mb-15 fv-row">
-                        <!--begin::Wrapper-->
-                        <div class="flex flex-column">
-                            <!--begin::Label-->
-                            <div class="fw-semibold me-5 flex gap-10">
-                                <label class="fs-6">Color</label>
-
-                                <div class="pt-1 fs-7 text-muted">Select pipeline color</div>
-                            </div>
-                            <!--end::Label-->
-
-                            <!--begin::Checkboxes-->
-                            <div class="d-flex align-items-center pt-6">
-                                @foreach (['primary', 'success', 'info', 'accent', 'dark'] as $color )
-                                <!--begin::Checkbox-->
-                                <label class="form-check form-check-custom form-check-solid me-10">
-                                    <input class="form-check-input h-20px w-20px" type="radio"
-                                        name="color" value="{{$color}}" @if ($color == $pipeline->color ) checked @endif />
-
-                                    <span class="form-check-label fw-semibold bg-{{$color}} w-20px h-20px"> </span>
-                                </label>
-                                <!--end::Checkbox-->
-                                @endforeach
-                            </div>
-                            <!--end::Checkboxes-->
-                        </div>
-                        <!--end::Wrapper-->
-                    </div>
-                    <!--end::Input group-->
+                    @include('components.color-field')
 
 
                     <!--begin::Actions-->

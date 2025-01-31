@@ -5,20 +5,21 @@ namespace App\Modules\Pipelines\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Customers\Models\Staff;
 
-class Pipeline extends Model
+class PipelineStage extends Model
 {
     
-    protected $table = 'pipelines';
+    protected $table = 'pipeline_stages';
 
-    protected $fillable = ['business_id', 'name', 'model', 'description', 'sort', 'created_by'];
+    protected $fillable = ['business_id', 'name', 'description', 'pipeline_id', 'sort', 'color', 'created_by'];
 
     /**
-     * Load stages
+     * Load related category as Morph
      */
-    public function stages()
+    public function pipeline()
     {
-        return $this->hasMany(PipelineStage::class, 'pipeline_id', 'id')->orderBy('sort', 'ASC');
+        return $this->hasOne(Pipeline::class,'id','pipeline_id');
     }
+
     
     /**
      * Load Created by Staff

@@ -61,18 +61,21 @@ class PipelineController extends Controller
     /**
      * Show the form for creating a new Pipeline.
      */
-    public function edit_task_field(Request $request, $id)
+    public function create_stage(Request $request, $id)
     {
-        $taskService = new TaskService;
-        $model = $task = $taskService->find($id);
+        $pipeline = $this->pipelineService->find($id);
 
-        $pipelines = $this->pipelineService->query();
+        return view('pipeline::add-stage', compact('pipeline'));
+    }
 
-        $field = 'pipeline::pipeline-selector';
-        
-        $modalRoute = route('Tasks.project_task', $id);
+    /**
+     * Show the form for creating a new Pipeline.
+     */
+    public function edit_stage(Request $request, $id)
+    {
+        $stage = $this->pipelineService->findStage($id);
 
-        return view('tasks::edit-form-wrapper', compact('field','pipelines', 'model', 'task', 'modalRoute'));
+        return view('pipeline::edit-stage', compact('stage'));
     }
 
 
@@ -99,7 +102,7 @@ class PipelineController extends Controller
         $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
 
         // Create and save the Pipeline
-        $source = $this->pipelineService->createPipeline(array_merge($request->only('name', 'model','sort','color'), $info));
+        $source = $this->pipelineService->createPipeline(array_merge($request->only('name', 'model','description'), $info));
 
         return $source ? response()->json([
             'success' => true,
@@ -107,6 +110,45 @@ class PipelineController extends Controller
             'reload' => true,
             'result' => 'Created',
         ], 200) : null;
+    }
+
+
+    public function storeStage(Request $request)
+    {
+        try {
+            
+            $user = Auth::user();
+
+            // Validate incoming request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $user = Auth::user();
+
+            $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
+
+            // Create and save the Pipeline
+            $source = $this->pipelineService->createStage(array_merge($request->only('pipeline_id', 'name', 'model_id', 'model_type', 'color', 'sort','description'), $info));
+
+            return $source ? response()->json([
+                'success' => true,
+                'title' => 'Done',
+                'reload' => true,
+                'result' => 'Created',
+            ], 200) : null;
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
     }
 
     public function show($id)
@@ -124,7 +166,7 @@ class PipelineController extends Controller
 
         $pipeline = $this->pipelineService->find($id);
 
-        return view('pipeline::edit-pipeline-modal', compact('pipeline'));
+        return view('pipeline::edit', compact('pipeline'));
     }
 
     /**
@@ -145,7 +187,7 @@ class PipelineController extends Controller
             ], 402) : null;
         }
         
-        $update = $this->pipelineService->updatePipeline($id, $request->only('name', 'model','sort','color', 'pipeline_id'));
+        $update = $this->pipelineService->updatePipeline($id, $request->only('name', 'model','sort','color', 'description', 'id'));
 
         return $update ? response()->json([
             'success' => true,
@@ -153,6 +195,40 @@ class PipelineController extends Controller
             'title' => 'Done',
             'result' => 'Updaetd',
         ], 200) : null;
+
+    }
+
+    /**
+     * Update the specified Pipeline in the database.
+     */
+    public function updateStage(Request $request, $id)
+    {
+        try {
+             
+            // Validate updated data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                return $update ? response()->json([
+                    'success' => false,
+                    'result' => $validator->errors(),
+                ], 402) : null;
+            }
+            
+            $update = $this->pipelineService->updateStage($id, $request->only('name', 'description','sort','color', 'id'));
+
+            return $update ? response()->json([
+                'success' => true,
+                'reload' => true,
+                'title' => 'Done',
+                'result' => 'Updaetd',
+            ], 200) : null;
+
+        } catch (Exception $e) {
+            return  $this->hasError($e->getMessage());
+        }
 
     }
 
@@ -170,6 +246,22 @@ class PipelineController extends Controller
             'reload' => true,
             'title' => 'Done',
             'result' => 'Pipelines deleted successfully',
+        ], 200) : null;
+    }
+    
+    /**
+     * Remove the specified Proprities from the database.
+     */
+    public function destroyStage(Request $request, $id)
+    {
+        
+        $delete = $this->pipelineService->deleteStage($id);
+
+        return $delete ? response()->json([
+            'success' => true,
+            'reload' => true,
+            'title' => 'Done',
+            'result' => 'Pipeline Stage deleted successfully',
         ], 200) : null;
     }
 }
