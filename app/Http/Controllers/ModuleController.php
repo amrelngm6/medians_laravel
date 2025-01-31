@@ -30,7 +30,7 @@ class ModuleController extends Controller
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
 
-        $this->handleUpdate($module);
+        $handleModule = $this->handleUpdate($module);
 
         return response()->json(['success'=>1, 'result' => 'Module updated successfully.']);
     }
@@ -42,9 +42,10 @@ class ModuleController extends Controller
     public function handleUpdate(Module $module)
     {
         
-        $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
-        $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
-        $migrate = Artisan::call("migrate --path=$path");
+        $filteredPath = str_replace(['App\\', 'app/'],'',$module->path);
+        $handleRoles = $this->handleRoles($filteredPath);
+        $path =  env('APP_ENV') == 'local' ? $module->path : str_replace('\\', '/', $filteredPath);
+        $migrate = Artisan::call("migrate --path=$path/Migrations");
 
         return $migrate;
     }
@@ -110,7 +111,7 @@ class ModuleController extends Controller
                 
                 
                 // Add to database
-                Module::firstOrCreate([
+                $module = Module::firstOrCreate([
                     'name' => $value['name'],
                     'path' => $value['path'],
                     'provider' => $value['provider'], 
@@ -120,12 +121,9 @@ class ModuleController extends Controller
                     'is_enabled' => true
                 ]);
 
-                $this->handleRoles($value['path']);
-                $path = $value['path'];
-                $migrate = Artisan::call("migrate --path=$path/Migrations");
+                $handleModule = $this->handleUpdate($module);
             }
 
-            Artisan::call('migrate');
 
 
             return response()->json(['success'=>1, 'result' => 'Module installed successfully.']);
