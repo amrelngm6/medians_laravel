@@ -1,226 +1,373 @@
-@extends('layout.master')
-@section('title', 'Deals list')
+@extends('deal::page')
 
-@section('main-content')
-<div class="wrapper main-wrapper row" style=''>
+@section('deal-page')
 
-    <div class='col-xs-12'>
-        <div class="page-title">
-
-            <div class="pull-left">
-                <!-- PAGE HEADING TAG - START -->
-                <h1 class="title">Deals list </h1>
-                <!-- PAGE HEADING TAG - END -->
-            </div>
-
-            <div class="pull-right hidden-xs">
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="/"><i class="fa fa-home"></i>Home</a>
-                    </li>
-                    <li>
-                        <a href="{{route('Deal')}}">Deals</a>
-                    </li>
-                    <li class="active">
-                        <strong>{{$deal->name}}</strong>
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-    <?php $Modules = \App\Models\Module::get(); ?>
-
-    <div class="col-xs-4">
-        <div class="card">
-            <div class="card-body">
-                <!--begin:Form-->
-                <form id="modal_edit_deal_form" method="POST" class="ajax-form form"
-                    action="{{route('Deal.update', $deal->id)}}">
-                    @csrf
-                    <!--begin::Heading-->
-                    <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">Update Deal</h1>
-                        <!--end::Title-->
-
-                        <!--begin::Description-->
-                        <div class="text-muted fw-semibold fs-5">
-                            Update <span class="text-danger">{{$deal->name}}</span> Models Deal list.
-                        </div>
-                        <!--end::Description-->
-                    </div>
-                    <!--end::Heading-->
-
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Name</span>
-                        </label>
-                        <!--end::Label-->
-                        <input class="form-control form-control-solid" placeholder="Deal name "
-                            value="{{$deal->name}}" name="name" />
-                    </div>
-                    <!--end::Input group-->
-
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Description</span>
-                        </label>
-                        <!--end::Label-->
-                        <textarea class="form-control form-control-solid"
-                            name="description">{{$deal->description}}</textarea>
-                    </div>
-                    <!--end::Input group-->
-
-
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Model</span>
-                        </label>
-                        <!--end::Label-->
-
-                        <select class="form-control form-control-solid " placeholder="Select a module" name="model">
-                            <option value=""></option>
-                            @foreach ($Modules as $Module)
-                            <option value="{{$Module->path}}\Models\{{$Module->name}}" @if ($Module->
-                                path.'\\Models\\'.$Module->name == $deal->model )
-                                selected
-                                @endif
-                                >{{$Module->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <!--end::Input group-->
-
-
-                    <!--begin::Actions-->
-                    <div class="text-center">
-                        <a href="{{route('Deal')}}" id="cancel_edit_deal_form" class="btn btn-light me-3">
-                            Cancel
-                        </a>
-
-                        <button type="submit" id="modal_edit_deal_form_submit" class="btn btn-primary">
-                            <span class="indicator-label">
-                                Submit
-                            </span>
-                        </button>
-                    </div>
-                    <!--end::Actions-->
-                </form>
-                <!--end:Form-->
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xs-8">
-        <div class="card">
-            <div class="card-body">
-                <!--begin:Form-->
-
-                <!--begin::Heading-->
-                <div class="mb-13 text-center">
-                    <!--begin::Title-->
-                    <h1 class="mb-3">Deal Stages</h1>
-                    <!--end::Title-->
-
-                    <!--begin::Description-->
-                    <div class="text-muted fw-semibold fs-5">
-                        Update <span class="text-danger">{{$deal->name}}</span> Stages to use for Models.
-                    </div>
-                    <!--end::Description-->
-                </div>
-                <!--end::Heading-->
-
-                <div class="timeline timeline-border-dashed">
-
-                    @if (!count($deal->stages))
-                    <p>There is no stages added yet</p>
-                    @endif
-
-                    @foreach ($deal->stages as $stage)
-                    <div class="timeline-item">
-                        <!--begin::Timeline line-->
-                        <div class="timeline-line"></div>
-                        <!--end::Timeline line-->
-
-                        <!--begin::Timeline icon-->
-                        <div class="timeline-icon">
-                            <i class="bx bx-task fs-3 text-{{$stage->color}}"></i>
-                        </div>
-                        <!--end::Timeline icon-->
-
-                        <!--begin::Timeline content-->
-                        <div class="timeline-content mb-10 mt-n1">
-                            <!--begin::Timeline heading-->
-                            <div class="pe-3 mb-5">
-                                <div class="pull-right flex gap-6">
-                                    
-                                    <a href="{{route('DealStage.edit', $stage->id)}}" data-modal="#add-task-modal"
-                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="Edit this stage"
-                                        class="open-modal flex items-center justify-center transition-all duration-150 ease-linear rounded-md size-8 bg-slate-100 hover:bg-slate-200 dark:bg-zink-600 dark:hover:bg-zink-500">
-                                        <i class="bx bx-edit fs-4"></i></a>
-                                    <a href="javascript:;" data-path="{{route('DealStage.delete', $stage->id)}}"
-                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="Delete"
-                                        class="delete-item flex items-center justify-center transition-all duration-150 ease-linear rounded-md size-8 bg-slate-100 hover:bg-slate-200 dark:bg-zink-600 dark:hover:bg-zink-500">
-                                        <i class="bx bx-trash fs-4"></i> 
-                                    </a>
-                                </div>
-                                <!--begin::Title-->
-                                <div class="fs-5 fw-bold mb-2 text-{{$stage->color}}">{{$stage->name}}</div>
-                                <div class="fs-6 text-muted mb-2">{{$stage->description}}</div>
-                                <!--end::Title-->
-
-                                <!--begin::Description-->
-                                <div class="d-flex align-items-center mt-1 fs-6">
-                                    <!--begin::Info-->
-                                    <div class="text-muted me-2 fs-7">Added at {{date('M d, Y H:i a',strtotime($stage->created_at)) }} by</div>
-                                    <!--end::Info-->
-
-                                    <!--begin::User-->
-                                    <div class="symbol symbol-circle symbol-25px" 
-                                        rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="{{$stage->author->name ?? ''}}">
-                                        <img src="/{{$stage->author->picture ?? ''}}" alt="img">
-                                    </div>
-                                    <!--end::User-->
-                                </div>
-                                <!--end::Description-->
+    <div class="col-md-12">
+        
+        <div class="w-full gap-14 content-wrapper">
+            <div class="w-350px pull-left px-0 " id="form-sidebar"
+                class="rounded d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
+                <!--begin::Nav-->
+                <div class="bg-white   stepper-nav py-14 px-10 ">
+                    <!--begin::Step 1-->
+                    <div class="stepper-item cursor-pointer current " data-id="basic-form"
+                        >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper flex gap-6 ">
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px pt-3 bg-success text-center rounded">
+                                <i class="bx bx-check fs-2"></i>
                             </div>
-                            <!--end::Timeline heading-->
+                            <!--end::Icon-->
+
+                            <!--begin::Label-->
+                            <div class="stepper-label ">
+                                <h3 class="stepper-title">
+                                    Details
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Basic information of the Deal
+                                </div>
+                            </div>
+                            <!--end::Label-->
                         </div>
-                        <!--end::Timeline content-->
+                        <!--end::Wrapper-->
+
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
                     </div>
-                    @endforeach
+                    <!--end::Step 1-->
+
+                    <!--begin::Step 2-->
+                    <div class="stepper-item cursor-pointer " data-id="info-form">
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper flex gap-6">
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
+                                <i class="bx bx-check fs-2"></i>
+                            </div>
+                            <!--begin::Icon-->
+
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Information
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Some information for system
+                                </div>
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 2-->
+
+                    <!--begin::Step 3-->
+                    <div class="stepper-item cursor-pointer " data-id="location-form"
+                        >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper flex gap-6">
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
+                                <i class="bx bx-check fs-2"></i>
+                            </div>
+                            <!--end::Icon-->
+
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Location
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Information about the location
+                                </div>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 3-->
+
+                    <!--begin::Step 4-->
+                    <div class="stepper-item cursor-pointer " data-id="fields-form"
+                        >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper flex gap-6">
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
+                                <i class="bx bx-check fs-2"></i>
+                            </div>
+                            <!--end::Icon-->
+
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Custom fields
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Custom fields for the item
+                                </div>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 4-->
+
+                    <!--begin::Step 5-->
+                    <div class="stepper-item cursor-pointer " data-id="business-form" 
+                        >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper flex gap-6">
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
+                                <i class="bx bx-check fs-2"></i>
+                            </div>
+                            <!--end::Icon-->
+
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Business info
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Information about the business
+                                </div>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Step 5-->
                 </div>
-                <!--begin::Actions-->
-                <div class="">
-                    <a href="{{route('Deal.addStage', $deal->id)}}" id="modal_create_deal_stage"
-                        class="btn btn-primary open-modal">
-                        <span class="indicator-label">
-                            Add Stage
-                        </span>
-                    </a>
-                </div>
+                <!--end::Nav-->
+            </div>
+            <div id="content" class="w-2/3 pull-right content ">
+                <form action="{{route('Deal.update', $deal->id)}}" id="form" class="ajax-form" method="POST">
+                    @csrf
+
+
+                    <div class="card w-full step-container" id="basic-form">
+
+                        <div class="card-body">
+
+                            <div class="mb-2 text-start">
+                                <h3 class="mb-3">Basic Info</h3>
+                                <div class="text-muted fw-semibold fs-5">
+                                    <p class="fw-semibold">Basic Information about the Deal</p>.
+                                </div>
+                            </div>
+                            <div class="w-full">
+
+                                <div class="form-group w-full" app-field-wrapper="subject"><label for="subject"
+                                        class="control-label">First name</label>
+                                    <input type="text" id="fname" name="name" class="form-control form-control-solid"
+                                        autofocus="1" value="{{$deal->name}}">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card w-full step-container" id="info-form">
+
+                        <div class="card-body">
+
+                            <div class="mb-2 text-start">
+                                <h3 class="mb-3">Deal Info</h3>
+                                <div class="text-muted fw-semibold fs-5">
+                                    <p class="fw-semibold">Information about the Deal assignment</p>.
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <div class="w-full">
+
+                                    <label for="assigned" class="control-label">Assigned To</label>
+                                    @include('staff::search-input')
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card w-full step-container" id="location-form">
+                        <div class="card-body">
+                            <div class="mb-2 text-start">
+                                <h3 class="mb-3">Location Info</h3>
+                                <div class="text-muted fw-semibold fs-5">
+                                    <p class="fw-semibold">Information about the Deal location</p>.
+                                </div>
+                            </div>
+                            <div class="w-full flex gap-10">
+
+                                <div class="form-group w-full"><label for="address" class="control-label">Address</label><input
+                                        type="text" id="address" name="location_info[address]"
+                                        class="form-control form-control-solid "
+                                        value="{{$deal->location_info->address ?? ''}}"></div>
+
+                                <div class="form-group w-full"><label for="city" class="control-label">City</label><input
+                                        type="text" id="city" name="location_info[city]"
+                                        class="form-control form-control-solid " value="{{$deal->location_info->city ?? ''}}">
+                                </div>
+
+                            </div>
+                            <div class="w-full flex gap-10">
+
+                                <?php $countriyService = new App\Modules\Countries\Services\CountryService; ?>
+
+                                <div class="w-full form-group"><label for="state" class="control-label">State</label><input
+                                        type="text" id="state" name="location_info[state]"
+                                        class="form-control form-control-solid " value="{{$deal->location_info->state ?? ''}}">
+                                </div>
+                                <div class="w-full">
+                                    <div class="select-placeholder form-group" app-field-wrapper="country"><label for="country"
+                                            class="control-label">Country</label><select id="country"
+                                            name="location_info[country]"
+                                            class="select-bootstrap form-control form-control-solid py-2">
+                                            <option value=""></option>
+
+                                            @foreach ($countriyService->list() as $country)
+                                            <option value="{{$country->id}}" @if ($deal->location_info && $country->id ==
+                                                $deal->location_info->country)
+                                                selected @endif data-subtext="{{$country->code}}">{{$country->name}}</option>
+                                            @endforeach
+                                        </select></div>
+                                </div>
+
+                            </div>
+                            <div class="w-full flex gap-10">
+
+                                <div class=" w-full">
+                                    <div class="form-group" app-field-wrapper="zip"><label for="zip" class="control-label">Zip
+                                            Code</label><input type="text" id="zip" name="location_info[zip]"
+                                            class="form-control form-control-solid "
+                                            value="{{$deal->location_info->zip ?? ''}}"></div>
+                                </div>
+                                <div class=" w-full">
+                                    <div class="form-group" app-field-wrapper="website"><label for="website"
+                                            class="control-label">Website</label><input type="text" id="website"
+                                            name="location_info[website]" class="form-control form-control-solid "
+                                            value="{{$deal->location_info->website ?? ''}}">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+                    @if (!empty($custom_fields))
+                    <div class="card w-full step-container"  id="fields-form">
+                        <div class="card-body">
+                            <div class="mb-2 text-start">
+                                <h3 class="mb-3">Custom Fields</h3>
+                                <div class="text-muted fw-semibold fs-5">
+                                    <p class="fw-semibold">Custom Fields related to the Deal</p>.
+                                </div>
+                            </div>
+                            <div class="w-full ">
+                                @foreach ($custom_fields as $field)
+                                    <?php $currentVal = $deal->field[$field->name] ?? ''; ?>
+                                    @include('custom_field::field_input')
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="card w-full step-container"  id="business-form">
+                        <div class="card-body">
+
+                            <div class="mb-2 text-start">
+                                <h3 class="mb-3">Business Info</h3>
+                                <div class="text-muted fw-semibold fs-5">
+                                    <p class="fw-semibold">Information about the Deal & his business</p>.
+                                </div>
+                            </div>
+                            <div class="w-full flex gap-10">
+
+                                <div class="form-group w-full"><label for="address" class="control-label">Company</label><input
+                                        type="text" id="company" name="company" class="form-control form-control-solid "
+                                        value="{{$deal->company}}"></div>
+
+                                <div class="form-group w-full"><label for="city" class="control-label">Position</label><input
+                                        type="text" id="Position" name="position" class="form-control form-control-solid "
+                                        value="{{$deal->position}}"></div>
+
+                            </div>
+                            <div class="form-group w-full">
+                                <label for="address" class="control-label">About</label><textarea id="about" name="about"
+                                    class="form-control form-control-solid " rows="4">{{$deal->about}}</textarea>
+                            </div>
+
+
+                            <div
+                                class=" mt-4 btn-bottom-toolbar bottom-transaction text-right sm:tw-flex sm:tw-items-center sm:tw-justify-between">
+                                <p class="no-mbot pull-left  btn-toolbar-notice tw-hidden sm:tw-block">
+                                    Include proposal items with merge field anywhere in proposal content as
+                                    <b>{proposal_items}</b>
+                                </p>
+                                <div>
+                                    <a href="{{route('Deal')}}"
+                                        class="btn btn-default mleft10 proposal-form-submit save-and-send transaction-submit">
+                                        Back </a>
+                                    <button class="btn btn-primary mleft5 proposal-form-submit transaction-submit"
+                                        type="submit">
+                                        Save </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
 
-
-    <!-- MAIN CONTENT AREA ENDS -->
-</div>
 @endsection
-
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+<script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
+<script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
+<script>
+    jQuery(document).ready(function(e){
+        // jQuery('#content').css({'margin-left': (jQuery('#form-sidebar').width()+20)+'px'})
+        jQuery('.content-wrapper').addClass('flex')
+        jQuery(document).on('click', '.stepper-item', function(e){
+            document.getElementById(jQuery(this).data('id')).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            // return jQuery('.step-container,.step-item').addClass('hidden'), 
+            // jQuery('#'+jQuery(this).data('id')).removeClass('hidden'), 
+            jQuery('.stepper-icon').removeClass('bg-success'), 
+            jQuery(this).children().children('.stepper-icon').addClass('bg-success'); 
+        })
+        
+        var stickySidebar = new StickySidebar('#form-sidebar', {
+            topSpacing: 20,
+            bottomSpacing: 0,
+            containerSelector: '.content-wrapper',
+            innerWrapperSelector: '.stepper-nav'
+        });
+    })
+</script>
 @endsection

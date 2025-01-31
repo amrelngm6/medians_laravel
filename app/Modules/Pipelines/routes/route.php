@@ -19,6 +19,10 @@ Route::prefix('pipelines')->middleware(['web', 'auth:superadmin,staff'])->group(
     Route::delete('{id}/delete-stage', [PipelineController::class, 'destroyStage'])->name('PipelineStage.delete');
 
 
+    Route::get('/{id}/pipeline-deal-change', [PipelineController::class, 'changePipelineModal'])->name('Pipeline.change-pipeline-modal');
+    Route::post('/pipeline-change', [PipelineController::class, 'updateSelectedPipeline'])->name('Pipeline.change');
+    Route::post('/stage-change', [PipelineController::class, 'updateSelectedStage'])->name('PipelineSelectedStage.change');
+
     Route::post('/pipeline-search-json', [PipelineController::class, 'searchJson'])->name('Pipeline.search-json');
     
     Route::post('/stage-search-json', [PipelineController::class, 'stageSearchJson'])->name('PipelineStage.search-json');

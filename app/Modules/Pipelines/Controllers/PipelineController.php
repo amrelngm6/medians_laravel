@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\Auth;
 use App\Modules\Pipelines\Services\PipelineService;
-use App\Modules\Tasks\Services\TaskService;
+use App\Modules\Deals\Services\DealService;
 use App\Http\Controllers\Controller;
 
 class PipelineController extends Controller
@@ -89,6 +89,22 @@ class PipelineController extends Controller
         return response()->json($list->select('id', 'name', 'stages_count'));
     }
 
+
+    /**
+     * Display a listing of Pipeline Stages as Form Field.
+     */
+    public function changePipelineModal(Request $request, $id)
+    {
+        
+        $pipelines = $this->service->query();
+
+        $DealService = new DealService();
+        $model = $DealService->find($id);
+
+        $selectedStage = $this->service->findByModel($model);
+
+        return view('pipeline::pipeline-change-modal', compact('pipelines', 'model', 'selectedStage'));
+    }
 
 
     /**
@@ -187,10 +203,47 @@ class PipelineController extends Controller
         }
     }
 
-    public function show($id)
+    /**
+     * Update selected pipeline for Deal
+     */
+    public function updateSelectedPipeline(Request $request)
     {
-        // Display a single Pipeline
+        try {
+
+            $user = Auth::user();
+
+            $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
+
+            $update = $this->service->updateSelectedPipeline(array_merge($info,$request->only('pipeline_id', 'model_type', 'model_id'))) ;
+
+            return $update ? $this->jsonResponse('Updated successfully', 'Updated', true) : null;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
     }
+
+    /**
+     * Update selected Stage for Deal
+     */
+    public function updateSelectedStage(Request $request)
+    {
+        try {
+
+            $user = Auth::user();
+
+            $DealService = new DealService();
+            $deal = $DealService->find($request->model_id);
+
+            $update = $this->service->updateSelectedPipeline(array_merge($request->only('pipeline_id', 'pipeline_stage_id', 'model_type', 'model_id'))) ;
+
+            return $update ? $this->jsonResponse('Updated successfully', 'Updated', true) : null;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
+    }
+
 
     public function edit(Request $request, $id)
     {

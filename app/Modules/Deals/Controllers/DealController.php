@@ -11,9 +11,12 @@ use App\Modules\Deals\Services\DealService;
 use App\Modules\Tasks\Services\TaskService;
 use App\Http\Controllers\Controller;
 use App\Modules\Deals\Events\DealSaved;
+use App\Modules\Deals\Events\DealPage;
 
 class DealController extends Controller
 {
+
+    public $tabsPrefix = 'Deal.tabs';
 
     protected $service;
 
@@ -57,6 +60,49 @@ class DealController extends Controller
 
         return view('deal::new-deal-modal', compact('model'));
     }
+
+    
+
+    public function edit(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Deals edit') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }   
+
+        $deal = $this->service->find($id);
+        $dealTabs = $this->loadModuleTabs($this->tabsPrefix);
+        
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new DealPage($request, $deal, $context));
+        $top_components = $event[0]->context['components'] ?? [];
+        
+        return view('deal::edit', compact('deal', 'dealTabs', 'top_components'));
+    }
+
+
+    
+
+    public function overview(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Deals view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }   
+
+        $deal = $this->service->find($id);
+        $dealTabs = $this->loadModuleTabs($this->tabsPrefix);
+        
+        $context = ['components' => []];
+        $event = event(new DealPage($request, $deal, $context));
+        $top_components = $event[0]->context['components'] ?? [];
+        
+        return view('deal::overview', compact('deal', 'dealTabs', 'top_components'));
+    }
+
 
 
     /**
@@ -155,24 +201,7 @@ class DealController extends Controller
             return $this->hasError($th->getMessage());
         }
     }
-
-    public function show($id)
-    {
-        // Display a single Deal
-    }
-
-    public function edit(Request $request, $id)
-    {
-        $user = Auth::user();
-
-        if ($user->cannot('Deals edit') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
-        }   
-
-        $deal = $this->service->find($id);
-
-        return view('deal::edit', compact('deal'));
-    }
+    
 
     /**
      * Update the specified Deal in the database.

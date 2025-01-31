@@ -4,6 +4,7 @@ namespace App\Modules\Pipelines\Services;
 
 use App\Modules\Pipelines\Models\Pipeline;
 use App\Modules\Pipelines\Models\PipelineStage;
+use App\Modules\Pipelines\Models\PipelineSelected;
 use App\Models\Auth;
 
 class PipelineService
@@ -23,6 +24,21 @@ class PipelineService
     public function findStage(int $id)
     {
         return PipelineStage::findOrFail($id);
+    }
+
+    public function findSelected(int $id)
+    {
+        return PipelineSelected::findOrFail($id);
+    }
+
+    public function findByModel($model)
+    {
+        return PipelineSelected::where('model_id', $model->{$model->getKeyName()})
+        ->where('model_type', get_class($model))
+        ->with(['pipeline'=>function($q){
+            $q->with('stages');
+        }])
+        ->first();
     }
 
     public function createPipeline(array $data)
@@ -49,6 +65,26 @@ class PipelineService
         return $stage;
     }
 
+    public function updateSelectedPipeline(array $data)
+    {
+        $stage = PipelineSelected::where([
+            'model_type' => $data['model_type'],
+            'model_id' => $data['model_id']
+        ])->first();
+        
+        if ($stage)
+            $stage->update($data);
+
+
+        if (!$stage) {
+            $data['pipeline_stage_id'] = $data['pipeline_stage_id'] ?? 0;
+            $stage = PipelineSelected::create($data);
+        }
+        
+
+        return $stage;
+    }
+
     public function deletePipeline($id)
     {
         $pipeline = $this->find($id);
@@ -60,4 +96,8 @@ class PipelineService
         $stage = $this->findStage($id);
         return $stage->delete();
     }
+
+
+
+    
 }
