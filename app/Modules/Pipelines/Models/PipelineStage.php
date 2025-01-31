@@ -29,13 +29,6 @@ class PipelineStage extends Model
         return $this->hasOne(Staff::class, 'staff_id', 'created_by');
     }
 
-    /**
-     * Load related category as Morph
-     */
-    public function model()
-    {
-        return $this->morphTo();
-    }
 
     /**
      * Load Items of Business Scope

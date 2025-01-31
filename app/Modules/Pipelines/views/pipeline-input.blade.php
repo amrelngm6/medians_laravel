@@ -16,7 +16,7 @@
         </div>
     </div>
     <!--end::Input group-->
-    
+    <div id="pipeline-stages" class="w-full"></div>
     
 @section('search-scripts')
 <script>
@@ -32,7 +32,7 @@
         .filter(".with-ajax")
         .ajaxSelectPicker({
         ajax: {
-          url: '{{route("Pipeline.search-input")}}?_token={{csrf_token()}}', // Replace with your API endpoint
+          url: '{{route("Pipeline.search-json")}}?_token={{csrf_token()}}', // Replace with your API endpoint
           data: function () {
             @php $q = '{{{q}}}' @endphp
             return {
@@ -69,10 +69,9 @@
         {
             let res = await fetch('/pipelines/stage-search-input/'+jQuery(this).val());
             res.text().then(data=> {
-                jQuery(element).html(data)
+                jQuery('#pipeline-stages').html(data)
             })   
         }
-        alert()
       });
 
 </script>

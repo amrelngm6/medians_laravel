@@ -89,23 +89,6 @@
                     </div>
                     <!--end::Input group-->
 
-                    
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Model</span>
-                        </label>
-                        <!--end::Label-->
-                        <select class="form-control form-control-solid select2" placeholder="Select a Team Member" name="model">
-                            <?php $Modules = \App\Models\Module::get(); ?>
-                            <option value=""></option>
-                            @foreach ($Modules as $Module)
-                            <option @if($Module->name == $model) selected @endif value="{{$Module->path}}\Models\{{$Module->name}}">{{$Module->name}}</option>
-                            @endforeach 
-                        </select>
-                    </div>
-                    <!--end::Input group-->
 
                     <!--begin::Actions-->
                     <div class="text-center">

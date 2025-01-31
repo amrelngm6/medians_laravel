@@ -90,16 +90,29 @@ class PipelineController extends Controller
     }
 
 
+
     /**
      * Display a listing of Pipeline Stages as Form Field.
      */
     public function stageSearchInput(Request $request, $id)
     {
-        $pipeline = $this->service->find($id)->stages ?? [];
+        $stages = $this->service->find($id)->stages ?? [];
 
         return view('pipeline::pipeline-stage-input', compact('stages'));
     }
 
+
+
+    /**
+     * Display a listing of Pipeline stage as JSON.
+     */
+    public function stageSearchJson(Request $request)
+    {
+        // Optionally apply filters and pagination
+        $list = $this->service->query($request);
+
+        return response()->json($list->select('id', 'name'));
+    }
 
 
     public function store(Request $request)

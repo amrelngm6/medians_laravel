@@ -10,6 +10,7 @@ use App\Models\Auth;
 use App\Modules\Deals\Services\DealService;
 use App\Modules\Tasks\Services\TaskService;
 use App\Http\Controllers\Controller;
+use App\Modules\Deals\Events\DealSaved;
 
 class DealController extends Controller
 {
@@ -87,6 +88,8 @@ class DealController extends Controller
         // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'amount' => 'required|integer',
+            'expected_due_date' => 'date',
         ]);
 
         if ($validator->fails()) {
@@ -102,9 +105,11 @@ class DealController extends Controller
         $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
 
         // Create and save the Deal
-        $source = $this->service->createDeal(array_merge($request->only('name', 'model','description'), $info));
+        $deal = $this->service->createDeal(array_merge($request->only('name', 'expected_due_date', 'amount','description'), $info));
 
-        return $source ? response()->json([
+        isset($deal->id) ? event(new DealSaved($request, $deal)) : '';
+
+        return $deal ? response()->json([
             'success' => true,
             'title' => 'Done',
             'reload' => true,

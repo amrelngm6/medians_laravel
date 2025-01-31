@@ -19,51 +19,12 @@
         </div>
     </div>
     <!--end::Input group-->
-    
 <script>
-        
-        
-        jQuery('.stage-filter').selectpicker({
-            liveSearch:true,
-            // mobile:true,
-            tickIcon:'glyphicon-ok',
-            showTick: true,
-            selectOnTab:true,
-        })
-        .filter(".with-ajax-field")
-        .ajaxSelectPicker({
-        ajax: {
-          url: '{{route("PipelineStage.search-json")}}?_token={{csrf_token()}}', // Replace with your API endpoint
-          data: function () {
-            @php $q = '{{{q}}}' @endphp
-            return {
-              name: '{{$q}}' // The search query
-            };
-          },
-        },
-        preprocessData: function (response) {
-            var contacts = [];
-            var len = response.length;
-            for(var i = 0; i < len; i++){
-                var curr = response[i];
-                contacts.push(
-                {
-                    'value': curr.id,
-                    'text': curr.name,
-                    'data': {
-                        'icon': 'bx bx-outline',
-                        'subtext': '('+curr.stages_count+') Stages'
-                    },
-                    'disabled': false
-                });
-
-            }
-            return contacts;
-
-        },
-        preserveSelected: false, // Preserve selected items
-        liveSearch: true // Enable live search
-      });
-
-
+    jQuery('.stage-filter').selectpicker({
+        liveSearch:true,
+        // mobile:true,
+        tickIcon:'glyphicon-ok',
+        showTick: true,
+        selectOnTab:true,
+    });
 </script>
