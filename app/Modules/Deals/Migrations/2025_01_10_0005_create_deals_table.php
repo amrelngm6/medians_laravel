@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->date('expected_due_date')->nullable();
             $table->text('description')->nullable();
             $table->integer('lead_id')->default(0);
             $table->decimal('amount', 2)->default(0);
+            $table->enum('status', ['0','won','lose']);
             $table->integer('created_by');
             $table->integer('business_id');
             $table->timestamps();

@@ -10,7 +10,7 @@ class Deal extends Model
     
     protected $table = 'deals';
 
-    protected $fillable = ['business_id', 'name', 'description', 'amount', 'lead_id', 'created_by'];
+    protected $fillable = ['business_id', 'name', 'expected_due_date', 'description', 'amount', 'lead_id', 'status', 'created_by'];
 
     
     /**

@@ -33,16 +33,30 @@
                     </div>
                     <!--end::Heading-->
 
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Name</span>
-                        </label>
-                        <!--end::Label-->
-                        <input class="form-control form-control-solid" placeholder="Deal name " name="name">
+                    <div class="w-full flex gap-10">
+
+                        <!--begin::Input group-->
+                        <div class="d-flex flex-column mb-8 fv-row w-full">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Name</span>
+                            </label>
+                            <!--end::Label-->
+                            <input class="form-control form-control-solid" placeholder="Deal name " name="name">
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="d-flex flex-column mb-8 fv-row w-full">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Amount</span>
+                            </label>
+                            <!--end::Label-->
+                            <input class="form-control form-control-solid" placeholder="Deal budget amount" name="amount">
+                        </div>
+                        <!--end::Input group-->
                     </div>
-                    <!--end::Input group-->
 
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row">
