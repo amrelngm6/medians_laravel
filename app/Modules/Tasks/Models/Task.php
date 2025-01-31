@@ -36,13 +36,18 @@ class Task extends Model
     ];
 
     
-    public $appends = ['field'];
+    public $appends = ['field', 'id'];
     
     public function getFieldAttribute()
     {
         return $this->fields->pluck('value', 'code');
     }
     
+    public function getIdAttribute()
+    {
+        return $this->task_id;
+    }
+
     public function id()
     {
         return $this->task_id;
