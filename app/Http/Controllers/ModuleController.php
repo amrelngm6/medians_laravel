@@ -29,13 +29,25 @@ class ModuleController extends Controller
     {
         $module =  Module::findOrFail($id);
         $update =  $module->update(['is_enabled'=> $request->is_enabled]);
-        $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
-        $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
-        $migrate = Artisan::call("migrate --path=$path");
+
+        $this->handleUpdate($module);
 
         return response()->json(['success'=>1, 'result' => 'Module updated successfully.']);
     }
 
+
+    /**
+     * Handle Related Module 
+     */
+    public function handleUpdate(Module $module)
+    {
+        
+        $handleRoles = $this->handleRoles(str_replace(['App\\', 'app/'],'',$module->path));
+        $path =  env('APP_ENV') == 'local' ? ($module->path."\\Migrations") : (str_replace('\\', '/', str_replace('App\\', 'app/', $module->path))."/Migrations");
+        $migrate = Artisan::call("migrate --path=$path");
+
+        return $migrate;
+    }
 
     /**
      * Install Module from ZIP File
