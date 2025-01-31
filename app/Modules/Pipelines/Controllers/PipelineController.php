@@ -143,7 +143,7 @@ class PipelineController extends Controller
         return $source ? response()->json([
             'success' => true,
             'title' => 'Done',
-            'reload' => true,
+            'redirect' => route('Pipeline.edit', $source->id),
             'result' => 'Created',
         ], 200) : null;
     }
