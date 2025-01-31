@@ -19,7 +19,7 @@
                 <!--begin:Form-->
                 <form id="modal_new_pipeline_form" method="POST" class="ajax-form form" action="{{route('Pipeline.store')}}">
                     @csrf
-                    <input type="hidden" name="model" value="0" />
+                    <input type="hidden" name="model" value="-" />
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
                         <h1 class="mb-3">Create pipeline</h1>

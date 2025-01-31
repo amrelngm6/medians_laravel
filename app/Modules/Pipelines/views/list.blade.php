@@ -59,7 +59,7 @@
                             <tr>
                                 <th class="text-start w-20" data-sort="id">Id</th>
                                 <th class="text-start Lead_name" data-sort="name">Name</th>
-                                <th class="text-start model" data-sort="model">Module</th>
+                                <th class="text-start model" data-sort="model">Stages</th>
                                 <th class="text-start ">Color</th>
                                 <th class="text-start sort" data-sort="sort">sort</th>
                                 <th class="text-start action">Actions</th>
@@ -75,7 +75,7 @@
                                 <td class=" ">
                                     <h6 class="">{{$Pipeline->name}} </h6>
                                 </td>
-                                <td class=" ">{{ class_basename($Pipeline->model) }} </td>
+                                <td class=" ">{{ count($Pipeline->stages) }} </td>
                                 <td class=" ">
                                     <span
                                         class="block fw-semibold bg-{{ $Pipeline->color }} w-20px h-20px rounded-circle">
