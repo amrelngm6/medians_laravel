@@ -1,27 +1,26 @@
 @php $rand = rand(1, 9) @endphp
 <div class="select-placeholder w-full" 
-    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Staff Name" >
-
+    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Select Pipeline" >
     <!-- <label for="assigned" class="control-label">Assigned To</label> -->
-    <select id="name-filter{{$rand}}" name="staff_id" placeholder="A" data-live-search="true" 
+    <select id="name-filter{{$rand}}" name="pipeline_id" placeholder="A" data-live-search="true" 
         class="name-filter filter-on-change with-ajax border border-gray-300 form-control form-control-solid ">
     </select>
 </div>
 @section('search-scripts')
 <script>
         
+        
         jQuery('.name-filter').selectpicker({
             liveSearch:true,
             // mobile:true,
-            tickIcon:'bx bx-user',
+            tickIcon:'glyphicon-ok',
             showTick: true,
             selectOnTab:true,
         })
         .filter(".with-ajax")
         .ajaxSelectPicker({
         ajax: {
-          url: '{{route("Staff.search-input")}}?_token={{csrf_token()}}', // Replace with your API endpoint
-        //   url: 'https://jsonplaceholder.typicode.com/users', // Replace with your API endpoint
+          url: '{{route("Pipeline.search-input")}}?_token={{csrf_token()}}', // Replace with your API endpoint
           data: function () {
             @php $q = '{{{q}}}' @endphp
             return {
@@ -36,11 +35,11 @@
                 var curr = response[i];
                 contacts.push(
                 {
-                    'value': curr.staff_id,
-                    'text': curr.first_name + ' ' + curr.last_name,
+                    'value': curr.id,
+                    'text': curr.name,
                     'data': {
-                        'icon': 'bx bx-user',
-                        'subtext': curr.email
+                        'icon': 'bx bx-outline',
+                        'subtext': '('+curr.stages_count+') Stages'
                     },
                     'disabled': false
                 }
@@ -52,6 +51,7 @@
         preserveSelected: false, // Preserve selected items
         liveSearch: true // Enable live search
       });
+
 
 </script>
 @endsection

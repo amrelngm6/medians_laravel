@@ -17,4 +17,12 @@ Route::prefix('pipelines')->middleware(['web', 'auth:superadmin,staff'])->group(
     Route::post('/{id}/add-stage', [PipelineController::class, 'storeStage'])->name('Pipeline.store-stage');
     Route::delete('{id}/delete', [PipelineController::class, 'destroy'])->name('Pipeline.delete');
     Route::delete('{id}/delete-stage', [PipelineController::class, 'destroyStage'])->name('PipelineStage.delete');
+
+
+    Route::post('/pipeline-search-json', [PipelineController::class, 'searchJson'])->name('Pipeline.search-input');
+    
+    Route::post('/stage-search-json', [PipelineController::class, 'stageSearchJson'])->name('Pipeline.search-json');
+    Route::get('/stage-search-input/{id}', [PipelineController::class, 'stageSearchInput'])->name('PipelineStage.search-input');
+
+    
 });

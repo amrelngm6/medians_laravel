@@ -12,12 +12,12 @@ class PipelineService
     {
         $user = Auth::user();
 
-        return Pipeline::default([$user->business_id ?? 0 , 0])->get();
+        return Pipeline::with('stages')->withCount('stages')->default([$user->business_id ?? 0 , 0])->get();
     }
 
     public function find(int $id)
     {
-        return Pipeline::findOrFail($id);
+        return Pipeline::with('stages')->withCount('stages')->find($id);
     }
 
     public function findStage(int $id)

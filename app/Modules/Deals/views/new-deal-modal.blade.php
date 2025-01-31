@@ -26,8 +26,8 @@
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Deals used to guide the Targets stages, 
-                            and you can set deal for multiple Models
+                            Deals used as second step after Lead conversion, 
+                            and you can set deal as Client if Won
                         </div>
                         <!--end::Description-->
                     </div>
@@ -56,6 +56,26 @@
                             <input class="form-control form-control-solid" placeholder="Deal budget amount" name="amount">
                         </div>
                         <!--end::Input group-->
+                    </div>
+
+                    <div class="w-full flex gap-10">
+                        @include('pipeline::pipeline-input')
+                    </div>
+
+                    <div class="w-full flex gap-10">
+
+                        <!--begin::Input group-->
+                        <div class="d-flex flex-column mb-8 fv-row w-full">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Expected Close date</span>
+                            </label>
+                            <!--end::Label-->
+                            <input class="form-control form-control-solid  py-2" type="date" name="expected_due_date">
+                        </div>
+                        <!--end::Input group-->
+                        
+                        
                     </div>
 
                     <!--begin::Input group-->
@@ -109,3 +129,4 @@
 <script> 
     MediansSettings.dropdownWidget() 
 </script>
+@yield('search-scripts')

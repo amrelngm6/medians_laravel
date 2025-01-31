@@ -14,11 +14,11 @@ use App\Http\Controllers\Controller;
 class PipelineController extends Controller
 {
 
-    protected $pipelineService;
+    protected $service;
 
-    public function __construct(PipelineService $pipelineService)
+    public function __construct(PipelineService $service)
     {
-        $this->pipelineService = $pipelineService;
+        $this->service = $service;
     }
 
     
@@ -34,7 +34,7 @@ class PipelineController extends Controller
         //     abort(401, 'Unauthorized');
         // }
 
-        $Pipelines = $this->pipelineService->query($request);
+        $Pipelines = $this->service->query($request);
         
         return view('pipeline::list', compact('Pipelines'));
     }
@@ -63,7 +63,7 @@ class PipelineController extends Controller
      */
     public function create_stage(Request $request, $id)
     {
-        $pipeline = $this->pipelineService->find($id);
+        $pipeline = $this->service->find($id);
 
         return view('pipeline::add-stage', compact('pipeline'));
     }
@@ -73,10 +73,33 @@ class PipelineController extends Controller
      */
     public function edit_stage(Request $request, $id)
     {
-        $stage = $this->pipelineService->findStage($id);
+        $stage = $this->service->findStage($id);
 
         return view('pipeline::edit-stage', compact('stage'));
     }
+
+    /**
+     * Display a listing of Pipelines as JSON.
+     */
+    public function searchJson(Request $request)
+    {
+        // Optionally apply filters and pagination
+        $list = $this->service->query($request);
+
+        return response()->json($list->select('id', 'name', 'stages_count'));
+    }
+
+
+    /**
+     * Display a listing of Pipeline Stages as Form Field.
+     */
+    public function stageSearchInput(Request $request, $id)
+    {
+        $pipeline = $this->service->find($id)->stages ?? [];
+
+        return view('pipeline::pipeline-stage-input', compact('stages'));
+    }
+
 
 
     public function store(Request $request)
@@ -102,7 +125,7 @@ class PipelineController extends Controller
         $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
 
         // Create and save the Pipeline
-        $source = $this->pipelineService->createPipeline(array_merge($request->only('name', 'model','description'), $info));
+        $source = $this->service->createPipeline(array_merge($request->only('name', 'model','description'), $info));
 
         return $source ? response()->json([
             'success' => true,
@@ -138,7 +161,7 @@ class PipelineController extends Controller
             $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
 
             // Create and save the Pipeline
-            $source = $this->pipelineService->createStage(array_merge($request->only('pipeline_id', 'name', 'model_id', 'model_type', 'color', 'sort','description'), $info));
+            $source = $this->service->createStage(array_merge($request->only('pipeline_id', 'name', 'model_id', 'model_type', 'color', 'sort','description'), $info));
 
             return $source ? response()->json([
                 'success' => true,
@@ -164,7 +187,7 @@ class PipelineController extends Controller
             abort(401, 'Unauthorized');
         }   
 
-        $pipeline = $this->pipelineService->find($id);
+        $pipeline = $this->service->find($id);
 
         return view('pipeline::edit', compact('pipeline'));
     }
@@ -187,7 +210,7 @@ class PipelineController extends Controller
             ], 402) : null;
         }
         
-        $update = $this->pipelineService->updatePipeline($id, $request->only('name', 'model','sort','color', 'description', 'id'));
+        $update = $this->service->updatePipeline($id, $request->only('name', 'model','sort','color', 'description', 'id'));
 
         return $update ? response()->json([
             'success' => true,
@@ -217,7 +240,7 @@ class PipelineController extends Controller
                 ], 402) : null;
             }
             
-            $update = $this->pipelineService->updateStage($id, $request->only('name', 'description','sort','color', 'id'));
+            $update = $this->service->updateStage($id, $request->only('name', 'description','sort','color', 'id'));
 
             return $update ? response()->json([
                 'success' => true,
@@ -239,7 +262,7 @@ class PipelineController extends Controller
     public function destroy($id)
     {
         
-        $delete = $this->pipelineService->deletePipeline($id);
+        $delete = $this->service->deletePipeline($id);
 
         return $delete ? response()->json([
             'success' => true,
@@ -255,7 +278,7 @@ class PipelineController extends Controller
     public function destroyStage(Request $request, $id)
     {
         
-        $delete = $this->pipelineService->deleteStage($id);
+        $delete = $this->service->deleteStage($id);
 
         return $delete ? response()->json([
             'success' => true,
