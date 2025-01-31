@@ -134,7 +134,6 @@ class DealController extends Controller
         // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'amount' => 'required|integer',
             'expected_due_date' => 'date',
         ]);
 
