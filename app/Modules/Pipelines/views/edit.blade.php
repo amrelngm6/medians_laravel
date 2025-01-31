@@ -39,7 +39,7 @@
                 <form id="modal_edit_pipeline_form" method="POST" class="ajax-form form"
                     action="{{route('Pipeline.update', $pipeline->id)}}">
                     @csrf
-                    <input type="hidden" name="model" value="0" />
+                    <input type="hidden" name="model" value="{{$pipeline->model}}" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
