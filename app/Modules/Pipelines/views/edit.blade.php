@@ -39,6 +39,7 @@
                 <form id="modal_edit_pipeline_form" method="POST" class="ajax-form form"
                     action="{{route('Pipeline.update', $pipeline->id)}}">
                     @csrf
+                    <input type="hidden" name="model" value="" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
@@ -74,28 +75,6 @@
                         <!--end::Label-->
                         <textarea class="form-control form-control-solid"
                             name="description">{{$pipeline->description}}</textarea>
-                    </div>
-                    <!--end::Input group-->
-
-
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Model</span>
-                        </label>
-                        <!--end::Label-->
-
-                        <select class="form-control form-control-solid " placeholder="Select a module" name="model">
-                            <option value=""></option>
-                            @foreach ($Modules as $Module)
-                            <option value="{{$Module->path}}\Models\{{$Module->name}}" @if ($Module->
-                                path.'\\Models\\'.$Module->name == $pipeline->model )
-                                selected
-                                @endif
-                                >{{$Module->name}}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <!--end::Input group-->
 
