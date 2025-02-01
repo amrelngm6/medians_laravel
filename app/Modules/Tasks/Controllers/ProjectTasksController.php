@@ -123,7 +123,7 @@ class ProjectTasksController extends TaskController
 
         $projectTabs = $this->loadModuleTabs('Projects.tabs');
 
-        $tasks = $this->taskService->query($request, $project->project_id, get_class($project));
+        $tasks = $this->taskService->query($request, $project->project_id, get_class($project))->orderBy('sort')->get();
 
         $statusList = $this->taskService->loadStatusList();
 
@@ -138,7 +138,7 @@ class ProjectTasksController extends TaskController
         $projectService = new ProjectService;
         $project = $projectService->find($id);
 
-        $tasks = $this->taskService->query($request, $project->project_id, get_class($project));
+        $tasks = $this->taskService->query($request, $project->project_id, get_class($project))->orderBy('sort')->get();
 
         $statusList = $this->taskService->loadStatusList();
 

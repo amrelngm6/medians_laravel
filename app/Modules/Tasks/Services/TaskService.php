@@ -133,15 +133,15 @@ class TaskService
             });
         }
 
-        // if ($request->has('date') ) {
-        //     $date = explode(' - ', $request->date);
-        //     $query->whereDate('due_date', '>=', date('Y-m-d', strtotime($date[0])));
-        //     $query->whereDate('due_date', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
-        // }
+        if ($request->has('date') ) {
+            $date = explode(' - ', $request->date);
+            $query->whereDate('due_date', '>=', date('Y-m-d', strtotime($date[0])));
+            $query->whereDate('due_date', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
+        }
 
         
 
-        return $query->orderBy('sort')->get();
+        return $query;
     }
 
     public function find($id)

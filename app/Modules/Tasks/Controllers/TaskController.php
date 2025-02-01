@@ -32,26 +32,27 @@ class TaskController extends Controller
         return view('tasks::list', compact('statusList'));
     }
 
+    
+    public function filter(Request $request)
+    {
+        $tasks = $this->taskService->query($request)->orderBy('task_id', 'DESC')->get();   
+
+        return view('tasks::rows', compact('tasks'));
+    }
+
+
     public function calendar(Request $request)
     {
-        $tasks = $this->taskService->query($request)->unique('task_id');    // List tasks
+        $tasks = $this->taskService->query($request)->orderBy('task_id', 'DESC')->unique('task_id')->get();    // List tasks
 
         // List tasks
         return view('tasks::calendar', compact('tasks'));
     }
     
-    public function filter(Request $request)
-    {
-        
-        $tasks = $this->taskService->query($request);   
-
-        return view('tasks::rows', compact('tasks'));
-    }
-
     public function filterJson(Request $request)
     {
         
-        $tasks = $this->taskService->query($request);   
+        $tasks = $this->taskService->query($request)->get();   
 
         $data = [];
         foreach ($tasks as $key => $task) {
