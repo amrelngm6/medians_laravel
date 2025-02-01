@@ -9,6 +9,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\Auth;
 use App\Modules\Pipelines\Services\PipelineService;
 use App\Modules\Deals\Services\DealService;
+use App\Modules\Deals\Models\Deal;
 use App\Http\Controllers\Controller;
 
 class PipelineController extends Controller
@@ -98,7 +99,7 @@ class PipelineController extends Controller
         
         $pipelines = $this->service->query();
 
-        $DealService = new DealService();
+        $DealService = new DealService(new Deal);
         $model = $DealService->find($id);
 
         $selectedStage = $this->service->findByModel($model);
@@ -232,7 +233,7 @@ class PipelineController extends Controller
 
             $user = Auth::user();
 
-            $DealService = new DealService();
+            $DealService = new DealService(new Deal);
             $deal = $DealService->find($request->model_id);
 
             $update = $this->service->updateSelectedPipeline(array_merge($request->only('pipeline_id', 'pipeline_stage_id', 'model_type', 'model_id'))) ;
