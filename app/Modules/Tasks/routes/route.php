@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Modules\Tasks\Controllers\TaskController;
 use App\Modules\Tasks\Controllers\ProjectTasksController;
+use App\Modules\Tasks\Controllers\DealTasksController;
 use App\Modules\Tasks\Controllers\TaskChecklistController;
 use App\Modules\Core\Controllers\StatusController;
 

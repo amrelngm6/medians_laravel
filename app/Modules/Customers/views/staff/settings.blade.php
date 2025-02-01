@@ -6,7 +6,7 @@
 
 <div class="col-md-12">
 
-    <div class="w-full gap-14 content-wrapper">
+    <div class="w-full gap-14 content-wrapper inline-flex">
         <div class="w-350px pull-left px-0 " id="form-sidebar"
             class="rounded d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
             <!--begin::Nav-->
@@ -588,69 +588,13 @@
         @include('customers.staff.notification_form')
 
     </div>
-
+    <script>
+        setTimeout(() => { MediansSettings.stepper() }, 1000);
+    </script>
+    
     @endsection
 
-    @section('script')
-
-    <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+    @section('staff-script')
     <script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
     <script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
-    <script>
-    jQuery(document).ready(function(e) {
-
-        // Select all sections and navigation links
-        const sections = document.querySelectorAll('.step-container');
-        const navLinks = document.querySelectorAll('.stepper-item');
-
-        // Create an Intersection Observer
-        const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // Remove active class from all links
-                navLinks.forEach((link) => link.classList.remove('current'));
-
-                // Find the link corresponding to the visible section
-                const id = entry.target.getAttribute('id');
-                jQuery(`[data-id="${id}"]`).addClass('current');
-                handleIcon(jQuery(`[data-id="${id}"]`))
-            }
-            });
-        },
-        {
-            threshold: 1, // Adjust this value to control when the active state is triggered
-        }
-        );
-
-        // Observe each section
-        sections.forEach((section) => {
-        observer.observe(section);
-        });
-
-    
-        jQuery('.content-wrapper').addClass('flex')
-
-        function handleIcon(item)
-        {
-            jQuery('.stepper-icon').removeClass('bg-success'),
-            item.children().children('.stepper-icon').addClass('bg-success');
-        }
-
-        jQuery(document).on('click', '.stepper-item', function(e) {
-            document.getElementById(jQuery(this).data('id')).scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-                inline: "nearest"
-            });
-        })
-
-        var stickySidebar = new StickySidebar('#form-sidebar', {
-            topSpacing: 20,
-            bottomSpacing: 0,
-            containerSelector: '.content-wrapper',
-            innerWrapperSelector: '.stepper-nav'
-        });
-    })
-    </script>
     @endsection

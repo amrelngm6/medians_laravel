@@ -20,7 +20,7 @@
                 <form data-reload-link="{{$modalRoute}}" id="modal_new_team_form" class="ajax-form form" action="{{route('Task.add_team', $task->task_id)}}">
                     <input type="hidden" name="model_type" value="{{$model_type}}" />
                     <input type="hidden" name="model_id" value="{{$model_id}}" />
-                    <input type="hidden" name="user_type" value="{{get_class($team->first())}}" />
+                    <input type="hidden" name="user_type" value="{{get_class(Auth::user())}}" />
                     @csrf 
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">

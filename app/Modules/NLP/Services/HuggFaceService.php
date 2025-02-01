@@ -65,6 +65,26 @@ class HuggFaceService
     }
 
 
+    
+    public function generateImage(string $text, $model = '')
+    {
+
+        $response = $this->client->post("models/$model", [
+            'json' => ['inputs' => $text  , 
+                    'parameters' => [
+                        'max_length' => 60,
+                    ],
+                    'options' => [
+                        'use_cache' => true,
+                        'wait_for_model' => true, // Wait if the model is loading
+                    ]],
+            
+        ]);
+    
+        return $response->getBody()->getContents();
+    }
+
+
 
     
     public function generateTextTwoInputs(string $text, string $context, $model = '')

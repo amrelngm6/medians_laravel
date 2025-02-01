@@ -28,8 +28,7 @@
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Add new task to project <a href="#!"
-                                class="fw-bold link-primary">Flutter Mobile APP</a>.
+                            Add new task to .
                         </div>
                         <!--end::Description-->
                     </div>

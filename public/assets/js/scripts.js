@@ -76,13 +76,26 @@ var MediansSettings = window.MediansSettings || {};
                         handleResponse(res, form)
         
                     } catch (error) {
-        
-                        if (append) {
-                            element.innerHTML += xhr.responseText;
-                        } else if (xhr.responseText) {
-                            element.innerHTML = xhr.responseText;
+                        try {
+                            
+                            if (append) {
+                                element.innerHTML += xhr.responseText;
+                            } else if (xhr.responseText) {
+                                element.innerHTML = xhr.responseText;
+                            }
+                        } catch (error) {
+
                         }
+        
                     }
+                    if (jQuery('#'+formId).hasClass('reload-ajax'))
+                    {
+                        MediansSettings.reloadLink(
+                            jQuery(this).data('reload-href') ?? window.location.href, 
+                            jQuery(this).data('reload-id') ?? 'main-content'
+                        )
+                    }
+            
                     
                 } else {
                     try {
@@ -176,6 +189,7 @@ jQuery(function($) {
             } else {
                 submitLink(path, data);
             }
+
         });
                
         jQuery(document).on('click', '.ajax-load', async function (e) {
@@ -188,8 +202,84 @@ jQuery(function($) {
 
         });
                
+               
+        jQuery(document).on('click', '.ajax-reload', async function (e) {
+            e.preventDefault();
+            MediansSettings.reloadLink(
+                jQuery(this).data('reload-href') ?? window.location.href, 
+                jQuery(this).data('reload-id') ?? 'main-content'
+            )
+        });
+               
     }
-     
+    
+    MediansSettings.reloadLink = async function(url, id) {
+        let res = await fetch(url);
+        res.text().then(data=> {
+            jQuery('#'+id).html(jQuery(data).find('#'+id).html())
+            MediansSettings.tooltipsPopovers()
+        })
+    } 
+    
+    
+    MediansSettings.stepper = async function() {
+        jQuery(document).ready(function(e){
+                
+            // Select all sections and navigation links
+            const sections = document.querySelectorAll('.step-container');
+            const navLinks = document.querySelectorAll('.stepper-item');
+
+            // Create an Intersection Observer
+            const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all links
+                    navLinks.forEach((link) => link.classList.remove('current'));
+
+                    // Find the link corresponding to the visible section
+                    const id = entry.target.getAttribute('id');
+                    jQuery(`[data-id="${id}"]`).addClass('current');
+                    handleIcon(jQuery(`[data-id="${id}"]`))
+                }
+                });
+            },
+            {
+                threshold: 1, // Adjust this value to control when the active state is triggered
+            }
+            );
+
+            // Observe each section
+            sections.forEach((section) => {
+            observer.observe(section);
+            });
+
+        
+            jQuery('.content-wrapper').addClass('flex')
+
+            function handleIcon(item)
+            {
+                jQuery('.stepper-icon').removeClass('bg-success'),
+                item.children().children('.stepper-icon').addClass('bg-success');
+            }
+
+            jQuery(document).on('click', '.stepper-item', function(e) {
+                document.getElementById(jQuery(this).data('id')).scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "nearest"
+                });
+            })
+
+            var stickySidebar = new StickySidebar('#form-sidebar', {
+                topSpacing: 20,
+                bottomSpacing: 0,
+                containerSelector: '.content-wrapper',
+                innerWrapperSelector: '.stepper-nav'
+            });
+        })
+    } 
+
     /*--------------------------------
          Window Based Layout
      --------------------------------*/

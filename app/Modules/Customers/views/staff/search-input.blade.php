@@ -5,14 +5,14 @@
     <!-- <label for="assigned" class="control-label">Assigned To</label> -->
     <select id="name-filter{{$rand}}" name="staff_id" placeholder="A" data-live-search="true" 
         class="name-filter filter-on-change with-ajax border border-gray-300 form-control form-control-solid ">
+        @if (isset($selectedStaff)) <option value="{{$selectedStaff->staff_id}}" data-content="<img class='w-10 p-2 rounded-circle' src='/{{$selectedStaff->picture}}' /> {{$selectedStaff->name}}"> {{$selectedStaff->name}}</option> @endif
     </select>
 </div>
 @section('search-scripts')
 <script>
-        
+        setTimeout(() => {
         jQuery('.name-filter').selectpicker({
             liveSearch:true,
-            // mobile:true,
             tickIcon:'bx bx-user',
             showTick: true,
             selectOnTab:true,
@@ -21,7 +21,6 @@
         .ajaxSelectPicker({
         ajax: {
           url: '{{route("Staff.search-input")}}?_token={{csrf_token()}}', // Replace with your API endpoint
-        //   url: 'https://jsonplaceholder.typicode.com/users', // Replace with your API endpoint
           data: function () {
             @php $q = '{{{q}}}' @endphp
             return {
@@ -40,7 +39,7 @@
                     'text': curr.first_name + ' ' + curr.last_name,
                     'data': {
                         'icon': 'bx bx-user',
-                        'subtext': curr.email
+                        'content': "<img class='w-10 p-2 rounded-circle' src='/"+curr.picture+"' />" + curr.first_name + ' ' + curr.last_name
                     },
                     'disabled': false
                 }
@@ -52,6 +51,7 @@
         preserveSelected: false, // Preserve selected items
         liveSearch: true // Enable live search
       });
+    }, 1000);
 
 </script>
 @endsection

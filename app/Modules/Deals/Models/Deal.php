@@ -4,6 +4,8 @@ namespace App\Modules\Deals\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Customers\Models\Staff;
+use App\Modules\Core\Models\LocationInfo;
+use App\Modules\Core\Models\ModelMember;
 
 class Deal extends Model
 {
@@ -28,6 +30,24 @@ class Deal extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Load Assigned staff
+     */
+    public function assigned()
+    {
+        return $this->morphOne(ModelMember::class, 'model')->with('user');
+    }
+
+    
+    /**
+     * Load Main Location info
+     */
+    public function location_info()
+    {
+        return $this->morphOne(LocationInfo::class, 'model');
+    }
+
 
     /**
      * Load Items of Business Scope

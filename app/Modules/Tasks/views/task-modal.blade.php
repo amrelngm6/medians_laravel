@@ -26,8 +26,11 @@
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Custom task at project <a href="#!"
-                                class="fw-bold link-primary">{{ $task->project->name ?? '' }}</a>.
+                            Custom task at  <a href="#!"
+                                rel="popover"
+                                data-toggle="popover" data-placement="bottom" data-trigger="hover" data-html="true"
+                                data-content="This task for <b>{{basename(get_class($task->model))}}</b>"
+                                class="fw-bold link-primary">{{ $task->model->name ?? '' }}</a>.
                             <a href="{{route('Task.duplicate', $task->task_id)}}?_token={{csrf_token()}}" rel="popover"
                                 data-toggle="popover" data-placement="bottom" data-trigger="hover"
                                 data-content="Duplicate this task" type="submit" id="task_duplicate"
@@ -101,6 +104,7 @@
                                     <div data-id="{{$checklist->id}}" class="w-full  inline-block  ">
                                         <div data-id="{{$checklist->id}}" class="checklist_item  flex px-5 py-3">
                                             <form data-reload-link="{{$modalRoute}}"
+                                                data-target-modal="task-modal"
                                                 id="checklist-form-{{$checklist->id}}"
                                                 action="{{route('TaskChecklist.update', $checklist->id)}}?_token={{csrf_token()}}"
                                                 class="cursor-move ajax-form mr-5 flex flex-none items-center">
@@ -128,6 +132,7 @@
                                     @endforeach
                                 </div>
                                 <form data-reload-link="{{$modalRoute}}" id="modal_new_checklist_form"
+                                    data-target-modal="task-modal"
                                     class="ajax-form form" action="{{route('TaskChecklist.store', $task->task_id)}}">
                                     @csrf
                                     <input type="hidden" name="task_id" value="{{$task->task_id}}">

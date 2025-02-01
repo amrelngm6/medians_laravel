@@ -12,6 +12,8 @@ use App\Modules\Tasks\Services\TaskService;
 use App\Http\Controllers\Controller;
 use App\Modules\Deals\Events\DealSaved;
 use App\Modules\Deals\Events\DealPage;
+use App\Modules\Tasks\Events\TaskFormRendering;
+use App\Modules\Tasks\Events\TaskModalRendering;
 
 class DealController extends Controller
 {
@@ -75,9 +77,8 @@ class DealController extends Controller
         $dealTabs = $this->loadModuleTabs($this->tabsPrefix);
         
         $context = ['components' => []];
-        // Fire the event
         $event = event(new DealPage($request, $deal, $context));
-        $top_components = $event[0]->context['components'] ?? [];
+        $top_components  = $event[0]->context['components'] ?? [];
         
         return view('deal::edit', compact('deal', 'dealTabs', 'top_components'));
     }
@@ -126,8 +127,90 @@ class DealController extends Controller
     }
 
 
+    public function create_deal_task(Request $request, $id)
+    {
+        $deal = $this->service->find($id);
+
+        $model_type = get_class($this->service->model);       
+        $model_id = $id;       
+        
+        $taskService = new TaskService;
+        
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new TaskFormRendering($context, new $taskService->model));
+        $components = $event[0]->context['components'];
+        $custom_fields = $taskService->loadModelFields(); 
+
+        // List tasks
+        return view('tasks::add-task-modal', compact('model_id', 'model_type', 'deal','components','custom_fields'));
+    }
+
+    
+    public function deal_task(Request $request, $id)
+    {
+
+        $model_type = Deal::class;   
+        $model_id = $id;
+
+        $modalRoute = route('Deal.deal_task', $id);
+        
+        $taskService = new TaskService;
+        $task = $taskService->find($id);
+
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new TaskModalRendering($context, $task));
+        $components = $event[0]->context['components'];
+
+        // List tasks
+        return view('tasks::task-modal', compact('model_id', 'model_type', 'task','modalRoute', 'components'));
+    }
+
+    
+
+    /**
+     * Show the form for updating a Note.
+     */
+    public function filter_tasks(Request $request, $id)
+    {
+        $deal = $this->service->find($id);
+
+        $taskService = new TaskService;
+        $tasks = $taskService->query($request, $deal->id, get_class($deal));
+
+        $statusList = $taskService->loadStatusList();
+
+        return view('deal::tasks-list', ['deal'=> $deal, 'modelId'=> $deal->id, 'modelType'=> get_class($deal), 'tasks'=>$tasks, 'statusList'=>$statusList ]);
+    }
+    
+    /**
+     * Show the form for updating a Note.
+     */
+    public function tasks(Request $request, $id)
+    {
+        $deal = $this->service->find($id);
+        
+        $dealTabs = $this->loadModuleTabs('Deal.tabs');
+        
+        $modelType = get_class($deal);
+        $modelId = $deal->id;
+
+        $taskService = new TaskService;
+        $tasks = $taskService->query($request, $deal->id, get_class($deal));
+        $statusList = $taskService->loadStatusList();
+
+        $context = ['components' => []];
+        $event = event(new DealPage($request, $deal, $context));
+        $top_components = $event[0]->context['components'] ?? [];
+
+        return view('deal::tasks', compact('deal', 'top_components', 'statusList','dealTabs','modelType', 'modelId', 'tasks'));
+    }
+
+
     public function store(Request $request)
     {
+        
         
         $user = Auth::user();
 
@@ -208,25 +291,13 @@ class DealController extends Controller
     public function update(Request $request, $id)
     {
         
-        // Validate updated data
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-        ]);
+        $deal = $this->service->updateDeal($id, $request->only('name', 'status', 'description', 'id','location_info','staff_id'));
 
-        if ($validator->fails()) {
-            return $update ? response()->json([
-                'success' => false,
-                'result' => $validator->errors(),
-            ], 402) : null;
-        }
-        
-        $update = $this->service->updateDeal($id, $request->only('name', 'model','sort','color', 'description', 'id'));
-
-        return $update ? response()->json([
+        return $deal ? response()->json([
             'success' => true,
-            'reload' => true,
+            'no_reset' => true,
             'title' => 'Done',
-            'result' => 'Updaetd',
+            'result' =>  'Updated successfully',
         ], 200) : null;
 
     }

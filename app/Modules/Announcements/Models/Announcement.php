@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\Core\Models\ModelCategory;
 use App\Modules\Core\Models\ModelField;
 use App\Modules\Core\Models\ModelFile;
-use App\Modules\Core\Models\ModelMember;
 
 class Announcement extends Model
 {

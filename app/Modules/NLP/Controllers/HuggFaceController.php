@@ -40,8 +40,19 @@ class HuggFaceController extends Controller
     {
         try {
             
+            // $response = Http::withHeaders([
+            //     'Content-Type' => 'application/json'
+            // ])->post('http://127.0.0.1:5000/image', [
+            //     'message' => $request->message,
+            //     'query' => $request->message,
+            //     'model'=> $request->model,
+            // ]);
+            // return $response->json();
+
             $user = Auth::user();
 
+            // $iamge = $this->service->generateImage($request->message, $request->model);
+            // print_r($iamge);
             $response = $this->service->generateText($request->message, $request->model);
 
             $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', is_array($response) ? json_encode($response) : $response);

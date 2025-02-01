@@ -237,7 +237,7 @@ class PipelineController extends Controller
 
             $update = $this->service->updateSelectedPipeline(array_merge($request->only('pipeline_id', 'pipeline_stage_id', 'model_type', 'model_id'))) ;
 
-            return $update ? $this->jsonResponse('Updated successfully', 'Updated', true) : null;
+            return $update ? $this->jsonResponse('Updated successfully', 'Updated', false) : null;
 
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage());

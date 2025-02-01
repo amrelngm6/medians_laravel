@@ -61,7 +61,7 @@ class StaffController extends Controller
         // Optionally apply filters and pagination
         $StaffList = $this->staffService->query($request);
 
-        return response()->json($StaffList->select('staff_id', 'first_name', 'last_name'));
+        return response()->json($StaffList->select('staff_id', 'first_name', 'last_name','picture'));
     }
 
     /**

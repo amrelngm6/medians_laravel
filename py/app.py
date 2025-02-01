@@ -5,13 +5,16 @@ app = Flask(__name__)
 qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
 
 
-def run_model(model_name, input_string, **generator_args):
-    tokenizer = T5Tokenizer.from_pretrained(model_name)
-    model = T5ForConditionalGeneration.from_pretrained(model_name)
-    input_ids = tokenizer.encode(input_string, return_tensors="pt")
-    res = model.generate(input_ids, **generator_args)
-    output = tokenizer.batch_decode(res, skip_special_tokens=True)
-    return output
+
+@app.route("/image", methods=["POST"])
+def genImg():
+    data = request.json
+    # Use a pipeline as a high-level helper
+    messages = [
+        {"role": "user", "content": data.get('message', "Who are you?")},
+    ]
+    pipe = pipeline("text-generation", model=data.get('model', "deepseek-ai/DeepSeek-R1"), trust_remote_code=True)
+    pipe(messages)
 
 
 @app.route("/analyse", methods=["POST"])
@@ -19,6 +22,14 @@ def analyse():
     data = request.json
     result = run_model(data["model"], data["message"])
     return jsonify(result)
+
+def run_model(model_name, input_string, **generator_args):
+    tokenizer = T5Tokenizer.from_pretrained(model_name)
+    model = T5ForConditionalGeneration.from_pretrained(model_name)
+    input_ids = tokenizer.encode(input_string, return_tensors="pt")
+    res = model.generate(input_ids, **generator_args)
+    output = tokenizer.batch_decode(res, skip_special_tokens=True)
+    return output
 
 
 @app.route("/answer", methods=["POST"])
