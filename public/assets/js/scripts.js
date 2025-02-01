@@ -31,8 +31,9 @@ var MediansSettings = window.MediansSettings || {};
 
     async function showFormTargetModal(formId)
     {
+        console.log(formId)
         let url = jQuery('#'+formId).attr('data-reload-link');
-        let targetModal = jQuery('#'+formId).data('target-modal');
+        let targetModal = jQuery('#'+formId).attr('data-target-modal');
         if (!url)
             return;
 
@@ -68,8 +69,8 @@ var MediansSettings = window.MediansSettings || {};
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 // Handle the successful response 
+                showFormTargetModal(formId)
                 if ( xhr.status === 200) {
-                    showFormTargetModal(formId)
                     try {
         
                         let res = JSON.parse(xhr.responseText);
@@ -86,8 +87,8 @@ var MediansSettings = window.MediansSettings || {};
                         } catch (error) {
 
                         }
-        
                     }
+                    
                     if (jQuery('#'+formId).hasClass('reload-ajax'))
                     {
                         MediansSettings.reloadLink(

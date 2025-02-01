@@ -24,7 +24,7 @@ Route::prefix('deals')->middleware(['web', 'auth:superadmin,staff'])->group(func
 
 // Add Tab menu to deal Page for Tasks
 Route::prefix('deals')->middleware(['web', 'auth:staff'])->group(function () {
-    Route::get('/{id}/deal_task', [DealController::class, 'deal_task'])->name('Deal.deal_task');
+    Route::get('/{id}/deal_task', [DealController::class, 'deal_task'])->name('Tasks.deal_task');
     Route::get('/{id}/create_deal_task', [DealController::class, 'create_deal_task'])->name('Deal.tasks.create');
     Route::get('/{id}/tasks', [DealController::class, 'tasks'])->name('Deal.tabs.tasks');
     Route::get('{id}/create_task', [DealController::class, 'create_project_task'])->name('Deal.create_task');

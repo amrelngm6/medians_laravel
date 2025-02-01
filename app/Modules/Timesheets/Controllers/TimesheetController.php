@@ -107,7 +107,7 @@ class TimesheetController extends Controller
 
             return response()->json([
                 'success' => !empty($create),
-                'reload' => !empty($create),
+                'reload' => false,
                 'title' => $create ? 'Done' : 'Error',
                 'result' => $create ? 'Timesheet created successfully' : 'Failed to store' ], 
                 $create ? 201 : 422);
@@ -142,7 +142,7 @@ class TimesheetController extends Controller
 
             return response()->json([
                 'success' => !empty($create),
-                'reload' => !empty($create),
+                'reload' => false,
                 'title' => $create ? 'Done' : 'Error',
                 'result' => $create ? 'Timesheet created successfully' : 'Failed to store' ], 
                 $create ? 201 : 422);

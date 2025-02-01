@@ -153,7 +153,7 @@ class DealController extends Controller
         $model_type = Deal::class;   
         $model_id = $id;
 
-        $modalRoute = route('Deal.deal_task', $id);
+        $modalRoute = route('Tasks.deal_task', $id);
         
         $taskService = new TaskService;
         $task = $taskService->find($id);

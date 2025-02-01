@@ -7,9 +7,9 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#add-member-modal">
+                <a class="cursor-pointer text-danger close-modal  open-modal" href="{{$modalRoute}}" data-modal="#add-member-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
-                </div>
+                </a>
                 <!--end::Close-->
             </div>
             <!--begin::Modal header-->
