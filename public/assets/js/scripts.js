@@ -40,7 +40,7 @@ var MediansSettings = window.MediansSettings || {};
         let position;
         let res = await fetch(url);
         res.text().then(a=> {
-            position = document.getElementById(targetModal).scrollTop
+            position = document.getElementById(targetModal).scrollTop ?? 0
             jQuery('#modals').html(a) ? jQuery('#'+targetModal).removeClass('fade').addClass('show') : null
             document.getElementById(targetModal).scrollTop = position
         })
