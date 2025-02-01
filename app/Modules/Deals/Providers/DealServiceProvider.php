@@ -4,6 +4,8 @@ namespace App\Modules\Deals\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Module;
+use App\Observers\ActivityObserver;
+use App\Modules\Deals\Models\Deal;
 
 class DealServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,9 @@ class DealServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        Deal::observe(ActivityObserver::class);
+
     }
 
     public function register()
