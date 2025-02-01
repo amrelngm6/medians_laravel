@@ -330,13 +330,8 @@ jQuery(function($) {
      MediansSettings.modals = function() {
 
         jQuery(document).on('click', '.open-modal', async function(e) {
-            let modalLink = this;
             e.preventDefault()
-            let res = await fetch(jQuery(this).attr('href'));
-            res.text().then(a=> {
-                jQuery('#modals').html(a)
-                jQuery(jQuery(modalLink).data('modal')).removeClass('fade').addClass('show')
-            })
+            MediansSettings.loadModal(jQuery(this).attr('href'))
         });
 
         jQuery(document).on('click', '.show-modal', async function(e) {
@@ -348,6 +343,17 @@ jQuery(function($) {
             jQuery(jQuery(this).data('modal')).removeClass('show').addClass('fade')
         });
     }
+
+    MediansSettings.loadModal = async function(url) {
+        let modalLink = this;
+        let res = await fetch(url);
+        res.text().then(a=> {
+            jQuery('#modals').html(a)
+            jQuery(jQuery(modalLink).data('modal')).removeClass('fade').addClass('show')
+        })
+
+    }
+
     /*--------------------------------
          CHAT API
      --------------------------------*/

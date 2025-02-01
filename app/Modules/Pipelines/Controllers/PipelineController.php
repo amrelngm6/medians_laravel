@@ -176,6 +176,8 @@ class PipelineController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
+                'sort' => "required|unique:clients,email,{$client_id},client_id",
+                'color' => 'required',
             ]);
 
             if ($validator->fails()) {

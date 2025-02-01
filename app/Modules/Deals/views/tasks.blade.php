@@ -52,8 +52,10 @@
     </div>
 
     <div class="clearfix"></div>
-
-
+    <script>
+        setTimeout(() => { fetchData() }, 1000);
+    </script>
+    @yield('search-scripts')
     <!-- MAIN CONTENT AREA ENDS -->
 </div>
 @endsection
@@ -145,7 +147,6 @@ function handleSort() {
 
 }
 </script>
-@yield('search-scripts')
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
