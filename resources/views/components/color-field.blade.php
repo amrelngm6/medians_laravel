@@ -17,7 +17,7 @@
                                 @foreach (['primary', 'success', 'info', 'accent', 'dark'] as $color )
                                 <!--begin::Checkbox-->
                                 <label class="form-check form-check-custom form-check-solid me-10">
-                                    <input class="form-check-input h-20px w-20px" type="radio"
+                                    <input class="form-check-input h-20px w-20px" type="radio" required
                                         name="color" value="{{$color}}" @if ($color == ($model->color ?? '') ) checked @endif />
 
                                     <span class="form-check-label fw-semibold bg-{{$color}} w-20px h-20px"> </span>

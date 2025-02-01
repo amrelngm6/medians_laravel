@@ -64,12 +64,11 @@
                             <span class="required">Sort</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" type="number" placeholder="Sort" value="{{$pipeline->sort}}" name="sort" />
+                        <input class="form-control form-control-solid " type="number" placeholder="Sort" value="{{$pipeline->sort}}" required name="sort" />
                     </div>
                     <!--end::Input group-->
 
                     @include('components.color-field')
-
 
                     <!--begin::Actions-->
                     <div class="text-center">
