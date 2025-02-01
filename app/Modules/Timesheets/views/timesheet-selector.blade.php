@@ -49,10 +49,7 @@
                             </div>
                             @if ($timesheet)
 <script>
-if (interval)
-{
-    cleatInterval(interval)
-}
+let interval;
 
 // Calculate the time difference between the start time and now using moment.js
 moment.tz.setDefault('{{env('APP_TIMEZONE')}}');
