@@ -53,7 +53,29 @@
 
     <div class="clearfix"></div>
     <script>
-        setTimeout(() => { fetchData() }, 1000);
+        setTimeout(() => { 
+            fetchData(), 
+            // Add date range filtering logic
+            $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
+                fetchData();
+            }) 
+            MediansSettings.dropdownWidget()
+            if (jQuery(".datepicker").length) {
+                $('.datepicker').daterangepicker(
+                    {
+                        ranges: {
+                            'Today': [moment(), moment()],
+                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                            'This Month': [moment().startOf('month'), moment().endOf('month')],
+                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                            'Last Year': [moment().subtract(1, 'year').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                        }
+                    }
+                );
+            }
+        }, 1000);
     </script>
     @yield('search-scripts')
     <!-- MAIN CONTENT AREA ENDS -->
@@ -79,10 +101,6 @@ jQuery(document).ready(function(){
             jQuery('.open-modal[data-id='+taskId+']').trigger('click');
         }
     }, 2000);
-    // Add date range filtering logic
-    $('#filter-date,.filter-on-change').on('change', function (ev, picker) {
-        fetchData();
-    });
 })
 
 
@@ -144,7 +162,6 @@ function handleSort() {
             });
         },
     });
-
 }
 </script>
 
