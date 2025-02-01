@@ -27,8 +27,11 @@
                                 <div class="d-flex align-items-center mb-2">
                                     <a href="javascript:;"
                                         class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$deal->name}}</a>
-                                    <a href="javascript:;"><i class="ki-duotone ki-verify fs-1 text-primary"><span
-                                                class="path1"></span><span class="path2"></span></i></a>
+                                    
+                                        <p class="fs-5 py-1 px-10"> <b class="label rounded 
+                                        {{ $deal->status == 'won' ? 'bg-primary' : ''}}
+                                        {{ $deal->status == 'lose' ? 'bg-danger' : ''}}
+                                        pt-1">{{ucfirst($deal->status)}}</b></p>
                                 </div>
                                 <!--end::Name-->
 
@@ -57,6 +60,7 @@
 
                                     <!--begin::Actions-->
                                     <div class="d-flex my-4">
+                                        @if ($deal->status == 'pending')
                                         <a href="{{route('Deal.update', $deal->id)}}?status=won&_token={{csrf_token()}}" class="reload-ajax ajax-link btn flex gap-2 btn-primary me-2" 
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="You Won the Deal"
@@ -76,6 +80,8 @@
                                             <span class="indicator-label">
                                                 Lose</span>
                                         </a>
+                                        @endif  
+
                                         <a href="{{route('Deal.tabs.edit', $deal->id)}}#form-content-1" class="flex gap-2   "
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="Assigned to {{$deal->assigned->user->name ?? ''}}">
