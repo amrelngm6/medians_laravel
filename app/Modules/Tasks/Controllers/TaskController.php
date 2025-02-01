@@ -43,7 +43,7 @@ class TaskController extends Controller
 
     public function calendar(Request $request)
     {
-        $tasks = $this->taskService->query($request)->orderBy('task_id', 'DESC')->unique('task_id')->get();    // List tasks
+        $tasks = $this->taskService->query($request)->orderBy('task_id', 'DESC')->get();    // List tasks
 
         // List tasks
         return view('tasks::calendar', compact('tasks'));
@@ -57,6 +57,7 @@ class TaskController extends Controller
         $data = [];
         foreach ($tasks as $key => $task) {
 
+            $data[$key]['model_name'] = class_basename($task->model);
             $data[$key]['title'] = $task->name;
             $data[$key]['description'] = isset($task->status->name) ? "<b class='text-primary'>".$task->status->name."</b> " : "";
             $data[$key]['description'] .= $task->description;

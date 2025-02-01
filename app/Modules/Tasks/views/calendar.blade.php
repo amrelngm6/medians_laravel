@@ -42,44 +42,22 @@
                         _token: '{{csrf_token()}}',
                     },
                     failure: function() {
-                    alert('there was an error while fetching events!');
+                        alert('there was an error while fetching events!');
                     },
                     textColor: 'black' // a non-ajax option
                 },
-                // events: [
-                //     @foreach($tasks as $task)
-                //     {
-                //         title: '{{ $task->name }}',
-                //         // Set the description at one line
-                //         description: '{{ str_replace(["\r\n", "\r", "\n"], ' ', $task->description) }}',
-                //         start: '{{ $task->start_date }}',
-                //         end: '{{ $task->due_date }}',
-                //         url: '{{ route('Tasks.project_task', $task->task_id) }}',
-                //         classNames: ['bg-{{ $task->status->color ?? 'primary' }}', 'p-1'],
-                //         borderColor: 'white',
-                //         textColor: 'white',
-                //     },
-                //     @endforeach
-                // ],
+                
                 eventDidMount: function(info) {
                     info.el.setAttribute('data-trigger', 'hover');
                     info.el.setAttribute('data-toggle', 'popover');
                     info.el.setAttribute('data-placement', 'bottom');
                     info.el.setAttribute('data-html', true);
-                    info.el.setAttribute('data-title', info.event.title);
-                    
+                    info.el.setAttribute('data-title', info.event.title + ('<small class="text-white">( '+(info.event.extendedProps.model_name ?? '')+' )</small>'));
                     info.el.setAttribute('data-content', info.event.extendedProps.description);
 
                     jQuery(info.el).popover({
                         template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
                     });
-                
-                    // var tooltip = new Tooltip(info.el, {
-                    //     title: info.event.extendedProps.description,
-                    //     placement: 'top',
-                    //     trigger: 'hover',
-                    //     container: 'body'
-                    // });
                 },
             });
             calendar.render();
