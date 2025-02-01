@@ -45,12 +45,12 @@
                                 <!--begin::Description-->
                                 <div class="d-flex align-items-center mt-1 fs-6">
                                     <!--begin::Info-->
-                                    <div class="text-muted me-2 fs-7">Added at {{ date('M d, Y', strtotime($project->start_date)) }} by</div>
+                                    <div class="text-muted me-2 fs-7">Added at {{ date('M d, Y', strtotime($activity->created_at)) }} by</div>
                                     <!--end::Info-->
 
                                     <!--begin::User-->
                                     <div class="symbol symbol-circle symbol-25px">
-                                        <img src="/{{ $activity->user->picture ?? '' }}" alt="img">
+                                        <img src="/{{ $activity->causer->picture ?? '' }}" alt="img">
                                     </div>
                                     <!--end::User-->
                                 </div>
