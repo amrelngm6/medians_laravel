@@ -16,6 +16,8 @@ class CoreServiceProvider extends ServiceProvider
 
     public function boot()
     {
+    
+    
         if (Schema::hasTable('modules')  )
         {
 
