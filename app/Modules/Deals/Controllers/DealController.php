@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\Auth;
-use App\Modules\Deals\Models\Deal; 
 use App\Modules\Deals\Services\DealService; 
 use App\Modules\Tasks\Services\TaskService;
 use App\Http\Controllers\Controller;
@@ -151,13 +150,12 @@ class DealController extends Controller
     public function deal_task(Request $request, $id)
     {
 
-        $model_type = Deal::class;   
-        $model_id = $id;
-
-        $modalRoute = route('Tasks.deal_task', $id);
-        
         $taskService = new TaskService;
         $task = $taskService->find($id);
+        $model_type = get_class($task);   
+        $model_id = $task->task_id;
+
+        $modalRoute = route('Tasks.deal_task', $id);
 
         $context = ['components' => []];
         // Fire the event
