@@ -50,7 +50,7 @@
 
                                     <!--begin::User-->
                                     <div class="symbol symbol-circle symbol-25px">
-                                        <img src="{{ $activity->user->avatar }}" alt="img">
+                                        <img src="/{{ $activity->user->picture ?? '' }}" alt="img">
                                     </div>
                                     <!--end::User-->
                                 </div>
@@ -124,7 +124,7 @@
                         <div class="d-flex align-items-center flex-grow-1">
                             <!--begin::Avatar-->
                             <div class="symbol symbol-45px me-5">
-                                <img src="{{ $comment->user->avatar }}" alt="">
+                                <img src="/{{ $comment->user->picture ?? '' }}" alt="">
                             </div>
                             <!--end::Avatar-->
 
