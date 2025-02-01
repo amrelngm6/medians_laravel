@@ -60,7 +60,7 @@
 
                                     <!--begin::Actions-->
                                     <div class="d-flex my-4">
-                                        @if ($deal->status == 'pending')
+                                        @if (empty($deal->status) || $deal->status == 'pending')
                                         <a href="{{route('Deal.update', $deal->id)}}?status=won&_token={{csrf_token()}}" class="reload-ajax ajax-link btn flex gap-2 btn-primary me-2" 
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="You Won the Deal"
