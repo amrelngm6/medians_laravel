@@ -21,7 +21,7 @@
 
                 <!--begin::Timeline-->
                 <div class="timeline timeline-border-dashed h-350px overflow-auto">
-                    @foreach($project->activities as $activity)
+                    @foreach($project->activities() as $activity)
                     <!--begin::Timeline item-->
                     <div class="timeline-item">
                         <!--begin::Timeline line-->

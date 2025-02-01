@@ -12,6 +12,7 @@ use App\Modules\Core\Models\Status;
 use App\Modules\Customers\Models\Client;
 use App\Modules\Actions\Models\Comment;
 use App\Modules\Tasks\Models\Task;
+use Spatie\Activitylog\Models\Activity;
 
 class Project extends Model
 {
@@ -52,7 +53,10 @@ class Project extends Model
      */
     public function activities()
     {
-        return $this->morphMany(ModelFile::class, 'model');
+        return Activity::where('subject_type', get_class($this))
+            ->where('subject_id', $this->project_id)
+            ->latest()
+            ->get();
     }
     
     

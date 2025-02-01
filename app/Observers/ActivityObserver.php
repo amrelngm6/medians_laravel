@@ -15,7 +15,7 @@ class ActivityObserver
             ->performedOn($model)
             ->causedBy(Auth::user())
             ->withProperties(['attributes' => $model->getAttributes()])
-            ->log("Created: " . class_basename($model));
+            ->log("Created: " . class_basename($model).": ". ($model->name ?? ""));
     }
 
     public function updated(Model $model)
@@ -28,7 +28,7 @@ class ActivityObserver
                 'attributes' => $model->getChanges(),
                 'old' => $model->getOriginal()
             ])
-            ->log("Updated: " . class_basename($model));
+            ->log("Updated: " . class_basename($model).": ". ($model->name ?? ""));
     }
 
     public function deleted(Model $model)
@@ -38,6 +38,6 @@ class ActivityObserver
             ->performedOn($model)
             ->causedBy(Auth::user())
             ->withProperties(['attributes' => $model->getOriginal()])
-            ->log("Deleted: " . class_basename($model));
+            ->log("Deleted: " . class_basename($model).": ". ($model->name ?? ""));
     }
 }

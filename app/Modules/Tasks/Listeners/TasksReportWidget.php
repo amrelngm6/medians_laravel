@@ -10,6 +10,7 @@ class TasksReportWidget
 {
     public function handle($event)
     {
+
         $taskService = new TaskService(new Task);
         $statusList = $taskService->loadStatusList();
         $user = Auth::user();

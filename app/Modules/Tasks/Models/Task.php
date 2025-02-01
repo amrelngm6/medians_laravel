@@ -8,6 +8,7 @@ use App\Modules\Actions\Models\Comment;
 use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\ModelMember;
 use App\Modules\Core\Models\ModelField;
+use Spatie\Activitylog\Models\Activity;
 
 class Task extends Model
 {
@@ -174,6 +175,17 @@ class Task extends Model
 
 
 
+    
+    /**
+     * Project related Files as Morph
+     */
+    public function activities()
+    {
+        return Activity::where('subject_type', get_class($this))
+            ->where('subject_id', $this->project_id)
+            ->latest()
+            ->get();
+    }
 
 
 
