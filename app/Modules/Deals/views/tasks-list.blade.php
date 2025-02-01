@@ -1,4 +1,4 @@
-@foreach($statusList as $status)
+            @foreach($statusList as $status)
             <div class="min-w-350px ">
                 <div class="card">
                     <div class="card-body p-2">

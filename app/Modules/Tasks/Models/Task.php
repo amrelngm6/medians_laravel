@@ -185,7 +185,7 @@ class Task extends Model
     public function countByStatus($status)
     {
         $statusId = Status::where('name',$status)->first()->status_id ?? 0;
-        return $this->where('status_id', $statusId)->where('business_id', $this->business_id)->count();
+        return $this->where('status_id', $statusId)->where('model_id', $this->model_id)->where('model_type', $this->model_type)->where('business_id', $this->business_id)->count();
     }
 
     
