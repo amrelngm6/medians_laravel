@@ -16,7 +16,7 @@ class ProjectService
 
         $Leads = Project::query();
 
-        return $Leads->forBusiness($businessId)->with('files', 'activities')->paginate(100);
+        return $Leads->forBusiness($businessId)->with('files')->paginate(100);
     }
 
     public function createProject(array $data)
