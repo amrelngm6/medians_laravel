@@ -2,8 +2,10 @@
 
 namespace App\Modules\Projects\Providers;
 
+use App\Modules\Projects\Models\Project;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Module;
+use App\Observers\ActivityObserver;
 
 class ProjectServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,8 @@ class ProjectServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+        
+        Project::observe(ActivityObserver::class);
 
     }
 
