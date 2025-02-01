@@ -14,6 +14,13 @@ class PriorityService
         return Priority::default([$user->business_id ?? 0 , 0])->get();
     }
 
+    public function getByModel($model)
+    {
+        $user = Auth::user();
+
+        return Priority::default([$user->business_id ?? 0 , 0])->where('model', $model)->get();
+    }
+
     public function find(int $id)
     {
         return Priority::findOrFail($id);

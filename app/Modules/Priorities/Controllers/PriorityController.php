@@ -66,7 +66,7 @@ class PriorityController extends Controller
         $taskService = new TaskService;
         $model = $task = $taskService->find($id);
 
-        $priorities = $this->priorityService->query();
+        $priorities = $this->priorityService->getByModel(get_class($task));
 
         $field = 'priority::priority-selector';
         
