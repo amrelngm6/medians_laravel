@@ -71,80 +71,9 @@
 
     </div>
 
-    <div class="col-xxl-6 col-lg-7 col-md-12">
-        <div class="card p-7">
-            <div class="w-full flex gap-2">
-
-                <div class="w-full p-7">
-                    <h2 class="title ">Tasks Status</h2>
-                    <p class="mb-0">List of tasks by status</p>
-                </div>
-                <canvas class="clean-bar-chartjs  h-70px" data-fill="true" data-limit="7" data-label="Tasks"></canvas>
-
-            </div>
-
-            <div class="card-body   d-flex flex gap-6 align-items-center">
-                <!--begin::Chart-->
-                <!-- <canvas class="clean-pie-chartjs" data-label="Tasks"  width="100"></canvas> -->
-                <canvas class="clean-doughnut-chartjs w-200px h-200px" data-limit="4" data-label="Tasks"></canvas>
-                <!--end::Chart-->
-
-                <!--begin::Labels-->
-                <div class="d-flex flex-column gap-4 content-justify-center flex-row-fluid">
-                    <!--begin::Label-->
-                    <div class="d-flex fw-bold align-items-center">
-                        <div class="bullet w-8px h-3px rounded-2 bg-success me-3"></div>
-                        <div class="text-gray-500 flex-grow-1 me-4">Completed</div>
-                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $project->tasks_completed }}</div>
-                    </div>
-                    <!--end::Label-->
-
-                    <!--begin::Label-->
-                    <div class="d-flex fw-bold align-items-center">
-                        <div class="bullet w-8px h-3px rounded-2 bg-primary me-3"></div>
-                        <div class="text-gray-500 flex-grow-1 me-4">Delayed</div>
-                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $project->tasks_delayed }}</div>
-                    </div>
-                    <!--end::Label-->
-
-                    <!--begin::Label-->
-                    <div class="d-flex fw-bold align-items-center">
-                        <div class="bullet w-8px h-3px rounded-2 bg-danger me-3"></div>
-                        <div class="text-gray-500 flex-grow-1 me-4">Canceled</div>
-                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $project->tasks_canceled }}</div>
-                    </div>
-                    <!--end::Label-->
-
-                    <!--begin::Label-->
-                    <div class="d-flex fw-bold align-items-center">
-                        <div class="bullet w-8px h-3px rounded-2 bg-info me-3"></div>
-                        <div class="text-gray-500 flex-grow-1 me-4">Pending</div>
-                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $project->tasks_pending }}</div>
-                    </div>
-                    <!--end::Label-->
-                </div>
-                <!--end::Labels-->
-
-            </div>
-            <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed mt-10 p-6">
-
-                <!--begin::Wrapper-->
-                <div class="d-flex flex-stack flex-grow-1 ">
-                    <!--begin::Content-->
-                    <div class=" fw-semibold">
-
-                        <div class="fs-6 text-gray-700 "> Some Tasks status are being changed based on the
-                            task Due date and you change it from <a href="javascript:;" class="fw-bold me-1">
-                                Settings</a> </div>
-                    </div>
-                    <!--end::Content-->
-
-                </div>
-                <!--end::Wrapper-->
-            </div>
-        </div>
-
-    </div>
+    @foreach ($components as $component)
+        {!! $component !!}
+    @endforeach
 
 
     <div class="clearfix"></div>

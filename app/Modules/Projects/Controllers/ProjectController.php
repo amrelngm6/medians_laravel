@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auth;
 use App\Modules\Projects\Services\ProjectService;
+use App\Modules\Projects\Events\ProjectOverviewWidget;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
@@ -86,6 +87,11 @@ class ProjectController extends Controller
         $project = $this->projectService->find($id);
         $projectTabs = $this->loadModuleTabs($this->tabsPrefix);
 
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new ProjectOverviewWidget($context, $project));
+        $components = $event[0]->context['components'] ?? [];
+
         // Display a single project
         switch ($request->get('tab')) {
             case 'team':
@@ -102,7 +108,7 @@ class ProjectController extends Controller
                 break;
             
             default:
-                return view('projects::overview', compact('project','projectTabs'));
+                return view('projects::overview', compact('project','projectTabs', 'components'));
                 break;
         }
     }
