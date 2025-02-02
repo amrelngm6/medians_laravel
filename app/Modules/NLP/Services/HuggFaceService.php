@@ -56,27 +56,33 @@ class HuggFaceService
             'model_name' => $model,
         ]);
 
-        // $model = 'google/gemma-2-2b-it';
-        // $model = 'deepset/roberta-base-squad2';
-        // $model = 'openai-community/gpt2-large';
-        $response = $this->client->post("models/$model", [
-            'json' => ['inputs' => $text  , 
-                    // 'parameters' => [
-                    //     'max_length' => 100,
-                    // ],
-                    'options' => [
-                        'use_cache' => true,
-                        'wait_for_model' => true, // Wait if the model is loading
-                    ]],
+        try {
+                
+            // $model = 'google/gemma-2-2b-it';
+            // $model = 'deepset/roberta-base-squad2';
+            // $model = 'openai-community/gpt2-large';
+            $response = $this->client->post("models/$model", [
+                'json' => ['inputs' => $text  , 
+                        // 'parameters' => [
+                        //     'max_length' => 100,
+                        // ],
+                        'options' => [
+                            'use_cache' => true,
+                            'wait_for_model' => true, // Wait if the model is loading
+                        ]],
+                
+            ]);
             
-        ]);
-        
-        $formatedResponse = $this->formatResponse($response, $text);
-        $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);
-        $update = $save->update([
-            'reply' => $result
-        ]);
-        
+            $formatedResponse = $this->formatResponse($response, $text);
+            $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);
+            $update = $save->update([
+                'reply' => $result
+            ]);
+            
+            
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
         return $result;
     }
 
