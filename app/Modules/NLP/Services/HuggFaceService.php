@@ -121,6 +121,39 @@ class HuggFaceService
     }
 
 
+    
+    public function generateImageFromImage(string $text, string $imagePath, $model = '')
+    {
+        $user = Auth::user();
+
+        $save = NLPChat::firstOrCreate([
+            'business_id' => $user->business_id ?? 0,
+            'user_id' => $user->id(),
+            'user_type' => get_class($user),
+            'description' => $text,
+            'model_name' => $model,
+        ]);
+
+        $response = $this->client->post("models/$model", [
+            'inputs' => $text  , 
+            'image' => base64_encode(file_get_contents($imagePath))
+        ]);
+
+        $filename = 'generated-' . Str::random(10) . '.png';
+        
+        // Store the image in Laravel's storage
+        Storage::disk('local')->put("images/{$filename}", $response->getBody()->getContents());
+
+        $save->update([
+            "reply"=> asset("storage/images/{$filename}")
+        ]);
+
+        // Return the direct file URL
+        return  '<img src="'.asset("storage/images/{$filename}").'" />';
+
+    }
+
+
 
     
     public function generateTextTwoInputs(string $text, string $context, $model = '')

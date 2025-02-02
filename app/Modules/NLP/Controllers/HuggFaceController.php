@@ -79,6 +79,21 @@ class HuggFaceController extends Controller
         }
     }
 
+    public function generateImageFromImage(Request $request)
+    {
+        try {
+
+            $user = Auth::user();
+
+            $response = $this->service->generateImageFromImage($request->message, $request->image, $request->model);
+
+            return $response;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
+    }
+
     public function generateTextTwoInputs(Request $request)
     {
         try {

@@ -14,6 +14,7 @@ Route::prefix('hugging_face')->middleware(['web','auth:staff,superadmin'])->grou
     
     Route::post('/', [HuggFaceController::class, 'generateText'])->name('HuggFace.store');
     Route::post('/generateImage', [HuggFaceController::class, 'generateImage'])->name('HuggFace.image');
+    Route::post('/generateImageFromImage', [HuggFaceController::class, 'generateImageFromImage'])->name('HuggFace.img2img');
     Route::post('/with-context', [HuggFaceController::class, 'generateTextTwoInputs'])->name('HuggFace.context');
     Route::post('/deepSeek', [HuggFaceController::class, 'deepSeek'])->name('DeepSeek.store');
 });
