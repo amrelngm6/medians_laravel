@@ -12,7 +12,7 @@ use App\Modules\Core\Models\Status;
 use App\Modules\Customers\Models\Client;
 use App\Modules\Actions\Models\Comment;
 use App\Modules\Tasks\Models\Task;
-use Spatie\Activitylog\Models\Activity;
+use App\Modules\Activities\Models\ActivityModel;
 
 class Project extends Model
 {
@@ -53,8 +53,12 @@ class Project extends Model
      */
     public function activities()
     {
-        return Activity::where('subject_type', get_class($this))
-            ->where('subject_id', $this->project_id)
+        $model = $this;
+        return ActivityModel::whereHas("subject", function ($q) use ($model) {
+                return !method_exists($model, 'model') ? $q :  $q->whereHas("model", function ($q) use ($model) {
+                    return  $q->where('model_id', $model->{$model->getKeyName()})->where('model_type', get_class($model));
+                });
+            })
             ->latest()
             ->get();
     }

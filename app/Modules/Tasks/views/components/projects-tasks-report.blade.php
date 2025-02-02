@@ -14,7 +14,7 @@
             <div class="card-body   d-flex flex gap-6 align-items-center">
                 <!--begin::Chart-->
                 <!-- <canvas class="clean-pie-chartjs" data-label="Tasks"  width="100"></canvas> -->
-                <canvas class="clean-doughnut-chartjs w-200px h-200px" data-limit="4" data-label="Tasks"></canvas>
+                <canvas class="clean-doughnut-chartjs2 w-200px h-200px" data-limit="4" data-label="Tasks"></canvas>
                 <!--end::Chart-->
 
                 <!--begin::Labels-->
@@ -62,3 +62,61 @@
         </div>
 
     </div>
+    <script>
+
+        /* Clean Doughnut Chart */
+        setTimeout(() => {
+                
+            if ($(".clean-doughnut-chartjs2").length) {
+                var randomScalingFactor = function () {
+                    return Math.round(Math.random() * 100)
+                };
+
+                const chartsList = document.querySelectorAll('.clean-doughnut-chartjs2');
+                
+                chartsList.forEach(ctx => {
+                    
+                    let chartColor = jQuery(ctx).data('color');
+                    let chartLabel = jQuery(ctx).data('label');
+                    let chartLimit = jQuery(ctx).data('limit');
+
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                        labels: {!! json_encode(array_column($statusList->toArray(), 'name'), true) !!},
+                        datasets: 
+                            [{
+                                label: chartLabel ?? "Visits",
+                                // borderColor: "rgba(0,0,0,1)",
+                                color: chartColor ?? "",
+                                backgroundColor: chartColor ?? ["#002a52", "#51bd50","#f8285a","#171922", "#ffa600", "#ffa600"].slice(0,  chartLimit ?? 5 ),
+                                data: [
+                                    @foreach ($statusList as $status )
+                                    {{ $project->tasks()->where('status_id', $status->status_id)->count() }},
+                                    @endforeach
+                                ],                               
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    display: false  // Hides the x-axis
+                                },
+                                y: {
+                                    display: false  // Hides the y-axis
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false,
+                                }
+                            }
+                        }
+                    });
+                })
+
+                    
+            }
+        }, 1000);
+    </script>

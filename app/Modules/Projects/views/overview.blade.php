@@ -30,7 +30,13 @@
 
                         <!--begin::Timeline icon-->
                         <div class="timeline-icon">
+                            @if (class_basename($activity->subject) == 'Task')
+                            <i class="bx bx-task fs-2 text-gray-500"></i>
+                            @elseif (class_basename($activity->subject) == 'Project')
+                            <i class="bx bx-carousel fs-2 text-gray-500"></i>
+                            @else
                             <i class="bx bx-bug-alt fs-2 text-gray-500"></i>
+                            @endif
                         </div>
                         <!--end::Timeline icon-->
 
@@ -39,17 +45,22 @@
                             <!--begin::Timeline heading-->
                             <div class="pe-3 mb-5">
                                 <!--begin::Title-->
-                                <div class="fs-5 fw-bold mb-2">{{ $activity->title }}</div>
+                                <div class="fs-5 fw-bold mb-2"
+                                    rel="popover" data-trigger="hover" data-toggle="popover" data-placement="bottom"
+                                    data-content="{{$activity->subject->name ?? $activity->description}}"
+                                    >{{ $activity->description }} </div>
                                 <!--end::Title-->
 
                                 <!--begin::Description-->
                                 <div class="d-flex align-items-center mt-1 fs-6">
                                     <!--begin::Info-->
-                                    <div class="text-muted me-2 fs-7">Added at {{ date('M d, Y', strtotime($activity->created_at)) }} by</div>
+                                    <div class="text-muted me-2 fs-7">Added at {{ date('M d, Y H:i a', strtotime($activity->created_at)) }} by</div>
                                     <!--end::Info-->
 
                                     <!--begin::User-->
-                                    <div class="symbol symbol-circle symbol-25px">
+                                    <div class="symbol symbol-circle symbol-25px" 
+                                        rel="popover" data-trigger="hover" data-toggle="popover" data-placement="bottom"
+                                        data-content="{{$activity->causer->name ?? ''}}">
                                         <img src="/{{ $activity->causer->picture ?? '' }}" alt="img">
                                     </div>
                                     <!--end::User-->

@@ -64,6 +64,23 @@ class HuggFaceController extends Controller
         }
     }
 
+    public function generateImage(Request $request)
+    {
+        try {
+
+            $user = Auth::user();
+
+            $response = $this->service->generateText($request->message, $request->model);
+
+            $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', is_array($response) ? json_encode($response) : $response);
+
+            return nl2br(  $result );
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
+    }
+
     public function generateTextTwoInputs(Request $request)
     {
         try {

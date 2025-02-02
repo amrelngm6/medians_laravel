@@ -26,7 +26,22 @@ class ActivityModel extends Activity
      */
     public function scopeForBusiness($query, $businessId)
     {
-        return $query->where('business_id', [$businessId, 0]);
+        return $query->whereHas("subject", function ($q) use ($businessId) {
+            return $q->where('business_id', [$businessId, 0]);
+        });
+
+    }
+    
+    /**
+     * Load Templates of Business Scope
+     */
+    public function scopeModel($query, $model)
+    {  
+        return $query->whereHas("subject", function ($q) use ($model) {
+            return $q->whereHas("model", function ($q) use ($model) {
+                return $q->where('model_id', $model->{$model->getKeyName()})->where('model_type', get_class($model));
+            });
+        });
     }
 
 }

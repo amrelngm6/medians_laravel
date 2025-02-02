@@ -13,6 +13,7 @@ Route::prefix('hugging_face')->middleware(['web','auth:staff,superadmin'])->grou
     Route::delete('{id}/delete', [HuggFaceController::class, 'destroy'])->name('HuggFace.delete');
     
     Route::post('/', [HuggFaceController::class, 'generateText'])->name('HuggFace.store');
+    Route::post('/generateImage', [HuggFaceController::class, 'generateImage'])->name('HuggFace.image');
     Route::post('/with-context', [HuggFaceController::class, 'generateTextTwoInputs'])->name('HuggFace.context');
     Route::post('/deepSeek', [HuggFaceController::class, 'deepSeek'])->name('DeepSeek.store');
 });
