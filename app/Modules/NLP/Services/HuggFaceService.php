@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use DeepseekClient;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class HuggFaceService
 {
@@ -90,6 +92,7 @@ class HuggFaceService
     
     public function generateImage(string $text, $model = '')
     {
+        $user = Auth::user();
 
         $save = NLPChat::firstOrCreate([
             'business_id' => $user->business_id ?? 0,
@@ -103,11 +106,15 @@ class HuggFaceService
             'inputs' => $text  , 
         ]);
 
-        $update = $save->update([
-            'reply' => $response->getBody()->getContents()
+        $filename = 'generated-' . Str::random(10) . '.png';
+        // Store the image in Laravel's storage
+        Storage::disk('local')->put("images/{$filename}", $response);
+
+        // Return the direct file URL
+        return response()->json([
+            'url' => asset("storage/images/{$filename}")
         ]);
 
-        return $response->getBody()->getContents();
     }
 
 
