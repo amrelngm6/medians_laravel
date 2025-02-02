@@ -92,15 +92,7 @@ class HuggFaceService
     {
 
         $response = $this->client->post("models/$model", [
-            'json' => ['inputs' => $text  , 
-                    'parameters' => [
-                        'max_length' => 60,
-                    ],
-                    'options' => [
-                        'use_cache' => true,
-                        'wait_for_model' => true, // Wait if the model is loading
-                    ]],
-            
+            'inputs' => $text  , 
         ]);
     
         return $response->getBody()->getContents();

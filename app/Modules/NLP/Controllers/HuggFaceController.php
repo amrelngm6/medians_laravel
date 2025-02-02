@@ -70,9 +70,9 @@ class HuggFaceController extends Controller
 
             $user = Auth::user();
 
-            $response = $this->service->generateText($request->message, $request->model);
+            $response = $this->service->generateImage($request->message, $request->model);
 
-            return nl2br(  $response );
+            return $response;
 
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage());
