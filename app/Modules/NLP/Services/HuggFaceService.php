@@ -2,6 +2,7 @@
 
 namespace App\Modules\NLP\Services;
 
+use App\Modules\NLP\Models\NLPChat;
 use App\Models\Auth;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -45,6 +46,15 @@ class HuggFaceService
     
     public function generateText(string $text, $model = '')
     {
+        $user = Auth::user();
+
+        $save = NLPChat::firstOrCreate([
+            'business_id' => $user->business_id ?? 0,
+            'user_id' => $user->id(),
+            'user_type' => get_class($user),
+            'description' => $text,
+            'model_name' => $model,
+        ]);
 
         // $model = 'google/gemma-2-2b-it';
         // $model = 'deepset/roberta-base-squad2';
@@ -61,7 +71,13 @@ class HuggFaceService
             
         ]);
         
-        return $this->formatResponse($response, $text);
+        $formatedResponse = $this->formatResponse($response, $text);
+        $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);
+        $update = $save->update([
+            'reply' => $result
+        ]);
+        
+        return $result;
     }
 
 

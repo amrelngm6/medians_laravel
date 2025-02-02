@@ -72,9 +72,7 @@ class HuggFaceController extends Controller
 
             $response = $this->service->generateText($request->message, $request->model);
 
-            $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', is_array($response) ? json_encode($response) : $response);
-
-            return nl2br(  $result );
+            return nl2br(  $response );
 
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage());
