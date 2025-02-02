@@ -91,10 +91,22 @@ class HuggFaceService
     public function generateImage(string $text, $model = '')
     {
 
+        $save = NLPChat::firstOrCreate([
+            'business_id' => $user->business_id ?? 0,
+            'user_id' => $user->id(),
+            'user_type' => get_class($user),
+            'description' => $text,
+            'model_name' => $model,
+        ]);
+
         $response = $this->client->post("models/$model", [
             'inputs' => $text  , 
         ]);
-    
+
+        $update = $save->update([
+            'reply' => $response->getBody()->getContents()
+        ]);
+
         return $response->getBody()->getContents();
     }
 
