@@ -107,13 +107,16 @@ class HuggFaceService
         ]);
 
         $filename = 'generated-' . Str::random(10) . '.png';
+        
         // Store the image in Laravel's storage
-        Storage::disk('local')->put("images/{$filename}", $response);
+        Storage::disk('local')->put("images/{$filename}", $response->getBody()->getContents());
+
+        $save->update([
+            "reply"=> asset("storage/images/{$filename}")
+        ]);
 
         // Return the direct file URL
-        return response()->json([
-            'url' => asset("storage/images/{$filename}")
-        ]);
+        return  '<img src="'.asset("storage/images/{$filename}").'" />';
 
     }
 
