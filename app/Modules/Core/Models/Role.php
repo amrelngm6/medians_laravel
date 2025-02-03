@@ -53,4 +53,12 @@ class Role extends SpatieRole
         return $query->where('guard_name', 'superadmin');
     }
 
+    /**
+     * Load Roles of Cients
+     */
+    public function scopeForClient($query)
+    {
+        return $query->where('guard_name', 'client');
+    }
+    
 }

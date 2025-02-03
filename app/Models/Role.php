@@ -38,11 +38,12 @@ class Role extends SpatieRole
     }
 
     /**
-     * Load Roles of Business
+     * Load Roles of Superadmin
      */
     public function scopeForUser($query)
     {
         return $query->where('guard_name', 'superadmin');
     }
+
 
 }

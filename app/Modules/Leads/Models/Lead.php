@@ -10,6 +10,7 @@ use App\Modules\Leads\Models\LeadSource;
 use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\ModelField;
 use App\Modules\Tasks\Models\Task;
+use App\Modules\Deals\Models\Deal;
 
 class Lead extends Model
 {
@@ -53,6 +54,14 @@ class Lead extends Model
     public function source()
     {
         return $this->hasOne(LeadSource::class, 'source_id', 'source_id');
+    }
+
+    /**
+     * Load Main Contact
+     */
+    public function deal()
+    {
+        return $this->hasOne(Deal::class, 'lead_id', 'lead_id');
     }
 
     /**

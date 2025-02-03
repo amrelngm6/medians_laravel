@@ -1,4 +1,3 @@
-<?php $Modules = \App\Models\Module::get(); ?>
 
 <div class="modal fade  active show" id="edit-deal-modal" tabindex="-1" >
     <!--begin::Modal dialog-->

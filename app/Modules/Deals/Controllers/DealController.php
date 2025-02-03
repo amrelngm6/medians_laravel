@@ -367,4 +367,29 @@ class DealController extends Controller
             'result' => 'Deal Stage deleted successfully',
         ], 200) : null;
     }
+
+    /**
+     * Load Modal to Convert Lead to Deal
+     * 
+     */
+    public function converLeadModal(Request $request, $lead_id)
+    {
+        $lead = $this->service->getLead($lead_id);
+
+        return view('deal::convert-lead-modal', compact('lead'));
+
+    }
+
+
+    /**
+     * Convert Lead to Deal
+     * 
+     */
+    public function converLead(Request $request, $lead_id)
+    {
+        $lead = $this->service->getLead($lead_id);
+
+        return view('deal::convert-lead-modal', compact('lead'));
+
+    }
 }

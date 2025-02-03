@@ -6,6 +6,7 @@ use App\Modules\Deals\Models\Deal;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Customers\Models\Staff;
 use App\Modules\Core\Models\ModelMember;
+use App\Modules\Leads\Models\Lead;
 use App\Models\Auth;
 
 class DealService
@@ -27,6 +28,11 @@ class DealService
     public function find(int $id)
     {
         return Deal::findOrFail($id);
+    }
+
+    public function getLead(int $id)
+    {
+        return Lead::findOrFail($id);
     }
 
     public function createDeal(array $data)

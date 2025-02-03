@@ -51,8 +51,11 @@
                                         <!--begin::Name-->
                                         <div class="d-flex align-items-center mb-2">
                                             <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$lead->name}}</a>
-                                            <a href="javascript:;"><i class="ki-duotone ki-verify fs-1 text-primary"><span
-                                                        class="path1"></span><span class="path2"></span></i></a>
+                                            @if ($lead->deal)
+                                            <a href="javascript:;" class="text-gray-600 text-hover-primary fs-6 fw-bold me-1">Converted to Deal: <b>{{$lead->deal->name}}</b></a>
+                                            @else
+                                            <a href="{{route('Deal.convert_lead_modal', $lead->lead_id)}}" class="open-modal label rounded bg-primary text-white hoverbg-primary mx-6 fs-7 fw-bold me-1">Converted to Deal</a>
+                                            @endif
                                         </div>
                                         <!--end::Name-->
 
@@ -155,7 +158,7 @@
                                                 <div class="mb-0">
 
                                                     <!--begin::Details-->
-                                                    <div class="d-flex align-items-center">
+                                                    <div class="d-flex align-items-center gap-10">
                                                         @if ($lead->company)
                                                         <!--begin::Info-->
                                                         <div class="d-flex flex-column">
@@ -171,6 +174,13 @@
                                                         </div>
                                                         <!--end::Info-->
                                                         @endif 
+                                                                        
+                                                        <a href="{{route('Lead.tabs.edit', $lead->lead_id)}}#form-content-1" class="flex gap-2   "
+                                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                                            data-content="Assigned to {{$lead->assigned->name ?? ''}}">
+                                                            <img class='w-10 h-10 p-1 rounded-circle' src='/{{$lead->assigned->picture ?? ""}}' /> 
+                                                            <span class="pt-2 fs-6 fw-bold text-danger">{{$lead->assigned->name ?? ''}} </span>
+                                                        </a>
 
                                                     </div>
                                                     <!--end::Details-->

@@ -16,10 +16,14 @@ Route::prefix('deals')->middleware(['web', 'auth:superadmin,staff'])->group(func
     Route::post('/{id}/add-stage', [DealController::class, 'storeStage'])->name('Deal.store-stage');
     Route::delete('{id}/delete', [DealController::class, 'destroy'])->name('Deal.delete');
     Route::delete('{id}/delete-stage', [DealController::class, 'destroyStage'])->name('DealStage.delete');
-
+    
     // Page Tabs
     Route::get('/{id}/overview', [DealController::class, 'overview'])->name('Deal.tabs.overview');
     Route::get('/{id}/edit', [DealController::class, 'edit'])->name('Deal.tabs.edit');
+    Route::get('/convert-lead-modal/{lead_id}', [DealController::class, 'converLeadModal'])->name('Deal.convert_lead_modal');
+
+    // Conver lead to Deal
+    Route::post('/convert-lead/{lead_id}', [DealController::class, 'convertLead'])->name('Deal.convert_lead');
 });
 
 // Add Tab menu to deal Page for Tasks

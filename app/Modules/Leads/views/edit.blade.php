@@ -125,6 +125,27 @@ $tabsList = [
 
                                     <div class="w-full flex gap-10">
 
+                                        <div class="w-full">
+                                            <label for="assigned" class="control-label">Assigned To</label>
+                                            @php $selectedStaff = $lead->assigned ?? null; $selectedInputName = 'assigned_to' @endphp
+                                            @include('staff::search-input')
+                                        </div>
+
+                                        <div class="w-full form-group select-placeholder ">
+                                            <label for="status" class="control-label">Status</label>
+                                            <select name="status" class="select-bootstrap form-control form-control-solid py-2">
+                                                <option value=""> </option>
+                                                @foreach ($statusList as $status)
+                                                <option value="{{$status->status_id}}"
+                                                    {{$lead->status == $status->status_id ? 'selected' : ''}}>
+                                                    {{$status->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full flex gap-10">
+
                                         <div class="form-group w-full select-placeholder">
                                             <label for="rel_type" class="control-label">Type</label>
                                             <select name="type" id="rel_type"
@@ -148,27 +169,6 @@ $tabsList = [
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="w-full flex gap-10">
-
-                                        <div class="w-full">
-                                            <label for="assigned" class="control-label">Assigned To</label>
-                                            @php $selectedStaff = $lead->assigned ?? null; $selectedInputName = 'assigned_to' @endphp
-                                            @include('staff::search-input')
-                                        </div>
-
-                                        <div class="w-full form-group select-placeholder ">
-                                            <label for="status" class="control-label">Status</label>
-                                            <select name="status" class="select-bootstrap form-control form-control-solid py-2">
-                                                <option value=""> </option>
-                                                @foreach ($statusList as $status)
-                                                <option value="{{$status->status_id}}"
-                                                    {{$lead->status == $status->status_id ? 'selected' : ''}}>
-                                                    {{$status->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
