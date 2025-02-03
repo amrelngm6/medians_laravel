@@ -18,6 +18,7 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                 <form id="edit_client_form" method="POST" action="{{route('Client.update', $client->client_id)}}" enctype="multipart/form-data" class="ajax-form form fv-plugins-bootstrap5 fv-plugins-framework">
+                    @csrf
                     <input type="hidden" name="client_id" value="{{$client->client_id}}" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
