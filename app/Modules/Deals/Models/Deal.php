@@ -101,7 +101,8 @@ class Deal extends Model
                   });
         })
         ->latest()
-        ->get();
+        ->get()
+        ->unique('id');
     }
     
     
