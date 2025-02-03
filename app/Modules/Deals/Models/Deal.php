@@ -100,9 +100,9 @@ class Deal extends Model
                             ->where('model_type', get_class($model));
                   });
         })
+        ->orderBy('id','DESC')
         ->latest()
-        ->get()
-        ->unique('id');
+        ->get();
     }
     
     
