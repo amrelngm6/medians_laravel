@@ -37,7 +37,10 @@
                     @endif
                 </div>
             </td>
-            <td>{{ $task->model->name ?? '' }}</td>
+            <td>
+                <span rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
+                data-content="<b>{{$member->user->name ?? ''}}"> {{ $task->model->name ?? '' }}</span>
+            </td>
             <td>{{date('M d, Y', strtotime($task->start_date)) }}</td>
             <td>{{date('M d, Y', strtotime($task->due_date)) ?? '' }}</td>
             <td class=" status">
