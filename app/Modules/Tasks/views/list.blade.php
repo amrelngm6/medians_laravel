@@ -62,8 +62,13 @@
 
 
 
+@section('css')
+<link href="/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen" />
+@endsection
+
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+<script src="{{asset('assets/plugins/jquery-ui/smoothness/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
 
 <!-- Load required assets for the datatable -->
