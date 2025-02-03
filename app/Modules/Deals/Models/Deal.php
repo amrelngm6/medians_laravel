@@ -4,6 +4,8 @@ namespace App\Modules\Deals\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Customers\Models\Staff;
+use App\Modules\Customers\Models\Client;
+use App\Modules\Leads\Models\Lead;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Core\Models\ModelMember;
 use App\Models\Auth;
@@ -17,15 +19,31 @@ class Deal extends Model
 
     
     /**
-     * Load Created by Staff
+     * Deal Created by Staff
      */
     public function author()
     {
         return $this->hasOne(Staff::class, 'staff_id', 'created_by');
     }
+    
+    /**
+     *  Client of the Deal 
+     */
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'client_id', 'client_id');
+    }
+    
+    /**
+     * Deal Created by Staff
+     */
+    public function lead()
+    {
+        return $this->hasOne(Lead::class, 'lead_id', 'lead_id');
+    }
 
     /**
-     * Load related category as Morph
+     * Deal related category as Morph
      */
     public function model()
     {
@@ -33,7 +51,7 @@ class Deal extends Model
     }
 
     /**
-     * Load Assigned staff
+     * Deal Assigned staff
      */
     public function assigned()
     {
@@ -42,7 +60,7 @@ class Deal extends Model
 
     
     /**
-     * Load Main Location info
+     * Deal Main Location info
      */
     public function location_info()
     {
@@ -53,7 +71,7 @@ class Deal extends Model
 
 
     /**
-     * Load Items of Business Scope
+     * Deal Items of Business Scope
      */
     public function scopeForBusiness($query, $businessId)
     {
@@ -61,7 +79,7 @@ class Deal extends Model
     }
 
     /**
-     * Load Items of Business Scope
+     * Deal Items of Business Scope
      */
     public function scopeDefault($query, $businessIds)
     {
