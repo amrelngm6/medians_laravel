@@ -34,7 +34,7 @@ $tabsList = [
                 <!--begin::Nav-->
                 <div class="bg-white   stepper-nav py-14 px-10 ">
 
-                @foreach ($tabsList as $key => $tab)
+                    @foreach ($tabsList as $key => $tab)
                     <!--begin::Step {{$key + 1}}-->
                     <div class="stepper-item cursor-pointer  " data-id="form-content-{{$key}}">
                         <!--begin::Wrapper-->

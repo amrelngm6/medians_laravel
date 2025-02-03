@@ -18,7 +18,7 @@
                         <!--begin::Timeline content-->
                         <div class="timeline-content  mt-n1">
                             <!--begin::Timeline heading-->
-                            <div class="pe-3 mb-5">
+                            <div class="pe-3 mb-0">
                                 <!--begin::Title-->
                                 <div class="fs-5 fw-bold mb-2"
                                     rel="popover" data-trigger="hover" data-toggle="popover" data-placement="bottom"

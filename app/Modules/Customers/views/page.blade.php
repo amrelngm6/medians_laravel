@@ -216,5 +216,7 @@
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+<script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
+<script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

@@ -145,6 +145,7 @@
             @endif
             @endforeach
 
+            @if (empty($deal->client->location_info))
             <!--begin::Notice-->
             <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed  p-6">
                 <!--begin::Icon-->
@@ -156,11 +157,9 @@
                 <div class="d-flex flex-stack flex-grow-1 ">
                     <!--begin::Content-->
                     <div class=" fw-semibold">
-                        <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
-
-                        <div class="fs-6 text-gray-700 ">Your account setup not completed. To start using tools,
-                            please <a class="fw-bold" href="{{route(App::getLocale() . '.profile_setting')}}">Complete
-                                your settings</a>.</div>
+                        <div class="fs-6 text-gray-700 ">Client information not completed. To get full features,
+                            <a class="fw-bold" href="{{route('Client.tabs.edit', $deal->client_id)}}">Client
+                                Settings</a>.</div>
                     </div>
                     <!--end::Content-->
 
@@ -168,6 +167,7 @@
                 <!--end::Wrapper-->
             </div>
             <!--end::Notice-->
+            @endif
         </div>
         <!--end::Card body-->
     </div>
