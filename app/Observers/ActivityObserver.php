@@ -10,7 +10,7 @@ class ActivityObserver
 {
     public function created(Model $model)
     {
-        $converted = ucfirst(str_replace('_', '', Str::snake(class_basename($model))));
+        $converted = ucfirst(str_replace('_', ' ', Str::snake(class_basename($model))));
 
         activity()
             ->event('created')
@@ -22,7 +22,7 @@ class ActivityObserver
 
     public function updated(Model $model)
     {
-        $converted = ucfirst(str_replace('_', '', Str::snake(class_basename($model))));
+        $converted = ucfirst(str_replace('_', ' ', Str::snake(class_basename($model))));
 
         activity()
             ->event('updated')
@@ -37,8 +37,8 @@ class ActivityObserver
 
     public function deleted(Model $model)
     {
-        $converted = ucfirst(str_replace('_', '', Str::snake(class_basename($model))));
-        
+        $converted = ucfirst(str_replace('_', ' ', Str::snake(class_basename($model))));
+
         activity()
             ->event('deleted')
             ->performedOn($model)
