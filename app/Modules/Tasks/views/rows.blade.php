@@ -39,7 +39,8 @@
             </td>
             <td>
                 <span rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
-                data-content="<b>{{$member->user->name ?? ''}}"> {{ $task->model->name ?? '' }}</span>
+                data-title="{{ $task->model->name ?? '' }}"
+                data-content="Related to: <b>{{class_basename($member->model)}}"> {{ $task->model->name ?? '' }}</span>
             </td>
             <td>{{date('M d, Y', strtotime($task->start_date)) }}</td>
             <td>{{date('M d, Y', strtotime($task->due_date)) ?? '' }}</td>
