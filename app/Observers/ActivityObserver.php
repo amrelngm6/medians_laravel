@@ -15,7 +15,7 @@ class ActivityObserver
             ->performedOn($model)
             ->causedBy(Auth::user())
             ->withProperties(['attributes' => $model->getAttributes()])
-            ->log("Created: ");
+            ->log("Created ". class_basename($model));
     }
 
     public function updated(Model $model)

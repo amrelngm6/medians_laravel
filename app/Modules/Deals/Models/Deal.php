@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\Customers\Models\Staff;
 use App\Modules\Customers\Models\Client;
 use App\Modules\Leads\Models\Lead;
+use App\Modules\Tasks\Models\Task;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Core\Models\ModelMember;
+use App\Modules\Activities\Models\ActivityModel;
 use App\Models\Auth;
 
 class Deal extends Model
@@ -42,13 +44,6 @@ class Deal extends Model
         return $this->hasOne(Lead::class, 'lead_id', 'lead_id');
     }
 
-    /**
-     * Deal related category as Morph
-     */
-    public function model()
-    {
-        return $this->morphTo();
-    }
 
     /**
      * Deal Assigned staff
@@ -66,7 +61,39 @@ class Deal extends Model
     {
         return $this->morphOne(LocationInfo::class, 'model');
     }
+    
+    /**
+     * Deal Main Location info
+     */
+    public function tasks()
+    {
+        return $this->morphMany(Task::class, 'model');
+    }
 
+    
+    
+    /**
+     * Related activities
+     */
+    public function activities()
+    {
+        $model = $this;
+        return ActivityModel::where(function ($q) use ($model) {
+            return $q->where('subject_type', Deal::class)->where('subject_id', $model->id);
+        })
+        ->orWhere(function ($q) use ($model) {
+            $q->where('subject_type', Task::class)
+                  ->whereIn('subject_id', function ($q) use ($model) {
+                      $q->select('task_id')
+                            ->from('tasks')
+                            ->where('model_id', $model->id)
+                            ->where('model_type', get_class($model));
+                  });
+        })
+        ->latest()
+        ->get();
+    }
+    
     
 
 

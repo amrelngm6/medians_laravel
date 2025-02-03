@@ -55,7 +55,7 @@ class Project extends Model
     {
         $model = $this;
         return ActivityModel::whereHas("subject", function ($q) use ($model) {
-                return !method_exists($model, 'model') ? $q :  $q->whereHas("model", function ($q) use ($model) {
+                return !method_exists($model, 'model') ? $q->where('subject_type', Project::class) :  $q->whereHas("model", function ($q) use ($model) {
                     return  $q->where('model_id', $model->{$model->getKeyName()})->where('model_type', get_class($model));
                 });
             })
