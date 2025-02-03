@@ -404,13 +404,13 @@ class DealController extends Controller
             return $deal->getContent();
 
             
-        
         $clientController = new ClientController(new ClientService);
         $client = $clientController->store( $request, 'object');
         if (method_exists($client,'getContent')) 
             return $client->getContent();
 
-        $dealClient = $deal->update(['client_id'=> $client->id() ]);
+
+        $dealClient = $deal->update(['client_id'=> $client->id(), 'lead_id' => $lead->id() ]);
 
         return $dealClient ? $this->jsonResponse('New deal has been created', 'Deal create', null, route('Deal.show', $deal->id)) : '';
         // return view('deal::convert-lead-modal', compact('lead'));

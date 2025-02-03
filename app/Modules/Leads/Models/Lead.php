@@ -48,6 +48,10 @@ class Lead extends Model
         return $this->first_name.' '.$this->last_name;
     }
 
+    public function id()  {
+        return $this->lead_id;
+    }
+
     /**
      * Load Main Contact
      */
