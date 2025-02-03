@@ -7,6 +7,7 @@ use App\Modules\Customers\Models\Staff;
 use App\Modules\Customers\Models\Client;
 use App\Modules\Leads\Models\Lead;
 use App\Modules\Tasks\Models\Task;
+use App\Modules\Pipelines\Models\PipelineSelected;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Core\Models\ModelMember;
 use App\Modules\Activities\Models\ActivityModel;
@@ -86,6 +87,15 @@ class Deal extends Model
                   ->whereIn('subject_id', function ($q) use ($model) {
                       $q->select('task_id')
                             ->from('tasks')
+                            ->where('model_id', $model->id)
+                            ->where('model_type', get_class($model));
+                  });
+        })
+        ->orWhere(function ($q) use ($model) {
+            $q->where('subject_type', PipelineSelected::class)
+                  ->whereIn('subject_id', function ($q) use ($model) {
+                      $q->select('id')
+                            ->from('pipeline_selected')
                             ->where('model_id', $model->id)
                             ->where('model_type', get_class($model));
                   });

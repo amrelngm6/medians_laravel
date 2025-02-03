@@ -3,19 +3,21 @@
 namespace App\Observers;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 use App\Models\Auth;
 
 class ActivityObserver
 {
     public function created(Model $model)
     {
+        $converted = ucfirst(str_replace('_', '', Str::snake(class_basename($model))));
+
         activity()
             ->event('created')
             ->performedOn($model)
             ->causedBy(Auth::user())
             ->withProperties(['attributes' => $model->getAttributes()])
-            ->log("Created ". class_basename($model));
+            ->log("Created ". $converted);
     }
 
     public function updated(Model $model)
@@ -28,7 +30,7 @@ class ActivityObserver
                 'attributes' => $model->getChanges(),
                 'old' => $model->getOriginal()
             ])
-            ->log("Updated: " . class_basename($model));
+            ->log("Updated: " . $converted);
     }
 
     public function deleted(Model $model)
@@ -38,6 +40,6 @@ class ActivityObserver
             ->performedOn($model)
             ->causedBy(Auth::user())
             ->withProperties(['attributes' => $model->getOriginal()])
-            ->log("Deleted: " . class_basename($model).": ". ($model->name ?? ""));
+            ->log("Deleted: " . $converted.": ". ($model->name ?? ""));
     }
 }
