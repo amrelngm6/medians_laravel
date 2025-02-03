@@ -22,6 +22,8 @@ class ActivityObserver
 
     public function updated(Model $model)
     {
+        $converted = ucfirst(str_replace('_', '', Str::snake(class_basename($model))));
+
         activity()
             ->event('updated')
             ->performedOn($model)
@@ -35,6 +37,8 @@ class ActivityObserver
 
     public function deleted(Model $model)
     {
+        $converted = ucfirst(str_replace('_', '', Str::snake(class_basename($model))));
+        
         activity()
             ->event('deleted')
             ->performedOn($model)
