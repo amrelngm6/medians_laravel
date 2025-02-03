@@ -10,7 +10,7 @@ use App\Modules\Customers\Controllers\StaffController;
 Route::prefix('clients')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [ClientController::class, 'index'])->name('Client');
     Route::get('/create', [ClientController::class, 'create'])->name('Client.create');
-    Route::get('/edit', [ClientController::class, 'edit'])->name('Client.edit');
+    Route::get('/{id}/edit-modal', [ClientController::class, 'editModal'])->name('Client.edit');
     Route::get('{id}', [ClientController::class, 'show'])->name('Client.overview');
     Route::post('/filter', [ClientController::class, 'filter'])->name('Client.filter');
     Route::post('/store', [ClientController::class, 'store'])->name('Client.store');

@@ -157,6 +157,23 @@ class ClientController extends Controller
     }
 
     /**
+     * Show the form for editing a specific client.
+     */
+    public function editModal(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $client = Client::findOrFail($id);
+        
+        $statusList = $this->service->loadStatusList(); 
+        
+        $clientTabs = $this->loadModuleTabs($this->tabsPrefix);
+
+        return view('clients::edit-client-modal', compact('client','clientTabs', 'statusList'));
+
+    }
+
+    /**
      * Update the specified client in the database.
      */
     public function update(Request $request, $client_id)
