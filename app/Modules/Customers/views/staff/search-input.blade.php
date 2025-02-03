@@ -3,7 +3,7 @@
     rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by Staff Name" >
 
     <!-- <label for="assigned" class="control-label">Assigned To</label> -->
-    <select id="name-filter{{$rand}}" name="staff_id" placeholder="A" data-live-search="true" 
+    <select id="name-filter{{$rand}}" name="{{selectedInputName ?? 'staff_id'}}" placeholder="A" data-live-search="true" 
         class="name-filter filter-on-change with-ajax border border-gray-300 form-control form-control-solid ">
         @if (isset($selectedStaff)) <option value="{{$selectedStaff->staff_id}}" data-content="<img class='w-10 p-2 rounded-circle' src='/{{$selectedStaff->picture}}' /> {{$selectedStaff->name}}"> {{$selectedStaff->name}}</option> @endif
     </select>

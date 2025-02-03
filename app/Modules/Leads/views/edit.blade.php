@@ -1,172 +1,70 @@
 @extends('leads::page')
 
+@php 
+$tabsList = [
+    [
+        'title' => 'Details',
+        'text' => 'Basic information of the lead',
+    ],
+    [
+        'title' => 'Information',
+        'text' => 'Some information for system',
+    ],
+    [
+        'title' => 'Location',
+        'text' => 'Manage location information ',
+    ],
+    [
+        'title' => 'Custom fields',
+        'text' => 'Custom fields for the item',
+    ],
+    [
+        'title' => 'Business info',
+        'text' => 'Information about the business',
+    ]
+];
+@endphp
 @section('lead-page')
 
     <div class="col-md-12">
         
-        <div class="w-full gap-14 content-wrapper">
-            <div class="w-350px pull-left px-0 " id="form-sidebar"
+        <div class="w-full gap-14 content-wrapper inline-flex">
+            <div class="w-400px pull-left px-0 " id="form-sidebar"
                 class="rounded d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
                 <!--begin::Nav-->
                 <div class="bg-white   stepper-nav py-14 px-10 ">
-                    <!--begin::Step 1-->
-                    <div class="stepper-item cursor-pointer current " data-id="basic-form"
-                        >
+
+                @foreach ($tabsList as $key => $tab)
+                    <!--begin::Step {{$key + 1}}-->
+                    <div class="stepper-item cursor-pointer  " data-id="form-content-{{$key}}">
                         <!--begin::Wrapper-->
                         <div class="stepper-wrapper flex gap-6 ">
-                            <!--begin::Icon-->
                             <div class="stepper-icon w-40px h-40px pt-3 bg-success text-center rounded">
                                 <i class="bx bx-check fs-2"></i>
                             </div>
-                            <!--end::Icon-->
-
                             <!--begin::Label-->
                             <div class="stepper-label ">
-                                <h3 class="stepper-title">
-                                    Details
-                                </h3>
-
-                                <div class="stepper-desc">
-                                    Basic information of the lead
-                                </div>
+                                <h3 class="stepper-title fs-5">{{$tab['title']}}</h3>
+                                <div class="stepper-desc">{{$tab['text']}}</div>
                             </div>
                             <!--end::Label-->
                         </div>
                         <!--end::Wrapper-->
-
                         <!--begin::Line-->
-                        <div class="stepper-line h-40px"></div>
+                        <div class="stepper-line h-20px"></div>
                         <!--end::Line-->
                     </div>
-                    <!--end::Step 1-->
-
-                    <!--begin::Step 2-->
-                    <div class="stepper-item cursor-pointer " data-id="info-form">
-                        <!--begin::Wrapper-->
-                        <div class="stepper-wrapper flex gap-6">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
-                                <i class="bx bx-check fs-2"></i>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                                <h3 class="stepper-title">
-                                    Information
-                                </h3>
-
-                                <div class="stepper-desc">
-                                    Some information for system
-                                </div>
-                            </div>
-                            <!--begin::Label-->
-                        </div>
-                        <!--end::Wrapper-->
-
-                        <!--begin::Line-->
-                        <div class="stepper-line h-40px"></div>
-                        <!--end::Line-->
-                    </div>
-                    <!--end::Step 2-->
-
-                    <!--begin::Step 3-->
-                    <div class="stepper-item cursor-pointer " data-id="location-form"
-                        >
-                        <!--begin::Wrapper-->
-                        <div class="stepper-wrapper flex gap-6">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
-                                <i class="bx bx-check fs-2"></i>
-                            </div>
-                            <!--end::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                                <h3 class="stepper-title">
-                                    Location
-                                </h3>
-
-                                <div class="stepper-desc">
-                                    Information about the location
-                                </div>
-                            </div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Wrapper-->
-
-                        <!--begin::Line-->
-                        <div class="stepper-line h-40px"></div>
-                        <!--end::Line-->
-                    </div>
-                    <!--end::Step 3-->
-
-                    <!--begin::Step 4-->
-                    <div class="stepper-item cursor-pointer " data-id="fields-form"
-                        >
-                        <!--begin::Wrapper-->
-                        <div class="stepper-wrapper flex gap-6">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
-                                <i class="bx bx-check fs-2"></i>
-                            </div>
-                            <!--end::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                                <h3 class="stepper-title">
-                                    Custom fields
-                                </h3>
-
-                                <div class="stepper-desc">
-                                    Custom fields for the item
-                                </div>
-                            </div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Wrapper-->
-
-                        <!--begin::Line-->
-                        <div class="stepper-line h-40px"></div>
-                        <!--end::Line-->
-                    </div>
-                    <!--end::Step 4-->
-
-                    <!--begin::Step 5-->
-                    <div class="stepper-item cursor-pointer " data-id="business-form" 
-                        >
-                        <!--begin::Wrapper-->
-                        <div class="stepper-wrapper flex gap-6">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px pt-3  text-center rounded">
-                                <i class="bx bx-check fs-2"></i>
-                            </div>
-                            <!--end::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                                <h3 class="stepper-title">
-                                    Business info
-                                </h3>
-
-                                <div class="stepper-desc">
-                                    Information about the business
-                                </div>
-                            </div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Wrapper-->
-                    </div>
-                    <!--end::Step 5-->
+                    <!--end::Step {{$key + 1}}-->
+                    @endforeach
                 </div>
                 <!--end::Nav-->
             </div>
-            <div id="content" class="w-2/3 pull-right content ">
+            <div id="content" class="w-full lg:w-2/3 pull-right content ">
                 <form action="{{route('Lead.update', $lead->lead_id)}}" id="form" class="ajax-form" method="POST">
                     @csrf
 
 
-                    <div class="card w-full step-container" id="basic-form">
+                    <div class="card w-full step-container" id="form-content-0">
 
                         <div class="card-body">
 
@@ -177,18 +75,20 @@
                                 </div>
                             </div>
                             <div class="w-full">
+                                
+                                <div class="w-full flex gap-10">
+                                    <div class="form-group w-full" app-field-wrapper="subject"><label for="subject"
+                                            class="control-label">First name</label>
+                                        <input type="text" id="fname" name="first_name" class="form-control form-control-solid"
+                                            autofocus="1" value="{{$lead->first_name}}">
+                                    </div>
 
-                                <div class="form-group w-full" app-field-wrapper="subject"><label for="subject"
-                                        class="control-label">First name</label>
-                                    <input type="text" id="fname" name="first_name" class="form-control form-control-solid"
-                                        autofocus="1" value="{{$lead->first_name}}">
-                                </div>
 
-
-                                <div class="form-group w-full"><label for="subject" class="control-label">Last
-                                        name</label>
-                                    <input type="text" id="lname" name="last_name" class="form-control form-control-solid"
-                                        autofocus="1" value="{{$lead->last_name}}">
+                                    <div class="form-group w-full"><label for="subject" class="control-label">Last
+                                            name</label>
+                                        <input type="text" id="lname" name="last_name" class="form-control form-control-solid"
+                                            autofocus="1" value="{{$lead->last_name}}">
+                                    </div>
                                 </div>
 
                                 <div class="w-full">
@@ -210,7 +110,7 @@
                         </div>
                     </div>
 
-                    <div class="card w-full step-container" id="info-form">
+                    <div class="card w-full step-container" id="form-content-1">
 
                         <div class="card-body">
 
@@ -223,54 +123,50 @@
                             <div class="w-full">
                                 <div class="w-full">
 
+                                    <div class="w-full flex gap-10">
 
-                                    <div class="form-group w-full select-placeholder">
-                                        <label for="rel_type" class="control-label">Type</label>
-                                        <select name="type" id="rel_type"
-                                            class="form-control form-control-solid py-2 select-bootstrap">
-                                            <option value="person" {{$lead->type == 'person' ? 'selected' : ''}}>Person
-                                            </option>
-                                            <option value="company" {{$lead->type == 'company' ? 'selected' : ''}}>
-                                                Company </option>
-                                        </select>
+                                        <div class="form-group w-full select-placeholder">
+                                            <label for="rel_type" class="control-label">Type</label>
+                                            <select name="type" id="rel_type"
+                                                class="form-control form-control-solid py-2 select-bootstrap">
+                                                <option value="person" {{$lead->type == 'person' ? 'selected' : ''}}>Person
+                                                </option>
+                                                <option value="company" {{$lead->type == 'company' ? 'selected' : ''}}>
+                                                    Company </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group w-full select-placeholder">
+                                            <label for="rel_type" class="control-label">Source</label>
+                                            <select name="source_id" id="rel_type"
+                                                class="form-control form-control-solid py-2 select-bootstrap">
+                                                @foreach ($leadSources as $source)
+                                                <option value="{{$source->source_id}}"
+                                                    {{$lead->source_id == $source->source_id ? 'selected' : ''}}>
+                                                    {{$source->name}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
+                                    <div class="w-full flex gap-10">
 
-                                    <div class="form-group w-full select-placeholder">
-                                        <label for="rel_type" class="control-label">Source</label>
-                                        <select name="source_id" id="rel_type"
-                                            class="form-control form-control-solid py-2 select-bootstrap">
-                                            @foreach ($leadSources as $source)
-                                            <option value="{{$source->source_id}}"
-                                                {{$lead->source_id == $source->source_id ? 'selected' : ''}}>
-                                                {{$source->name}} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <div class="w-full">
+                                            <label for="assigned" class="control-label">Assigned To</label>
+                                            @php $selectedStaff = $lead->assigned ?? null; $selectedInputName = 'assigned_to' @endphp
+                                            @include('staff::search-input')
+                                        </div>
 
-                                    <div class="select-placeholder form-group w-full">
-                                        <label for="assigned" class="control-label">Assigned To</label>
-                                        <select id="assigned" name="assigned_to"
-                                            class="select-bootstrap form-control form-control-solid py-2">
-                                            <option value=""></option>
-                                            @foreach ($staffList as $staff)
-                                            <option value="{{$staff->staff_id}}"
-                                                {{$lead->assigned_to == $staff->staff_id ? 'selected' : ''}}>
-                                                {{$staff->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-
-                                    <div class="w-full form-group select-placeholder ">
-                                        <label for="status" class="control-label">Status</label>
-                                        <select name="status" class="select-bootstrap form-control form-control-solid py-2">
-                                            <option value=""> </option>
-                                            @foreach ($statusList as $status)
-                                            <option value="{{$status->status_id}}"
-                                                {{$lead->status == $status->status_id ? 'selected' : ''}}>
-                                                {{$status->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="w-full form-group select-placeholder ">
+                                            <label for="status" class="control-label">Status</label>
+                                            <select name="status" class="select-bootstrap form-control form-control-solid py-2">
+                                                <option value=""> </option>
+                                                @foreach ($statusList as $status)
+                                                <option value="{{$status->status_id}}"
+                                                    {{$lead->status == $status->status_id ? 'selected' : ''}}>
+                                                    {{$status->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -278,7 +174,7 @@
                         </div>
                     </div>
 
-                    <div class="card w-full step-container" id="location-form">
+                    <div class="card w-full step-container" id="form-content-2">
                         <div class="card-body">
                             <div class="mb-2 text-start">
                                 <h3 class="mb-3">Location Info</h3>
@@ -343,8 +239,7 @@
                         </div>
                     </div>
                 
-                    @if (!empty($custom_fields))
-                    <div class="card w-full step-container"  id="fields-form">
+                    <div class="card w-full step-container"  id="form-content-3">
                         <div class="card-body">
                             <div class="mb-2 text-start">
                                 <h3 class="mb-3">Custom Fields</h3>
@@ -352,16 +247,17 @@
                                     <p class="fw-semibold">Custom Fields related to the Lead</p>.
                                 </div>
                             </div>
+                            @if (!empty($custom_fields))
                             <div class="w-full ">
                                 @foreach ($custom_fields as $field)
                                     <?php $currentVal = $lead->field[$field->name] ?? ''; ?>
                                     @include('custom_field::field_input')
                                 @endforeach
                             </div>
+                            @endif
                         </div>
                     </div>
-                    @endif
-                    <div class="card w-full step-container"  id="business-form">
+                    <div class="card w-full step-container"  id="form-content-4">
                         <div class="card-body">
 
                             <div class="mb-2 text-start">
@@ -389,10 +285,7 @@
 
                             <div
                                 class=" mt-4 btn-bottom-toolbar bottom-transaction text-right sm:tw-flex sm:tw-items-center sm:tw-justify-between">
-                                <p class="no-mbot pull-left  btn-toolbar-notice tw-hidden sm:tw-block">
-                                    Include proposal items with merge field anywhere in proposal content as
-                                    <b>{proposal_items}</b>
-                                </p>
+                               
                                 <div>
                                     <a href="{{route('Lead')}}"
                                         class="btn btn-default mleft10 proposal-form-submit save-and-send transaction-submit">
@@ -411,30 +304,9 @@
         </div>
     </div>
 
-@endsection
-@section('script')
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-<script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
-<script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
-<script>
-    jQuery(document).ready(function(e){
-        // jQuery('#content').css({'margin-left': (jQuery('#form-sidebar').width()+20)+'px'})
-        jQuery('.content-wrapper').addClass('flex')
-        jQuery(document).on('click', '.stepper-item', function(e){
-            document.getElementById(jQuery(this).data('id')).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-            // return jQuery('.step-container,.step-item').addClass('hidden'), 
-            // jQuery('#'+jQuery(this).data('id')).removeClass('hidden'), 
-            jQuery('.stepper-icon').removeClass('bg-success'), 
-            jQuery(this).children().children('.stepper-icon').addClass('bg-success'); 
-        })
-        
-        var stickySidebar = new StickySidebar('#form-sidebar', {
-            topSpacing: 20,
-            bottomSpacing: 0,
-            containerSelector: '.content-wrapper',
-            innerWrapperSelector: '.stepper-nav'
-        });
-    })
-</script>
+    <script>
+        setTimeout(() => { MediansSettings.stepper() }, 1000);
+    </script>
+    @yield('search-scripts')
+
 @endsection

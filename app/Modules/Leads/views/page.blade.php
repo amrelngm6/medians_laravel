@@ -22,7 +22,7 @@
                                 <a href="{{route('dashboard')}}"><i class="fa fa-home"></i>Home</a>
                             </li>
                             <li>
-                                <a href="javascript:;">Leads</a>
+                                <a href="{{route('Lead')}}">Leads</a>
                             </li>
                             <li class="active">
                                 <strong>Lead Page</strong>
@@ -103,7 +103,7 @@
                                                 class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
-                                                    <div class="fs-2 fw-bold counted w-full">{{$lead->tasks_count}}</div>
+                                                    <div class="fs-2 fw-bold counted w-full">{{$lead->tasks->count()}}</div>
                                                     <i class='bx bx-cart fs-1 text-danger'></i>
                                                 </div>
                                                 <!--end::Number-->
@@ -121,7 +121,7 @@
                                                 class="border border-gray-300 border-dashed rounded min-w-150px py-3 px-4 me-6 mb-3">
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
-                                                    <div class="fs-2 fw-bold counted w-full">${{$lead->calls_count}}</div>
+                                                    <div class="fs-2 fw-bold counted w-full">{{$lead->calls ? $lead->calls->count() : 0}}</div>
                                                     <i class='bx bxs-credit-card fs-1 text-danger'></i>
                                                 </div>
                                                 <!--end::Number-->
@@ -216,5 +216,7 @@
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+<script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
+<script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

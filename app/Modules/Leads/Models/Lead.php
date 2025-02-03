@@ -9,6 +9,7 @@ use App\Modules\Customers\Models\Staff;
 use App\Modules\Leads\Models\LeadSource;
 use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\ModelField;
+use App\Modules\Tasks\Models\Task;
 
 class Lead extends Model
 {
@@ -76,6 +77,14 @@ class Lead extends Model
     public function contacts()
     {
         return $this->morphMany(Contact::class, 'model');
+    }
+    
+    /**
+     * Load All Contacts of Client
+     */
+    public function tasks()
+    {
+        return $this->morphMany(Task::class, 'model');
     }
 
     /**
