@@ -54,7 +54,7 @@
                                             @if ($lead->deal)
                                             <a href="javascript:;" class="text-gray-600 text-hover-primary fs-6 fw-bold me-1">Converted to Deal: <b>{{$lead->deal->name}}</b></a>
                                             @else
-                                            <a href="{{route('Deal.convert_lead_modal', $lead->lead_id)}}" class="open-modal label rounded bg-primary text-white hoverbg-primary mx-6 fs-7 fw-bold me-1">Converted to Deal</a>
+                                            <a href="{{route('Deal.convert_lead_modal', $lead->lead_id)}}" class="open-modal label rounded bg-primary text-white hoverbg-primary mx-6 fs-7 fw-bold me-1">Make a Deal</a>
                                             @endif
                                         </div>
                                         <!--end::Name-->
