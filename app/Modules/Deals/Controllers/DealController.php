@@ -295,16 +295,25 @@ class DealController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $deal = $this->service->updateDeal($id, $request->only('name', 'status', 'description', 'id','location_info','staff_id'));
+        try{    
+            $deal = $this->service->updateDeal($id, $request->only('name', 'status', 'description', 'id','location_info','staff_id'));
 
-        return $deal ? response()->json([
-            'success' => true,
-            'no_reset' => true,
-            'title' => 'Done',
-            'result' =>  'Updated successfully',
-        ], 200) : null;
+            return $deal ? response()->json([
+                'success' => true,
+                'no_reset' => true,
+                'title' => 'Done',
+                'result' =>  'Updated successfully',
+            ], 200) : null;
 
+        } catch (\Throwable $th) {
+           
+            return response()->json([
+                'success' => false,
+                'title' => 'Done',
+                'error' =>  $th->getMessage(),
+            ], 400);
+
+        }
     }
 
     /**

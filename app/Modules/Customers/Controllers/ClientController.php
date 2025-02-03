@@ -55,75 +55,6 @@ class ClientController extends Controller
         return view('clients::client_create');
     }
 
-    /**
-     * Store a newly created client in the database.
-     */
-    public function store(Request $request, $output = 'json')
-    {
-
-        // Validate incoming request data
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'file' => 'image|max:2048',
-            'email' => 'required|email|unique:clients,email',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-        
-        $data = [];
-        $data['business_id'] = Auth::user()->business_id ?? 0;
-        $data['created_by'] = Auth::user()->id() ?? 0;
-        
-        // Create and save the client
-        $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'email')));
-
-        $handlePicture = $this->handleUploads($request, 'avatar', $client);
-        
-        return $output == 'json' ? $handlePicture : $client;
-    }
-
-    public function handleUploads(Request $request, String $key = 'avatar', Client $client) 
-    {
-        if (!$request->hasFile($key)) {
-            return;
-        }
-        
-        $request->validate([
-            $key => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the file
-        ]);
-
-        // Define the target folder
-        $targetFolder = public_path('images');
-        
-        // Ensure the folder exists
-        if (!is_dir($targetFolder)) {
-            mkdir($targetFolder, 0755, true);
-        }
-
-        // Get the uploaded file
-        $file = $request->file($key);
-
-        // Define the filename as avatar with the original extension
-        $fileName = 'avatar-' .rand(9999,99999).'-'.$client->client_id.'.'. $file->getClientOriginalExtension();
-
-        // Move the file to the images folder
-        $file->move($targetFolder, $fileName);
-        
-        $path = 'images/'.$fileName;
-
-        // Save the path to the user's profile
-        $update = $client->update(['picture' => $path]);
-        
-        return $update;
-    }
-    
 
     /**
      * Display the specified client.
@@ -173,6 +104,82 @@ class ClientController extends Controller
 
     }
 
+    
+    /**
+     * Store a newly created client in the database.
+     */
+    public function store(Request $request, $output = 'json')
+    {
+
+        // Validate incoming request data
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'file' => 'image|max:2048',
+            'email' => 'required|email|unique:clients,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        
+        $data = [];
+        $data['business_id'] = Auth::user()->business_id ?? 0;
+        $data['created_by'] = Auth::user()->id() ?? 0;
+        
+        // Create and save the client
+        $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'email')));
+
+        $handlePicture = $this->handleUploads($request, 'avatar', $client);
+        
+        return $output == 'json' ? $handlePicture : $client;
+    }
+
+    public function handleUploads(Request $request, String $key = 'avatar', Client $client) 
+    {
+        try {
+            
+            if (!$request->hasFile($key)) {
+                return;
+            }
+            
+            $request->validate([
+                $key => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the file
+            ]);
+
+            // Define the target folder
+            $targetFolder = public_path('images');
+            
+            // Ensure the folder exists
+            if (!is_dir($targetFolder)) {
+                mkdir($targetFolder, 0755, true);
+            }
+
+            // Get the uploaded file
+            $file = $request->file($key);
+
+            // Define the filename as avatar with the original extension
+            $fileName = 'avatar-' .rand(9999,99999).'-'.$client->client_id.'.'. $file->getClientOriginalExtension();
+
+            // Move the file to the images folder
+            $file->move($targetFolder, $fileName);
+            
+            $path = 'images/'.$fileName;
+
+            // Save the path to the user's profile
+            $update = $client->update(['picture' => $path]);
+            
+            return $update;
+            
+        } catch (\Throwable $th) {
+            throw new \Throwable($th->getMessage(), 1);
+        }
+    }
+    
     /**
      * Update the specified client in the database.
      */
@@ -199,9 +206,11 @@ class ClientController extends Controller
         }
 
         // Update client details
-        $update = $this->service->updateCustomer($client_id, $request->only('first_name','last_name', 'email', 'phone', 'about', 'status', 'location_info'));
+        $client = $this->service->updateCustomer($client_id, $request->only('first_name','last_name', 'email', 'phone', 'about', 'status', 'location_info'));
 
-        return $update ? response()->json([
+        $handlePicture = $this->handleUploads($request, 'avatar', $client);
+
+        return $client ? response()->json([
             'success' => true,
             'result' => 'Client updated successfully',
             'redirect' => $request->redirect ? route('Client.overview', $client_id) : null

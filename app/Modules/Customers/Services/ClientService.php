@@ -63,13 +63,14 @@ class ClientService
         // Find the Client
         $Client = $this->find($id);
 
-        if ($Client  && isset($data['location_info']))
+        if ($Client  && !empty($data['location_info']))
         {
             $saveLocation = $this->createLocationInfo($Client, $data['location_info']);
         }
 
+        $update = $Client->update($data);
         // Update Client details
-        return $Client->update($data);
+        return $Client;
     }
 
     

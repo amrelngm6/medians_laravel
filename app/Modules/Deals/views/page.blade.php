@@ -73,6 +73,8 @@
                                         <a href="{{route('Deal.update', $deal->id)}}?status=won&_token={{csrf_token()}}" class="reload-ajax ajax-link btn flex gap-2 btn-primary me-2" 
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="You Won the Deal"
+                                            data-confirm="Confirm"
+                                            data-confirm-text="Did you won the Deal ?"
                                             data-reload-href="{{Request::url()}}" data-reload-id="main-content"
                                             id="won-btn">
                                             <i class='bx bx-smile fs-1 '></i>
@@ -83,6 +85,8 @@
                                         <a href="{{route('Deal.update', $deal->id)}}?status=lose&_token={{csrf_token()}}" class="reload-ajax ajax-link btn flex gap-2 btn-light me-2" 
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="You Lose the Deal"
+                                            data-confirm="Confirm"
+                                            data-confirm-text="Did you lose the Deal ?"
                                             data-reload-href="{{Request::url()}}" data-reload-id="main-content"
                                             id="lose-btn">
                                             <i class='bx bxs-sad fs-1'></i>

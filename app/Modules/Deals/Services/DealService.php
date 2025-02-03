@@ -39,7 +39,7 @@ class DealService
     {
         $deal = Deal::firstOrCreate($data);
         
-        if ($deal  && isset($data['location_info']))
+        if ($deal  && !empty($data['location_info']))
         {
             $saveLocation = $this->storeLocationInfo($deal, $data['location_info']);
         }
@@ -56,20 +56,26 @@ class DealService
 
     public function updateDeal($id, array $data)
     {
-        $deal = $this->find($id);
-        $update = $deal->update($data);
-        
-        if ($deal  && isset($data['location_info']))
-        {
-            $saveLocation = $this->storeLocationInfo($deal, $data['location_info']);
-        }
+        try {
+            
+            $deal = $this->find($id);
+            $update = $deal->update($data);
+            
+            if ($deal  && !empty($data['location_info']))
+            {
+                $saveLocation = $this->storeLocationInfo($deal, $data['location_info']);
+            }
 
-        if ($deal  && isset($data['staff_id']))
-        {
-            $saveStaff = $this->storeStaffAssignee($deal, $data['staff_id']);
-        }
+            if ($deal  && isset($data['staff_id']))
+            {
+                $saveStaff = $this->storeStaffAssignee($deal, $data['staff_id']);
+            }
 
-        return $deal;
+            return $deal;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
     
     public function deleteDeal($id)
@@ -104,6 +110,7 @@ class DealService
         $modelData['model_id'] = $Deal->id;
 
         $locationInfo = LocationInfo::firstOrCreate($modelData);
+        $data['country'] = $data['country'] ?? '';
 
         return $locationInfo->update($data);
     }

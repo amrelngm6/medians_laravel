@@ -49,7 +49,7 @@ class LeadService
         // Create and save the Lead
         $Lead = Lead::create($data);
 
-        if ($Lead  && isset($data['location_info']))
+        if ($Lead  && !empty($data['location_info']))
         {
             $saveLocation = $this->storeLocationInfo($Lead, $data['location_info']);
         }
@@ -68,7 +68,7 @@ class LeadService
         // Find the Lead
         $Lead = Lead::forBusiness(Auth::user()->business_id ?? 0)->findOrFail($leadId);
 
-        if ($Lead  && isset($data['location_info']))
+        if ($Lead  && !empty($data['location_info']))
         {
             $saveLocation = $this->storeLocationInfo($Lead, $data['location_info']);
         }

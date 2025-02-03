@@ -65,7 +65,7 @@ class StaffService
         // Find the Staff
         $Staff = $this->find($id);
 
-        if ($Staff  && isset($data['location_info']))
+        if ($Staff  && !empty($data['location_info']))
         {
             $saveLocation = $this->createLocationInfo($Staff, $data['location_info']);
         }
