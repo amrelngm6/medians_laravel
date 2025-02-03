@@ -206,7 +206,7 @@
 </div>
 
 
-@foreach ($components as $component)
+@foreach ($overview_components as $component)
     {!! $component !!}
 @endforeach
 
