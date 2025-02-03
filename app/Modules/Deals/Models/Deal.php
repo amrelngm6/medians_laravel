@@ -76,7 +76,7 @@ class Deal extends Model
     /**
      * Related activities
      */
-    public function activities()
+    public function activities($limit = 10)
     {
         $model = $this;
         return ActivityModel::where(function ($q) use ($model) {
@@ -102,6 +102,7 @@ class Deal extends Model
         })
         ->orderBy('id','DESC')
         ->latest()
+        ->limit($limit)
         ->get();
     }
     
