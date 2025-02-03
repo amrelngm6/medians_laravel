@@ -24,6 +24,7 @@
      
     <!-- CORE CSS TEMPLATE - START -->
     <link href="{{ asset('assets/css/tailwind.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/tailwind.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <!-- CORE CSS TEMPLATE - END -->

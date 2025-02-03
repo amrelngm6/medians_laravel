@@ -23,7 +23,7 @@ $tabsList = [
             <div class="w-350px pull-left px-0 " id="form-sidebar"
                 class="rounded d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
                 <!--begin::Nav-->
-                <div class="bg-white   stepper-nav py-14 px-10 ">
+                <div class="bg-white   stepper-nav py-14 px-6 ">
                     @foreach ($tabsList as $key => $tab)
                     <!--begin::Step 1-->
                     <div class="stepper-item cursor-pointer  " data-id="form-content-{{$key}}">
@@ -49,7 +49,7 @@ $tabsList = [
                 </div>
                 <!--end::Nav-->
             </div>
-            <div id="content" class="w-2/3 pull-right content ">
+            <div id="content" class="w-full lg:w-2/3 pull-right content ">
                 <form action="{{route('Deal.update', $deal->id)}}" id="form" class="ajax-form" method="POST">
                     @csrf
                     <div class="card w-full step-container" id="form-content-0">

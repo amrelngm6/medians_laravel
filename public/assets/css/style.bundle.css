@@ -76,3 +76,8 @@
     
 
 
+
+    
+@media (max-width: 680px) {
+    #form-sidebar {display: none !important;}
+}
