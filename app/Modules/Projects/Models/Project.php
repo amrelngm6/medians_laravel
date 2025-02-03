@@ -12,6 +12,7 @@ use App\Modules\Core\Models\Status;
 use App\Modules\Customers\Models\Client;
 use App\Modules\Actions\Models\Comment;
 use App\Modules\Tasks\Models\Task;
+use App\Modules\Tasks\Models\TaskChecklist;
 use App\Modules\Activities\Models\ActivityModel;
 
 class Project extends Model
@@ -51,16 +52,40 @@ class Project extends Model
     /**
      * Project related Files as Morph
      */
-    public function activities()
+    public function activities($limit = 20)
     {
+        
         $model = $this;
-        return ActivityModel::whereHas("subject", function ($q) use ($model) {
-                return !method_exists($model, 'model') ? $q->where('subject_type', Project::class) :  $q->whereHas("model", function ($q) use ($model) {
-                    return  $q->where('model_id', $model->{$model->getKeyName()})->where('model_type', get_class($model));
-                });
-            })
-            ->latest()
-            ->get();
+        return ActivityModel::where(function ($q) use ($model) {
+            return $q->where('subject_type', Project::class)->where('subject_id', $model->project_id);
+        })
+        ->orWhere(function ($q) use ($model) {
+            $q->where('subject_type', Task::class)
+                  ->whereIn('subject_id', function ($q) use ($model) {
+                      $q->select('task_id')
+                            ->from('tasks')
+                            ->where('model_id', $model->project_id)
+                            ->where('model_type', get_class($model));
+                  });
+        })
+        ->orWhere(function ($q) use ($model) {
+            $q->where('subject_type', TaskChecklist::class)
+                  ->whereIn('subject_id', function ($q) use ($model) {
+                      $q->select('id')
+                            ->from('task_checklists')
+                            ->whereIn('task_id', function ($q) use ($model) {
+                                $q->select('task_id')
+                                    ->from('tasks')
+                                    ->where('model_id', $model->project_id)
+                                    ->where('model_type', get_class($model));
+
+                      });
+                  });
+        })
+        ->orderBy('id','DESC')
+        ->latest()
+        ->limit($limit)
+        ->get();
     }
     
     
