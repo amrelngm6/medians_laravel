@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\Auth;
+
+use App\Modules\Customers\Services\ClientService;
+use App\Modules\Customers\Controllers\ClientController;
 use App\Modules\Deals\Services\DealService; 
 use App\Modules\Tasks\Services\TaskService;
+use App\Modules\Leads\Services\LeadService;
 use App\Http\Controllers\Controller;
 use App\Modules\Deals\Events\DealSaved;
 use App\Modules\Deals\Events\DealPage;
@@ -207,7 +211,7 @@ class DealController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, $output = 'json')
     {
         
         
@@ -217,6 +221,8 @@ class DealController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'expected_due_date' => 'date',
+            'amount' => 'min:1',
+            'pipeline_id' => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {
@@ -236,12 +242,12 @@ class DealController extends Controller
 
         isset($deal->id) ? event(new DealSaved($request, $deal)) : '';
 
-        return $deal ? response()->json([
+        return ($deal && $output == 'json') ? response()->json([
             'success' => true,
             'title' => 'Done',
             'reload' => true,
             'result' => 'Created',
-        ], 200) : null;
+        ], 200) : $deal;
     }
 
 
@@ -372,7 +378,7 @@ class DealController extends Controller
      * Load Modal to Convert Lead to Deal
      * 
      */
-    public function converLeadModal(Request $request, $lead_id)
+    public function convertLeadModal(Request $request, $lead_id)
     {
         $lead = $this->service->getLead($lead_id);
 
@@ -385,11 +391,29 @@ class DealController extends Controller
      * Convert Lead to Deal
      * 
      */
-    public function converLead(Request $request, $lead_id)
+    public function convertLead(Request $request, $lead_id)
     {
-        $lead = $this->service->getLead($lead_id);
+        
+        $leadService = new LeadService;
+        $lead = $leadService->find( $lead_id );
+        
+        // Validate incoming request data
+        $deal = $this->store($request, 'object');
 
-        return view('deal::convert-lead-modal', compact('lead'));
+        if (method_exists($deal,'getContent')) 
+            return $deal->getContent();
+
+            
+        
+        $clientController = new ClientController(new ClientService);
+        $client = $clientController->store( $request, 'object');
+        if (method_exists($client,'getContent')) 
+            return $client->getContent();
+
+        $dealClient = $deal->update(['client_id'=> $client->id() ]);
+
+        return $dealClient ? $this->jsonResponse('New deal has been created', 'Deal create', null, route('Deal.show', $deal->id)) : '';
+        // return view('deal::convert-lead-modal', compact('lead'));
 
     }
 }

@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\Customers\Models\Staff;
 use App\Modules\Core\Models\LocationInfo;
 use App\Modules\Core\Models\ModelMember;
+use App\Models\Auth;
 
 class Deal extends Model
 {
     
     protected $table = 'deals';
 
-    protected $fillable = ['business_id', 'name', 'expected_due_date', 'description', 'amount', 'lead_id', 'status', 'created_by'];
+    protected $fillable = ['business_id', 'name', 'expected_due_date', 'description', 'amount', 'lead_id', 'client_id', 'status', 'created_by'];
 
     
     /**
@@ -47,6 +48,8 @@ class Deal extends Model
     {
         return $this->morphOne(LocationInfo::class, 'model');
     }
+
+    
 
 
     /**

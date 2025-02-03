@@ -16,7 +16,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Deal.store')}}">
+                <form id="modal_conver_lead_form" method="POST" class="ajax-form form" action="{{route('Deal.convert_lead', $lead->lead_id)}}">
                     @csrf
                     <input name="lead_id" type="hidden" value="{{$lead->lead_id}}" />
                     

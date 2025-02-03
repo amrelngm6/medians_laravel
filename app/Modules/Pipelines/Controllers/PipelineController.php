@@ -2,7 +2,7 @@
 
 namespace App\Modules\Pipelines\Controllers;
 
-
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -176,7 +176,10 @@ class PipelineController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
-                'sort' => "required|unique:clients,email,{$client_id},client_id",
+                'sort' => "required|unique:pipeline_stages,sort,{$request->sort},pipeline_id,{}",
+                'sort' => ["required","integer",Rule::unique('pipeline_stages')->where(function ($query) use ($request) {
+                    return $query->where('sort', $request->sort)->where('pipeline_id', $request->pipeline_id);
+                })],
                 'color' => 'required',
             ]);
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('expected_due_date')->nullable();
             $table->text('description')->nullable();
             $table->integer('lead_id')->default(0);
+            $table->integer('client_id')->default(0);
             $table->decimal('amount', 2)->default(0);
             $table->enum('status', ['0','won','lose']);
             $table->integer('created_by');

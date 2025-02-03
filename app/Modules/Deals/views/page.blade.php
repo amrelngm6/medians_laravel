@@ -81,13 +81,14 @@
                                                 Lose</span>
                                         </a>
                                         @endif  
-
+                                        @if (!empty($deal->assigned))
                                         <a href="{{route('Deal.tabs.edit', $deal->id)}}#form-content-1" class="flex gap-2   "
                                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                             data-content="Assigned to {{$deal->assigned->user->name ?? ''}}">
                                             <img class='w-10 h-10 p-1 rounded-circle' src='/{{$deal->assigned->user->picture ?? ""}}' /> 
                                             <span class="pt-2 fs-6 fw-bold text-danger">{{$deal->assigned->user->name ?? ''}} </span>
                                         </a>
+                                        @endif  
                                     </div>
                                 </div>
                             </div>

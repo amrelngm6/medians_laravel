@@ -58,7 +58,7 @@ class ClientController extends Controller
     /**
      * Store a newly created client in the database.
      */
-    public function store(Request $request)
+    public function store(Request $request, $output = 'json')
     {
 
         // Validate incoming request data
@@ -79,14 +79,14 @@ class ClientController extends Controller
         
         $data = [];
         $data['business_id'] = Auth::user()->business_id ?? 0;
-        $data['created_by'] = Auth::user()->client_id ?? 0;
+        $data['created_by'] = Auth::user()->id() ?? 0;
         
         // Create and save the client
         $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'email')));
 
         $handlePicture = $this->handleUploads($request, 'avatar', $client);
         
-        return $handlePicture;
+        return $output == 'json' ? $handlePicture : $client;
     }
 
     public function handleUploads(Request $request, String $key = 'avatar', Client $client) 

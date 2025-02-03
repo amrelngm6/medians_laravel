@@ -9,7 +9,7 @@ Route::prefix('deals')->middleware(['web', 'auth:superadmin,staff'])->group(func
     Route::get('/{id}/edit-stage', [DealController::class, 'edit_stage'])->name('DealStage.edit');
     Route::get('/{id}/edit_field', [DealController::class, 'edit_task_field'])->name('Deal.edit_field');
     Route::get('/create', [DealController::class, 'create'])->name('Deal.create');
-    Route::get('{id}', [DealController::class, 'show'])->name('Deal.show');
+    Route::get('{id}', [DealController::class, 'overview'])->name('Deal.show');
     Route::post('/', [DealController::class, 'store'])->name('Deal.store');
     Route::post('{id}/update', [DealController::class, 'update'])->name('Deal.update');
     Route::post('{id}/update-stage', [DealController::class, 'updateStage'])->name('DealStage.update');
@@ -20,7 +20,7 @@ Route::prefix('deals')->middleware(['web', 'auth:superadmin,staff'])->group(func
     // Page Tabs
     Route::get('/{id}/overview', [DealController::class, 'overview'])->name('Deal.tabs.overview');
     Route::get('/{id}/edit', [DealController::class, 'edit'])->name('Deal.tabs.edit');
-    Route::get('/convert-lead-modal/{lead_id}', [DealController::class, 'converLeadModal'])->name('Deal.convert_lead_modal');
+    Route::get('/convert-lead-modal/{lead_id}', [DealController::class, 'convertLeadModal'])->name('Deal.convert_lead_modal');
 
     // Conver lead to Deal
     Route::post('/convert-lead/{lead_id}', [DealController::class, 'convertLead'])->name('Deal.convert_lead');
