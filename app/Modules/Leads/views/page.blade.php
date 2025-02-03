@@ -52,7 +52,7 @@
                                         <div class="d-flex align-items-center mb-2">
                                             <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$lead->name}}</a>
                                             @if ($lead->deal)
-                                            <a href="javascript:;" data-toggle="popover" rel="popover"  data-content="Converted to Deal: <b>( {{$lead->deal->name}} )</b>" data-trigger="hover" data-html="true" class="mx-4 text-gray-600 text-hover-primary fs-7 fw-bold me-1">Deal: <b>{{$lead->deal->name}}</b></a>
+                                            <a href="{{route('Deal.show', $lead->deal->id)}}" data-toggle="popover" rel="popover"  data-content="Converted to Deal: <b>( {{$lead->deal->name}} )</b>" data-trigger="hover" data-html="true" class="mx-4 text-gray-600 text-hover-primary fs-7 fw-bold me-1">Deal: <b>{{$lead->deal->name}}</b></a>
                                             @else
                                             <a href="{{route('Deal.convert_lead_modal', $lead->lead_id)}}" class="open-modal label rounded bg-primary text-white hoverbg-primary mx-6 fs-7 fw-bold me-1">Make a Deal</a>
                                             @endif
