@@ -176,7 +176,7 @@ class DealController extends Controller
         $deal = $this->service->find($id);
 
         $taskService = new TaskService;
-        $tasks = $taskService->query($request, $deal->id, get_class($deal));
+        $tasks = $taskService->query($request, $deal->id, get_class($deal))->get();
 
         $statusList = $taskService->loadStatusList();
 
@@ -196,7 +196,7 @@ class DealController extends Controller
         $modelId = $deal->id;
 
         $taskService = new TaskService;
-        $tasks = $taskService->query($request, $deal->id, get_class($deal));
+        $tasks = $taskService->query($request, $deal->id, get_class($deal))->get();
         $statusList = $taskService->loadStatusList();
 
         $context = ['components' => []];

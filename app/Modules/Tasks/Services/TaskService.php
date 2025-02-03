@@ -105,7 +105,6 @@ class TaskService
         $query = Task::forBusiness(Auth::user()->business_id ?? null)
                  ->with('team','checklist', 'model');
 
-                 
         if (!empty($modelId) && !empty($modelType))
         {
             $query->where('model_id', $modelId) ->where('model_type', $modelType);
@@ -138,8 +137,6 @@ class TaskService
             $query->whereDate('due_date', '>=', date('Y-m-d', strtotime($date[0])));
             $query->whereDate('due_date', '<', date('Y-m-d', strtotime($date[1] . ' +1 day')));
         }
-
-        
 
         return $query;
     }

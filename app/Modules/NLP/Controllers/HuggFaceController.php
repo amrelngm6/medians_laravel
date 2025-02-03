@@ -79,6 +79,21 @@ class HuggFaceController extends Controller
         }
     }
 
+    public function translateText(Request $request)
+    {
+        try {
+
+            $user = Auth::user();
+
+            $response = $this->service->translateText($request->message, $request->model);
+
+            return $response;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
+    }
+
     public function generateImageFromImage(Request $request)
     {
         try {

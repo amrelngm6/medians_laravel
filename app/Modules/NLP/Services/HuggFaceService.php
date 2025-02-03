@@ -75,17 +75,62 @@ class HuggFaceService
                 
             ]);
             
+            // Handle errors
             $formatedResponse = $this->formatResponse($response, $text);
             $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);
-            $update = $save->update([
-                'reply' => $result
-            ]);
             
             
         } catch (\Throwable $th) {
+            $update = $save->update([
+                'reply' => $response->getBody()->getContents()
+            ]);
             return $th->getMessage();
         }
+
+        $update = $save->update([
+            'reply' => $result
+        ]);
+            
         return $result;
+    }
+    
+    public function translateText(string $text, $model = '')
+    {
+        $user = Auth::user();
+
+        $save = NLPChat::firstOrCreate([
+            'business_id' => $user->business_id ?? 0,
+            'user_id' => $user->id(),
+            'user_type' => get_class($user),
+            'description' => $text,
+            'model_name' => $model,
+        ]);
+
+        try {
+                
+            $response = $this->client->post("models/$model", [
+                'json' => ['inputs' => $text  , 
+                    'options' => [
+                        'use_cache' => true,
+                        'wait_for_model' => true, // Wait if the model is loading
+                    ]],
+            ]);
+            
+            // Handle errors
+            $responseText = json_decode($response->getBody()->getContents(), true)[0]['translation_text'] ?? '';
+            
+        } catch (\Throwable $th) {
+            $update = $save->update([
+                'reply' => json_encode($response->getBody()->getContents())
+            ]);
+            return $th->getMessage();
+        }
+
+        $update = $save->update([
+            'reply' => $responseText
+        ]);
+            
+        return $responseText;
     }
 
 
@@ -228,7 +273,8 @@ class HuggFaceService
 
 
         } catch (\Throwable $th) {
-            $responseText = 'Error: ' . $th->getMessage();
+            
+            $responseText = 'Error:  ' . $th->getMessage().' '. $response->getBody()->getContents();
         }
         return trim(str_replace([$text, '```json ', '```', '. json '], '', $responseText), "`");
     }
