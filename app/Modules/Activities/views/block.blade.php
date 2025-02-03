@@ -16,7 +16,7 @@
                         <!--end::Timeline icon-->
 
                         <!--begin::Timeline content-->
-                        <div class="timeline-content mb-10 mt-n1">
+                        <div class="timeline-content  mt-n1">
                             <!--begin::Timeline heading-->
                             <div class="pe-3 mb-5">
                                 <!--begin::Title-->
