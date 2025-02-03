@@ -132,7 +132,7 @@ class ClientController extends Controller
         $data['created_by'] = Auth::user()->id() ?? 0;
         
         // Create and save the client
-        $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'email')));
+        $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'about', 'phone', 'email')));
 
         $handlePicture = $this->handleUploads($request, 'avatar', $client);
         

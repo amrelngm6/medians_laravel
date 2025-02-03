@@ -24,6 +24,7 @@
 
                         <!--begin::Col-->
                         <div class="col-lg-8">
+                            <img class="w-10 h-10 p-1 rounded-circle" src="/{{$deal->client->picture ?? ''}}" />
                             <span class="fw-bold fs-6 text-gray-800">{{$deal->client->name}}</span>
                         </div>
                         <!--end::Col-->
