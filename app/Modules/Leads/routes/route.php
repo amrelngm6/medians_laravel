@@ -26,6 +26,7 @@ Route::prefix('leads')->middleware(['web', 'auth:staff'])->group(function () {
     Route::post('{id}', [LeadController::class, 'update'])->name('Lead.update');
     Route::delete('{id}', [LeadController::class, 'destroy'])->name('Lead.delete');
     
+    Route::get('/{id}/show', [LeadController::class, 'overview'])->name('Lead.show');
     Route::get('/{id}/overview', [LeadController::class, 'overview'])->name('Lead.tabs.overview');
     Route::get('/{id}/settings', [LeadController::class, 'settings'])->name('Lead.tabs.settings');
     Route::get('/{id}/edit', [LeadController::class, 'edit'])->name('Lead.tabs.edit');

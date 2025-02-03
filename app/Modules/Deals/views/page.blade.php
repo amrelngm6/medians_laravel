@@ -45,6 +45,15 @@
                                         class="d-flex align-items-center text-muted text-hover-primary me-5 mb-2">
                                         {{$deal->location_info->city ?? ''}}, {{$deal->location_info->country ?? ''}}
                                     </a>
+                                    
+                                    @if (!empty($deal->lead))
+                                    <a href="{{route('Lead.show', $deal->lead_id)}}" 
+                                        rel="popover" data-toggle="popover" data-html="true" data-placement="top" data-trigger="hover"
+                                        data-title="Lead #{{$deal->lead_id ?? ''}}"
+                                        data-content="Created from <b>Lead</b> ( {{$deal->lead->name ?? ''}} )">
+                                        <span class="pt-2 fs-6 fw-bold text-danger">Lead: #{{$deal->lead_id}} </span>
+                                    </span>
+                                    @endif 
                                 </div>
                                 <!--end::Info-->
                             </div>

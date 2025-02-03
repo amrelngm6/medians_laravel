@@ -52,7 +52,7 @@
                                         <div class="d-flex align-items-center mb-2">
                                             <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$lead->name}}</a>
                                             @if ($lead->deal)
-                                            <a href="javascript:;" class="text-gray-600 text-hover-primary fs-6 fw-bold me-1">Converted to Deal: <b>{{$lead->deal->name}}</b></a>
+                                            <a href="javascript:;" data-toggle="popover" rel="popover"  data-content="Converted to Deal: <b>( {{$lead->deal->name}} )</b>" data-trigger="hover" data-html="true" class="mx-4 text-gray-600 text-hover-primary fs-7 fw-bold me-1">Deal: <b>{{$lead->deal->name}}</b></a>
                                             @else
                                             <a href="{{route('Deal.convert_lead_modal', $lead->lead_id)}}" class="open-modal label rounded bg-primary text-white hoverbg-primary mx-6 fs-7 fw-bold me-1">Make a Deal</a>
                                             @endif
@@ -84,22 +84,6 @@
                                     <div class="d-flex flex-column flex-grow-1 pe-8">
                                         <!--begin::Stats-->
                                         <div class="d-flex flex-wrap">
-                                            <!--begin::Stat-->
-                                            <div
-                                                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                <!--begin::Number-->
-                                                <div class="d-flex align-items-center">
-                                                    <div class="fs-2 fw-bold counted w-full">${{$lead->budget}}</div>
-                                                    <i class='bx bxs-wallet fs-1 text-danger'></i>
-
-                                                </div>
-                                                <!--end::Number-->
-
-                                                <!--begin::Label-->
-                                                <div class="fw-semibold fs-6 text-muted">Budget</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Stat-->
 
                                             <!--begin::Stat-->
                                             <div
@@ -148,9 +132,9 @@
                                 <!--begin::Stats-->
                                 <div class="d-flex flex-wrap flex-stack">
                                     <!--begin::Progress-->
-                                    <div class="d-flex align-items-center flex-column ">
+                                    <div class="d-flex align-items-center w-full gap-10">
 
-                                        <div class="card card-flush p-0 mb-0">
+                                        <div class=" p-0 mb-0">
 
                                             <!--begin::Card body-->
                                             <div class="card-body p-0 fs-6">
@@ -161,7 +145,7 @@
                                                     <div class="d-flex align-items-center gap-10">
                                                         @if ($lead->company)
                                                         <!--begin::Info-->
-                                                        <div class="d-flex flex-column">
+                                                        <div class="d-flex flex-column" data-toggle="popover" rel="popover"  data-content="This is <b>{{ucfirst($lead->type)}}</b> lead" data-trigger="hover" data-html="true">
                                                             <!--begin::Name-->
                                                             <a href="javascript:;"
                                                                 class="fs-4 fw-bold text-gray-900 text-hover-primary me-2">{{$lead->company}}</a>
@@ -169,19 +153,12 @@
 
                                                             <!--begin::Email-->
                                                             <a href="javascript:;"
-                                                                class="fw-semibold text-gray-600 text-hover-primary">Company</a>
+                                                                class="fw-semibold text-gray-600 text-hover-primary">{{ucfirst($lead->type)}}</a>
                                                             <!--end::Email-->
                                                         </div>
                                                         <!--end::Info-->
                                                         @endif 
-                                                                        
-                                                        <a href="{{route('Lead.tabs.edit', $lead->lead_id)}}#form-content-1" class="flex gap-2   "
-                                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                                            data-content="Assigned to {{$lead->assigned->name ?? ''}}">
-                                                            <img class='w-10 h-10 p-1 rounded-circle' src='/{{$lead->assigned->picture ?? ""}}' /> 
-                                                            <span class="pt-2 fs-6 fw-bold text-danger">{{$lead->assigned->name ?? ''}} </span>
-                                                        </a>
-
+                                                        
                                                     </div>
                                                     <!--end::Details-->
                                                 </div>
@@ -189,6 +166,13 @@
                                             </div>
                                             <!--end::Card body-->
                                         </div>
+                                                        
+                                        <a href="{{route('Lead.tabs.edit', $lead->lead_id)}}#form-content-1" class="flex gap-2   "
+                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                            data-content="Assigned to {{$lead->assigned->name ?? ''}}">
+                                            <img class='w-10 h-10 p-1 rounded-circle' src='/{{$lead->assigned->picture ?? ""}}' /> 
+                                            <span class="pt-2 fs-6 fw-bold text-danger">{{$lead->assigned->name ?? ''}} </span>
+                                        </a>
                                     </div>
                                     <!--end::Progress-->
                                 </div>
