@@ -206,6 +206,11 @@
 </div>
 
 
+@foreach ($components as $component)
+    {!! $component !!}
+@endforeach
+
+
 <div class="col-md-12">
 
 

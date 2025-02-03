@@ -16,6 +16,7 @@ use App\Modules\Leads\Services\LeadService;
 use App\Http\Controllers\Controller;
 use App\Modules\Deals\Events\DealSaved;
 use App\Modules\Deals\Events\DealPage;
+use App\Modules\Deals\Events\OverviewWidget; 
 use App\Modules\Tasks\Events\TaskFormRendering;
 use App\Modules\Tasks\Events\TaskModalRendering;
 
@@ -101,11 +102,17 @@ class DealController extends Controller
         $deal = $this->service->find($id);
         $dealTabs = $this->loadModuleTabs($this->tabsPrefix);
         
+
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new OverviewWidget($context, $deal));
+        $overview_components = $event[0]->context['components'] ?? [];
+
         $context = ['components' => []];
         $event = event(new DealPage($request, $deal, $context));
         $top_components = $event[0]->context['components'] ?? [];
         
-        return view('deal::overview', compact('deal', 'dealTabs', 'top_components'));
+        return view('deal::overview', compact('deal', 'dealTabs', 'top_components', 'overview_components'));
     }
 
 
