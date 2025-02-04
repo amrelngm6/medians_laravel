@@ -46,6 +46,18 @@ class ClientController extends Controller
         return view('clients::rows', compact('ClientList'));
     }
 
+    /**
+     * Display a listing of staff as JSON.
+     */
+    public function searchInput(Request $request)
+    {
+
+        // Optionally apply filters and pagination
+        $clients = $this->service->query($request);
+
+        return response()->json($clients->select('client_id', 'first_name', 'last_name','picture'));
+    }
+
 
     /**
      * Show the form for creating a new client.

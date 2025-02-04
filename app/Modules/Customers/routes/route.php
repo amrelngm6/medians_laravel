@@ -13,6 +13,7 @@ Route::prefix('clients')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/{id}/edit-modal', [ClientController::class, 'editModal'])->name('Client.edit');
     Route::get('{id}', [ClientController::class, 'show'])->name('Client.overview');
     Route::post('/filter', [ClientController::class, 'filter'])->name('Client.filter');
+    Route::post('/search-input', [ClientController::class, 'searchInput'])->name('Client.search-input');
     Route::post('/store', [ClientController::class, 'store'])->name('Client.store');
     Route::post('{id}', [ClientController::class, 'update'])->name('Client.update');
     Route::delete('{id}', [ClientController::class, 'destroy'])->name('Client.delete');

@@ -94,6 +94,13 @@ $tabsList = [
                                     @include('staff::search-input')
                                 </div>
                             </div>
+                            <div class="w-full">
+                                <div class="w-full">
+                                    <label for="assigned" class="control-label">Client</label>
+                                    @php $selectedClient = $deal->client ?? null; @endphp
+                                    @include('clients::search-input')
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -138,6 +145,7 @@ $tabsList = [
         setTimeout(() => { MediansSettings.stepper() }, 1000);
     </script>
     @yield('search-scripts')
+    @yield('client-search-scripts')
 
 
 @endsection
