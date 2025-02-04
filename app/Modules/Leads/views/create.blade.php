@@ -3,7 +3,7 @@
 @section('lead-page')
 <div class="col-md-12">
 
-    <div class="w-full gap-14 content-wrapper">
+    <div class="w-full gap-14 content-wrapper inline-flex">
         <div class="w-350px pull-left px-0 " id="form-sidebar"
             class="rounded d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
             <!--begin::Nav-->
@@ -225,6 +225,23 @@
                             <div class="w-full">
                                 <div class="w-full grid grid-cols-2 gap-4">
 
+                                    <div class="w-full">
+                                        <label for="assigned" class="control-label">Assigned To</label>
+                                        @include('staff::search-input')
+                                    </div>
+
+
+                                    <div class="w-full form-group select-placeholder ">
+                                        <label for="status" class="control-label">Status</label>
+                                        <select name="status" class="select-bootstrap form-control form-control-solid py-2">
+                                            <option value=""> </option>
+                                            @foreach ($statusList as $status)
+                                            <option value="{{$status->status_id}}">
+                                                {{$status->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
 
                                     <div class="form-group w-full select-placeholder">
                                         <label for="rel_type" class="control-label">Type</label>
@@ -243,30 +260,6 @@
                                             class="form-control form-control-solid py-2 select-bootstrap">
                                             @foreach ($leadSources as $source)
                                             <option value="{{$source->source_id}}"> {{$source->name}} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="select-placeholder form-group w-full">
-                                        <label for="assigned" class="control-label">Assigned To</label>
-                                        <select id="assigned" name="assigned_to"
-                                            class="select-bootstrap form-control form-control-solid py-2">
-                                            <option value=""></option>
-                                            @foreach ($staffList as $staff)
-                                            <option value="{{$staff->staff_id}}">
-                                                {{$staff->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-
-                                    <div class="w-full form-group select-placeholder ">
-                                        <label for="status" class="control-label">Status</label>
-                                        <select name="status" class="select-bootstrap form-control form-control-solid py-2">
-                                            <option value=""> </option>
-                                            @foreach ($statusList as $status)
-                                            <option value="{{$status->status_id}}">
-                                                {{$status->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -406,32 +399,10 @@
         </div>
     </div>
 </div>
-<style>
-</style>
-@endsection
-@section('script')
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-<script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
-<script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
+
 <script>
-    jQuery(document).ready(function(e){
-        // jQuery('#content').css({'margin-left': (jQuery('#form-sidebar').width()+20)+'px'})
-        jQuery('.content-wrapper').addClass('flex')
-        jQuery(document).on('click', '.stepper-item', function(e){
-            document.getElementById(jQuery(this).data('id')).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-            // return jQuery('.step-container,.step-item').addClass('hidden'), 
-            // jQuery('#'+jQuery(this).data('id')).removeClass('hidden'), 
-            jQuery('.stepper-icon').removeClass('bg-success'), 
-            jQuery(this).children().children('.stepper-icon').addClass('bg-success'); 
-        })
-        
-        var stickySidebar = new StickySidebar('#form-sidebar', {
-            topSpacing: 20,
-            bottomSpacing: 0,
-            containerSelector: '.content-wrapper',
-            innerWrapperSelector: '.stepper-nav'
-        });
-    })
+    setTimeout(() => { MediansSettings.stepper() }, 1000);
 </script>
+@yield('search-scripts')
+
 @endsection
