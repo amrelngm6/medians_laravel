@@ -72,7 +72,7 @@
                                     {{$Deal->id}}
                                 </td>
                                 <td class=" ">
-                                    <h6 class="">{{$Deal->name}} </h6>
+                                    <a class="fs-4" href="{{route('Deal.tabs.overview', $Deal->id)}}">{{$Deal->name}} </a>
                                 </td>
                                 <td class=" ">{{ class_basename($Deal->model) }} </td>
                                 <td class=" ">
@@ -92,6 +92,11 @@
                                         </button>
                                         <ul class="show-on-hover absolute   z-50  py-2 mt-0 text-start list-none bg-white rounded-md shadow-md dropdown-menu min-w-[10rem] dark:bg-zink-600"
                                             aria-labelledby="productAction1">
+                                            <li>
+                                                <a class="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
+                                                    href="{{route('Deal.tabs.overview', $Deal->id)}}">
+                                                    <span class="align-middle">Overview</span></a>
+                                            </li>
                                             <li>
                                                 <a class="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 "
                                                     href="{{route('Deal.tabs.edit', $Deal->id)}}">

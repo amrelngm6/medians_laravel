@@ -15,7 +15,7 @@ class DealReportWidget
         $statusList = $taskService->loadStatusList();
         $user = Auth::user();
         $model = $event->model;
-        $event->context['components']['widget'] = view('tasks::components.tasks-report', compact('model', 'statusList'))->render();
+        $event->context['components']['widget'] = view('tasks::components.projects-tasks-report', compact('model', 'statusList'))->render();
         return $event;
     }
 }

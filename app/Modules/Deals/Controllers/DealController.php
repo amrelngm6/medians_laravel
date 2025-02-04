@@ -103,11 +103,11 @@ class DealController extends Controller
         $dealTabs = $this->loadModuleTabs($this->tabsPrefix);
         
 
-        $context = ['components' => []];
+        $context2 = ['components' => []];
         // Fire the event
-        $event = event(new OverviewWidget($context, $deal));
+        $event = event(new OverviewWidget($context2, $deal));
         $overview_components = $event[0]->context['components'] ?? [];
-
+        
         $context = ['components' => []];
         $event = event(new DealPage($request, $deal, $context));
         $top_components = $event[0]->context['components'] ?? [];
@@ -245,7 +245,7 @@ class DealController extends Controller
         $info = ['created_by' => $user->id(), 'business_id'=> $user->business_id ?? 0];
 
         // Create and save the Deal
-        $deal = $this->service->createDeal(array_merge($request->only('name', 'expected_due_date', 'amount','description'), $info));
+        $deal = $this->service->createDeal(array_merge($request->only('name', 'expected_due_date','client_id' , 'amount','description'), $info));
 
         isset($deal->id) ? event(new DealSaved($request, $deal)) : '';
 
@@ -303,7 +303,7 @@ class DealController extends Controller
     public function update(Request $request, $id)
     {
         try{    
-            $deal = $this->service->updateDeal($id, $request->only('name', 'status', 'description', 'id','location_info','staff_id'));
+            $deal = $this->service->updateDeal($id, $request->only('name', 'status', 'description', 'id','client_id','location_info','staff_id'));
 
             return $deal ? response()->json([
                 'success' => true,

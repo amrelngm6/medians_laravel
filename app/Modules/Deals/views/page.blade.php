@@ -28,7 +28,9 @@
                                     <a href="javascript:;"
                                         class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$deal->name}}</a>
                                     
-                                        <p class="fs-5 py-1 px-10"> <b class="label rounded 
+                                        <p class="fs-5 py-1 px-10" rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        data-content="Deal status <b>{{ucfirst($deal->status)}}</b>" data-html="true"
+                                        > <b class="label rounded 
                                         {{ $deal->status == 'won' ? 'bg-primary' : ''}}
                                         {{ $deal->status == 'lose' ? 'bg-danger' : ''}}
                                         pt-1">{{ucfirst($deal->status)}}</b></p>

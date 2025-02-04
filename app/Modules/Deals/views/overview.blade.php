@@ -3,6 +3,7 @@
 @section('deal-page')
 <div class="col-xxl-6 col-lg-7 col-md-12">
     <div class="card mb-5 mb-xl-10" id="profile_details_view">
+        @if ($deal->client)
         <!--begin::Card header-->
         <div class="card-header cursor-pointer w-full">
             <!--begin::Card title-->
@@ -14,7 +15,6 @@
             <!--end::Card title-->
         </div>
         <!--begin::Card header-->
-
         <!--begin::Card body-->
         <div class="card-body p-2">
             <!--begin::Row-->
@@ -26,7 +26,7 @@
                 <!--begin::Col-->
                 <div class="col-lg-8">
                     <img class="w-10 h-10 p-1 rounded-circle" src="/{{$deal->client->picture ?? ''}}" />
-                    <span class="fw-bold fs-6 text-gray-800">{{$deal->client->name}}</span>
+                    <span class="fw-bold fs-6 text-gray-800">{{$deal->client->name ?? ''}}</span>
                 </div>
                 <!--end::Col-->
             </div>
@@ -170,6 +170,9 @@
             @endif
         </div>
         <!--end::Card body-->
+        @else
+        <div class="card-body p-2">Client not selected yet</div>
+        @endif
     </div>
 </div>
 

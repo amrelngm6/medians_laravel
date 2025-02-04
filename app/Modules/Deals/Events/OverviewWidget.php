@@ -15,7 +15,7 @@ class OverviewWidget
     public function __construct(array $context = [], $model = null)
     {
         $this->context = $context;
-
+        
         $this->model = $model;
     }
 }

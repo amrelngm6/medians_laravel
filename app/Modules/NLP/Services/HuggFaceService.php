@@ -35,19 +35,10 @@ class HuggFaceService
             ],
         ]);
     }
-    
-    public function analyzeText(string $text)
-    {
-        $model = 'google/gemma-2-2b-it';
-        $response = $this->client->post("models/$model", [
-            'json' => ['inputs' => $text],
-        ]);
 
-        return json_decode($response->getBody()->getContents(), true);
-    }
-    
-    public function generateText(string $text, $model = '')
+    public function saveRecord(string $text, $model)
     {
+        
         $user = Auth::user();
 
         $save = NLPChat::firstOrCreate([
@@ -58,6 +49,36 @@ class HuggFaceService
             'model_name' => $model,
         ]);
 
+        return $save;
+    }
+    
+    public function analyzeText(string $text, $model = 'google/gemma-2-2b-it')
+    {
+        
+        $save = $this->saveRecord($text, $model);
+
+        $response = $this->client->post("models/$model", [
+            'json' => ['inputs' => $text],
+            
+            'options' => [
+                'use_cache' => true,
+                'wait_for_model' => true, // Wait if the model is loading
+            ],
+        ]);
+
+        $update = $save->update([
+            'reply' => $response->getBody()->getContents()
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true)[0]['generated_text'] ?? '';
+    }
+    
+    public function generateText(string $text, $model = '')
+    {
+       
+        
+        $save = $this->saveRecord($text, $model);
+
         try {
                 
             // $model = 'google/gemma-2-2b-it';
@@ -65,16 +86,13 @@ class HuggFaceService
             // $model = 'openai-community/gpt2-large';
             $response = $this->client->post("models/$model", [
                 'json' => ['inputs' => $text  , 
-                        // 'parameters' => [
-                        //     'max_length' => 100,
-                        // ],
                         'options' => [
                             'use_cache' => true,
                             'wait_for_model' => true, // Wait if the model is loading
                         ]],
                 
             ]);
-            
+
             // Handle errors
             $formatedResponse = $this->formatResponse($response, $text);
             $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);

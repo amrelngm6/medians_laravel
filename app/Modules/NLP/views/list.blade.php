@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-lg-8 ">
                     <div class="w-full" id="chat_content">
-                        @include('nlp::translate')
+                        @include('nlp::chat_content')
                     </div>
                 </div>
                 <!-- MAIN CONTENT AREA ENDS -->
