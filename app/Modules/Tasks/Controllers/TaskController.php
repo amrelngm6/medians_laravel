@@ -12,11 +12,11 @@ use App\Models\Auth;
 
 class TaskController extends Controller
 {
-    protected $taskService;
+    protected $service;
 
-    public function __construct(TaskService $taskService)
+    public function __construct(TaskService $service)
     {
-        $this->taskService = $taskService;
+        $this->service = $service;
     }
 
     public function index(Request $request)
@@ -28,14 +28,14 @@ class TaskController extends Controller
                 break;
         }
 
-        $statusList = $this->taskService->loadStatusList();   
+        $statusList = $this->service->loadStatusList();   
         return view('tasks::list', compact('statusList'));
     }
 
     
     public function filter(Request $request)
     {
-        $tasks = $this->taskService->query($request)->orderBy('task_id', 'DESC')->get();   
+        $tasks = $this->service->query($request)->orderBy('task_id', 'DESC')->get();   
 
         return view('tasks::rows', compact('tasks'));
     }
@@ -43,7 +43,7 @@ class TaskController extends Controller
 
     public function calendar(Request $request)
     {
-        $tasks = $this->taskService->query($request)->orderBy('task_id', 'DESC')->get();    // List tasks
+        $tasks = $this->service->query($request)->orderBy('task_id', 'DESC')->get();    // List tasks
 
         // List tasks
         return view('tasks::calendar', compact('tasks'));
@@ -52,7 +52,7 @@ class TaskController extends Controller
     public function filterJson(Request $request)
     {
         
-        $tasks = $this->taskService->query($request)->get();   
+        $tasks = $this->service->query($request)->get();   
 
         $data = [];
         foreach ($tasks as $key => $task) {
@@ -84,12 +84,32 @@ class TaskController extends Controller
         
         $context = ['components' => []];
         // Fire the event
-        $event = event(new TaskFormRendering($context, new $this->taskService->model));
+        $event = event(new TaskFormRendering($context, new $this->service->model));
         $components = $event[0]->context['components'];
-        $custom_fields = $this->taskService->loadModelFields(); 
+        $custom_fields = $this->service->loadModelFields(); 
 
         // List tasks
         return view('tasks::add-task-modal', compact('model_id', 'model_type', 'components','custom_fields'));
+    }
+
+    
+    public function duplicateModal(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $task = $this->service->find($id);
+
+        $model_type = get_class($user);       
+        $model_id = $user->id();       
+        
+        $context = ['components' => []];
+        // Fire the event
+        $event = event(new TaskFormRendering($context, new $this->service->model));
+        $components = $event[0]->context['components'];
+        $custom_fields = $this->service->loadModelFields(); 
+
+        // List tasks
+        return view('tasks::duplicate-task-modal', compact('task','model_id', 'model_type', 'components','custom_fields'));
     }
 
     public function store(Request $request)
@@ -111,7 +131,7 @@ class TaskController extends Controller
             $creator = ['created_by'=>$user->staff_id, 'business_id'=>$user->business_id];
 
             // Create and save the Task
-            $task = $this->taskService->createTask(array_merge($creator, $request->only('name','description','model_id','model_type','start_date','due_date','finished_date','priority_id','is_public','is_paid','points','sort','visible_to_client','status_id','custom_field')));
+            $task = $this->service->createTask(array_merge($creator, $request->only('name','description','model_id','model_type','start_date','due_date','finished_date','priority_id','is_public','is_paid','points','sort','visible_to_client','status_id','custom_field')));
 
             event(new TaskSaved($request, $task));
 
@@ -146,7 +166,7 @@ class TaskController extends Controller
             ];
 
             // Create and save the Task
-            $task = $this->taskService->createTeam(array_merge($creator, $request->only('model_id', 'model_type','user_type')));
+            $task = $this->service->createTeam(array_merge($creator, $request->only('model_id', 'model_type','user_type')));
 
             return $task ? $this->jsonResponse('Created successfully') : null;
             
@@ -173,7 +193,7 @@ class TaskController extends Controller
             
 
             // Create and save the Task
-            $task = $this->taskService->deleteTeam($request->only('model_id','id'));
+            $task = $this->service->deleteTeam($request->only('model_id','id'));
 
             return $task ? $this->jsonResponse('Removed successfully') : null;
             
@@ -203,7 +223,7 @@ class TaskController extends Controller
             }
             
             // Update the Task
-            $task = $this->taskService->updateTask($id, $request->only('name','description','start_date','due_date','finished_date','priority_id','is_public','is_paid','points','sort','visible_to_client','status_id','custom_field'));
+            $task = $this->service->updateTask($id, $request->only('name','description','start_date','due_date','finished_date','priority_id','is_public','is_paid','points','sort','visible_to_client','status_id','custom_field'));
 
             event(new TaskSaved($request, $task));
 
@@ -226,7 +246,7 @@ class TaskController extends Controller
             $user = Auth::user();
             
             foreach ($request->sortedIDs as $key => $value) {
-                $task = $this->taskService->updateTask($value, ['sort'=>$key, 'status_id' => $request->status_id]);
+                $task = $this->service->updateTask($value, ['sort'=>$key, 'status_id' => $request->status_id]);
             }
 
             return $task ? $this->jsonResponse('Updated successfully') : null;
@@ -241,7 +261,7 @@ class TaskController extends Controller
         try {
 
             // Delete a task from the specified project
-            $delete = $this->taskService->deleteTask($id);
+            $delete = $this->service->deleteTask($id);
 
             return $delete ? $this->jsonResponse('Updated successfully', 'Done', route('Tasks')) : null;
                     
@@ -258,9 +278,10 @@ class TaskController extends Controller
     {
         try 
         {
-            $relations = $request->only('list') ?? ['comments', 'checklist', 'team'];
+            // $relations = array_keys($request->only('modules')) ?? ['comments', 'checklist', 'team', 'files'];
+            $relations = $request->only('modules')['modules'] ?? [];
             
-            $task = $this->taskService->duplicateWithRelations($request->id, $relations);
+            $task = $this->service->duplicateWithRelations($request->id, $relations);
 
             return $task ? $this->jsonResponse('Task duplicated','Done', true) : null;
 

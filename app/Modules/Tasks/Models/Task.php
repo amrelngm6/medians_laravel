@@ -165,7 +165,6 @@ class Task extends Model
                     $i++;
 
                 }
-
             }
         }
 

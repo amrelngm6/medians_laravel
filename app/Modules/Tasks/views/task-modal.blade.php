@@ -31,13 +31,11 @@
                                 data-toggle="popover" data-placement="bottom" data-trigger="hover" data-html="true"
                                 data-content="This task for <b>{{basename(get_class($task->model))}}</b>"
                                 class="fw-bold link-primary">{{ $task->model->name ?? '' }}</a>.
-                            <a href="{{route('Task.duplicate', $task->task_id)}}?_token={{csrf_token()}}" rel="popover"
+                            <a href="{{route('Task.duplicate-modal', $task->task_id)}}" rel="popover"
                                 data-toggle="popover" data-placement="bottom" data-trigger="hover"
-                                data-content="Duplicate this task" type="submit" id="task_duplicate"
-                                class="btn btn-primary btn-sm ajax-link"
-                                data-confirm="Duplicate this task ?"
-                                data-confirm-text="Are you sure you want to duplicate this task ?">
-                                <i class="bx bx-copy"></i>Duplicate task <span
+                                data-content="Duplicate this task" id="task_duplicate"
+                                class="btn btn-primary btn-sm open-modal">
+                                <i class="bx bx-copy me-2"></i> Duplicate task <span
                                     class="h-10px inline-block rounded-full w-10px bg-"></span>
                             </a>
                         </div>
