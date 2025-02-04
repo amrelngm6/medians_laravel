@@ -57,7 +57,7 @@
                         class="open-modal flex items-center justify-center transition-all duration-150 ease-linear rounded-md size-8 bg-slate-100 hover:bg-slate-200 dark:bg-zink-600 dark:hover:bg-zink-500">
                         <i class="bx bx-show fs-3"></i>
                     </a>
-                    <a href="{{route('Tasks.edit_project', $task->task_id)}}" data-modal="#add-task-modal" rel="popover"
+                    <a href="{{route('Tasks.edit_project', $task->task_id)}}" data-modal="#edit-task-modal" rel="popover"
                         data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Edit task information"
                         class="open-modal flex items-center justify-center transition-all duration-150 ease-linear rounded-md size-8 bg-slate-100 hover:bg-slate-200 dark:bg-zink-600 dark:hover:bg-zink-500">
                         <i class="bx bx-edit fs-4"></i></a>
