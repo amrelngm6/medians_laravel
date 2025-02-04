@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use DeepseekClient;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class HuggFaceService
 {
@@ -114,15 +115,7 @@ class HuggFaceService
     
     public function translateText(string $text, $model = '')
     {
-        $user = Auth::user();
-
-        $save = NLPChat::firstOrCreate([
-            'business_id' => $user->business_id ?? 0,
-            'user_id' => $user->id(),
-            'user_type' => get_class($user),
-            'description' => $text,
-            'model_name' => $model,
-        ]);
+        $save = $this->saveRecord($text, $model);
 
         try {
                 
@@ -155,15 +148,7 @@ class HuggFaceService
     
     public function generateImage(string $text, $model = '')
     {
-        $user = Auth::user();
-
-        $save = NLPChat::firstOrCreate([
-            'business_id' => $user->business_id ?? 0,
-            'user_id' => $user->id(),
-            'user_type' => get_class($user),
-            'description' => $text,
-            'model_name' => $model,
-        ]);
+        $save = $this->saveRecord($text, $model);
 
         $response = $this->client->post("models/$model", [
             'inputs' => $text  , 
@@ -183,6 +168,30 @@ class HuggFaceService
 
     }
 
+
+    public function extractTextFromImage($imagePath, $model = '')
+    {
+        
+        $save = $this->saveRecord($imagePath, $model);
+     
+        $image = base64_encode(file_get_contents($imagePath));
+
+        $response = $this->client->post("models/$model", [
+            'json' => ['inputs' => $image  , 
+                    'image' => $image,
+                    'options' => [
+                        'use_cache' => true,
+                        'wait_for_model' => true, // Wait if the model is loading
+                    ]],
+        ]);
+    
+        // Decode the response
+        $caption = json_decode($response->getBody(), true);
+
+        return response()->json([
+            'caption' => $caption[0]['generated_text'],
+        ]);
+    }
 
     
     public function generateImageFromImage(string $text, string $imagePath, $model = '')

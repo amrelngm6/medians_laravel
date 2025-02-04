@@ -24,10 +24,10 @@
                 <!--end::Label-->
 
                 <!--begin::Col-->
-                <div class="col-lg-8">
+                <a class="col-lg-8" href="{{route('Client.tabs.overview', $deal->client_id)}}"> 
                     <img class="w-10 h-10 p-1 rounded-circle" src="/{{$deal->client->picture ?? ''}}" />
                     <span class="fw-bold fs-6 text-gray-800">{{$deal->client->name ?? ''}}</span>
-                </div>
+</a>
                 <!--end::Col-->
             </div>
             <!--end::Row-->

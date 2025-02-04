@@ -96,6 +96,21 @@ class HuggFaceController extends Controller
         }
     }
 
+    public function extractTextFromImage(Request $request)
+    {
+        try {
+
+            $user = Auth::user();
+            
+            $response = $this->service->extractTextFromImage(storage_path($request->message ?? 'app/documents/ecDYNUqOsAc3n7vqzgshgj6PfcKxrBfuBHwFVCBk.jpg'), $request->model);   
+
+            return $response;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage());
+        }
+    }
+
     public function generateTextTwoInputs(Request $request)
     {
         try {

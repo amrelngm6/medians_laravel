@@ -127,6 +127,7 @@ class LeadController extends Controller
             return $lead ? response()->json([
                 'success' => true,
                 'title' => 'Done',
+                'redirect' => route('Lead.tabs.overview', $lead->lead_id),
                 'result' => 'Created',
             ], 200) : null;
             
