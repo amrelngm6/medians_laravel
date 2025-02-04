@@ -137,7 +137,7 @@ class TaskChecklistController extends Controller
         $response = $nlpService->generateText($message, $request->model);
 
         if (!is_array($response))
-            $response = json_decode($response); 
+            $response = json_decode($response, true); 
 
         if (is_array($response)) {
             $taskList = [];
