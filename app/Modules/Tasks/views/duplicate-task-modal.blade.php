@@ -53,7 +53,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <textarea class="form-control form-control-solid" placeholder="Task description"
-                                    name="description"></textarea>
+                                    name="description">{{$task->description}}</textarea>
                             </div>
                             <!--end::Input group-->
 
@@ -68,7 +68,7 @@
                                         <span class="required">Due date <i class="bx bx-help-circle"></i> </span>
                                     </label>
                                     <!--end::Label-->
-                                    <input class="form-control form-control-solid  py-2" type="date" name="due_date">
+                                    <input class="form-control form-control-solid  py-2" type="date" name="due_date" value="{{$task->due_date}}">
                                 </div>
                                 <!--end::Input group-->
 
