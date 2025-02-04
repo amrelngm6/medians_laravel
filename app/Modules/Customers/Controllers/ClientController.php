@@ -146,8 +146,18 @@ class ClientController extends Controller
         // Create and save the client
         $client = Client::firstOrCreate(array_merge( $data, $request->only('first_name', 'last_name', 'about', 'phone', 'email')));
 
-        $handlePicture = $this->handleUploads($request, 'avatar', $client);
+        try {
+            $handlePicture = $this->handleUploads($request, 'avatar', $client);
         
+        } catch (\Throwable $th) {
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Image is not valid',
+                'errors' => $th->getMessage()
+            ], 422);
+        }
+
         return $output == 'json' ? $handlePicture : $client;
     }
 
@@ -188,7 +198,7 @@ class ClientController extends Controller
             return $update;
             
         } catch (\Throwable $th) {
-            throw new \Throwable($th->getMessage(), 1);
+            throw new \Exception($th->getMessage(), 1);
         }
     }
     
@@ -220,7 +230,18 @@ class ClientController extends Controller
         // Update client details
         $client = $this->service->updateCustomer($client_id, $request->only('first_name','last_name', 'email', 'phone', 'about', 'status', 'location_info'));
 
-        $handlePicture = $this->handleUploads($request, 'avatar', $client);
+        
+        try {
+            $handlePicture = $this->handleUploads($request, 'avatar', $client);
+        
+        } catch (\Throwable $th) {
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Image is not valid',
+                'error' => $th->getMessage()
+            ], 422);
+        }
 
         return $client ? response()->json([
             'success' => true,

@@ -57,13 +57,15 @@
                         </div>
                         <!--end::Input group-->
                     </div>
-
-                    <div class="w-full flex gap-10">
-                        @include('pipeline::pipeline-input')
-                    </div>
-
                     <div class="w-full flex gap-10">
 
+                        <div class="w-full">
+                            <div class="w-full">
+                                <label for="assigned" class="control-label">Client</label>
+                                @php $selectedClient = $deal->client ?? null; @endphp
+                                @include('clients::search-input')
+                            </div>
+                        </div>
                         <!--begin::Input group-->
                         <div class="d-flex flex-column mb-8 fv-row w-full">
                             <!--begin::Label-->
@@ -71,10 +73,14 @@
                                 <span class="required">Expected Close date</span>
                             </label>
                             <!--end::Label-->
-                            <input class="form-control form-control-solid  py-2" type="date" name="expected_due_date">
+                            <input class="form-control form-control-solid  py-2" type="date" name="expected_due_date" value="{{date('Y-m-d', strtotime('+1 week'))}}">
                         </div>
                         <!--end::Input group-->
                         
+                    </div>
+
+                    <div class="w-full flex gap-10">
+                        @include('pipeline::pipeline-input')
                     </div>
 
                     <!--begin::Input group-->
@@ -112,3 +118,4 @@
     MediansSettings.dropdownWidget() 
 </script>
 @yield('search-scripts')
+@yield('client-search-scripts')

@@ -252,7 +252,7 @@ class DealController extends Controller
         return ($deal && $output == 'json') ? response()->json([
             'success' => true,
             'title' => 'Done',
-            'reload' => true,
+            'redirect' => route('Deal.show', $deal->id),
             'result' => 'Created',
         ], 200) : $deal;
     }

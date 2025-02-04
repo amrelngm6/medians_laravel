@@ -68,9 +68,10 @@ class ClientService
             $saveLocation = $this->createLocationInfo($Client, $data['location_info']);
         }
 
-        $update = $Client->update($data);
         // Update Client details
-        return $Client;
+        $update = $Client->update($data);
+        
+        return $update ? $Client : null;
     }
 
     
