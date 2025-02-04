@@ -146,7 +146,7 @@ class Task extends Model
     public function duplicateWithRelations($relations)
     {
         
-        $data = array();
+        // $data = array();
         $i = 0;
         $newModel = $this->replicate();
         $newModel->push(); // Save the duplicated model first
@@ -161,7 +161,7 @@ class Task extends Model
                         $newRelated->task_id = $newModel->task_id; // Set new foreign key
                     }
                     $newRelated->push();
-                    $data[$i] = $newRelated;
+                    // $data[$i] = $newRelated;
                     $i++;
 
                 }
