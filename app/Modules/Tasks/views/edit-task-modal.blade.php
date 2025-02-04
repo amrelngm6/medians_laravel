@@ -1,5 +1,5 @@
 
-<div class="modal fade  active" id="edit-task-modal" tabindex="-1" >
+<div class="modal fade show active" id="edit-task-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
