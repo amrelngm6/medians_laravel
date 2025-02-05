@@ -3,7 +3,9 @@
 namespace App\Modules\Actions\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
 use App\Models\Module;
+use App\Modules\Actions\Console\Commands\SendReminders;
 
 class ActionsServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,20 @@ class ActionsServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__ . '/../views/reminders', 'reminders');
+
+        // Register Commands
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                SendReminders::class,
+            ]);
+        }
+
+        // Register Scheduled Tasks
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('reminders:send')->everyTenSeconds();
+        });
+
     }
 
     public function register()

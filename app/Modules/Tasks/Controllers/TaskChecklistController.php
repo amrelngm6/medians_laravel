@@ -131,9 +131,13 @@ class TaskChecklistController extends Controller
         $task = $this->taskService->find($task_id); 
 
         $projectName = $task->model->name ?? 'CRM';
-        $platform = 'using '.($task->model->field('platform')->value ?? 'Laravel');
+        $platform = $task->model->field('platform')->value ?? 'Laravel';
+        $response_length = $task->model->field('ai_tasks_length')->value ?? 'long';
+        $maxItems = $task->model->field('ai_task_checklist_count')->value ?? '10';
 
-        $message = " ( $task->description ) this is my task description for project ({$projectName}) {$platform}, could you give me json list to complete it. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible";
+        $message = " ( $task->description ) this is my task description for project ({$projectName}) {$platform}, could you give me json list to complete it. Please make the response valid json , and two keys title and description";
+        $message .= $response_length == 'short' ? ", and as short as possible" : "";
+        $message .= ", with max {$maxItems} items only" ;
         // could you give me json list for my task with title (Build Email System Module with morph model and user) for my CRM in laravel. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible
 
         $nlpService = new HuggFaceService;

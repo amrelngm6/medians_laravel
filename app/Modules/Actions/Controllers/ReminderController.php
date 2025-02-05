@@ -25,7 +25,7 @@ class ReminderController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->cannot('Reminders view') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Reminder view') && Auth::guardName() != 'superadmin') {
             abort(401, 'Unauthorized');
         }
 
@@ -68,7 +68,7 @@ class ReminderController extends Controller
         
         $user = Auth::user();
 
-        if ($user->cannot('Reminders create') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Reminder create') && Auth::guardName() != 'superadmin') {
             abort(401, 'Unauthorized');
         }
 
@@ -118,7 +118,7 @@ class ReminderController extends Controller
         
         $user = Auth::user();
 
-        if ($user->cannot('Reminders delete') && Auth::guardName() != 'superadmin') {
+        if ($user->cannot('Reminder delete') && Auth::guardName() != 'superadmin') {
             abort(401, 'Unauthorized');
         }
 
