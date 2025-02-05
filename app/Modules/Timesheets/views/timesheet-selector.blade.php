@@ -50,17 +50,25 @@
                             @if ($timesheet)
 <script>
 let interval;
+jQuery(document).ready(function(){
 
-// Calculate the time difference between the start time and now using moment.js
-moment.tz.setDefault('{{env('APP_TIMEZONE')}}');
-interval = setInterval(() => {
-    let startTime = moment("{{$timesheet->start}}", "YYYY-MM-DD hh:mm:ss");
-    let now = moment.utc();
-    let duration = moment.duration(now.tz('{{env('APP_TIMEZONE')}}').diff(startTime));
-    let hours = String(duration.hours()).padStart(2, '0');
-    let minutes = String(duration.minutes()).padStart(2, '0');
-    let seconds = String(duration.seconds()).padStart(2, '0');
-    jQuery('#timer-track').html(`${hours}:${minutes}:${seconds}`)
-}, 1000)
+    // Calculate the time difference between the start time and now using moment.js
+    moment.tz.setDefault('{{env('APP_TIMEZONE')}}');
+
+    if (interval)
+    {
+        clearInterval(interval)   
+    }
+    interval = setInterval(() => {
+        let startTime = moment("{{$timesheet->start}}", "YYYY-MM-DD hh:mm:ss");
+        let now = moment.utc();
+        let duration = moment.duration(now.tz('{{env('APP_TIMEZONE')}}').diff(startTime));
+        let hours = String(duration.hours()).padStart(2, '0');
+        let minutes = String(duration.minutes()).padStart(2, '0');
+        let seconds = String(duration.seconds()).padStart(2, '0');
+        jQuery('#timer-track').html(`${hours}:${minutes}:${seconds}`)
+    }, 1000)
+})
+
 </script>
 @endif
