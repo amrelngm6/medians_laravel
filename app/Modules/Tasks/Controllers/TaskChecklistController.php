@@ -130,7 +130,7 @@ class TaskChecklistController extends Controller
         
         $task = $this->taskService->find($task_id); 
 
-        $message = 'could you give me json list for my task with title ('.$task->description.') for my CRM in laravel. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible';
+        $message = '('.$task->description.') this is my task description for CRM using laravel, could you give me json list to complete it. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible';
         // could you give me json list for my task with title (Build Email System Module with morph model and user) for my CRM in laravel. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible
 
         $nlpService = new HuggFaceService;
@@ -153,7 +153,8 @@ class TaskChecklistController extends Controller
             foreach ($response as $key => $value) 
             {
                 $taskList['sort'] = $key;
-                $taskList['description'] = $value['task'] ?? ($value['description'] ?? ($value['name'] ?? ($value['title'] ?? '')));
+                $taskList['description'] = 'AI:';
+                $taskList['description'] .= $value['task'] ?? ($value['description'] ?? ($value['name'] ?? ($value['title'] ?? '')));
 
                 $save = $this->taskChecklistService->createItem($taskList);
             }
