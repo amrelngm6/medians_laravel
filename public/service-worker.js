@@ -1,15 +1,24 @@
 self.addEventListener('push', function(event) {
-    const payload = event.data ? event.data.json() : {};
+    // const payload = event.data ? event.data.json() : {};
 
-    const title = payload.title || 'Task Reminder';
-    const options = {
-        body: payload.body || 'You have a task due.',
-        icon: '/icon.png',
-        data: payload.data || {}
-    };
-    event.waitUntil(
-        self.registration.showNotification(title, options)
-    );
+    // const title = payload.title || 'Task Reminder';
+    // const options = {
+    //     body: payload.body || 'You have a task due.',
+    //     icon: '/icon.png',
+    //     data: payload.data || {}
+    // };
+    const obj = event.data.json();
+
+    if (obj.action === "subscribe" || obj.action === "unsubscribe") {
+      fireNotification(obj, event);
+      port.postMessage(obj);
+    } else if (obj.action === "init" || obj.action === "chatMsg") {
+      port.postMessage(obj);
+    }
+
+    // event.waitUntil(
+    //     self.registration.showNotification(title, options)
+    // );
 });
 
 self.addEventListener('notificationclick', function(event) {
