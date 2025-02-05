@@ -33,7 +33,7 @@ var MediansSettings = window.MediansSettings || {};
     {
         console.log(formId)
         let url = jQuery('#'+formId).attr('data-reload-link');
-        let targetModal = jQuery('#'+formId).attr('data-target-modal');
+        let targetModal = jQuery('#'+formId).attr('data-target-modal') ?? 'modals';
         if (!url)
             return;
 
