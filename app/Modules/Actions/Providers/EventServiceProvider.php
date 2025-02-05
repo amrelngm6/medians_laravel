@@ -10,7 +10,7 @@ use App\Modules\Actions\Listeners\ReminderToModal;
 class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
-        TicketModalRendering::class => [
+        TaskModalRendering::class => [
             ReminderToModal::class,
         ],
         TicketModalRendering::class => [
