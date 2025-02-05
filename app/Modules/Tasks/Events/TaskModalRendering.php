@@ -13,12 +13,12 @@ class TaskModalRendering
 
     public $context;
 
-    public $task;
+    public $model;
 
-    public function __construct(array $context = [], $task = null)
+    public function __construct(array $context = [], $model = null)
     {
         $this->context = $context;
 
-        $this->model = $task;
+        $this->model = $model;
     }
 }

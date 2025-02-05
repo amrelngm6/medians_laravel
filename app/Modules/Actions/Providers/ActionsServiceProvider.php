@@ -11,7 +11,6 @@ class ActionsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-
         $Module = Module::firstOrCreate([
             'name' => 'Comment',
             'path' => dirname(__NAMESPACE__),

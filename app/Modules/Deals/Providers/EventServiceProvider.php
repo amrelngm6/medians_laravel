@@ -7,8 +7,5 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
-        TicketModalRendering::class => [
-            PrioritySelectorToModal::class,
-        ],
     ];
 }

@@ -4,6 +4,7 @@ namespace App\Modules\Priorities\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Module;
+use App\Modules\Priorities\Providers\EventServiceProvider;
 
 class PriorityServiceProvider extends ServiceProvider
 {
@@ -22,5 +23,6 @@ class PriorityServiceProvider extends ServiceProvider
     public function register()
     {
         // Register services here
+        $this->app->register(EventServiceProvider::class);
     }
 }
