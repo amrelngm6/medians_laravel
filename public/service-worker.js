@@ -7,12 +7,9 @@ self.addEventListener('push', function(event) {
         icon: '/icon.png',
         data: payload.data || {}
     };
-    console.log(payload.body)
-    console.log(payload.data)
-    alert(1)
-    // event.waitUntil(
-    //     self.registration.showNotification(title, options)
-    // );
+    event.waitUntil(
+        self.registration.showNotification(title, options)
+    );
 });
 
 self.addEventListener('notificationclick', function(event) {
