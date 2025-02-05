@@ -25,6 +25,9 @@ class ReminderController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->cannot('Reminders view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
 
         return view('reminders::list', compact('user'));
     }
@@ -62,6 +65,13 @@ class ReminderController extends Controller
      */
     public function store(Request $request )
     {
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Reminders create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
         try {
             $today = date('Y-m-d');
             // Validate incoming request data
@@ -71,7 +81,7 @@ class ReminderController extends Controller
                 'model_type' => "required|string",
                 'date' => "required|date",
                 'time' => "required",
-                'message' => 'required|string',
+                'description' => 'required|string',
             ]);
 
             if ($validator->fails()) {
@@ -83,7 +93,7 @@ class ReminderController extends Controller
             $creator = ['date'=> $request->date.' '.$request->time, 'user_id'=>$user->staff_id, 'user_type' => get_class($user), 'business_id'=>$user->business_id];
 
             // Create and save the Reminder
-            $reminder = $this->service->createReminder(array_merge($creator, $request->only('message', 'name', 'user_type', 'user_id', 'model_id', 'model_type')), $request->file);
+            $reminder = $this->service->createReminder(array_merge($creator, $request->only('description', 'name', 'user_type', 'user_id', 'model_id', 'model_type')), $request->file);
 
             return $reminder ? $this->jsonResponse('Created successfully') : null;
             
@@ -105,6 +115,21 @@ class ReminderController extends Controller
 
     public function destroy($id)
     {
-        // Delete the specified Reminder
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Reminders delete') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+            return $this->service->deleteAnnouncement($id) 
+                ? $this->jsonResponse('Deleted successfully') 
+                : $this->hasError('Failed to destroy') ;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage()) ;
+        }
+
     }
 }

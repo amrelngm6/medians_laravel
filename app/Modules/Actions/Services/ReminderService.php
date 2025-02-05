@@ -4,6 +4,7 @@ namespace App\Modules\Actions\Services;
 
 use App\Modules\Actions\Models\Reminder;
 use App\Modules\Uploads\Services\UploadService;
+use App\Models\Auth;
 
 class ReminderService
 {
@@ -17,7 +18,8 @@ class ReminderService
 
     public function query($request)
     {
-        return $this->model->query();
+        $user = Auth::user();
+        return $this->model->forBusiness($user->business_id ?? null)->get();
     }
 
     public function createReminder(array $data, $file = null)

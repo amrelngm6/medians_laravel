@@ -18,19 +18,33 @@ class Reminder extends Model
      */
     public function model()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
+
 
     /**
      * Load assigneed Team members
      */    
     public function user()
     {
-        return $this->belongsTo();
+        return $this->morphTo();
     }
 
+    /**
+     * Load related Tasks as Morph
+     */
+    public function model_name()
+    {
+        return $this->model ? class_basename($this->model) : '';
+    }
 
-    
+    /**
+     * Load Items of Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
 
 
 }

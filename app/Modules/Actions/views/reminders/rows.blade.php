@@ -4,9 +4,9 @@
             <th class="text-start">ID</th>
             <th class="text-start">User</th>
             <th class="text-start">Model</th>
-            <th class="text-start">Start</th>
-            <th class="text-start">End</th>
-            <th class="text-start">Notes</th>
+            <th class="text-start">Date</th>
+            <th class="text-start">Description</th>
+            <th class="text-start">Notified</th>
             <th class="text-start">Actions</th>
         </tr>
     </thead>
@@ -22,9 +22,9 @@
                     data-title="{{$reminder->model_name()}}"
                     data-content="Related to {{$reminder->model->name ?? ''}}" >{{ $reminder->model->name ?? '' }}</span>
             </td>
-            <td>{{date('M d, Y - H:i a', strtotime($reminder->start)) }}</td>
-            <td>{{date('M d, Y - H:i a', strtotime($reminder->end)) ?? '' }}</td>
-            <td>{{$reminder->notes}}</td>
+            <td>{{date('M d, Y - H:i a', strtotime($reminder->date)) }}</td>
+            <td>{{$reminder->description}}</td>
+            <td><span class="label rounded bg-{{$reminder->is_notified ? 'success' : 'danger'}}">{{$reminder->is_notified ? 'Yes' : 'no'}}</spam></td>
             <td>
                 <div
                     class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">

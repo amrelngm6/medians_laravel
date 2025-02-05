@@ -27,7 +27,6 @@ class AnnouncementController extends Controller
     public function index( Request $request)
     {
         // List all Announcements
-        
         $user = Auth::user();
 
         if ($user->cannot('Announcement view') && Auth::guardName() != 'superadmin') {
@@ -62,6 +61,14 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
+
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Announcement create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
         try {
             // Validate incoming request data
             $validator = Validator::make($request->all(), [
@@ -110,6 +117,13 @@ class AnnouncementController extends Controller
 
     public function destroy($id)
     {
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Announcement delete') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
         try {
             return $this->service->deleteAnnouncement($id) 
                 ? $this->jsonResponse('Deleted successfully') 
