@@ -11,7 +11,7 @@ class Reminder extends Model
     
     protected $table = 'reminders';
 
-    protected $fillable = ['business_id', 'description', 'date', 'user_id', 'user_type', 'model_id', 'model_type', 'is_notified', 'status'];
+    protected $fillable = ['business_id', 'name', 'description', 'date', 'user_id', 'user_type', 'model_id', 'model_type', 'is_notified'];
 
     /**
      * Load related Tasks as Morph

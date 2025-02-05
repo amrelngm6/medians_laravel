@@ -31,9 +31,9 @@ class PipelineController extends Controller
 
         $user = Auth::user();
 
-        // if (!$user || $user->cannot('Pipelines view') && Auth::guardName() != 'superadmin') {
-        //     abort(401, 'Unauthorized');
-        // }
+        if (!$user || $user->cannot('Pipelines view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
 
         $Pipelines = $this->service->query($request);
         

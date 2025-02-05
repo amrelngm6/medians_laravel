@@ -1,5 +1,5 @@
 
-<div class="modal fade  active show" id="new-Business-modal" tabindex="-1" >
+<div class="modal fade  active show" id="edit-reminder-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -7,7 +7,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#new-Business-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#edit-reminder-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
@@ -17,18 +17,17 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_new_pipeline_form" method="POST" class="ajax-form form" action="{{route('Pipeline.store')}}">
+                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Reminder.update', $reminder->id)}}">
                     @csrf
-                    <input type="hidden" name="model" value="-" />
+                    <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Create pipeline</h1>
+                        <h1 class="mb-3">Update reminder</h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Pipelines used to guide the Targets stages, 
-                            and you can set pipeline for multiple Models
+                            Update <span class="text-danger">{{$reminder->name}}</span> reminder.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -41,7 +40,8 @@
                             <span class="required">Name</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" placeholder="Pipeline name " name="name">
+                        <input class="form-control form-control-solid" placeholder="reminder name " value="{{$reminder->name}}"
+                                name="name" />
                     </div>
                     <!--end::Input group-->
 
@@ -52,15 +52,19 @@
                             <span class="required">Description</span>
                         </label>
                         <!--end::Label-->
-                        <textarea class="form-control form-control-solid" placeholder="Pipeline description" name="description"></textarea>
+                        <textarea class="form-control form-control-solid" placeholder="Reminder description" name="description">{{$reminder->description}}</textarea>
                     </div>
                     <!--end::Input group-->
 
-                    
+
+
                     <!--begin::Actions-->
                     <div class="text-center">
+                        <button type="reset" id="modal_edit_target_cancel" class="btn btn-light me-3">
+                            Cancel
+                        </button>
 
-                        <button type="submit" id="modal_new_target_submit" class="btn btn-primary">
+                        <button type="submit" id="modal_edit_target_submit" class="btn btn-primary">
                             <span class="indicator-label">
                                 Submit
                             </span>

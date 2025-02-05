@@ -1,6 +1,5 @@
-<?php $Modules = \App\Models\Module::get(); ?>
 
-<div class="modal fade  active show" id="edit-pipeline-modal" tabindex="-1" >
+<div class="modal fade  active show" id="edit-reminders-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -8,7 +7,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#edit-pipeline-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#edit-reminders-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
@@ -18,18 +17,17 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Pipeline.store-stage', $pipeline->id)}}">
+                <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Reminder.store')}}">
                     @csrf
-                    <input type="hidden" value="{{$pipeline->id}}" name="pipeline_id" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Create Stage for Pipeline</h1>
+                        <h1 class="mb-3">Create Reminder</h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Create stage for <span class="text-danger">{{$pipeline->name}}</span>  Pipeline.
+                            Create new Reminder.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -42,9 +40,33 @@
                             <span class="required">Name</span>
                         </label>
                         <!--end::Label-->
-                        <input class="form-control form-control-solid" placeholder="Stage name " name="name" />
+                        <input class="form-control form-control-solid" placeholder="Reminder name " name="name" />
                     </div>
                     <!--end::Input group-->
+
+
+                    <div class="w-full flex gap-10">
+                        <!--begin::Input group-->
+                        <div class="w-full d-flex flex-column mb-8 fv-row">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Date</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="date" class="form-control form-control-solid"  name="date" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" />
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="w-full d-flex flex-column mb-8 fv-row">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Time</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="time" class="form-control form-control-solid"  name="time" value="{{date('H:i:s', strtotime('+1hour'))}}"  />
+                        </div>
+                        <!--end::Input group-->
+                    </div>
 
                     
                     <!--begin::Input group-->
@@ -54,22 +76,9 @@
                             <span class="required">Description</span>
                         </label>
                         <!--end::Label-->
-                        <textarea class="form-control form-control-solid" placeholder="Stage description" name="description"></textarea>
+                        <textarea class="form-control form-control-solid" placeholder="Reminder description" name="description"></textarea>
                     </div>
                     <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Sort</span>
-                        </label>
-                        <!--end::Label-->
-                        <input class="form-control form-control-solid " type="number" placeholder="Sort" value="{{$pipeline->sort}}" required name="sort" />
-                    </div>
-                    <!--end::Input group-->
-
-                    @include('components.color-field')
-
                     <!--begin::Actions-->
                     <div class="text-center">
                         <button type="reset" id="modal_edit_target_cancel" class="btn btn-light me-3">

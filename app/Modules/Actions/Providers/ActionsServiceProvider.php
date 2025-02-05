@@ -16,14 +16,17 @@ class ActionsServiceProvider extends ServiceProvider
             'provider' => $this::class,
         ]);
         
-        if (empty($Module->is_enabled)) 
-            return;
+        // if (empty($Module->is_enabled)) 
+        //     return;
 
         // Load routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../views/reminders', 'reminders');
     }
 
     public function register()

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Modules\Actions\Controllers\CommentController;
+use App\Modules\Actions\Controllers\ReminderController;
 
 Route::prefix('comments')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [CommentController::class, 'index'])->name('Comment');
@@ -9,4 +10,15 @@ Route::prefix('comments')->middleware(['web', 'auth:staff'])->group(function () 
     Route::get('{id}', [CommentController::class, 'show']);
     Route::put('{id}', [CommentController::class, 'update']);
     Route::delete('{id}', [CommentController::class, 'destroy']);
+});
+
+
+Route::prefix('reminders')->middleware(['web', 'auth:staff'])->group(function () {
+    Route::get('/', [ReminderController::class, 'index'])->name('Reminder');
+    Route::get('create', [ReminderController::class, 'create'])->name('Reminder.create');
+    Route::get('{id}/show', [ReminderController::class, 'show'])->name('Reminder.show');
+    Route::post('/filter', [ReminderController::class, 'filter'])->name('Reminder.filter');
+    Route::post('/store', [ReminderController::class, 'store'])->name('Reminder.store');
+    Route::post('{id}/update', [ReminderController::class, 'update'])->name('Reminder.update');
+    Route::delete('{id}/delete', [ReminderController::class, 'destroy'])->name('Reminder.delete');
 });
