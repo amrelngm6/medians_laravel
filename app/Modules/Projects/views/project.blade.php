@@ -87,7 +87,7 @@
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 ">
                                             <!--begin::Number-->
                                             <div class="d-flex align-items-center">
-                                                <div class="fs-2 fw-bold counted w-full">{{ $project->tasks->first() ? $project->tasks->first()->countByStatus('Completed') : '0' }}</div>
+                                                <div class="fs-2 fw-bold counted w-full">{{ count($project->tasks)  ? $project->tasks->first()->countByStatus('Completed') : '0' }}</div>
                                                 <i class='bx bx-check-square fs-1 text-danger'></i>
                                             </div>
                                             <!--end::Number-->

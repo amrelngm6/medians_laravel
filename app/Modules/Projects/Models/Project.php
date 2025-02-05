@@ -105,6 +105,14 @@ class Project extends Model
         return $this->morphMany(ModelField::class, 'model');
     }
     
+    /**
+     * Project related fields as Morph
+     */
+    public function field($code)
+    {
+        return $this->morphOne(ModelField::class, 'model')->where('code', $code);
+    }
+    
     
     /**
      * Project related comments as Morph
@@ -125,6 +133,9 @@ class Project extends Model
     public function progress()
     {
         $all = $this->tasks()->count();
+        if (!$all)
+            return 0;
+
         $completed = $this->tasks()->first()->countByStatus('Completed');
         $percent = $all > 0 ? $completed / $all * 100 : 0;
         return $percent;

@@ -104,7 +104,7 @@
                 </div>
                 <div class="pt-10 flex gap-4">
                     <h5 class="w-full">Progress</h5>
-                    <span class="pt-1 block flex-none badge badge-danger light">{{ $project->tasks->first()->countByStatus('Completed') }} / {{ $project->tasks->count() }} Tasks</span>
+                    <span class="pt-1 block flex-none badge badge-danger light">{{ count($project->tasks) ? $project->tasks->first()->countByStatus('Completed') : 0 }} / {{ $project->tasks->count() }} Tasks</span>
                 </div>
                 <div class="mt-3">
                     <div class="mb-0 progress default-progress h-4px">

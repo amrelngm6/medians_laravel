@@ -38,36 +38,21 @@
                         <!--begin::Input group-->
                         <div class="d-flex flex-column mb-8 fv-row w-full">
                             <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <label class="d-flex align-items-center fs-6 fw-semibold ">
                                 <span class="required">Name</span>
                             </label>
                             <!--end::Label-->
-                            <input class="form-control form-control-solid" placeholder="Project name "
+                            <input class="form-control form-control-solid py-3" placeholder="Project name "
                                     name="name" required />
                         </div>
                         <!--end::Input group-->
 
-                        <!--begin::Input group-->
-                        <div class="d-flex flex-column fv-row w-full">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">Client</span>
-                            </label>
-                            <!--end::Label-->
-                            
-                            <div class="select-placeholder form-group w-full">
-                                <!-- <label for="assigned" class="control-label">Assigned To</label> -->
-                                <select id="assigned" name="client_id"
-                                    class="select-bootstrap form-control form-control-solid ">
-                                    <option value="0"></option>
-                                    @foreach ($clients as $staff)
-                                    <option value="{{$staff->staff_id}}">
-                                        {{$staff->name}}</option>
-                                    @endforeach
-                                </select>
+                        <div class="w-full">
+                            <div class="w-full">
+                                <label for="assigned" class="control-label">Client</label>
+                                @include('clients::search-input')
                             </div>
                         </div>
-                        <!--end::Input group-->
                         
 
                         
@@ -82,8 +67,8 @@
                                 <span class="required">Start date</span>
                             </label>
                             <!--end::Label-->
-                            <input class="form-control form-control-solid" placeholder="Project name "
-                                    name="start_date" type="date" />
+                            <input class="form-control form-control-solid  py-2" placeholder="Project name "
+                                    name="start_date" type="date" value="{{date('Y-m-d')}}" />
                         </div>
                         <!--end::Input group-->
 
@@ -95,8 +80,8 @@
                                 <span class="required">Deadline date</span>
                             </label>
                             <!--end::Label-->
-                            <input class="form-control form-control-solid" placeholder="Project name "
-                                    name="deadline_date" type="date" />
+                            <input class="form-control form-control-solid py-2" placeholder="Project name "
+                                    name="deadline_date" type="date" value="{{date('Y-m-d', strtotime('+1 month'))}}"  />
                         </div>
                         <!--end::Input group-->
                     </div>
@@ -169,35 +154,7 @@
                     
                     <!--begin::Input group-->
                     <div class="mb-15 fv-row">
-                        <!--begin::Wrapper-->
-                        <div class="d-flex flex-stack">
-                            <!--begin::Label-->
-                            <div class="fw-semibold me-5">
-                                <label class="fs-6">Status</label>
-
-                                <div class="fs-7 text-muted">If disabled the project and tasks will be restricted for team</div>
-                            </div>
-                            <!--end::Label-->
-
-                            <!--begin::Checkboxes-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Checkbox-->
-                                <div class="select-placeholder form-group w-full">
-                                    <!-- <label for="assigned" class="control-label">Assigned To</label> -->
-                                    <select id="assigned" name="client_id"
-                                        class="select-bootstrap form-control form-control-solid ">
-                                        <option value=""></option>
-                                        @foreach ($clients as $staff)
-                                        <option value="{{$staff->staff_id}}">
-                                            {{$staff->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <!--end::Checkbox-->
-                            </div>
-                            <!--end::Checkboxes-->
-                        </div>
-                        <!--end::Wrapper-->
+                    @include('status.status-selector')
                     </div>
                     <!--end::Input group-->
 
@@ -227,3 +184,8 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+<script> 
+    MediansSettings.dropdownWidget() 
+</script>
+@yield('search-scripts')
+@yield('client-search-scripts')
