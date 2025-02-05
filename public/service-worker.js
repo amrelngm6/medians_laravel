@@ -3,7 +3,7 @@ self.addEventListener("push", function (event) {
 
     let data = {};
     if (event.data) {
-        data = event.data.json();
+        data = event.data.text();
     }
 
     const title = data.title || "Reminder Notification";
