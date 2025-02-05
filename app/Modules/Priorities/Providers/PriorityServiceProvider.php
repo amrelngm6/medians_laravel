@@ -22,6 +22,5 @@ class PriorityServiceProvider extends ServiceProvider
     public function register()
     {
         // Register services here
-        $this->app->register(EventServiceProvider::class);
     }
 }

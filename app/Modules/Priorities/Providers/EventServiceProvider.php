@@ -13,26 +13,4 @@ use App\Modules\Priorities\Listeners\PrioritySelectorToModal;
 
 class EventServiceProvider extends ServiceProvider
 {
-    protected $listen = [
-        TaskFormRendering::class => [
-            PrioritySelectorToForm::class,
-        ],
-        TodoFormRendering::class => [
-            PrioritySelectorToForm::class,
-        ],
-        TicketFormRendering::class => [
-            PrioritySelectorToForm::class,
-        ],
-
-
-
-
-        TaskModalRendering::class => [
-            PrioritySelectorToModal::class,
-        ],
-        
-        TicketModalRendering::class => [
-            PrioritySelectorToModal::class,
-        ],
-    ];
 }

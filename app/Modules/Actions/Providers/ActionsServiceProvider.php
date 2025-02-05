@@ -4,8 +4,8 @@ namespace App\Modules\Actions\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
-use App\Models\Module;
 use App\Modules\Actions\Console\Commands\SendReminders;
+use App\Models\Module;
 
 class ActionsServiceProvider extends ServiceProvider
 {
