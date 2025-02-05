@@ -9,9 +9,10 @@ self.addEventListener('push', function(event) {
     };
     console.log(payload.body)
     console.log(payload.data)
-    event.waitUntil(
-        self.registration.showNotification(title, options)
-    );
+    alert(1)
+    // event.waitUntil(
+    //     self.registration.showNotification(title, options)
+    // );
 });
 
 self.addEventListener('notificationclick', function(event) {
