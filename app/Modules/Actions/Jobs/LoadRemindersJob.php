@@ -21,22 +21,16 @@ class LoadRemindersJob implements ShouldQueue
 
     public function handle()
     {
-        Log::info('Reminder Job'); 
 
         $reminders = Reminder::where('date', '<=', date('Y-m-d H:i:s'))->where('is_notified', 0)->get();
-
         
         foreach ($reminders as $reminder) {
 
                 
             if ($reminder->user->pushSubscriptions()->exists()) {
                 $reminder->user->notify(new ReminderNotification($reminder));
-            } else {
-                Log::error("User has no WebPush subscriptions.");
             }
 
-            // Notification::send($reminder->user, new ReminderNotification($reminder));
-            Log::info('Reminder '. json_encode($reminder)); 
             $reminder->update(['is_notified' => true]);
         }
     }

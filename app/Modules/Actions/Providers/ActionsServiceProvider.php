@@ -40,7 +40,7 @@ class ActionsServiceProvider extends ServiceProvider
         // Register Scheduled Tasks
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
-            $schedule->command('reminders:send')->everyTenSeconds();
+            $schedule->command('schedule:run')->everyTenSeconds();
         });
 
     }
