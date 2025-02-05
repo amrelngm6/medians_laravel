@@ -1,5 +1,7 @@
 self.addEventListener("push", function (event) {
     console.log("Push event received:", event);
+    console.log("Push event received:", event.data);
+    console.log("Push event received:", event.data.text());
 
     let data = {};
     if (event.data) {
@@ -13,7 +15,7 @@ self.addEventListener("push", function (event) {
         badge: "/badge.png",
         data: { url: data.url || "/" },
     };
-
+    
     event.waitUntil(
         self.registration.showNotification(title, options)
     );
