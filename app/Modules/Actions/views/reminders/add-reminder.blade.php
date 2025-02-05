@@ -19,6 +19,8 @@
                 <!--begin:Form-->
                 <form id="modal_edit_target_form" method="POST" class="ajax-form form" action="{{route('Reminder.store')}}">
                     @csrf
+                    <input type="hidden" name="model_type" value="{{$modelType ?? ''}}" />
+                    <input type="hidden" name="model_id" value="{{$modelId ?? ''}}" />
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->

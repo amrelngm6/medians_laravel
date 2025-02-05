@@ -49,7 +49,11 @@ class ReminderController extends Controller
     {
         $user = Auth::user();
 
-        return view('reminders::add-reminder');
+        $modelId = $user->id();
+        
+        $modelType = get_class($user);
+
+        return view('reminders::add-reminder', compact('user','modelId','modelType'));
     }
 
 
@@ -63,6 +67,8 @@ class ReminderController extends Controller
             // Validate incoming request data
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
+                'model_id' => "integer",
+                'model_type' => "required|string",
                 'date' => "required|date",
                 'time' => "required",
                 'message' => 'required|string',
@@ -74,12 +80,12 @@ class ReminderController extends Controller
             
             $user = Auth::user();
 
-            $creator = ['user_id'=>$user->staff_id, 'user_type' => get_class($user), 'business_id'=>$user->business_id];
+            $creator = ['date'=> $request->date.' '.$request->time, 'user_id'=>$user->staff_id, 'user_type' => get_class($user), 'business_id'=>$user->business_id];
 
-            // Create and save the Comment
-            $comment = $this->service->createComment(array_merge($creator, $request->only('message', 'user_type', 'user_id', 'model_id', 'model_type', 'status_id')), $request->file);
+            // Create and save the Reminder
+            $reminder = $this->service->createReminder(array_merge($creator, $request->only('message', 'name', 'user_type', 'user_id', 'model_id', 'model_type')), $request->file);
 
-            return $comment ? $this->jsonResponse('Created successfully') : null;
+            return $reminder ? $this->jsonResponse('Created successfully') : null;
             
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage(), 'Validation Error');

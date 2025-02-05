@@ -3,6 +3,7 @@
 namespace App\Modules\Actions\Services;
 
 use App\Modules\Actions\Models\Reminder;
+use App\Modules\Uploads\Services\UploadService;
 
 class ReminderService
 {
@@ -19,18 +20,29 @@ class ReminderService
         return $this->model->query();
     }
 
-    public function createReminder(array $data)
+    public function createReminder(array $data, $file = null)
     {
-        // Business logic for creating a Reminder
+        $reminder = Reminder::create($data);
+
+        if ($file  != null) {
+            $uploadService = new UploadService();
+            $data ['model_id'] =  $reminder->id;
+            $data ['model_type'] = get_class($reminder);
+            $upload = $uploadService->createUpload($file, $data);
+        }
+            
+        return $reminder;
     }
 
     public function updateReminder($id, array $data)
     {
         // Business logic for updating a Reminder
+        return Reminder::find($id)->update($data);
     }
 
     public function deleteReminder($id)
     {
         // Business logic for deleting a Reminder
+        return Reminder::find($id)->delete();
     }
 }
