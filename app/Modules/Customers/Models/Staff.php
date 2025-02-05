@@ -5,6 +5,7 @@ namespace App\Modules\Customers\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 use App\Modules\Core\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -18,7 +19,7 @@ use App\Modules\Packages\Models\PackageFeatures;
 
 class Staff extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, HasPushSubscriptions;
 
     // protected $guard_name = 'staff'; 
 

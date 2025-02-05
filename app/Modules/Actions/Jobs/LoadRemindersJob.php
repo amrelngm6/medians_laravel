@@ -9,8 +9,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Log;
-// use App\Notifications\ReminderNotification;
+use App\Modules\Actions\Console\ReminderNotification;
 use App\Modules\Actions\Models\Reminder;
+
 
 class LoadRemindersJob implements ShouldQueue
 {
@@ -24,7 +25,16 @@ class LoadRemindersJob implements ShouldQueue
 
         $reminders = Reminder::where('date', '<=', date('Y-m-d H:i:s'))->where('is_notified', 0)->get();
 
+        
         foreach ($reminders as $reminder) {
+
+                
+            if ($reminder->user->pushSubscriptions()->exists()) {
+                $reminder->user->notify(new ReminderNotification($reminder));
+            } else {
+                Log::error("User has no WebPush subscriptions.");
+            }
+
             // Notification::send($reminder->user, new ReminderNotification($reminder));
             Log::info('Reminder '. json_encode($reminder)); 
             $reminder->update(['is_notified' => true]);

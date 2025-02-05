@@ -47,7 +47,7 @@
                                 </a>
                                 @endif
                             </div>
-                            @if ($timesheet)
+@if ($timesheet)
 <script>
 let interval;
 jQuery(document).ready(function(){
@@ -59,7 +59,7 @@ jQuery(document).ready(function(){
     {
         clearInterval(interval)   
     }
-    interval = setInterval(() => {
+    interval = setInterval(async () => {
         let startTime = moment("{{$timesheet->start}}", "YYYY-MM-DD hh:mm:ss");
         let now = moment.utc();
         let duration = moment.duration(now.tz('{{env('APP_TIMEZONE')}}').diff(startTime));

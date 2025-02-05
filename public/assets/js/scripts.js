@@ -2914,6 +2914,44 @@ jQuery(function($) {
    
 
 
+      
+    /**
+     * Upload Picture preview
+     */
+    MediansSettings.handleNotification = function() {
+
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+
+                    // Subscribe to push notifications
+                    return registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: "{{ env('WEBPUSH_VAPID_PUBLIC_KEY') }}"
+                    });
+                })
+                .then(function(subscription) {
+                    // Send the subscription details to the server
+                    fetch('/webpush/subscribe', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify(subscription)
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Service Worker registration failed:', error);
+                });
+        } else {
+            console.warn('Push messaging is not supported');
+        }
+    }
+   
+
+
 
 
     /******************************
@@ -3003,7 +3041,7 @@ jQuery(function($) {
             MediansSettings.otherScripts();
             MediansSettings.handleFormsActions();
             MediansSettings.handleUploadAvatar();
-            
+            MediansSettings.handleNotification();
         }, 100);
 
     });
