@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id()->primary();
-            $table->string('model_type', 191);
-            $table->integer('model_id');
-            $table->string('user_type', 191);
-            $table->integer('user_id');
+            $table->string('name', 191)->nullable();
             $table->text('description')->nullable();
+            $table->morphs('model');
+            $table->morphs('user');
             $table->dateTime('date');
             $table->integer('is_notified')->default(0);
-            $table->integer('business_id');
+            $table->integer('business_id')->default(0);
             $table->timestamps();
         });
     }

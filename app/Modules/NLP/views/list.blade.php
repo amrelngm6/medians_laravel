@@ -47,9 +47,13 @@
                             </form>
                             <div class="card-body gap-1 h-500px mb-10 overflow-auto " >
                                 <div class=" px-2">
-                                    <p class="mb-1 text-muted dark:text-zink-200">New Chats</p>
+                                    <p class="mb-1 text-muted dark:text-zink-200">Chat AI Models</p>
                                 </div>
-                                
+                                <p class="py-2"> <a class="fs-5" href="{{route('HuggFace')}}?type=chat_content">Default</a></p>
+                                <p class="py-2"> <a class="fs-5" href="{{route('HuggFace')}}?type=text-chat">Text generation</a></p>
+                                <p class="py-2"> <a class="fs-5" href="{{route('HuggFace')}}?type=translate">Translate</a></p>
+                                <p class="py-2"> <a class="fs-5" href="{{route('HuggFace')}}?type=img2img-chat">Img 2 Img</a></p>
+                                <p class="py-2"> <a class="fs-5" href="{{route('HuggFace')}}?type=image-text">Image text</a></p>
                                 
                                 <div class="px-2">
                                     <p class="mb-1 text-muted dark:text-zink-200">All Conversations</p>
@@ -62,7 +66,7 @@
                 </div>
                 <div class="col-lg-8 ">
                     <div class="w-full" id="chat_content">
-                        @include('nlp::image-text')
+                        @include('nlp::'.(request()->get('type') ?? 'text-chat'))
                     </div>
                 </div>
                 <!-- MAIN CONTENT AREA ENDS -->

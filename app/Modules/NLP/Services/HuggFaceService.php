@@ -67,17 +67,18 @@ class HuggFaceService
             ],
         ]);
 
+        $res = json_decode($response->getBody()->getContents(), true);
+
         $update = $save->update([
             'reply' => $response->getBody()->getContents()
         ]);
 
-        return json_decode($response->getBody()->getContents(), true)[0]['generated_text'] ?? '';
+        return $res[0]['generated_text'] ?? 'No data';
     }
     
     public function generateText(string $text, $model = '')
     {
        
-        
         $save = $this->saveRecord($text, $model);
 
         try {
@@ -98,6 +99,11 @@ class HuggFaceService
             $formatedResponse = $this->formatResponse($response, $text);
             $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);
             
+            $update = $save->update([
+                'reply' => $result
+            ]);
+                
+            return $result;
             
         } catch (\Throwable $th) {
             $update = $save->update([
@@ -106,11 +112,6 @@ class HuggFaceService
             return $th->getMessage();
         }
 
-        $update = $save->update([
-            'reply' => $result
-        ]);
-            
-        return $result;
     }
     
     public function translateText(string $text, $model = '')
