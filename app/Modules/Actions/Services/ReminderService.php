@@ -19,7 +19,7 @@ class ReminderService
     public function query($request)
     {
         $user = Auth::user();
-        return $this->model->forBusiness($user->business_id ?? null)->get();
+        return $this->model->forBusiness($user->business_id ?? null)->orderBy('id', 'DESC')->get();
     }
 
     public function createReminder(array $data, $file = null)
