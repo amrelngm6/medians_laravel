@@ -26,9 +26,9 @@ class ReminderNotification extends Notification
     public function toWebPush($notifiable, $notification)
     {
         return (new WebPushMessage)
-            ->title('Task Reminder')
-            ->body('You have a task due: ' . $this->task->name)
+            ->title($this->task->name)
+            ->body('You have a task due: ' . date('M d, H:i a', $this->task->date))
             ->action('View Task', 'view_task')
-            ->data(['url' => url('/tasks/' . $this->task->task_id)]);
+            ->data(['url' => url('/tasks/' . $this->task->id)]);
     }
 }
