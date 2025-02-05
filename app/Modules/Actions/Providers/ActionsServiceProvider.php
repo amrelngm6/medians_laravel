@@ -41,6 +41,7 @@ class ActionsServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
             $schedule->command('schedule:run')->everyTenSeconds();
+            $schedule->command('reminders:send')->everyTenSeconds();
         });
 
     }
