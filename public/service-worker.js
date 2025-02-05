@@ -7,7 +7,8 @@ self.addEventListener('push', function(event) {
         icon: '/icon.png',
         data: payload.data || {}
     };
-
+    console.log(payload.body)
+    console.log(payload.data)
     event.waitUntil(
         self.registration.showNotification(title, options)
     );

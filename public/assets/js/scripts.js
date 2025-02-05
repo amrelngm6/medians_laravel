@@ -2923,7 +2923,6 @@ jQuery(function($) {
         if ('serviceWorker' in navigator && 'PushManager' in window) {
             navigator.serviceWorker.register('/service-worker.js')
                 .then(function(registration) {
-                    console.log('Service Worker registered with scope:', registration.scope);
 
                     // Subscribe to push notifications
                     return registration.pushManager.subscribe({
