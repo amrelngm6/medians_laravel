@@ -2918,7 +2918,7 @@ jQuery(function($) {
     /**
      * Upload Picture preview
      */
-    MediansSettings.handleNotification = function() {
+    MediansSettings.handleNotification = function(url, key, _token) {
 
         if ('serviceWorker' in navigator && 'PushManager' in window) {
             navigator.serviceWorker.register('/service-worker.js')
@@ -2928,16 +2928,16 @@ jQuery(function($) {
                     // Subscribe to push notifications
                     return registration.pushManager.subscribe({
                         userVisibleOnly: true,
-                        applicationServerKey: "{{ env('WEBPUSH_VAPID_PUBLIC_KEY') }}"
+                        applicationServerKey: key
                     });
                 })
                 .then(function(subscription) {
                     // Send the subscription details to the server
-                    fetch('/webpush/subscribe', {
+                    fetch(url, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            'X-CSRF-TOKEN':  _token
                         },
                         body: JSON.stringify(subscription)
                     });
@@ -3041,7 +3041,7 @@ jQuery(function($) {
             MediansSettings.otherScripts();
             MediansSettings.handleFormsActions();
             MediansSettings.handleUploadAvatar();
-            MediansSettings.handleNotification();
+
         }, 100);
 
     });

@@ -132,4 +132,30 @@ class ReminderController extends Controller
         }
 
     }
+
+    /**
+     * User subscribe to notifications
+     */
+    public function subscribe(Request $request)
+    {
+        $user = Auth::user();
+                
+        $validator = Validator::make($request->all(), [
+            'endpoint' => 'required|string',
+            'keys.auth' => 'required',
+            'keys.p256dh' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->hasError($validator->errors(), 'Validation Error');
+        }
+
+        $user->updatePushSubscription(
+            $request->endpoint,
+            $request->keys['p256dh'],
+            $request->keys['auth']
+        );
+
+        return response()->json(['success' => true], 200);
+    }
 }

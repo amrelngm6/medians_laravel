@@ -21,5 +21,11 @@
     <!-- CORE TEMPLATE JS - START -->
     <script src="{{asset('assets/js/scripts.js')}}"></script>
     <!-- END CORE TEMPLATE JS - END -->
+    <script>
+        setTimeout(() => {
+            MediansSettings.handleNotification( '{{route('Reminder.subscribe')}}', '{{ env('VAPID_PUBLIC_KEY') }}', '{{ csrf_token() }}');
+        }, 2000);
+    </script>
+
 
     <div id="modals"></div>

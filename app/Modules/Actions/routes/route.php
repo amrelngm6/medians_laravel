@@ -14,6 +14,11 @@ Route::prefix('comments')->middleware(['web', 'auth:staff'])->group(function () 
 
 
 Route::prefix('reminders')->middleware(['web', 'auth:staff'])->group(function () {
+    Route::post('/subscribe', [ReminderController::class, 'subscribe'])->name('Reminder.subscribe');
+});
+
+
+Route::prefix('reminders')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [ReminderController::class, 'index'])->name('Reminder');
     Route::get('create', [ReminderController::class, 'create'])->name('Reminder.create');
     Route::get('{id}/show', [ReminderController::class, 'show'])->name('Reminder.show');
@@ -22,3 +27,5 @@ Route::prefix('reminders')->middleware(['web', 'auth:staff'])->group(function ()
     Route::post('{id}/update', [ReminderController::class, 'update'])->name('Reminder.update');
     Route::delete('{id}/delete', [ReminderController::class, 'destroy'])->name('Reminder.delete');
 });
+
+
