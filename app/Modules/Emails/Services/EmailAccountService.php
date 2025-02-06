@@ -111,7 +111,9 @@ class EmailAccountService
 
     public function accountFolders($account)
     {
-        $items = EmailFolder::forEmail($account->email)->get();
+        $user = Auth::user();
+
+        $items = EmailFolder::forBusiness($user->business_id ?? 0)->forEmail($account->email)->get();
 
         return $items;
     }
