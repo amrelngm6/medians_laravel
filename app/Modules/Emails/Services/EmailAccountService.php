@@ -42,7 +42,7 @@ class EmailAccountService
     }
 
 
-    public function fetch($account)
+    public function fetch()
     {
 
         try {
@@ -52,8 +52,8 @@ class EmailAccountService
             foreach ($folders as $folder) {
                 $savedFolder = EmailFolder::firstOrCreate([
                     'name' => $folder->name,
-                    'email' => $account->email,
-                    'business_id' => $account->business_id
+                    'email' => $this->account->email,
+                    'business_id' => $this->account->business_id
                 ]);
             }
             

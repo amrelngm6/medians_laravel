@@ -72,14 +72,32 @@ class EmailAccountController extends Controller
             $account = $this->service->findAccount($accountId);
             $folder = $this->service->findFolder($request->get('folder'), $account);
             $saveMessages = $this->service->connect($account)->fetchMessages($folder->name, $request->days ?? 10);
-            // $fetch = $this->service->fetch($account);
 
             return $this->filter($request, $accountId);
 
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
+    }
 
+    public function fetchFolders(Request $request, $accountId)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+
+            $account = $this->service->findAccount($accountId);
+            $folder = $this->service->connect($account)->fetch($request->get('folder'));
+
+            return $this->filter($request, $accountId);
+
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     public function create(Request $request)
