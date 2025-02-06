@@ -29,7 +29,7 @@
                             Custom task at  <a href="#!"
                                 rel="popover"
                                 data-toggle="popover" data-placement="bottom" data-trigger="hover" data-html="true"
-                                data-content="This task for <b>{{class_basename($task->model)}}</b>"
+                                data-content="This task for <b class='text-danger'>{{class_basename($task->model)}}</b>"
                                 class="fw-bold link-primary">{{ $task->model->name ?? '' }}</a>.
                             <a href="{{route('Task.duplicate-modal', $task->task_id)}}" rel="popover"
                                 data-toggle="popover" data-placement="bottom" data-trigger="hover"
