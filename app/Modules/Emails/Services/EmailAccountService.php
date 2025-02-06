@@ -112,7 +112,7 @@ class EmailAccountService
         return EmailAccount::forUser($user)->findOrFail($id);
     }
 
-    public function accountMessages($email, $folderName = null, $limit = 50)
+    public function accountMessages($email, $folderName = null, $limit = 50, $offset = 0)
     {
         $items = EmailMessage::forEmail($email);
 
@@ -120,7 +120,7 @@ class EmailAccountService
             $items->where('folder_name', $folderName);
         }
 
-        return $items->orderBy('id', 'DESC')->limit($limit)->get();
+        return $items->orderBy('id', 'DESC')->offset($offset)->limit($limit)->get();
     }
 
     public function findMessage($id, $account)
