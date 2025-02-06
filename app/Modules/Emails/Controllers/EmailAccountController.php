@@ -95,7 +95,7 @@ class EmailAccountController extends Controller
 
             $account = $this->service->findAccount($accountId);
             $folder = $this->service->findFolder($request->get('folder') ?? ($account->folder->id ?? 0), $account);
-            $saveMessages = $this->service->connect($account)->fetchMessages($folder->name, $request->days ?? 10);
+            $saveMessages = $this->service->connect($account)->fetchMessages($folder->name, $account, $request->days ?? 10);
 
             return $this->filter($request, $accountId);
 
