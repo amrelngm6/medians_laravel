@@ -44,7 +44,7 @@
                             </div>
                             <div class="d-flex align-items-center w-full">
                                 <div class="d-flex flex-column  fv-row w-full">
-                                    <input placeholder="Load since x days" name="fields[since_days]" value="{{$account->imap_host}}" type="number" min="1" max="100" required class="form-control form-control-solid" />
+                                    <input placeholder="Load since x days" name="fields[since_days]" value="{{$account->field('since_days')->first()->value ?? 0}}" type="number" min="1" max="100" required class="form-control form-control-solid" />
                                 </div>
                             </div>
                         </div>

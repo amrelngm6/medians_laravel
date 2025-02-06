@@ -44,6 +44,25 @@ class EmailAccount extends Model
 
 
     /**
+     * Project related fields as Morph
+     */
+    public function field($code)
+    {
+        return $this->morphOne(ModelField::class, 'model')->where('code', $code);
+    }
+
+    // /**
+    //  * Load related email since_days
+    //  */
+    // public function field($key)
+    // {
+    //     return $this->with(['fields'=> function($q) use ($key) {
+    //         $q->where('code', $key);
+    //     }]);
+    // }
+
+
+    /**
      * Load related email account
      */
     public function messages()
