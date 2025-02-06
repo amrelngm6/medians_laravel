@@ -198,6 +198,8 @@ class EmailAccountService
         $data['sender_name'] = $account->email;
         $data['delivery_date'] =  date('d, M d, Y - H:i:s');
         $data['folder_name'] =  'CRM';
+        $data['cc'] =  '';
+        $data['reply_to'] =  '';
         $data['size'] = $emailSizeKB;
         $data['time'] =  date('Y-m-d H:i:s');
         $data['message_id'] =  rand(999,999999).$account->emaail;
