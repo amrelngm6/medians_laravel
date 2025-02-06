@@ -33,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         TicketModalRendering::class => [
-            ReminderToModal::class,
+            PrioritySelectorToModal::class,
         ],
     ];
 }
