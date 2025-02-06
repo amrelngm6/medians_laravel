@@ -103,6 +103,7 @@ Route::prefix('dashboard')->middleware(['web', 'auth:superadmin,staff'])->group(
             echo " Delivery date: " . $message->delivery_date;
             echo " Folder: " . $message->getFolder()->name;
             echo " Subject: " . $subject;
+            echo " Subject: " . $message->thread;
             echo "\nFrom: " . $message->getFrom()[0]->mail;
             
             echo "\nFrom: " . $message->from;
