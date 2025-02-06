@@ -70,7 +70,6 @@ Route::post('/register', [StaffController::class, 'register'])->name('Staff.regi
 Route::view('login', 'pages.login')->name('login');
 Route::view('signup', 'pages.signup')->name('signup_page');
 Route::get('logout', [UserController::class, 'logout']);
-use Webklex\IMAP\Facades\Client;
 
 Route::prefix('dashboard')->middleware(['web', 'auth:superadmin,staff'])->group(function() {
     

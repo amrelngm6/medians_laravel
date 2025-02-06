@@ -6,7 +6,7 @@ use App\Modules\Emails\Controllers\EmailAccountController;
 Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
     Route::get('/', [EmailAccountController::class, 'index'])->name('EmailAccount');
     Route::get('/index', [EmailAccountController::class, 'index'])->name('EmailAccounts');
-    Route::get('/filter', [EmailAccountController::class, 'filter'])->name('EmailAccount.filter');
+    Route::get('/{account}/filter', [EmailAccountController::class, 'filter'])->name('EmailAccount.filter');
     Route::get('create', [EmailAccountController::class, 'create'])->name('EmailAccount.create');
     Route::get('{id}/show', [EmailAccountController::class, 'show'])->name('EmailAccount.show');
     Route::get('{id}/edit', [EmailAccountController::class, 'edit'])->name('EmailAccount.edit');

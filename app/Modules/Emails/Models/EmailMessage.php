@@ -6,28 +6,37 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\Priorities\Models\Priority;
 
 
-class Email extends Model
+class EmailMessage extends Model
 {
     
-    protected $table = 'todos';
+    protected $table = 'email_messages';
 
-    protected $fillable = ['business_id', 'description', 'user_type', 'user_id', 'date', 'finished_time', 'sort',  'priority_id', 'completed'];
+    protected $fillable = ['business_id', 'model_id', 'model_type', 'email', 'subject', 'sender_email', 'sender_name', 'cc', 'reply_to', 'folder_name', 'message_text', 'message_html','message_id', 'delivery_date', 'time', 'size'];
 
     /**
      * Load related category as Morph
      */
-    public function user()
+    public function model()
     {
         return $this->morphTo();
     }
 
-    /**
-     * Load related priority as Morph
-     */
-    public function priority()
-    {
-        return $this->hasOne(Priority::class, 'priority_id', 'priority_id'); 
-    }
 
+    /**
+     * Scope for Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+    
+
+    /**
+     * Scope for Business
+     */
+    public function scopeForEmail($query, $email)
+    {
+        return $query->where('email', $email);
+    }
 
 }

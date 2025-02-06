@@ -4,8 +4,10 @@ namespace App\Modules\Emails\Services;
 
 use App\Modules\Emails\Models\EmailAccount;
 use App\Modules\Emails\Models\EmailMessage;
+use App\Modules\Emails\Models\EmailFolder;
 use App\Modules\Priorities\Models\Priority;
 use App\Models\Auth;
+use Webklex\IMAP\Facades\Client;
 
 class EmailAccountService
 {
@@ -16,25 +18,54 @@ class EmailAccountService
         $this->model = $model;
     }
 
-    public function fetch($request, $user)
+    public function fetch($account)
     {
-        $settings = EmailAccount::where('email', $request->email)
-        ->user($user)
-        ->first();
 
         $client = Client::make([
-            'host' => $settings->imap_host,
-            'port' => $settings->imap_port,
+            'host' => $account->imap_host,
+            'port' => $account->imap_port,
             'encryption' => 'ssl',
             'validate_cert' => false,
-            'username' => $settings->imap_username,
-            'password' => $settings->imap_password,
+            'username' => $account->imap_username,
+            'password' => $account->imap_password,
             'protocol' => 'imap',
         ]);
 
-        $client = Client::account('default');
+        // $client = Client::account('default');
 
-        $client->connect();
+        try {
+
+            $client->connect();
+
+            $folders = $client->getFolders();
+
+            foreach ($folders as $folder) {
+                $savedFolder = EmailFolder::firstOrCreate([
+                    'name' => $folder->name,
+                    'email' => $account->email,
+                    'business_id' => $account->business_id
+                ]);
+
+                $saveMessages = $this->fetchMessages($folder->name, $account);
+
+            }
+            
+            return $saveMessages;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        
+    }
+
+    
+
+    public function fetchMessages($folderName, $account)
+    {
+        $user = Auth::user();
+        
+        $savedMessages = [];
 
         $folder = $client->getFolder($request->folder ?? 'INBOX');
         $messages = $folder->query()->since(now()->subDays(30))->get();
@@ -55,24 +86,27 @@ class EmailAccountService
             $data['cc'] =  $message->getCc();
             $data['reply_to'] =  $message->getReplyTo();
             $data['business_id'] =  $user->business_id ?? 0;
-
             
+            $savedMessages[] = EmailMessage::firstOrCreate($data);
         }
+
+        return $savedMessages;
     }
 
-    public function query($request)
+    public function findAccount($id)
     {
         $user = Auth::user();
-        $items = EmailAccount::query();
-
-        if ($request->has('folder_name')) {
-            $items->where('priority_id', $request->priority_id);
-        }
         
-        if ($request->has('date')) {
-            $items->where('date', date('Y-m-d', strtotime($request->date)));
-        }
-        return $items->where('user_id', $user->id)->paginate();
+        return EmailAccount::forUser($user)->findOrFail($id);
+    }
+
+    
+
+    public function accountMessages($email)
+    {
+        $items = EmailMessage::forEmail($email)->get();
+
+        return $items;
     }
 
     
@@ -97,19 +131,19 @@ class EmailAccountService
         return EmailAccount::findOrFail($id);
     }
 
-    public function createEmail(array $data)
+    public function createEmailAccount(array $data)
     {
         return EmailAccount::create($data);
     }
 
-    public function updateEmail($id, array $data)
+    public function updateEmailAccount($id, array $data)
     {
         $email = $this->find($id);
         $email->update($data);
         return $email;
     }
 
-    public function deleteEmail($id)
+    public function deleteEmailAccount($id)
     {
         $email = $this->find($id);
         return $email->delete();

@@ -9,9 +9,9 @@ use App\Modules\Priorities\Models\Priority;
 class EmailAccount extends Model
 {
     
-    protected $table = 'todos';
+    protected $table = 'email_accounts';
 
-    protected $fillable = ['business_id', 'description', 'user_type', 'user_id', 'date', 'finished_time', 'sort',  'priority_id', 'completed'];
+    protected $fillable = ['business_id',  'email', 'user_type', 'user_id', 'imap_host', 'imap_port',  'imap_encryption', 'imap_username', 'imap_password'];
 
     /**
      * Load related category as Morph
@@ -21,13 +21,6 @@ class EmailAccount extends Model
         return $this->morphTo();
     }
 
-    /**
-     * Load related priority as Morph
-     */
-    public function priority()
-    {
-        return $this->hasOne(Priority::class, 'priority_id', 'priority_id'); 
-    }
 
 
     /**
@@ -42,7 +35,7 @@ class EmailAccount extends Model
     /**
      * Scope for Business
      */
-    public function scopeUser($query, $user)
+    public function scopeForUser($query, $user)
     {
         return $query
         ->where('user_id', $user->id())

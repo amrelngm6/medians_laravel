@@ -6,28 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\Priorities\Models\Priority;
 
 
-class Email extends Model
+class EmailFolder extends Model
 {
     
-    protected $table = 'todos';
+    protected $table = 'email_folders';
 
-    protected $fillable = ['business_id', 'description', 'user_type', 'user_id', 'date', 'finished_time', 'sort',  'priority_id', 'completed'];
-
-    /**
-     * Load related category as Morph
-     */
-    public function user()
-    {
-        return $this->morphTo();
-    }
+    protected $fillable = ['business_id', 'email', 'parent_folder', 'name'];
 
     /**
-     * Load related priority as Morph
+     * Load related email account
      */
-    public function priority()
+    public function account()
     {
-        return $this->hasOne(Priority::class, 'priority_id', 'priority_id'); 
+        return $this->hasOne(EmailAccount::class, 'email', 'email');
     }
+
 
 
 }

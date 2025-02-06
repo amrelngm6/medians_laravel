@@ -27,7 +27,7 @@ class EmailAccountController extends Controller
         }
 
         $emails = $this->service->query($request, $user);
-        
+                
         $accounts = $this->service->accounts($user);
 
         $priorities = $this->service->priorities();
@@ -35,7 +35,7 @@ class EmailAccountController extends Controller
         return view('emails::select-account', compact('emails','priorities' , 'accounts', 'user'));
     }
 
-    public function filter(Request $request)
+    public function filter(Request $request, $accountId)
     {
         $user = Auth::user();
 
@@ -43,10 +43,19 @@ class EmailAccountController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $emails = $this->service->query($request);
-        $priorities = $this->service->priorities();
+        try {
+                
+            $account = $this->service->findAccount($accountId);
+            $fetch = $this->service->fetch($account);
+            $messages = $this->service->accountMessages($account->email);
+            $priorities = $this->service->priorities();
 
-        return view('emails::list', compact('emails','priorities', 'user'));
+            return view('emails::row', compact('messages', 'account','priorities', 'user'));
+        } catch (\Throwable $th) {
+            
+            return $th->getMessage();
+        }
+
     }
 
     public function create(Request $request)
@@ -68,9 +77,18 @@ class EmailAccountController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $emails = $this->service->find($id);
+        $account = $this->service->findAccount($id);
 
-        return view('emails::edit', compact('user', 'emails'));
+        return view('emails::edit', compact('user', 'account'));
+    }
+
+    
+
+    public function show(Request $request, $accountId)
+    {
+        $account = $this->service->findAccount($accountId);
+
+        return view('emails::list', compact('account'));
     }
 
     public function store(Request $request)
@@ -99,11 +117,12 @@ class EmailAccountController extends Controller
         $creator = [
             'created_by' => $user->id(), 
             'business_id' => $user->business_id ?? 0,
+            'email' => $request->imap_username ?? '',
             'user_id' => $user->id ?? 0,
             'user_type' => get_class($user),
         ];
 
-        $emails = $this->service->createEmail(array_merge($request->only('description', 'date', 'priority_id', 'completed'), $creator));
+        $emails = $this->service->createEmail(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
 
         return $emails ? response()->json([
             'success' => true,
@@ -113,13 +132,7 @@ class EmailAccountController extends Controller
         ], 200) : null;
     }
 
-    public function show($id)
-    {
-        $emails = $this->service->find($id);
-        return view('emails::show', compact('emails'));
-    }
-
-    public function update(Request $request, $id)
+    public function update(Request $request, $accountId)
     {
         $user = Auth::user();
 
@@ -128,17 +141,20 @@ class EmailAccountController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'completed' => 'required|integer',
+            'imap_host' => 'required|string|max:255',
+            'imap_username' => 'required|string|max:255',
+            'imap_password' => 'required|string|max:255',
+            'imap_port' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'result' => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 402);
         }
 
-        $update = $this->service->updateEmail($id, $request->only('description', 'date', 'priority_id', 'completed'));
+        $update = $this->service->updateEmailAccount($accountId, array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
 
         return $update ? response()->json([
             'success' => true,
