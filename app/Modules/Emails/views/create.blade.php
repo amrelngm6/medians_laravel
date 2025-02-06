@@ -94,7 +94,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="d-flex flex-column  fv-row">
-                                    <input placeholder="IMAP username (ex: email@domain.com)" name="imap_username" value="" required class="form-control form-control-solid" />
+                                    <input placeholder="IMAP login password" name="imap_password" value="" required class="form-control form-control-solid" />
                                 </div>
                             </div>
                         </div>
