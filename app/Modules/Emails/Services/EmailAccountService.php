@@ -57,7 +57,7 @@ class EmailAccountService
                 ]);
             }
             
-            return $saveMessages;
+            return $savedFolder;
             
         } catch (\Throwable $th) {
             throw $th;
