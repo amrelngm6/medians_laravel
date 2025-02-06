@@ -7,7 +7,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <a class="cursor-pointer text-danger {{$modalRoute ? 'open-modal' : ''}}" href="{{$modalRoute ?? 'javascript:;'}}" >
+                <a data-modal="#show-reminder-modal"  class="cursor-pointer text-danger {{$modalRoute ? 'open-modal' : 'close-modal'}}" href="{{$modalRoute ?? 'javascript:;'}}" >
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </a>
                 <!--end::Close-->
