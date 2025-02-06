@@ -6,6 +6,7 @@
 <body>
     <div>
         {!! $message->message_text ?? '' !!}
+        <p>{{ $message->message_text ?? 'Empty mail' }}</p>
     </div>
 </body>
 </html>
