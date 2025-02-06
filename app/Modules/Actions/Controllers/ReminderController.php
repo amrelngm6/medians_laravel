@@ -82,7 +82,7 @@ class ReminderController extends Controller
     {
         $user = Auth::user();
 
-        $reminders = $this->service->query($request, $modelId, $modelType);
+        $reminders = $this->service->queryByModel($request, $modelId, $modelType);
 
         $modalRoute = route('Tasks.project_task', $modelId);
 
