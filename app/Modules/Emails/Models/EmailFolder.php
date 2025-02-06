@@ -23,6 +23,15 @@ class EmailFolder extends Model
 
 
     /**
+     * Load related email account
+     */
+    public function messages()
+    {
+        return $this->hasOne(EmailMessage::class, 'email', 'email')->where('email', $this->email);
+    }
+
+
+    /**
      * Scope for Business
      */
     public function scopeForBusiness($query, $businessId)
