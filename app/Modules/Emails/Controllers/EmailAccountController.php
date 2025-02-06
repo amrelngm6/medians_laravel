@@ -46,8 +46,8 @@ class EmailAccountController extends Controller
             
             $account = $this->service->findAccount($accountId);
             $folder = $this->service->findFolder($request->get('folder'), $account);
-            $messagesPaginate = $this->service->accountMessages($account->email, $folder->name ?? null, 20, $request->page ?? 1)->toArray();
-            $messages = $this->service->accountMessages($account->email, $folder->name ?? null, 20, $request->page ?? 1);
+            $messagesPaginate = $this->service->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1)->toArray();
+            $messages = $this->service->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1);
             $priorities = $this->service->priorities();
 
             return view('emails::row', compact('messages', 'folder', 'messagesPaginate', 'account','priorities', 'user'));

@@ -74,4 +74,12 @@ class EmailMessage extends Model
         return $query->where('email', $email);
     }
 
+    /**
+     * Scope for Business
+     */
+    public function scopeAccount($query, $account)
+    {
+        return $query->where('account_id', $account->id);
+    }
+
 }

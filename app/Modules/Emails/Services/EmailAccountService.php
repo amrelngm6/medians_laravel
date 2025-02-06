@@ -113,9 +113,9 @@ class EmailAccountService
         return EmailAccount::forUser($user)->findOrFail($id);
     }
 
-    public function accountMessages($email, $folderName = null, $limit = 50, $offset = 0)
+    public function accountMessages($account, $folderName = null, $limit = 50, $offset = 0)
     {
-        $items = EmailMessage::forEmail($email);
+        $items = EmailMessage::account($account)->where('');
 
         if ($folderName) {
             $items->where('folder_name', $folderName);
