@@ -86,7 +86,7 @@
             <div class="card-body py-5">
                 <div class="media d-sm-flex d-block justify-content-between">
                     <div class="mb-3 flex">
-                        <img class="w-50px h-50px rounded-circle" alt="image"
+                        <img class="w-30px h-30px rounded-circle" alt="image"
                             src="/{{ $ticket->client->picture ?? '' }}">
                         <div class=" mx-4">
                             <h5 class="text-primary mb-0 mt-1">{{ $ticket->client->name ?? '' }}</h5>
