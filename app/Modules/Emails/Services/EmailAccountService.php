@@ -208,8 +208,8 @@ class EmailAccountService
         {
             $field = CustomField::where('business_id', Auth::user()->business_id ?? 0)->where('model', EmailAccount::class)->where('name', $key)->first();
             $modelData = [];
-            $modelData['model_type'] = get_class($CreditNote);
-            $modelData['model_id'] = $CreditNote->id;
+            $modelData['model_type'] = get_class($account);
+            $modelData['model_id'] = $account->id;
             $modelData['field_id'] = $field->id ?? 0;
             $modelData['title'] = $field->title ?? '';
             $modelData['position'] = $field->sort ?? 0;
