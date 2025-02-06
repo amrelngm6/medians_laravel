@@ -173,45 +173,58 @@ class EmailAccountController extends Controller
 
     public function store(Request $request)
     {
-        $user = Auth::user();
+        try 
+        {
+            $user = Auth::user();
 
-        if ($user->cannot('EmailAccount create') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
-        }
+            if ($user->cannot('EmailAccount create') && Auth::guardName() != 'superadmin') {
+                abort(401, 'Unauthorized');
+            }
 
-        $validator = Validator::make($request->all(), [
-            'imap_host' => 'required|string|max:255',
-            'imap_username' => 'required|string|max:255',
-            'imap_password' => 'required|string|max:255',
-            'imap_port' => 'required',
-        ]);
+            $validator = Validator::make($request->all(), [
+                'imap_host' => 'required|string|max:255',
+                'imap_username' => 'required|string|max:255',
+                'imap_password' => 'required|string|max:255',
+                'imap_port' => 'required',
+            ]);
 
-        if ($validator->fails()) {
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $creator = [
+                'created_by' => $user->id(), 
+                'business_id' => $user->business_id ?? 0,
+                'email' => $request->imap_username ?? '',
+                'user_id' => $user->id ?? 0,
+                'user_type' => get_class($user),
+            ];
+
+            $emailAccount = $this->service->createEmailAccount(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
+
+            $folder = $this->service->connect($emailAccount)->fetch();
+
+            return $folder ? response()->json([
+                'success' => true,
+                'title' => 'Done',
+                'reload' => true,
+                'result' => 'Created',
+            ], 200) : null;
+
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+            
             return response()->json([
                 'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
+                'error' => $th->getMessage(),
+            ], 402);
         }
 
-        $creator = [
-            'created_by' => $user->id(), 
-            'business_id' => $user->business_id ?? 0,
-            'email' => $request->imap_username ?? '',
-            'user_id' => $user->id ?? 0,
-            'user_type' => get_class($user),
-        ];
-
-        $emailAccount = $this->service->createEmailAccount(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
-
-        $folder = $this->service->connect($emailAccount)->fetch();
-
-        return $folder ? response()->json([
-            'success' => true,
-            'title' => 'Done',
-            'reload' => true,
-            'result' => 'Created',
-        ], 200) : null;
     }
 
     public function update(Request $request, $accountId)
@@ -236,21 +249,33 @@ class EmailAccountController extends Controller
             ], 402);
         }
 
-        $account = $this->service->findAccount($accountId);
+        try {
+                
+            $account = $this->service->findAccount($accountId);
 
-        $email = ['email' => $request->imap_username];
+            $email = ['email' => $request->imap_username];
 
-        $update = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
+            $update = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
 
-        $folder = $this->service->connect($account)->fetch();
+            $folder = $this->service->connect($account)->fetch();
 
-        return $update ? response()->json([
-            'success' => true,
-            'reload' => false,
-            'no_reset' => true,
-            'title' => 'Done',
-            'result' => 'Updated',
-        ], 200) : null;
+            return $update ? response()->json([
+                'success' => true,
+                'reload' => false,
+                'no_reset' => true,
+                'title' => 'Done',
+                'result' => 'Updated',
+            ], 200) : null;
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+            
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
+        }
+
     }
 
     public function destroy($accountId)
