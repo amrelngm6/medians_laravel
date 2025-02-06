@@ -133,7 +133,7 @@ class EmailAccountService
     {
         $user = Auth::user();
 
-        $items = EmailFolder::withCount('messages')->forBusiness($user->business_id ?? 0)->forEmail($account->email)->orderBy('messages_count', 'DESC')->get();
+        $items = EmailFolder::forBusiness($user->business_id ?? 0)->forEmail($account->email)->withCount('messages')->orderBy('messages_count', 'ASC')->get();
 
         return $items;
     }
