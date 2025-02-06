@@ -16,7 +16,8 @@
         "spatie/laravel-permission": "^6.10",
         "swapinvidya/laravel-huggingface-client": "^1.0",
         "thiagoalessio/tesseract_ocr": "^2.13",
-        "voku/portable-ascii": "^2.0"
+        "voku/portable-ascii": "^2.0",
+        "webklex/laravel-imap": "^6.1"
     },
     "ext-zip": "*",
     "require-dev": {
