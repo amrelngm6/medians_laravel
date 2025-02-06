@@ -130,7 +130,7 @@
                                                 </span>
                                             </a>
                                             <div class="pl-10 ml-auto whitespace-nowrap flex flex-none">
-                                                {{$message->delivery_date}}
+                                                {{date('D,M d, H:i a', strtotime($message->time))}}
                                             </div>
                                         </div>
                                     </div>
