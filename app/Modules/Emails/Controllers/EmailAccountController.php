@@ -91,7 +91,7 @@ class EmailAccountController extends Controller
         try {
 
             $account = $this->service->findAccount($accountId);
-            $folder = $this->service->connect($account)->fetch($request->get('folder'));
+            $folder = $this->service->connect($account)->fetch();
 
             return $this->filter($request, $accountId);
 
