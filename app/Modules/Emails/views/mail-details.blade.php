@@ -49,7 +49,7 @@
                                     
                                     @foreach ($folders as $folder)
                                     <a class="mt-2  flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue"
-                                        href="">
+                                        href="{{route('EmailAccount.show', $account->id)}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="star"
@@ -66,22 +66,6 @@
                                     <a class="flex items-center text-truncate px-3 py-2" href="">
                                         <div class="mr-5 w-15px h-15px  rounded-circle  bg-info"></div>
                                         Custom Work
-                                    </a>
-                                    <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2" href="">
-                                        <div class="mr-5 w-15px h-15px  rounded-circle  bg-success"></div>
-                                        Important Meetings
-                                    </a>
-                                    <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2" href="">
-                                        <div class="mr-5 w-15px h-15px  rounded-circle  bg-warning"></div>
-                                        Work
-                                    </a>
-                                    <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2" href="">
-                                        <div class="mr-5 w-15px h-15px  rounded-circle  bg-dark"></div>
-                                        Design
-                                    </a>
-                                    <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2" href="">
-                                        <div class="mr-5 w-15px h-15px  rounded-circle  bg-danger"></div>
-                                        Next Week
                                     </a>
                                     <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2" href="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus stroke-1.5 mr-2 h-4 w-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
@@ -103,8 +87,8 @@
                                     <div class="mb-3 flex">
                                         <img class="w-50px h-50px rounded-circle" alt="image" src="/data/profile/avatar-3.png">
                                         <div class=" mx-4">
-                                            <h5 class="text-primary mb-0 mt-1">Ingredia Nutrisha</h5>
-                                            <p class="mb-0">20 May 2020</p>
+                                            <h5 class="text-primary mb-0 mt-1">{{$message->sender_name}}</h5>
+                                            <p class="mb-0">{{$message->time}}</p>
                                         </div>
                                     </div>
                                     <div class="clearfix mb-3">
@@ -146,24 +130,14 @@
                                 </div>
                                 <hr>
                                 <div class="media mb-2 mt-3">
-                                    <div class="media-body"><span class="pull-end">10:25 AM</span>
-                                        <h4 class="my-1 text-primary">Aenean leo ligula, porttitor eu</h4>
+                                    <div class="media-body"><span class="pull-end">{{$message->delivery_date}}</span>
+                                        <h4 class="my-1 text-primary">{{$message->subject}}</h4>
                                         <p class="read-content-email">
-                                            To: Me, info@example.com</p>
+                                            To: {{$message->email}}</p>
                                     </div>
                                 </div>
                                 <div class="read-content-body default-height">
-                                    <h5 class="mb-4">Dear Adam,</h5>
-                                    <p class="mb-2"><strong>Adam Smith,</strong> A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture</p>
-                                    <p class="mb-2">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for
-                                        the far World of Grammar. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-                                    </p>
-                                    <p class="mb-2">Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut
-                                        metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum
-                                        rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,</p>
-                                    <h5 class="pt-3">Kind Regards</h5>
-                                    <p>Mr Smith</p>
-                                    <hr>
+                                   {!! $message->message_html !!}
                                 </div>
                                 <div class="read-content-attachment">
                                     <button class="btn btn-danger bg-danger btn-sm"><i class="bx bx-message-rounded fa-reply me-1"></i>Reply</button>
