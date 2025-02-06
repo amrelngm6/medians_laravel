@@ -101,11 +101,15 @@ class EmailAccountService
         return EmailAccount::forUser($user)->findOrFail($id);
     }
 
-    public function accountMessages($email)
+    public function accountMessages($email, $folderName = null)
     {
-        $items = EmailMessage::forEmail($email)->orderBy('id', 'DESC')->get();
+        $items = EmailMessage::forEmail($email);
 
-        return $items;
+        if ($folderName) {
+            $items->where('folder_name', $folderName);
+        }
+
+        return $items->orderBy('id', 'DESC')->get();
     }
 
     public function findMessage($id, $account)
