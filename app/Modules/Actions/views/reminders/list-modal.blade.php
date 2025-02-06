@@ -25,7 +25,7 @@
 
                     <!--begin::Description-->
                     <div class="text-muted fw-semibold fs-5">
-                       This is a list of all reminders for <a href="javascript:;">{{$reminders ? ($reminders->first()->model->name ?? '') : ''}} .</a>
+                       This is a list of all reminders for <a href="javascript:;">{{$reminders ? ($reminders->first()->name ?? '') : ''}} .</a>
                     </div>
                     <!--end::Description-->
                 </div>
