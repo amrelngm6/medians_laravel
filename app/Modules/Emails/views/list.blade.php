@@ -193,7 +193,8 @@
                                 
                             </div>
                             <div class="flex flex-col items-center p-5 ">
-                                <div class="w-full">{{$account->messages->groupEmailAccountSize()}} {{ $account->messages->groupEmailAccountSize() > 1000000 ? 'GB' : 'MB'}} ({{number_format(($account->messages->groupEmailAccountSize() / (5000)) * 100, 3)}}%) of {{'5'}} GB used Manage</div>
+                                @php $size = $account->messages->first ? $account->messages->first()->groupEmailAccountSize() : 0; @endphp
+                                <div class="w-full">{{$size}} {{ $size > 1000000 ? 'GB' : 'MB'}} ({{number_format(($size / (5000)) * 100, 3)}}%) of {{'5'}} GB used Manage</div>
                                 <div class="flex-none sm:ml-auto sm:mt-0">
                                     Total count {{$account->messages->count()}}
                                 </div>
