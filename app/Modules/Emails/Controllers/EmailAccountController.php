@@ -67,6 +67,8 @@ class EmailAccountController extends Controller
         }
 
         try {
+            
+            $account = $this->service->findAccount($accountId);
                 
             $fetch = $this->service->fetch($account);
 
