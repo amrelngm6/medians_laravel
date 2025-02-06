@@ -36,7 +36,7 @@ class EmailAccount extends Model
      */
     public function messages()
     {
-        return $this->hasOne(EmailMessage::class, 'email', 'email');
+        return $this->hasMany(EmailMessage::class, 'email', 'email');
     }
 
     
