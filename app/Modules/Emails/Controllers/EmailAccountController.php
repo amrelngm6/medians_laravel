@@ -45,7 +45,7 @@ class EmailAccountController extends Controller
         try {
                 
             $account = $this->service->findAccount($accountId);
-            $fetch = $this->service->fetch($account);
+            // $fetch = $this->service->fetch($account);
             $messages = $this->service->accountMessages($account->email);
             $priorities = $this->service->priorities();
 

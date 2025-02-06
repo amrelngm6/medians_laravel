@@ -33,8 +33,6 @@ class EmailAccountService
             'protocol' => 'imap',
         ]);
 
-        // $client = Client::account('default');
-
         try {
 
             $this->client->connect();
@@ -103,8 +101,6 @@ class EmailAccountService
         
         return EmailAccount::forUser($user)->findOrFail($id);
     }
-
-    
 
     public function accountMessages($email)
     {
