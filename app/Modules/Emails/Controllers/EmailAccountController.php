@@ -255,7 +255,7 @@ class EmailAccountController extends Controller
 
             $email = ['email' => $request->imap_username];
 
-            $update = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
+            $account = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
 
             $folder = $this->service->connect($account)->fetch();
 
