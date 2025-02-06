@@ -37,13 +37,17 @@
                         <tr class="bg-gray-200">
                             <th class="py-4 px-6  text-gray-700 font-bold">Name</th>
                             <th class="py-4 px-6  text-gray-700 font-bold">Time</th>
-                            <th class="py-4 px-6  text-gray-700 font-bold">Status</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Is Notified</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($reminders as $reminder)
                         <tr class="border-b border-gray-200">
-                            <td class="py-4 px-6 fw-bold text-primary">{{$reminder->name}} </td>
+                            <td class="py-4 px-6 fw-bold text-primary">
+                                <span  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                    data-title="{{$reminder->name}}"
+                                    data-content="{{$reminder->description}}">{{$reminder->name}}</span> 
+                            </td>
                             <td class="py-4 px-6 ">{{date('M d, H:i', strtotime($reminder->date))}} </td>
                             <td class="py-4 px-6 fw-bold text-primary"><span class="label rounded bg-{{$reminder->is_notified ? 'success' : 'danger'}}">{{$reminder->is_notified ? 'Yes' : 'no'}}</spam></td>
                         </tr>
@@ -58,3 +62,7 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+
+<script> 
+    MediansSettings.tooltipsPopovers() 
+</script>
