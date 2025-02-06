@@ -84,7 +84,7 @@ class ReminderController extends Controller
 
         $reminders = $this->service->queryByModel($request, $modelId, $modelType);
 
-        $modalRoute = route('Tasks.project_task', $modelId);
+        $modalRoute = $modelType == Task::class ? route('Tasks.project_task', $modelId) : null;
 
         return view('reminders::list-modal', compact('reminders', 'modalRoute'));
     }
