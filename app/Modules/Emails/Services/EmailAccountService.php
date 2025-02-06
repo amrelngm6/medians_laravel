@@ -57,6 +57,7 @@ class EmailAccountService
                 $savedFolder = EmailFolder::firstOrCreate([
                     'name' => $folder->name,
                     'email' => $this->account->email,
+                    'account_id' => $this->account->id,
                     'business_id' => $this->account->business_id
                 ]);
             }
