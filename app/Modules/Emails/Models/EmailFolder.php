@@ -11,7 +11,7 @@ class EmailFolder extends Model
     
     protected $table = 'email_folders';
 
-    protected $fillable = ['business_id', 'email', 'parent_folder', 'name'];
+    protected $fillable = ['business_id', 'account_id', 'email', 'parent_folder', 'name'];
 
     /**
      * Load related email account
