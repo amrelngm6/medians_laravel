@@ -27,7 +27,7 @@
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Send Direct Email with files attachments 
+                            Send Direct Email from <b class="text-danger">{{$account->email}}</b>
                         </div>
                         <!--end::Description-->
                     </div>
