@@ -91,6 +91,7 @@ class EmailAccountService
             $data['sender_name'] =  $message->from;
             $data['sender_email'] =  $message->getFrom()[0]->mail;
             $data['size'] = $message->size;
+            $data['account_id'] = $account->id;
             $data['time'] =  $message->date;
             $data['message_id'] =  $message->message_id;
             $data['message_text'] =  $message->getTextBody();
@@ -197,6 +198,7 @@ class EmailAccountService
         
         $data['sender_email'] = $account->email;
         $data['sender_name'] = $account->email;
+        $data['account_id'] = $account->id;
         $data['delivery_date'] =  date('d, M d, Y - H:i:s');
         $data['folder_name'] =  'CRM';
         $data['cc'] =  '';
