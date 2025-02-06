@@ -18,12 +18,6 @@ class ReminderToModal
         ])->get();
 
         $route = '';
-        if (get_class($model) == Task::class) {
-            // $route =  route('Tasks.edit_priority_field',$model->id());
-        }
-        // if (get_class($model) == Ticket::class) {
-        //     $route =  route('Priority.edit_field',$model->id());
-        // }
         $event->context['components'][] = view('reminders::modal-info', compact('reminders', 'model', 'route'))->render();
         return $event;
     }
