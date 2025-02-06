@@ -115,7 +115,7 @@ class EmailAccountService
 
     public function accountMessages($account, $folderName = null, $limit = 50, $offset = 0)
     {
-        $items = EmailMessage::account($account)->where('');
+        $items = EmailMessage::account($account);
 
         if ($folderName) {
             $items->where('folder_name', $folderName);
