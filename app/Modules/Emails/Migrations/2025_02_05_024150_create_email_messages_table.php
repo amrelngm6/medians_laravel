@@ -22,6 +22,8 @@ return new class extends Migration {
             $table->string('delivery_date', 191)->nullable();
             $table->datetime('time')->nullable();
             $table->integer('size')->default(0);
+            $table->integer('read')->default(0);
+            $table->integer('archived')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });

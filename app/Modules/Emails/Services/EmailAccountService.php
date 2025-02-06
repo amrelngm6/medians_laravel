@@ -76,7 +76,7 @@ class EmailAccountService
             $data['email'] =  $message->getTo()[0]->mail;
             $data['delivery_date'] =  $message->delivery_date;
             $data['folder_name'] =  $message->getFolder()->name;
-            $data['subject'] =  $message->subject;
+            $data['subject'] =  substr($message->subject, 0, 190);
             $data['sender_name'] =  $message->from;
             $data['sender_email'] =  $message->getFrom()[0]->mail;
             $data['size'] = $message->size;
