@@ -109,6 +109,11 @@ class EmailAccountService
         return $items;
     }
 
+    public function findMessage($id, $account)
+    {
+        return EmailMessage::forEmail($account->email)->findOrFail($id);
+    }
+
     public function accountFolders($account)
     {
         $user = Auth::user();

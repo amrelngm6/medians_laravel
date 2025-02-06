@@ -113,11 +113,12 @@ class EmailAccountController extends Controller
     }
     
 
-    public function showMessage(Request $request, $id)
+    public function showMessage(Request $request, $accountId, $msg_id)
     {
         $account = $this->service->findAccount($accountId);
         $folders = $this->service->accountFolders($account);
-        return view('emails::list', compact('account', 'folders'));
+        $message = $this->service->findMessage($msg_id, $account);
+        return view('emails::mail-details', compact('message', 'account', 'folders'));
     }
 
 

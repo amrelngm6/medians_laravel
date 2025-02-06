@@ -10,6 +10,7 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::get('/{account}/fetch', [EmailAccountController::class, 'fetch'])->name('EmailAccount.fetch');
     Route::get('create', [EmailAccountController::class, 'create'])->name('EmailAccount.create');
     Route::get('{id}/show', [EmailAccountController::class, 'show'])->name('EmailAccount.show');
+    Route::get('{id}/message/{msg_id}', [EmailAccountController::class, 'showMessage'])->name('EmailAccount.showMessage');
     Route::get('{id}/edit', [EmailAccountController::class, 'edit'])->name('EmailAccount.edit');
     Route::post('/', [EmailAccountController::class, 'store'])->name('EmailAccount.store');
     Route::post('{id}', [EmailAccountController::class, 'update'])->name('EmailAccount.update');

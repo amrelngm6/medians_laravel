@@ -41,7 +41,7 @@
                                                     {{$message->sender_name}}
                                                 </div>
                                             </div>
-                                            <a href="{{route(App::getLocale() . '.apps_mail-details')}}" class="w-64 text-truncate sm:w-auto">
+                                            <a href="{{route('EmailAccount.showMessage', ['id'=>$account->id, 'msg_id'=>$message->id])}}" class="w-64 text-truncate sm:w-auto">
                                                 <span class="ml-3 text-truncate font-medium">
                                                     {{$message->subject}}
                                                 </span>

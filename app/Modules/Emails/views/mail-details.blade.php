@@ -12,7 +12,7 @@
 
                         <div class="pull-left">
                             <!-- PAGE HEADING TAG - START -->
-                            <h1 class="title">Inbox </h1>
+                            <h1 class="title">Email details </h1>
                             <!-- PAGE HEADING TAG - END -->
                         </div>
 
@@ -22,10 +22,10 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">APPs</a>
+                                    <a href="#">Email Accounts</a>
                                 </li>
                                 <li class="active">
-                                    <strong>Inbox</strong>
+                                    <strong>Message detail</strong>
                                 </li>
                             </ol>
                         </div>
@@ -46,26 +46,21 @@
                                 <button type="button" data-modal="#mail-modal" class="open-modal w-full btn btn-primary transition duration-200  shadow-md cursor-pointer "><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="edit" class="lucide lucide-edit stroke-1.5 mr-2 h-4 w-4"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
                                     Compose</button>
                                 <div class="mt-6 border-t border-white/10 pt-6 dark:border-darkmode-400 ">
-                                    <a class="flex gap-4 items-center rounded-md bg-white/10 px-3 fs-4 py-2 fw-bold text-dark-blue" href="{{route(App::getLocale() . '.apps_inbox')}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" class="lucide lucide-mail stroke-1.5 mr-2 h-4 w-4"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-                                        Inbox
+                                    
+                                    @foreach ($folders as $folder)
+                                    <a class="mt-2  flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue"
+                                        href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" data-lucide="star"
+                                            class="lucide lucide-star stroke-1.5 mr-2 h-4 w-4">
+                                            <polygon
+                                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                            </polygon>
+                                        </svg>
+                                        {{$folder->name}}
                                     </a>
-                                    <a class="mt-2  flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue" href="{{route(App::getLocale() . '.apps_inbox')}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star stroke-1.5 mr-2 h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                        Marked
-                                    </a>
-                                    <a class="mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue" href="{{route(App::getLocale() . '.apps_inbox')}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="inbox" class="lucide lucide-inbox stroke-1.5 mr-2 h-4 w-4"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
-                                        Draft
-                                    </a>
-                                    <a class="mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue" href="{{route(App::getLocale() . '.apps_inbox')}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send stroke-1.5 mr-2 h-4 w-4"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
-                                        Sent
-                                    </a>
-                                    <a class="mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue" href="{{route(App::getLocale() . '.apps_inbox')}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="trash" class="lucide lucide-trash stroke-1.5 mr-2 h-4 w-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-                                        Trash
-                                    </a>
+                                    @endforeach
                                 </div>
                                 <div class="mt-4 border-t border-white/10 pt-4 text-white dark:border-darkmode-400">
                                     <a class="flex items-center text-truncate px-3 py-2" href="">
