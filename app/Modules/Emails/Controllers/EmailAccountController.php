@@ -115,7 +115,7 @@ class EmailAccountController extends Controller
         try {
 
             $account = $this->service->findAccount($accountId);
-            $folder = $this->service->connect($account)->fetch();
+            $fetchFolders = $this->service->connect($account)->fetch();
 
             return $this->filter($request, $accountId);
 
@@ -202,9 +202,11 @@ class EmailAccountController extends Controller
             'user_type' => get_class($user),
         ];
 
-        $emails = $this->service->createEmailAccount(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
+        $emailAccount = $this->service->createEmailAccount(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
 
-        return $emails ? response()->json([
+        $folder = $this->service->connect($emailAccount)->fetch();
+
+        return $folder ? response()->json([
             'success' => true,
             'title' => 'Done',
             'reload' => true,
