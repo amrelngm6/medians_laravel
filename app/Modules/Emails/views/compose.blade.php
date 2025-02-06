@@ -1,5 +1,5 @@
 
-<div class="modal fade active" id="new-mail-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade show active" id="new-mail-modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -17,7 +17,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_new_email_form" class="form" action="{{route('EmailAccount.send_mail', $account->id)}}">
+                <form id="modal_new_email_form" class="form ajax-form" action="{{route('EmailAccount.send_mail', $account->id)}}">
                     @csrf
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">

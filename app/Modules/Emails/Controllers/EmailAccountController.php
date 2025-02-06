@@ -268,9 +268,24 @@ class EmailAccountController extends Controller
     /**
      * Send mail
      */
-    public function send_mail()
+    public function send_mail(Request $request )
     {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $account = $this->service->findAccount($id);
+
+        return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
         
+        // // Send Email
+        // Mail::raw('This is a test email.', function ($message) use ($smtp, $request) {
+        //     $message->to($request->email)
+        //             ->subject('Test Email')
+        //             ->from($smtp->mail_from_address, $smtp->mail_from_name);
+        // });
     }
     
 }

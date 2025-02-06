@@ -9,6 +9,9 @@ use App\Modules\Priorities\Models\Priority;
 use App\Models\Auth;
 use Webklex\IMAP\Facades\Client;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Config;
+
 class EmailAccountService
 {
     public $model;
@@ -181,5 +184,46 @@ class EmailAccountService
     {
         $email = $this->find($id);
         return $email->delete();
+    }
+
+    public function sendMail($data, $account)
+    {
+        $user = Auth::user();
+        
+        // Calculate size in bytes
+        // Convert bytes to KB
+        $emailSizeKB = round(mb_strlen($data['message_text'], '8bit') , 2);
+        
+        $data['sender_email'] = $account->email;
+        $data['sender_name'] = $account->email;
+        $data['delivery_date'] =  date('d, M d, Y - H:i:s');
+        $data['folder_name'] =  'CRM';
+        $data['size'] = $emailSizeKB;
+        $data['time'] =  date('Y-m-d H:i:s');
+        $data['message_id'] =  rand(999,999999).$account->emaail;
+        $data['message_html'] =  $data['message_text'];
+        $data['model_id'] =  $user->id();
+        $data['model_type'] =  get_class($user);
+        $data['business_id'] =  $user->business_id ?? 0;
+        
+        $message = EmailMessage::firstOrCreate($data);
+
+        // Set mail configuration dynamically
+        Config::set('mail.mailers.smtp', [
+            'transport' => 'smtp',
+            'host' => $account->imap_host,
+            'port' => '465',
+            'encryption' => 'ssl',
+            'username' => $account->imap_username,
+            'password' => $account->imap_password,
+            'timeout' => null,
+            'auth_mode' => null,
+        ]);
+
+        Config::set('mail.from.address', $account->email);
+        Config::set('mail.from.name', $account->email);
+
+        return  Mail::from($message->sender_email)->to($message->email)->send(new SendMail($message));
+
     }
 }
