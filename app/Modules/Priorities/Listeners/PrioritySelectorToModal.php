@@ -3,6 +3,7 @@
 namespace App\Modules\Priorities\Listeners;
 
 use App\Modules\Priorities\Models\Priority;
+use App\Modules\Tickets\Models\Ticket;
 use App\Modules\Tasks\Models\Task;
 use App\Models\Auth;
 

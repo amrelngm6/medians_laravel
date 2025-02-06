@@ -5,6 +5,7 @@ namespace App\Modules\Timesheets\Listeners;
 use App\Modules\Timesheets\Models\Timesheet;
 use App\Modules\Projects\Models\Project;
 use App\Modules\Deals\Models\Deal;
+use App\Modules\Tickets\Models\Ticket;
 use App\Models\Auth;
 
 class TimesheetSelectorToModal
@@ -23,6 +24,10 @@ class TimesheetSelectorToModal
 
         if (get_class($event->model->model) == Deal::class) {
             $modalRoute = route('Tasks.deal_task', $event->model->id());
+        }
+
+        if (get_class($event->model->model) == Ticket::class) {
+            $modalRoute = route('Ticket.deal_task', $event->model->id());
         }
 
         $event->context['components'][] = view('timesheet::timesheet-selector', compact('modalRoute', 'user', 'timesheet', 'model'))->render();
