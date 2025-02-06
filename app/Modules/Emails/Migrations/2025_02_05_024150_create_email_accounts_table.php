@@ -9,7 +9,6 @@ return new class extends Migration {
         Schema::create('email_accounts', function (Blueprint $table) {
             $table->id();
             $table->morphs('user');
-            $table->morphs('model');
             $table->string('email', 191)->unique();
             $table->string('imap_host')->default('localhost');
             $table->string('imap_port')->default('993');

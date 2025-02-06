@@ -8,6 +8,7 @@ return new class extends Migration {
     public function up() {
         Schema::create('email_messages', function (Blueprint $table) {
             $table->id();
+            $table->morphs('model');
             $table->string('email', 191);
             $table->string('subject', 191);
             $table->string('sender_email', 191);
