@@ -109,7 +109,9 @@ class EmailAccountController extends Controller
     {
         $account = $this->service->findAccount($accountId);
         $folders = $this->service->accountFolders($account);
-        return view('emails::list', compact('account', 'folders'));
+        $priorities = $this->service->priorities();
+
+        return view('emails::list', compact('account', 'folders', 'priorities'));
     }
     
 
@@ -118,7 +120,9 @@ class EmailAccountController extends Controller
         $account = $this->service->findAccount($accountId);
         $folders = $this->service->accountFolders($account);
         $message = $this->service->findMessage($msg_id, $account);
-        return view('emails::mail-details', compact('message', 'account', 'folders'));
+        $priorities = $this->service->priorities();
+
+        return view('emails::mail-details', compact('message', 'account', 'folders', 'priorities'));
     }
 
 

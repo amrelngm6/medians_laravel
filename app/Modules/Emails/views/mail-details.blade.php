@@ -63,12 +63,23 @@
                                     @endforeach
                                 </div>
                                 <div class="mt-4 border-t border-white/10 pt-4 text-white dark:border-darkmode-400">
-                                    <a class="flex items-center text-truncate px-3 py-2" href="">
-                                        <div class="mr-5 w-15px h-15px  rounded-circle  bg-info"></div>
-                                        Custom Work
+                                    @foreach($priorities as $priority)
+                                    <a class="flex items-center text-truncate px-3 py-2" href="?priority_id={{$priority->priority_id}}">
+                                        <div class="mr-5 w-15px h-15px rounded-circle bg-{{$priority->color}}"></div>
+                                        {{$priority->name}}
                                     </a>
-                                    <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2" href="">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus stroke-1.5 mr-2 h-4 w-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                                    @endforeach
+                                    
+                                    <a class="mt-2 flex items-center  rounded-md px-3 py-2 " href="{{route('EmailAccount')}}">
+                                        Show ALL
+                                    </a>
+                                    <a class="mt-2 flex items-center text-truncate rounded-md px-3 py-2 open-modal" href="{{route('Priority.create')}}?model=EmailAccount">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            data-lucide="plus" class="lucide lucide-plus stroke-1.5 mr-2 h-4 w-4">
+                                            <path d="M5 12h14"></path>
+                                            <path d="M12 5v14"></path>
+                                        </svg>
                                         Add New Label
                                     </a>
                                 </div>
@@ -157,6 +168,7 @@
 
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
  
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
