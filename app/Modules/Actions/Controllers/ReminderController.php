@@ -74,6 +74,20 @@ class ReminderController extends Controller
         return view('reminders::add-reminder', compact('user','modelId','modelType'));
     }
 
+    
+    /**
+     * Filter reminders
+     */
+    public function showList(Request $request, $modelId, $modelType)
+    {
+        $user = Auth::user();
+
+        $reminders = $this->service->query($request, $modelId, $modelType);
+
+        $modalRoute = route('Tasks.project_task', $modelId);
+
+        return view('reminders::list-modal', compact('reminders', 'modalRoute'));
+    }
 
     /**
      * Save reminder

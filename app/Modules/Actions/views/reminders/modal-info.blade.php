@@ -5,7 +5,7 @@
                                         data-placement="top" data-trigger="hover"
                                         data-content="Reminders of spent time for this task"
                                         class="text-primary fw-bold fs-7 pb-6 open-modal"
-                                        href="{{route('Reminder.show', ['model_id'=>$model->id() ?? '0', 'model_type' => get_class($model)])}}"
+                                        href="{{route('Reminder.showList', ['model_id'=>$model->id() ?? '0', 'model_type' => get_class($model)])}}"
                                         data-modal="#new-timesheet-modal">
                                         <i class="bx bx-log "></i> History
                                     </a>

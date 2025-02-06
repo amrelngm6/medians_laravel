@@ -22,6 +22,7 @@ Route::prefix('reminders')->middleware(['web', 'auth:staff'])->group(function ()
     Route::get('/', [ReminderController::class, 'index'])->name('Reminder');
     Route::get('create', [ReminderController::class, 'create'])->name('Reminder.create');
     Route::get('/createForModel/{model_id}/{model_type}', [ReminderController::class, 'createForModel'])->name('Reminder.createForModel');
+    Route::get('/showList/{model_id}/{model_type}', [ReminderController::class, 'showList'])->name('Reminder.showList');
     Route::get('{id}/show', [ReminderController::class, 'show'])->name('Reminder.show');
     Route::post('/filter', [ReminderController::class, 'filter'])->name('Reminder.filter');
     Route::post('/store', [ReminderController::class, 'store'])->name('Reminder.store');
