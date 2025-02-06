@@ -45,11 +45,11 @@ class EmailAccountController extends Controller
         try {
                 
             $account = $this->service->findAccount($accountId);
-            // $fetch = $this->service->fetch($account);
             $messages = $this->service->accountMessages($account->email);
             $priorities = $this->service->priorities();
 
             return view('emails::row', compact('messages', 'account','priorities', 'user'));
+            
         } catch (\Throwable $th) {
             
             return $th->getMessage();
@@ -113,7 +113,7 @@ class EmailAccountController extends Controller
     }
     
 
-    public function showMessage(Request $request, $accountId)
+    public function showMessage(Request $request, $id)
     {
         $account = $this->service->findAccount($accountId);
         $folders = $this->service->accountFolders($account);
