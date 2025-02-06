@@ -22,8 +22,8 @@
                     data-title="{{$timesheet->model_name()}}"
                     data-content="Related to {{$timesheet->model->name ?? ''}}" >{{ $timesheet->model->name ?? '' }}</span>
             </td>
-            <td>{{date('M d, Y - H:i a', strtotime($timesheet->start)) }}</td>
-            <td>{{date('M d, Y - H:i a', strtotime($timesheet->end)) ?? '' }}</td>
+            <td>{{date('M d, - H:i a', strtotime($timesheet->start)) }}</td>
+            <td>{{date('M d, - H:i a', strtotime($timesheet->end)) ?? '' }}</td>
             <td>{{$timesheet->notes}}</td>
             <td>
                 <div
