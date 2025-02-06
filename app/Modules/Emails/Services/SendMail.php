@@ -29,7 +29,7 @@ class SendMail extends Mailable
     {        
         return new Envelope(
             subject: $this->EmailMessage->subject,
-            from: [$this->EmailMessage->sender_email => $this->EmailMessage->sender_name]
+            from: new Address($this->EmailMessage->sender_email, $this->EmailMessage->sender_name) 
         );
     }
 
