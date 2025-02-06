@@ -31,7 +31,7 @@
                     <div class="form-group w-full select-placeholder">
                         <label for="rel_model" class="control-label"
                             rel="popover" data-trigger="hover" data-placement="top"
-                            data-content="This is <b>{{ucfirst($package->payment_type)}}</b> Package" data-html="true"
+                            data-content="This is <b class='text-danger'>{{ucfirst($package->payment_type)}}</b> Package" data-html="true"
                         >Is Paid <i class="bx bx-help-circle"></i> </label>
                         <p class="text-danger"> {{$package->payment_type}} </p>
                     </div>

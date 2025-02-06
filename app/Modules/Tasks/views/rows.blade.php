@@ -24,7 +24,7 @@
                     @foreach($task->team as $key => $member)
                     @if ($key < 5)
                     <div class="symbol symbol-35px symbol-circle" rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
-                        data-content="<b>{{$member->user->name ?? ''}}">
+                        data-content="<b class='text-danger'>{{$member->user->name ?? ''}}">
                         <img alt="Pic" src="/{{ $member->user->picture ?? '' }}">
                     </div>
                     @endif
@@ -40,7 +40,7 @@
             <td>
                 <span rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
                 data-title="{{ $task->model->name ?? '' }}"
-                data-content="Related to: <b>{{class_basename($task->model)}}"> {{ $task->model->name ?? '' }}</span>
+                data-content="Related to: <b class='text-danger'>{{class_basename($task->model)}}"> {{ $task->model->name ?? '' }}</span>
             </td>
             <td>{{date('M d, Y', strtotime($task->start_date)) }}</td>
             <td>{{date('M d, Y', strtotime($task->due_date)) ?? '' }}</td>

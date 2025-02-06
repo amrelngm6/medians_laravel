@@ -82,7 +82,7 @@
                             <div class="symbol-group symbol-hover flex-nowrap flex">
                                 @foreach($project->members() as $member)
                                 <div class="symbol symbol-35px symbol-circle" rel="popover"  data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"
-                                    data-content="<b>{{$member->user->name ?? ''}}">
+                                    data-content="<b class='text-danger'>{{$member->user->name ?? ''}}">
                                     <img alt="Pic" src="/{{ $member->user->picture ?? '' }}">
                                 </div>
                                 @endforeach

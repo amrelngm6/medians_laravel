@@ -29,7 +29,7 @@
                                         class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$deal->name}}</a>
                                     
                                         <p class="fs-5 py-1 px-10" rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="Deal status <b>{{ucfirst($deal->status)}}</b>" data-html="true"
+                                        data-content="Deal status <b class='text-danger'>{{ucfirst($deal->status)}}</b>" data-html="true"
                                         > <b class="label rounded 
                                         {{ $deal->status == 'won' ? 'bg-primary' : ''}}
                                         {{ $deal->status == 'lose' ? 'bg-danger' : ''}}
@@ -52,7 +52,7 @@
                                     <a href="{{route('Lead.show', $deal->lead_id)}}" 
                                         rel="popover" data-toggle="popover" data-html="true" data-placement="top" data-trigger="hover"
                                         data-title="Lead #{{$deal->lead_id ?? ''}}"
-                                        data-content="Created from <b>Lead</b> ( {{$deal->lead->name ?? ''}} )">
+                                        data-content="Created from <b class='text-danger'>Lead</b> ( {{$deal->lead->name ?? ''}} )">
                                         <span class="pt-2 fs-6 fw-bold text-danger">Lead: #{{$deal->lead_id}} </span>
                                     </span>
                                     @endif 

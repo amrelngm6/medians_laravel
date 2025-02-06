@@ -24,7 +24,7 @@
                                     rel="popover" data-trigger="hover" data-toggle="popover" data-placement="bottom"
                                     data-html="true"
                                     data-title="{{class_basename($activity->subject)}}"
-                                    data-content="{{$activity->description}} ( <b>{{$activity->subject->name ?? ''}}</b> )"
+                                    data-content="{{$activity->description}} ( <b class='text-danger'>{{$activity->subject->name ?? ''}}</b> )"
                                     >{{ $activity->description }} </div>
                                 <!--end::Title-->
 

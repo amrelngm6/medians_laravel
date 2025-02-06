@@ -52,7 +52,7 @@
                                         <div class="d-flex align-items-center mb-2">
                                             <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$lead->name}}</a>
                                             @if ($lead->deal)
-                                            <a href="{{route('Deal.show', $lead->deal->id)}}" data-toggle="popover" rel="popover"  data-content="Converted to Deal: <b>( {{$lead->deal->name}} )</b>" data-trigger="hover" data-html="true" class="mx-4 text-gray-600 text-hover-primary fs-7 fw-bold me-1">Deal: <b>{{$lead->deal->name}}</b></a>
+                                            <a href="{{route('Deal.show', $lead->deal->id)}}" data-toggle="popover" rel="popover"  data-content="Converted to Deal: <b class='text-danger'>( {{$lead->deal->name}} )</b>" data-trigger="hover" data-html="true" class="mx-4 text-gray-600 text-hover-primary fs-7 fw-bold me-1">Deal: <b>{{$lead->deal->name}}</b></a>
                                             @else
                                             <a href="{{route('Deal.convert_lead_modal', $lead->lead_id)}}" class="open-modal label rounded bg-primary text-white hoverbg-primary mx-6 fs-7 fw-bold me-1">Make a Deal</a>
                                             @endif
@@ -145,7 +145,7 @@
                                                     <div class="d-flex align-items-center gap-10">
                                                         @if ($lead->company)
                                                         <!--begin::Info-->
-                                                        <div class="d-flex flex-column" data-toggle="popover" rel="popover"  data-content="This is <b>{{ucfirst($lead->type)}}</b> lead" data-trigger="hover" data-html="true">
+                                                        <div class="d-flex flex-column" data-toggle="popover" rel="popover"  data-content="This is <b class='text-danger'>{{ucfirst($lead->type)}}</b> lead" data-trigger="hover" data-html="true">
                                                             <!--begin::Name-->
                                                             <a href="javascript:;"
                                                                 class="fs-4 fw-bold text-gray-900 text-hover-primary me-2">{{$lead->company}}</a>
