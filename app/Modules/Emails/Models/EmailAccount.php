@@ -4,6 +4,7 @@ namespace App\Modules\Emails\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Priorities\Models\Priority;
+use App\Modules\Core\Models\ModelField;
 
 
 class EmailAccount extends Model
@@ -12,6 +13,17 @@ class EmailAccount extends Model
     protected $table = 'email_accounts';
 
     protected $fillable = ['business_id',  'email', 'user_type', 'user_id', 'imap_host', 'imap_port',  'imap_encryption', 'imap_username', 'imap_password'];
+
+
+    
+    /**
+     * Load related fields as Morph
+     */
+    public function fields()
+    {
+        return $this->morphMany(ModelField::class, 'model');
+    }
+    
 
     /**
      * Load related category as Morph

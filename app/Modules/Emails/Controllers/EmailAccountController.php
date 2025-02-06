@@ -149,6 +149,20 @@ class EmailAccountController extends Controller
     }
 
     
+    public function settings(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount edit') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $account = $this->service->findAccount($id);
+
+        return view('emails::settings', compact('user', 'account'));
+    }
+
+    
 
     public function show(Request $request, $accountId)
     {
@@ -277,6 +291,61 @@ class EmailAccountController extends Controller
         }
 
     }
+
+
+    
+
+    public function updateSetting(Request $request, $accountId)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount edit') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'imap_host' => 'required|string|max:255',
+            'imap_username' => 'required|string|max:255',
+            'imap_password' => 'required|string|max:255',
+            'imap_port' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ], 402);
+        }
+
+        try {
+                
+            $account = $this->service->findAccount($accountId);
+
+            $email = ['email' => $request->imap_username];
+
+            $account = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port', 'fields')));
+
+            $fetchFolders = $this->service->connect($account)->fetch();
+
+            return $fetchFolders ? response()->json([
+                'success' => true,
+                'reload' => false,
+                'no_reset' => true,
+                'title' => 'Done',
+                'result' => 'Updated',
+            ], 200) : null;
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+            
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
+        }
+
+    }
+
 
     public function destroy($accountId)
     {

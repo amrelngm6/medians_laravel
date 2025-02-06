@@ -2,6 +2,7 @@
 
 namespace App\Modules\Emails\Services;
 
+use App\Modules\Core\Models\ModelField;
 use App\Modules\Emails\Models\EmailAccount;
 use App\Modules\Emails\Models\EmailMessage;
 use App\Modules\Emails\Models\EmailFolder;
@@ -180,6 +181,9 @@ class EmailAccountService
     {
         $email = $this->find($id);
         $email->update($data);
+
+        $fields = $data['fields'] ? $this->storeCustomFields($data['fields']) : null;
+
         return $email;
     }
 
@@ -189,6 +193,37 @@ class EmailAccountService
         return $email->delete();
     }
 
+    /**
+     * Store custom fileds for 
+     * Email Account Settings
+     */
+    public function storeCustomFields(EmailAccount $account, $data)
+    {
+        ModelField::where('business_id', Auth::user()->business_id ?? 0)->where('model_type', EmailAccount::class)->where('model_id', $account->id)->delete();
+
+        $created = null;
+        // Append Model as Morph
+        foreach ($data as $key => $value) 
+        {
+            $field = CustomField::where('business_id', Auth::user()->business_id ?? 0)->where('model', EmailAccount::class)->where('name', $key)->first();
+            $modelData = [];
+            $modelData['model_type'] = get_class($CreditNote);
+            $modelData['model_id'] = $CreditNote->id;
+            $modelData['field_id'] = $field->id ?? 0;
+            $modelData['title'] = $field->title ?? '';
+            $modelData['position'] = $field->sort ?? 0;
+            $modelData['business_id'] = Auth::user()->business_id ?? 0;
+            $modelData['code'] = $key;
+            $modelData['value'] = is_array($value) ? implode(',', $value) : $value;
+            $created = ModelField::firstOrCreate($modelData);
+        }
+
+        return $created;
+    }
+
+    /**
+     * Send email using account configuration
+     */
     public function sendMail($data, $account)
     {
         $user = Auth::user();
@@ -236,7 +271,5 @@ class EmailAccountService
         } catch (\Throwable $th) {
             throw $th;
         }
-
-
     }
 }
