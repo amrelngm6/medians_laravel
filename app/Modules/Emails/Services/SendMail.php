@@ -6,6 +6,7 @@ namespace App\Modules\Emails\Services;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Content;
 
 use App\Modules\Emails\Models\EmailMessage;
 
@@ -14,21 +15,23 @@ class SendMail extends Mailable
 
     use Queueable, SerializesModels;
 
-    public $message;
 
-    public $subject;
-
-    public function __construct(EmailMessage $message)
+    public function __construct(public EmailMessage $EmailMessage)
     {
-        $this->message = $message;
-        $this->subject = $message->subject;
+        $this->EmailMessage = $EmailMessage;
     }
 
-    public function build()
-    {
-        return $this->subject($this->subject)
-                    ->view('emails.test')
-                    ->with(['message' => $this->message]);
+     /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {        
+        return new Content(
+            view: 'emails.test',
+            with: [
+                'message' => $this->EmailMessage,
+            ],
+        );
     }
-    
+
 }
