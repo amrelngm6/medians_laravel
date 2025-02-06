@@ -225,7 +225,7 @@ class EmailAccountService
         Config::set('mail.from.address', $account->email);
         Config::set('mail.from.name', $account->email);
 
-        return  Mail::from($message->sender_email)->to($message->email)->send(new SendMail($message));
+        return  Mail::to($message->email)->send(new SendMail($message));
 
     }
 }
