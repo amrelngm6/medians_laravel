@@ -74,6 +74,8 @@ class EmailAccountService
 
         foreach ($messages as $message) {
             $data = [];
+            $data['model_id'] =  $user->id();
+            $data['model_type'] =  get_class($user);
             $data['email'] =  $message->to;
             $data['delivery_date'] =  $message->delivery_date;
             $data['folder_name'] =  $message->getFolder()->name;
