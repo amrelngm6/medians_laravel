@@ -44,7 +44,8 @@
                                     </a>
                                 </div>
                                 <div class="flex items-center  flex-end  flex-none">
-                                    <div class="">{{request()->get('page')}} - 20 of {{$account->messages->count()}}</div>
+                                    {{$messages->data}}
+                                    <div class="">{{request()->get('page') + 1}} - {{$account->messages->count() > 20 ? 20 : $account->messages->count()}} of {{$account->messages->count()}}</div>
                                     <a class="ml-5 flex py-2 px-1 items-center justify-center" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
