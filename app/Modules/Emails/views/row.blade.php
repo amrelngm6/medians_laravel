@@ -34,7 +34,10 @@
                                                     <img class="rounded-circle h-30px h-30px "
                                                         src="/data/profile/avatar-1.png" alt="Image">
                                                 </div>
-                                                <div class="ml-3 text-truncate font-medium">
+                                                <div class="ml-3 text-truncate font-medium"
+                                                    rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                                    data-title="{{$message->sender_name}}"
+                                                    data-content="From: {{$message->sender_email ?? ''}}">
                                                     {{$message->sender_name}}
                                                 </div>
                                             </div>
@@ -53,3 +56,7 @@
                                     </div>
                                 </div>
 @endforeach
+
+<script>
+MediansSettings.tooltipsPopovers();
+</script>
