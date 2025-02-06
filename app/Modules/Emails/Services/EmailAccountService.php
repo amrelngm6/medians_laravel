@@ -109,9 +109,9 @@ class EmailAccountService
         return $items;
     }
 
-    public function accountFolders($email)
+    public function accountFolders($account)
     {
-        $items = EmailFolder::forEmail($email)->get();
+        $items = EmailFolder::forEmail($account->email)->get();
 
         return $items;
     }

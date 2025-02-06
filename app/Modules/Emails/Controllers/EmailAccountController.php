@@ -67,7 +67,7 @@ class EmailAccountController extends Controller
         }
 
         try {
-            
+
             $account = $this->service->findAccount($accountId);
                 
             $fetch = $this->service->fetch($account);
@@ -108,7 +108,7 @@ class EmailAccountController extends Controller
     public function show(Request $request, $accountId)
     {
         $account = $this->service->findAccount($accountId);
-        $folders = $this->service->accountFolders($accountId);
+        $folders = $this->service->accountFolders($account);
         return view('emails::list', compact('account', 'folders'));
     }
 
