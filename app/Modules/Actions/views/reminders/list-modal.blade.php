@@ -43,8 +43,8 @@
                     <tbody>
                         @foreach ($reminders as $reminder)
                         <tr class="border-b border-gray-200">
-                            <td class="py-4 px-6 fw-bold text-primary">
-                                <span  rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                            <td class="fw-bold text-primary">
+                                <span class="py-4 px-6 " rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                     data-title="{{$reminder->name}}"
                                     data-content="{{$reminder->description}}">{{$reminder->name}}</span> 
                             </td>
