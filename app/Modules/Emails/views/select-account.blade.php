@@ -78,13 +78,13 @@
                     <!--end::Description-->
 
                     @foreach ($accounts as $account)
-                    <div class="d-flex flex-stack">
+                    <div class="d-flex flex-stack py-4">
                         <!--begin::Section-->
                         <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                             <!--begin:Author-->
                             <div class="flex-grow-1 me-2">
                                 <a href="{{route('EmailAccount.show', $account->id)}}?folder={{$account->folder->id ?? 0}}"
-                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{$account->email}}</a>
+                                    class="text-gray-800 text-hover-primary fs-5 pb-2 fw-bold">{{$account->email}}</a>
                                 <span class="text-muted fw-semibold d-block fs-7">{{$account->imap_host}}.</span>
                             </div>
                             <!--end:Author-->
