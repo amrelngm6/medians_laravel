@@ -35,7 +35,7 @@
                                                 </span>
                                             </a>
                                             <div class="pl-10 ml-auto whitespace-nowrap flex flex-none">
-                                                01:10 PM
+                                                {{$message->delivery_date}}
                                             </div>
                                         </div>
                                     </div>
