@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{$message->subject ?? 'Email'}}</title>
+    <title>{{$emailMessage->subject ?? 'Email'}}</title>
 </head>
 <body>
     <div>
