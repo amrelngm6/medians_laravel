@@ -21,11 +21,12 @@ class SendMail extends Mailable
     public function __construct(EmailMessage $message)
     {
         $this->message = $message;
+        $this->subject = $message->subject;
     }
 
     public function build()
     {
-        return $this->subject($this->message->subject)
+        return $this->subject($this->subject)
                     ->view('emails.test')
                     ->with(['message' => $this->message]);
     }

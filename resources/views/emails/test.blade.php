@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{$message->subject}}</title>
+    <title>{{$message->subject ?? 'Email'}}</title>
 </head>
 <body>
     <div>
-        {!! $message->message_text !!}
+        {!! $message->message_text ?? '' !!}
     </div>
 </body>
 </html>
