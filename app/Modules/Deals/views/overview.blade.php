@@ -161,8 +161,6 @@
                             <a class="fw-bold" href="{{route('Client.tabs.edit', $deal->client_id)}}">Client
                                 Settings</a>.</div>
                     </div>
-                    <!--end::Content-->
-
                 </div>
                 <!--end::Wrapper-->
             </div>

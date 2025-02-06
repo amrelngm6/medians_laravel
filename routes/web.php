@@ -80,51 +80,6 @@ Route::prefix('dashboard')->middleware(['web', 'auth:superadmin,staff'])->group(
         {
             return redirect()->route('Business.subscription');
         }
-
-        // $client = Client::make([
-        //     'host' => $settings->imap_host,
-        //     'port' => $settings->imap_port,
-        //     'encryption' => $settings->imap_encryption,
-        //     'validate_cert' => false,
-        //     'username' => $settings->imap_username,
-        //     'password' => $settings->imap_password,
-        //     'protocol' => 'imap',
-        // ]);
-        $client = Client::account('default');
-
-        $client->connect();
-
-        $folder = $client->getFolder('INBOX');
-        $messages = $folder->query()->since(now()->subDays(70))->get();
-
-        foreach ($messages as $message) {
-            $subjectPos = strpos($message->getSubject(), '=?');
-            $subject = $subjectPos >= 0 ? $message->getTo() : $message->getSubject();
-            echo " Delivery date: " . $message->delivery_date;
-            echo " Folder: " . $message->getFolder()->name;
-            echo " Subject: " . $subject;
-            echo " Subject: " . $message->thread;
-            echo "\nFrom: " . $message->getFrom()[0]->mail;
-            
-            echo "\nFrom: " . $message->from;
-            echo "\n size ". $message->size;
-            echo "\n priority ". $message->priority;
-            echo "\n delivered_to ". $message->delivered_to;
-            echo "\n delivered_to ". $message->envelope_to;
-            echo "\n subject ". $message->subject;
-            echo "\n message_id ". $message->message_id;
-            echo "\n". $message->getMessageNo();
-            echo "\n". $message->getReferences();
-            echo "\n". $message->getDate();
-            echo "\n". $message->getFrom();
-            echo "\n". $message->getTo();
-            echo "\n". $message->getCc();
-            echo "\n". $message->getBcc();
-            echo "\n". $message->getReplyTo();
-            echo "\n". $message->getInReplyTo();
-            echo "\n". $message->getSender();
-            // echo "\nBody: " . $message->getTextBody();
-        }
         return view('dashboard.crm');
     })->name('dashboard');
 
