@@ -35,20 +35,17 @@
                 <table class="w-full bg-white rounded-lg shadow-lg">
                     <thead>
                         <tr class="bg-gray-200">
-                            <th class="py-4 px-6  text-gray-700 font-bold">Date</th>
-                            <th class="py-4 px-6  text-gray-700 font-bold">Start</th>
-                            <th class="py-4 px-6  text-gray-700 font-bold">End</th>
-                            <th class="py-4 px-6  text-gray-700 font-bold">Duration</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Name</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Time</th>
+                            <th class="py-4 px-6  text-gray-700 font-bold">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($reminders as $reminder)
                         <tr class="border-b border-gray-200">
-                            @php $diffTime = strtotime($reminder->end) - strtotime($reminder->start); @endphp
-                            <td class="py-4 px-6 ">{{date('M d, Y', strtotime($reminder->start))}} </td>
-                            <td class="py-4 px-6 ">{{date('H:i a', strtotime($reminder->start))}} </td>
-                            <td class="py-4 px-6 ">{{$reminder->end ? date('H:i a', strtotime($reminder->end)) : '--'}} </td>
-                            <td class="py-4 px-6 fw-bold text-primary">{{$reminder->end ? ($diffTime > 86399 ? '1 Day + '.date('H:i:s', $diffTime) : date('H:i:s', $diffTime)) : ''}} </td>
+                            <td class="py-4 px-6 fw-bold text-primary">{{$reminder->name}} </td>
+                            <td class="py-4 px-6 ">{{date('M d, H:i', strtotime($reminder->date))}} </td>
+                            <td class="py-4 px-6 fw-bold text-primary"><span class="label rounded bg-{{$reminder->is_notified ? 'success' : 'danger'}}">{{$reminder->is_notified ? 'Yes' : 'no'}}</spam></td>
                         </tr>
                         @endforeach
                     </tbody>
