@@ -196,11 +196,8 @@ jQuery(function($) {
         jQuery(document).on('click', '.ajax-load', async function (e) {
             e.preventDefault();
             let element = jQuery(this).data('element');
-            let res = await fetch(jQuery(this).attr('href'));
-            res.text().then(data=> {
-                jQuery(element).html(data)
-            })
-
+            let url = jQuery(this).attr('href');
+            MediansSettings.loadAjax(url, element)
         });
                
                
@@ -213,7 +210,18 @@ jQuery(function($) {
         });
                
     }
+
     
+    
+    MediansSettings.loadAjax = async function(url, id) {
+        
+        let res = await fetch(url);
+        res.text().then(data=> {
+            jQuery(element).html(data)
+        })
+    }
+
+
     MediansSettings.reloadLink = async function(url, id) {
         let res = await fetch(url);
         res.text().then(data=> {

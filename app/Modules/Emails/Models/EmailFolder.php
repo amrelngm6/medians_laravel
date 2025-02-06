@@ -22,5 +22,21 @@ class EmailFolder extends Model
     }
 
 
+    /**
+     * Scope for Business
+     */
+    public function scopeForBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+    
+
+    /**
+     * Scope for Business
+     */
+    public function scopeForEmail($query, $email)
+    {
+        return $query->where('email', $email);
+    }
 
 }

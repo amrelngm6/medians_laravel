@@ -86,8 +86,8 @@ class EmailAccountController extends Controller
     public function show(Request $request, $accountId)
     {
         $account = $this->service->findAccount($accountId);
-
-        return view('emails::list', compact('account'));
+        $folders = $this->service->accountFolders($accountId);
+        return view('emails::list', compact('account', 'folders'));
     }
 
     public function store(Request $request)

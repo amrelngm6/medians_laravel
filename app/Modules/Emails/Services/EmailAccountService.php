@@ -109,6 +109,13 @@ class EmailAccountService
         return $items;
     }
 
+    public function accountFolders($email)
+    {
+        $items = EmailFolder::forEmail($email)->get();
+
+        return $items;
+    }
+
     
 
     public function priorities()
