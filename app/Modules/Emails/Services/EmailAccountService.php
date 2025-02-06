@@ -126,7 +126,7 @@ class EmailAccountService
 
     public function findMessage($id, $account)
     {
-        return EmailMessage::forEmail($account->email)->findOrFail($id);
+        return EmailMessage::account($account)->findOrFail($id);
     }
 
     public function findFolder($id, $account)
