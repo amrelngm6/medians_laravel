@@ -53,7 +53,7 @@
                                             <path d="m15 18-6-6 6-6"></path>
                                         </svg>
                                     </a>
-                                    <a class="{{$messagesPaginate['next_page_url'] ? '' : 'disabled text-muted'}} ml-5 flex py-2 px-1 items-center justify-center" href="{{$messagesPaginate['next_page_url']}}">
+                                    <a class="{{$messagesPaginate['next_page_url'] ? '' : 'disabled text-muted'}} ml-5 flex py-2 px-1 items-center justify-center" href="{{$messagesPaginate['next_page_url']}}&folder={{$folder->id ?? ''}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right"
@@ -74,7 +74,7 @@
                                         </svg>
                                     </a>
                                     
-                                    <a class="ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{route('EmailAccount.fetch', $account->id)}}?folder={{request()->get('folder') }}&days=30">
+                                    <a class="ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{route('EmailAccount.fetch', $account->id)}}?folder={{$folder->id}}&days=30">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw"

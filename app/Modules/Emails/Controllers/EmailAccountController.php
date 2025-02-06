@@ -50,7 +50,7 @@ class EmailAccountController extends Controller
             $messages = $this->service->accountMessages($account->email, $folder->name ?? null, 20, $request->page ?? 1);
             $priorities = $this->service->priorities();
 
-            return view('emails::row', compact('messages', 'messagesPaginate', 'account','priorities', 'user'));
+            return view('emails::row', compact('messages', 'folder', 'messagesPaginate', 'account','priorities', 'user'));
             
         } catch (\Throwable $th) {
             
