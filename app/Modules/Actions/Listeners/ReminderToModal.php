@@ -11,10 +11,10 @@ class ReminderToModal
     public function handle($event)
     {
         $user = Auth::user();
-        $model = $event->modal;
+        $model = $event->task;
         $reminders = Reminder::forBusiness([$user->business_id ?? 0, 0])->where([
-            "model_id"=> $event->model->{$event->model->getKeyName()} ?? 0,
-            "model_type"=> get_class($event->model),
+            "model_id"=> $model->{$event->model->getKeyName()} ?? 0,
+            "model_type"=> get_class($model),
         ])->get();
 
         $route = '';
