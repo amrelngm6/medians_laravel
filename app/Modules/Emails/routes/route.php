@@ -8,6 +8,7 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::get('/index', [EmailAccountController::class, 'index'])->name('EmailAccounts');
     Route::get('/{account}/filter', [EmailAccountController::class, 'filter'])->name('EmailAccount.filter');
     Route::get('/{account}/fetch', [EmailAccountController::class, 'fetch'])->name('EmailAccount.fetch');
+    Route::get('/{account}/compose', [EmailAccountController::class, 'compose'])->name('EmailAccount.compose');
     Route::get('create', [EmailAccountController::class, 'create'])->name('EmailAccount.create');
     Route::get('{id}/show', [EmailAccountController::class, 'show'])->name('EmailAccount.show');
     Route::get('{id}/message/{msg_id}', [EmailAccountController::class, 'showMessage'])->name('EmailAccount.showMessage');

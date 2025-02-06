@@ -59,6 +59,29 @@ class EmailAccountController extends Controller
     }
 
 
+    public function compose(Request $request, $accountId)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+            
+            $account = $this->service->findAccount($accountId);
+            $priorities = $this->service->priorities();
+
+            return view('emails::compose', compact('account','priorities', 'user'));
+            
+        } catch (\Throwable $th) {
+            
+            return $th->getMessage();
+        }
+
+    }
+
+
     public function fetch(Request $request, $accountId)
     {
         $user = Auth::user();
