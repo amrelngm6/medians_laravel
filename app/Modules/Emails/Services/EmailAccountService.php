@@ -3,6 +3,7 @@
 namespace App\Modules\Emails\Services;
 
 use App\Modules\Core\Models\ModelField;
+use App\Modules\CustomFields\Models\CustomField;
 use App\Modules\Emails\Models\EmailAccount;
 use App\Modules\Emails\Models\EmailMessage;
 use App\Modules\Emails\Models\EmailFolder;
