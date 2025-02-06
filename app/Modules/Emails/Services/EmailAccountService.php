@@ -67,7 +67,7 @@ class EmailAccountService
         $savedMessages = [];
 
         $folder = $this->client->getFolder($request->folder ?? 'INBOX');
-        $messages = $folder->query()->since(now()->subDays(30))->get();
+        $messages = $folder->query()->since(now()->subDays(1))->get();
 
         foreach ($messages as $message) {
             $data = [];
