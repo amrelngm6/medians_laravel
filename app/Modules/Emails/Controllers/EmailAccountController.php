@@ -45,7 +45,6 @@ class EmailAccountController extends Controller
         try {
             
             $account = $this->service->findAccount($accountId);
-            echo  $request->get('id');
             $folder = $this->service->findFolder($request->get('folder'), $account);
             $messages = $this->service->accountMessages($account->email, $folder->name ?? null);
             $priorities = $this->service->priorities();
@@ -71,10 +70,12 @@ class EmailAccountController extends Controller
         try {
 
             $account = $this->service->findAccount($accountId);
-                
-            $fetch = $this->service->fetch($account);
+            $folder = $this->service->findFolder($request->get('folder'), $account);
+            $saveMessages = $this->fetchMessages($folder->name, $account, $request->days ?? 10);
+            // $fetch = $this->service->fetch($account);
 
             return $this->filter($request, $accountId);
+
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

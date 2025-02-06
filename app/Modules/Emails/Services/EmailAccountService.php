@@ -45,8 +45,6 @@ class EmailAccountService
                     'email' => $account->email,
                     'business_id' => $account->business_id
                 ]);
-
-                $saveMessages = $this->fetchMessages($folder->name, $account);
             }
             
             return $saveMessages;
@@ -60,14 +58,14 @@ class EmailAccountService
 
     
 
-    public function fetchMessages($folderName, $account)
+    public function fetchMessages($folderName, $account, $days = 10)
     {
         $user = Auth::user();
         
         $savedMessages = [];
 
         $folder = $this->client->getFolder($request->folder ?? 'INBOX');
-        $messages = $folder->query()->since(now()->subDays(3))->get();
+        $messages = $folder->query()->since(now()->subDays($days))->get();
 
         foreach ($messages as $message) {
             $data = [];
