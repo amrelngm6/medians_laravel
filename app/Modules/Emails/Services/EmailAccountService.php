@@ -131,7 +131,7 @@ class EmailAccountService
 
     public function findFolder($id, $account)
     {
-        return EmailFolder::forAccount($account)->findOrFail($id);
+        return EmailFolder::forAccount($account)->find($id);
     }
 
     public function accountFolders($account)
