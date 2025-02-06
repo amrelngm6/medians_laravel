@@ -42,7 +42,7 @@
                                                 <span class="ml-3 text-truncate font-medium">
                                                     {{$message->subject}}
                                                 </span>
-                                                {{$message->message_text}}
+                                                {{substr($message->message_text, 0, 100)}}
                                             </a>
                                             <div class="pl-10 ml-auto whitespace-nowrap flex flex-none">
                                                 01:10 PM
