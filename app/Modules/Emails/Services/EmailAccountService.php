@@ -5,6 +5,7 @@ namespace App\Modules\Emails\Services;
 use App\Modules\Emails\Models\EmailAccount;
 use App\Modules\Emails\Models\EmailMessage;
 use App\Modules\Emails\Models\EmailFolder;
+use App\Modules\Emails\Services\SendMail;
 use App\Modules\Priorities\Models\Priority;
 use App\Models\Auth;
 use Webklex\IMAP\Facades\Client;
@@ -225,6 +226,7 @@ class EmailAccountService
         Config::set('mail.from.address', $account->email);
         Config::set('mail.from.name', $account->email);
 
+        // return Mail::to($message->email)->send(new OTPEmail($user, $message->su));
         return  Mail::to($message->email)->send(new SendMail($message));
 
     }
