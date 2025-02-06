@@ -27,6 +27,7 @@
             <td>{{date('M d - H:i a', strtotime($timesheet->start)) }}</td>
             <td>{{date('M d - H:i a', strtotime($timesheet->end)) ?? '' }}</td>
             <td>{{$timesheet->end ? ($diffTime > 86399 ? '1 Day + '.date('H:i:s', $diffTime) : date('H:i:s', $diffTime)) : ''}} </td>
+            <td>{{ $timesheet->notes }}</td>
             <td>
                 <div
                     class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
