@@ -120,7 +120,7 @@ class EmailAccountService
             $items->where('folder_name', $folderName);
         }
 
-        return $items->orderBy('id', 'DESC')->paginate($limit);
+        return $items->orderBy('time', 'DESC')->paginate($limit);
     }
 
     public function findMessage($id, $account)
