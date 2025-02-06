@@ -28,7 +28,7 @@ class EmailAccountController extends Controller
 
                 
         $accounts = $this->service->accounts($user);
-
+        
         $priorities = $this->service->priorities();
 
         return view('emails::select-account', compact('priorities' , 'accounts', 'user'));

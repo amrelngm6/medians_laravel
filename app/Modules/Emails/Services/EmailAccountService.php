@@ -154,6 +154,9 @@ class EmailAccountService
         return EmailAccount::forBusiness($user->business_id ?? 0)
         ->where('user_id', $user->id())
         ->where('user_type', get_class($user))
+        ->with(['folder'=> function($q){
+            return $q->whereHas('messages');
+        }])
         ->get();
     }
 
