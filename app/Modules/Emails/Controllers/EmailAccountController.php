@@ -257,9 +257,9 @@ class EmailAccountController extends Controller
 
             $account = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
 
-            $folder = $this->service->connect($account)->fetch();
+            $fetchFolders = $this->service->connect($account)->fetch();
 
-            return $update ? response()->json([
+            return $fetchFolders ? response()->json([
                 'success' => true,
                 'reload' => false,
                 'no_reset' => true,
