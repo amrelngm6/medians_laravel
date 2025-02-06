@@ -23,6 +23,41 @@ class EmailMessage extends Model
 
 
     /**
+     * Get size of uploads by file type
+     */
+    public function groupEmailAccountSize()
+    {
+        $sizes = $this->where('email', $this->email)->get()->groupBy('message_id')->map(function ($item) {
+            $sum = $item->sum('size');
+            $kb = $sum ? number_format($sum /  1000, 2) : 0;
+            $mb = $sum ? number_format($sum / 1000000, 2) : 0;
+            $gb = $mb ? number_format($mb / 1000, 3) : 0;
+            return ['mb'=>$mb, 'gb'=>$gb, 'kb'=>$kb];
+        });
+        return $sizes->sum('mb');
+    }
+
+
+    public function fileSizeText()
+    {
+        $size = $this->size;
+        
+        if (empty($size))
+            return 0;
+
+        if (($size = $this->size / 1000) && $size < 1000)
+            return number_format($size, 2) .' KB';
+
+        if (($size = $size / 1000) && $size < 1000)
+            return number_format($size, 2) .' MB';
+        
+        if (($size = $size / 1000) && $size)
+            return number_format($size, 2) .' GB';
+
+        return $size;
+    }
+
+    /**
      * Scope for Business
      */
     public function scopeForBusiness($query, $businessId)

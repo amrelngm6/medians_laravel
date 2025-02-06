@@ -30,6 +30,17 @@ class EmailAccount extends Model
         return $this->hasOne(EmailFolder::class, 'email', 'email');
     }
 
+
+    /**
+     * Load related email account
+     */
+    public function messages()
+    {
+        return $this->hasOne(EmailMessage::class, 'email', 'email');
+    }
+
+    
+
     /**
      * Scope for Business
      */
