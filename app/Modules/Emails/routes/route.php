@@ -14,6 +14,7 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::get('{id}/message/{msg_id}', [EmailAccountController::class, 'showMessage'])->name('EmailAccount.showMessage');
     Route::get('{id}/edit', [EmailAccountController::class, 'edit'])->name('EmailAccount.edit');
     Route::post('/{account}/fetchFolders', [EmailAccountController::class, 'fetchFolders'])->name('EmailAccount.fetchFolders');
+    Route::post('/{account}/send_mail', [EmailAccountController::class, 'send_mail'])->name('EmailAccount.send_mail');
     Route::post('/', [EmailAccountController::class, 'store'])->name('EmailAccount.store');
     Route::post('{id}', [EmailAccountController::class, 'update'])->name('EmailAccount.update');
     Route::delete('{id}', [EmailAccountController::class, 'destroy'])->name('EmailAccount.delete');

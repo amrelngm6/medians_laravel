@@ -261,5 +261,16 @@ class EmailAccountController extends Controller
             'result' => 'Email deleted successfully',
         ], 200) : null;
     }
+
+
+
+
+    /**
+     * Send mail
+     */
+    public function send_mail()
+    {
+        
+    }
     
 }
