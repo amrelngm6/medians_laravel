@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="read-content-body default-height">
-                                <iframe srcdoc="{{ $message->message_html }}" style="width:100%; min-height:500px; border:none;"></iframe>
+                                <iframe srcdoc="{{ preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $message->message_html) }}" style="width:100%; min-height:500px; border:none;"></iframe>
 
 
                                 </div>
