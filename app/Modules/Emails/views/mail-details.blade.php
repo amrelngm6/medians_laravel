@@ -34,10 +34,7 @@
 
                 <div class="clearfix"></div>
 
-                <div class="col-lg-12 ">
-
-                </div>
-                <div class="mt-8 ">
+                <div class="mt-2 ">
                     <div class="col-sm-12 col-md-3">
                         <!-- BEGIN: Chat Menu -->
                          
