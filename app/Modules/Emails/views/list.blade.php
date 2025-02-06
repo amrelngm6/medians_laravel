@@ -77,7 +77,7 @@
                                     </a>
                                     @endforeach
                                     
-                                    <a class="mt-2 flex items-center  rounded-md px-3 py-2 ajax-link" href="{{route('EmailAccount.fetchFolders', $account->id)}}">
+                                    <a class="mt-2 flex items-center  rounded-md px-3 py-2 ajax-link" href="{{route('EmailAccount.fetchFolders', $account->id)}}?_token={{csrf_token()}}">
                                         Refresh Folders
                                     </a>
                                     
