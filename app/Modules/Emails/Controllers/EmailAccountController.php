@@ -45,7 +45,7 @@ class EmailAccountController extends Controller
         try {
                 
             $account = $this->service->findAccount($accountId);
-            $messages = $this->service->accountMessages($account->email);
+            $messages = $this->service->accountMessages($account->email, $request->folder_name);
             $priorities = $this->service->priorities();
 
             return view('emails::row', compact('messages', 'account','priorities', 'user'));
