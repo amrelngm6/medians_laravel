@@ -304,10 +304,7 @@ class EmailAccountController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'imap_host' => 'required|string|max:255',
-            'imap_username' => 'required|string|max:255',
-            'imap_password' => 'required|string|max:255',
-            'imap_port' => 'required',
+            'fields.since_days' => 'required|integer|min:1|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -321,13 +318,9 @@ class EmailAccountController extends Controller
                 
             $account = $this->service->findAccount($accountId);
 
-            $email = ['email' => $request->imap_username];
+            $fields = $this->service->storeCustomFields($account, $request->fields);
 
-            $account = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port', 'fields')));
-
-            $fetchFolders = $this->service->connect($account)->fetch();
-
-            return $fetchFolders ? response()->json([
+            return $fields ? response()->json([
                 'success' => true,
                 'reload' => false,
                 'no_reset' => true,
