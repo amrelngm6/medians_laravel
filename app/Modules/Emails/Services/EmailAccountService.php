@@ -103,7 +103,7 @@ class EmailAccountService
 
     public function accountMessages($email)
     {
-        $items = EmailMessage::forEmail($email)->get();
+        $items = EmailMessage::forEmail($email)->orderBy('id', 'DESC')->get();
 
         return $items;
     }
