@@ -1,6 +1,6 @@
 <div class=" w-full py-2">
                                 <div class="flex w-full gap-4">
-                                    <small class="w-full">Reminder</small>
+                                    <small class="w-full">Reminders</small>
                                     <a style="line-height:5px; " rel="popover" data-toggle="popover"
                                         data-placement="top" data-trigger="hover"
                                         data-content="Reminders of spent time for this task"
@@ -16,7 +16,7 @@
                                     href="{{route('Reminder.createForModel', ['model_id'=>$model->id() ?? '0', 'model_type' => get_class($model)])}}?_token={{csrf_token()}}"
                                     id="task-reminder"
                                     class="open-modal btn btn-primary btn-sm">
-                                    <i class='bx bx-time-five'></i> Set Reminder <span
+                                    <i class='bx bx-time-five'></i> Add <span
                                         class="h-10px inline-block rounded-full w-10px "></span>
                                 </a>
                             </div>

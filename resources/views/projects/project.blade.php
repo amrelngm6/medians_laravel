@@ -182,7 +182,6 @@
                             Activity </a>
                     </li>
                     <!--end::Nav item-->
-                    <x-project-tabs />
                 </ul>
                 <!--begin::Navs-->
             </div>

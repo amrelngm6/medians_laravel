@@ -20,7 +20,7 @@ Route::prefix('roles')->middleware(['web', 'auth:superadmin,staff'])->group(func
 
     // Route::get('/', [RoleController::class, 'index'])->name('Role');
     Route::get('/create', [RoleController::class, 'create'])->name('Role.create');
-    Route::get('/createForStaff', [RoleController::class, 'createForStaff'])->name('Role.create');
+    Route::get('/createForStaff', [RoleController::class, 'createForStaff'])->name('Role.createForStaff');
     Route::post('/store', [RoleController::class, 'store'])->name('Role.store');
     Route::post('{id}', [RoleController::class, 'update'])->name('Role.update');
     Route::delete('{id}', [RoleController::class, 'destroy'])->name('Role.delete');

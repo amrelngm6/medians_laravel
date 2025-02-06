@@ -6,7 +6,7 @@ use App\Modules\Actions\Models\Reminder;
 use App\Modules\Tasks\Models\Task;
 use App\Models\Auth;
 
-class ReminderToModal
+class ReminderModalListener
 {
     public function handle($event)
     {

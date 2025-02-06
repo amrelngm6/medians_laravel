@@ -10,7 +10,6 @@ use App\Modules\Tickets\Events\TicketFormRendering;
 use App\Modules\Tickets\Events\TicketModalRendering;
 use App\Modules\Priorities\Listeners\PrioritySelectorToForm;
 use App\Modules\Priorities\Listeners\PrioritySelectorToModal;
-use App\Modules\Actions\Listeners\ReminderToModal;
 
 class EventServiceProvider extends ServiceProvider
 {

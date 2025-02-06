@@ -136,7 +136,6 @@
                     <!--end::Nav item-->
                     
                     <!--end::Nav item-->
-                    <!-- < x - project-tabs /> -->
 
                     @foreach ($projectTabs as $tabItem)
                     <!--begin::Nav item-->
