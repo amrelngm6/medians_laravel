@@ -81,7 +81,7 @@ class EmailAccountService
             $data['sender_name'] =  $message->getSender();
             $data['sender_email'] =  $message->from;
             $data['size'] = $message->size;
-            $data['priority'] =  $message->priority;
+            $data['time'] =  $message->date;
             $data['message_id'] =  $message->message_id;
             $data['message_text'] =  $message->getTextBody();
             $data['message_html'] =  $message->getHTMLBody();
