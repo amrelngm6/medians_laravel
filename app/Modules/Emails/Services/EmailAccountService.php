@@ -115,7 +115,7 @@ class EmailAccountService
 
     public function accountMessages($account, $folderName = null, $limit = 50, $offset = 0)
     {
-        $items = EmailMessage::account($account);
+        $items = EmailMessage::forAccount($account);
 
         if ($folderName) {
             $items->where('folder_name', $folderName);
@@ -126,19 +126,19 @@ class EmailAccountService
 
     public function findMessage($id, $account)
     {
-        return EmailMessage::account($account)->findOrFail($id);
+        return EmailMessage::forAccount($account)->findOrFail($id);
     }
 
     public function findFolder($id, $account)
     {
-        return EmailFolder::forEmail($account->email)->findOrFail($id);
+        return EmailFolder::forAccount($account)->findOrFail($id);
     }
 
     public function accountFolders($account)
     {
         $user = Auth::user();
 
-        $items = EmailFolder::forBusiness($user->business_id ?? 0)->forEmail($account->email)->withCount('messages')->orderBy('messages_count', 'DESC')->get();
+        $items = EmailFolder::forBusiness($user->business_id ?? 0)->forAccount($account)->withCount('messages')->orderBy('messages_count', 'DESC')->get();
 
         return $items;
     }

@@ -48,4 +48,12 @@ class EmailFolder extends Model
         return $query->where('email', $email);
     }
 
+    /**
+     * Scope for Business
+     */
+    public function scopeForAccount($query, $account)
+    {
+        return $query->where('account_id', $account->id);
+    }
+
 }
