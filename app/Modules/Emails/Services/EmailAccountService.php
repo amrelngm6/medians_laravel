@@ -47,7 +47,6 @@ class EmailAccountService
                 ]);
 
                 $saveMessages = $this->fetchMessages($folder->name, $account);
-
             }
             
             return $saveMessages;
@@ -74,7 +73,7 @@ class EmailAccountService
             $data = [];
             $data['model_id'] =  $user->id();
             $data['model_type'] =  get_class($user);
-            $data['email'] =  $message->to;
+            $data['email'] =  $message->getTo()[0]->mail;
             $data['delivery_date'] =  $message->delivery_date;
             $data['folder_name'] =  $message->getFolder()->name;
             $data['subject'] =  $message->subject;
