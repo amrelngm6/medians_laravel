@@ -235,10 +235,14 @@ class EmailAccountController extends Controller
                 'errors' => $validator->errors(),
             ], 402);
         }
+
+        $account = $this->service->findAccount($accountId);
+
         $email = ['email' => $request->imap_username];
+
         $update = $this->service->updateEmailAccount($accountId, array_merge($email, $request->only('imap_host', 'imap_username', 'imap_password', 'imap_port')));
 
-        $folder = $this->service->connect($emailAccount)->fetch();
+        $folder = $this->service->connect($account)->fetch();
 
         return $update ? response()->json([
             'success' => true,
