@@ -278,8 +278,19 @@ class EmailAccountController extends Controller
 
         $account = $this->service->findAccount($accountId);
 
-        return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
+        try {
+            
+            return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
         
+        } catch (\Throwable $th) {
+            //throw $th;
+            
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
+        }
+
         // // Send Email
         // Mail::raw('This is a test email.', function ($message) use ($smtp, $request) {
         //     $message->to($request->email)
