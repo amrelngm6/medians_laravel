@@ -6,6 +6,7 @@
             <th class="text-start">Model</th>
             <th class="text-start">Start</th>
             <th class="text-start">End</th>
+            <th class="text-start">Duration</th>
             <th class="text-start">Notes</th>
             <th class="text-start">Actions</th>
         </tr>
@@ -22,9 +23,10 @@
                     data-title="{{$timesheet->model_name()}}"
                     data-content="Related to {{$timesheet->model->name ?? ''}}" >{{ $timesheet->model->name ?? '' }}</span>
             </td>
-            <td>{{date('M d, - H:i a', strtotime($timesheet->start)) }}</td>
-            <td>{{date('M d, - H:i a', strtotime($timesheet->end)) ?? '' }}</td>
-            <td>{{$timesheet->notes}}</td>
+            @php $diffTime = strtotime($timesheet->end) - strtotime($timesheet->start); @endphp
+            <td>{{date('M d - H:i a', strtotime($timesheet->start)) }}</td>
+            <td>{{date('M d - H:i a', strtotime($timesheet->end)) ?? '' }}</td>
+            <td>{{$timesheet->end ? ($diffTime > 86399 ? '1 Day + '.date('H:i:s', $diffTime) : date('H:i:s', $diffTime)) : ''}} </td>
             <td>
                 <div
                     class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
