@@ -138,7 +138,7 @@
                                     </a>
                                 </div>
                                 <div class="flex items-center  flex-end  flex-none">
-                                    <div class="">1 - 50 of 5,238</div>
+                                    <div class="">1 - 50 of {{$account->messages->count()}}</div>
                                     <a class="ml-5 flex py-2 px-1 items-center justify-center" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
