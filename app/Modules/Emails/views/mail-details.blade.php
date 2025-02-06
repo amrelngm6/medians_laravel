@@ -148,7 +148,9 @@
                                     </div>
                                 </div>
                                 <div class="read-content-body default-height">
-                                   {!! $message->message_html !!}
+                                <iframe srcdoc="{{ $message->message_html }}" style="width:100%; min-height:600px; border:none;"></iframe>
+
+
                                 </div>
                                 <div class="read-content-attachment">
                                     <button class="btn btn-danger bg-danger btn-sm"><i class="bx bx-message-rounded fa-reply me-1"></i>Reply</button>
