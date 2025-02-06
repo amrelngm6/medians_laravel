@@ -15,27 +15,37 @@ class EmailAccountService
 
     protected $client;
 
+    protected $account;
+
     public function __construct(EmailAccount $model)    
     {
         $this->model = $model;
     }
 
-    public function fetch($account)
+    public function connect($account)
     {
+        $this->account = $account;
 
         $this->client = Client::make([
-            'host' => $account->imap_host,
-            'port' => $account->imap_port,
+            'host' => $this->account->imap_host,
+            'port' => $this->account->imap_port,
             'encryption' => 'ssl',
             'validate_cert' => false,
-            'username' => $account->imap_username,
-            'password' => $account->imap_password,
+            'username' => $this->account->imap_username,
+            'password' => $this->account->imap_password,
             'protocol' => 'imap',
         ]);
 
-        try {
+        $this->client->connect();
 
-            $this->client->connect();
+        return $this;
+    }
+
+
+    public function fetch($account)
+    {
+
+        try {
 
             $folders = $this->client->getFolders();
 
@@ -52,7 +62,6 @@ class EmailAccountService
         } catch (\Throwable $th) {
             throw $th;
         }
-
         
     }
 
@@ -64,7 +73,7 @@ class EmailAccountService
         
         $savedMessages = [];
 
-        $folder = $this->client->getFolder($request->folder ?? 'INBOX');
+        $folder = $this->client->getFolder($folderName ?? 'INBOX');
         $messages = $folder->query()->since(now()->subDays($days))->get();
 
         foreach ($messages as $message) {
