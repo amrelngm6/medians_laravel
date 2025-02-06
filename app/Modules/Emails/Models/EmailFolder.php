@@ -27,7 +27,7 @@ class EmailFolder extends Model
      */
     public function messages()
     {
-        return $this->hasMany(EmailMessage::class, 'folder_name', 'name');
+        return $this->hasMany(EmailMessage::class, 'folder_name', 'name')->where('account_id', $this->account_id);
     }
 
 

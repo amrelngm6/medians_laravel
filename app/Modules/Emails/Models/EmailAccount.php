@@ -27,7 +27,7 @@ class EmailAccount extends Model
      */
     public function folder()
     {
-        return $this->hasOne(EmailFolder::class, 'email', 'email');
+        return $this->hasOne(EmailFolder::class, 'account_id', 'id');
     }
 
 
