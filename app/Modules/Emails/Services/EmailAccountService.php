@@ -139,7 +139,9 @@ class EmailAccountService
     {
         $user = Auth::user();
 
-        $items = EmailFolder::forBusiness($user->business_id ?? 0)->forAccount($account)->withCount('messages')->orderBy('messages_count', 'DESC')->get();
+        $items = EmailFolder::forBusiness($user->business_id ?? 0)->forAccount($account)->withCount(['messages'=> function($q) use ($account) {
+            return $q->where('account_id', $account->id);
+        }])->orderBy('messages_count', 'DESC')->get();
 
         return $items;
     }
