@@ -1,4 +1,4 @@
-                            <div class=" " rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                            <div class=" flex-column-auto" rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                             data-content="Change prioriy" >
                                 <small>Priority</small>
                                 <a class="open-modal pb-2 text-primary block w-full " href="{{$route}}" >
