@@ -121,7 +121,7 @@ class EmailAccountController extends Controller
             'user_type' => get_class($user),
         ];
 
-        $emails = $this->service->createEmail(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
+        $emails = $this->service->createEmailAccount(array_merge($request->only('imap_host', 'imap_username', 'imap_password', 'imap_port'), $creator));
 
         return $emails ? response()->json([
             'success' => true,
