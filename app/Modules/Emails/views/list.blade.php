@@ -25,7 +25,7 @@
                                     <a href="#">APPs</a>
                                 </li>
                                 <li class="active">
-                                    <strong>Inbox</strong>
+                                    <strong>{{$account->email}}</strong>
                                 </li>
                             </ol>
                         </div>
