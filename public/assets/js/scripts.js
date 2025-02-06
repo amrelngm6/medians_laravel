@@ -213,7 +213,7 @@ jQuery(function($) {
 
     
     
-    MediansSettings.loadAjax = async function(url, id) {
+    MediansSettings.loadAjax = async function(url, element) {
         
         let res = await fetch(url);
         res.text().then(data=> {

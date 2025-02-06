@@ -218,6 +218,10 @@
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
-<script> </script> 
+<script>
+jQuery(document).ready(function(){
+    MediansSettings.loadAjax('{{route('EmailAccount.filter', $account->id)}}', '#messages-list')
+})
+</script> 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
