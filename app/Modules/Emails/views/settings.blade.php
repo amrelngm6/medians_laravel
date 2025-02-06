@@ -22,12 +22,12 @@
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Email information ( IMAP )</h1>
+                        <h1 class="mb-3">Email settings ( IMAP )</h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Add your email  <span class="text-danger">IMAP configuration </span> to start receiving Emails.
+                            Add your email  <span class="text-danger">Settings & options </span> to query Emails.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -39,12 +39,12 @@
                     <div class="mb-15 fv-row">
                         <div class="d-flex flex-stack">
                             <div class="fw-semibold me-5">
-                                <label class="fs-6  required">IMAP Host</label>
-                                <div class="fs-7 text-muted">This is the IMAP host for your domain  <br />ex: mail.domain.com </div>
+                                <label class="fs-6  required">Last days </label>
+                                <div class="fs-7 text-muted">Set the max days to load old emails  <br />(ex: 30 = last month ) </div>
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="d-flex flex-column  fv-row">
-                                    <input placeholder="IMAP host " name="imap_host" value="{{$account->imap_host}}" required class="form-control form-control-solid" />
+                                    <input placeholder="IMAP host " name="imap_host" value="{{$account->imap_host}}" type="number" min="1" max="100" required class="form-control form-control-solid" />
                                 </div>
                             </div>
                         </div>
