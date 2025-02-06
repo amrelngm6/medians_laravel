@@ -26,13 +26,12 @@ class EmailAccountController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $emails = $this->service->query($request, $user);
                 
         $accounts = $this->service->accounts($user);
 
         $priorities = $this->service->priorities();
 
-        return view('emails::select-account', compact('emails','priorities' , 'accounts', 'user'));
+        return view('emails::select-account', compact('priorities' , 'accounts', 'user'));
     }
 
     public function filter(Request $request, $accountId)
