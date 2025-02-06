@@ -244,7 +244,7 @@ class EmailAccountController extends Controller
         ], 200) : null;
     }
 
-    public function destroy($id)
+    public function destroy($accountId)
     {
         $user = Auth::user();
 
@@ -252,7 +252,7 @@ class EmailAccountController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $delete = $this->service->deleteEmail($id);
+        $delete = $this->service->deleteEmail($accountId);
 
         return $delete ? response()->json([
             'success' => true,
@@ -268,7 +268,7 @@ class EmailAccountController extends Controller
     /**
      * Send mail
      */
-    public function send_mail(Request $request )
+    public function send_mail(Request $request, $accountId )
     {
         $user = Auth::user();
 
@@ -276,7 +276,7 @@ class EmailAccountController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $account = $this->service->findAccount($id);
+        $account = $this->service->findAccount($accountId);
 
         return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
         
