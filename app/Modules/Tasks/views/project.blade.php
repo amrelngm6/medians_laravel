@@ -82,8 +82,6 @@ jQuery(document).ready(function(){
         fetchData();
     });
 })
-
-
 // Function to fetch and update table data
 // function fetchData(startDate = '', endDate = '') {
 function fetchData() {

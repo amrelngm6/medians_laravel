@@ -142,7 +142,7 @@ class ProjectTasksController extends TaskController
 
         $statusList = $this->taskService->loadStatusList();
 
-        return view('tasks::project-tasks', ['project'=> $project, 'modelId'=> $project->project_id, 'modelType'=> get_class($project), 'tasks'=>$tasks, 'statusList'=>$statusList ]);
+        return view('tasks::kanban-tasks', ['project'=> $project, 'modelId'=> $project->project_id, 'modelType'=> get_class($project), 'tasks'=>$tasks, 'statusList'=>$statusList ]);
     }
 
 }

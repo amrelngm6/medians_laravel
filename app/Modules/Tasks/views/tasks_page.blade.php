@@ -52,6 +52,12 @@
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
                                 <li class="nav-item mt-2">
+                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="{{route('Tasks.kanban')}}">
+                                    Kanban </a>
+                                </li>
+                                <!--end::Nav item-->
+                                <!--begin::Nav item-->
+                                <li class="nav-item mt-2">
                                     <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="{{route('Tasks.calendar')}}">
                                         Calendar </a>
                                 </li>
@@ -87,5 +93,8 @@
     <script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
+    
+    @yield('search-scripts')
+
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

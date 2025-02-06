@@ -10,14 +10,16 @@ use App\Modules\Core\Controllers\StatusController;
 Route::prefix('tasks')->middleware(['web', 'auth:staff'])->group(function () {
     Route::get('/', [TaskController::class, 'index'])->name('Tasks');
     Route::get('/calendar', [TaskController::class, 'calendar'])->name('Tasks.calendar');
+    Route::get('/kanban', [TaskController::class, 'kanban'])->name('Tasks.kanban');
     Route::get('/create', [TaskController::class, 'create'])->name('Task.create');
     Route::post('/', [TaskController::class, 'store'])->name('Tasks.store');
     Route::post('/filter', [TaskController::class, 'filter'])->name('Task.filter');
     Route::post('/filter-json', [TaskController::class, 'filterJson'])->name('Task.filter-json');
+    Route::post('/filter-kanban', [TaskController::class, 'filterKanban'])->name('Tasks.filterKanban');
     Route::post('/{id}/add_team', [TaskController::class, 'add_team'])->name('Task.add_team');
     Route::post('/{id}/delete_team', [TaskController::class, 'delete_team'])->name('Task.delete_team');
     Route::post('{id}/update', [TaskController::class, 'update'])->name('Task.update');
-    Route::delete('{id}', [TaskController::class, 'destroy'])->name('Task.delete');
+    Route::delete('{id}/delete', [TaskController::class, 'destroy'])->name('Task.delete');
     
     // Duplicate Task
     Route::get('/{id}/duplicate-modal', [TaskController::class, 'duplicateModal'])->name('Task.duplicate-modal');

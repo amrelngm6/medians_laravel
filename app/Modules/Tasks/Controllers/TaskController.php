@@ -48,6 +48,22 @@ class TaskController extends Controller
         // List tasks
         return view('tasks::calendar', compact('tasks'));
     }
+
+    public function kanban(Request $request)
+    {
+        $statusList = $this->service->loadStatusList();   
+        return view('tasks::kanban', compact('statusList'));
+    }
+    
+    public function filterKanban(Request $request)
+    {
+        
+        $tasks = $this->service->query($request)->orderBy('sort')->get();
+
+        $statusList = $this->service->loadStatusList();
+
+        return view('tasks::kanban-tasks', ['tasks'=>$tasks, 'statusList'=>$statusList ]);
+    }
     
     public function filterJson(Request $request)
     {
