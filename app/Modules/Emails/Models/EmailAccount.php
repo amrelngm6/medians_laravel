@@ -22,6 +22,13 @@ class EmailAccount extends Model
     }
 
 
+    /**
+     * Load related email account
+     */
+    public function folder()
+    {
+        return $this->hasOne(EmailFolder::class, 'email', 'email');
+    }
 
     /**
      * Scope for Business

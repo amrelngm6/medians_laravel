@@ -43,9 +43,11 @@ class EmailAccountController extends Controller
         }
 
         try {
-                
+            
             $account = $this->service->findAccount($accountId);
-            $messages = $this->service->accountMessages($account->email, $request->folder_name);
+            echo  $request->get('id');
+            $folder = $this->service->findFolder($request->get('folder'), $account);
+            $messages = $this->service->accountMessages($account->email, $folder->name ?? null);
             $priorities = $this->service->priorities();
 
             return view('emails::row', compact('messages', 'account','priorities', 'user'));

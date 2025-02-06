@@ -83,7 +83,7 @@
                         <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                             <!--begin:Author-->
                             <div class="flex-grow-1 me-2">
-                                <a href="{{route('EmailAccount.show', $account->id)}}?email_id={{$account->id}}"
+                                <a href="{{route('EmailAccount.show', $account->id)}}?folder={{$account->folder->id ?? 0}}"
                                     class="text-gray-800 text-hover-primary fs-6 fw-bold">{{$account->email}}</a>
                                 <span class="text-muted fw-semibold d-block fs-7">{{$account->imap_host}}.</span>
                             </div>

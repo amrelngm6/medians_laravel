@@ -209,7 +209,7 @@
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
 <script>
 jQuery(document).ready(function(){
-    loadAjax('{{route('EmailAccount.filter', $account->id)}}', '#messages-list')
+    loadAjax('{{route('EmailAccount.filter', $account->id)}}?folder={{request()->get('folder') ?? $folderId}}', '#messages-list')
 })
 </script> 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
