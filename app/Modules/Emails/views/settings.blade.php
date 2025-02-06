@@ -37,13 +37,13 @@
 
                     <!--begin::Input group-->
                     <div class="mb-15 fv-row">
-                        <div class="d-flex flex-stack">
-                            <div class="fw-semibold me-5">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
                                 <label class="fs-6  required">Last days </label>
-                                <div class="fs-7 text-muted">Set the max days to load old emails  <br />(ex: 30 = last month ) </div>
+                                <div class="fs-7 text-muted">Set the max days to load old emails  <br />(ex: 30 = last month, 7 = last week ) </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <div class="d-flex flex-column  fv-row">
+                            <div class="d-flex align-items-center w-full">
+                                <div class="d-flex flex-column  fv-row w-full">
                                     <input placeholder="IMAP host " name="imap_host" value="{{$account->imap_host}}" type="number" min="1" max="100" required class="form-control form-control-solid" />
                                 </div>
                             </div>
