@@ -227,7 +227,7 @@ class EmailAccountService
         Config::set('mail.from.name', $account->email);
 
         // return Mail::to($message->email)->send(new OTPEmail($user, $message->su));
-        return  Mail::to($message->email)->send(new SendMail($message));
+        return  Mail::to($message->email)->send(new SendMail($message)) ? true : false;
 
     }
 }
