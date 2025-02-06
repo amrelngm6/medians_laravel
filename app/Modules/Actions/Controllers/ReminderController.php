@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Actions\Services\ReminderService;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Auth;
+use App\Modules\Tasks\Models\Task;
 
 class ReminderController extends Controller
 {
@@ -55,6 +56,20 @@ class ReminderController extends Controller
         $modelId = $user->id();
         
         $modelType = get_class($user);
+
+        return view('reminders::add-reminder', compact('user','modelId','modelType'));
+    }
+
+    /**
+     * Create reminder modal
+     */
+    public function createForModel(Request $request, $model_id = 0, $model_type = null)
+    {
+        $user = Auth::user();
+
+        $modelId = $model_id;
+        
+        $modelType = $model_type;
 
         return view('reminders::add-reminder', compact('user','modelId','modelType'));
     }
