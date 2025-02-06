@@ -5,8 +5,8 @@
 </head>
 <body>
     <div>
-        {!! $message->message_text ?? '' !!}
-        <p>{{ $message->message_text ?? 'Empty mail' }}</p>
+        {!! $emailMessage->message_text ?? '' !!}
+        <p>{{ $emailMessage->message_text ?? 'Empty mail' }}</p>
     </div>
 </body>
 </html>

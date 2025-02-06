@@ -18,9 +18,9 @@ class SendMail extends Mailable
     use Queueable, SerializesModels;
 
 
-    public function __construct(public EmailMessage $EmailMessage)
+    public function __construct(public EmailMessage $emailMessage)
     {
-        $this->EmailMessage = $EmailMessage;
+        $this->emailMessage = $emailMessage;
     }
 
      /**
@@ -43,7 +43,7 @@ class SendMail extends Mailable
         return new Content(
             view: 'emails.test',
             with: [
-                'message' => $this->EmailMessage,
+                'emailMessage' => $this->emailMessage,
             ],
         );
     }
