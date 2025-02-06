@@ -17,7 +17,8 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_new_target_form" class="form" action="#">
+                <form id="modal_new_email_form" class="form" action="{{route('EmailAccount.send_mail', $account->id)}}">
+                    @csrf
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
@@ -60,7 +61,7 @@
                     <div class="d-flex flex-column mb-8">
                         <label class="fs-6 fw-semibold mb-2">Message</label>
 
-                        <textarea class="form-control form-control-solid" rows="3" name="message"
+                        <textarea class="form-control form-control-solid" rows="3" name="message_text"
                             placeholder="Type Message Details"></textarea>
                     </div>
                     <!--end::Input group-->
@@ -108,10 +109,6 @@
                         <button type="submit" id="modal_new_target_submit" class="btn btn-primary">
                             <span class="indicator-label">
                                 Submit
-                            </span>
-                            <span class="indicator-progress">
-                                Please wait... <span
-                                    class="spinner-border spinner-border-sm align-middle ms-2"></span>
                             </span>
                         </button>
                     </div>
