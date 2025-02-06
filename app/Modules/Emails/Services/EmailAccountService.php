@@ -13,6 +13,8 @@ class EmailAccountService
 {
     public $model;
 
+    protected $client;
+
     public function __construct(EmailAccount $model)    
     {
         $this->model = $model;
@@ -21,7 +23,7 @@ class EmailAccountService
     public function fetch($account)
     {
 
-        $client = Client::make([
+        $this->client = Client::make([
             'host' => $account->imap_host,
             'port' => $account->imap_port,
             'encryption' => 'ssl',
@@ -35,9 +37,9 @@ class EmailAccountService
 
         try {
 
-            $client->connect();
+            $this->client->connect();
 
-            $folders = $client->getFolders();
+            $folders = $this->client->getFolders();
 
             foreach ($folders as $folder) {
                 $savedFolder = EmailFolder::firstOrCreate([
@@ -67,7 +69,7 @@ class EmailAccountService
         
         $savedMessages = [];
 
-        $folder = $client->getFolder($request->folder ?? 'INBOX');
+        $folder = $this->client->getFolder($request->folder ?? 'INBOX');
         $messages = $folder->query()->since(now()->subDays(30))->get();
 
         foreach ($messages as $message) {
