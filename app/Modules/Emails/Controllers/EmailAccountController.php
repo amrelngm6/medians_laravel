@@ -57,6 +57,26 @@ class EmailAccountController extends Controller
 
     }
 
+
+    public function fetch(Request $request, $accountId)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+                
+            $fetch = $this->service->fetch($account);
+
+            return $this->filter($request, $accountId);
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+
+    }
+
     public function create(Request $request)
     {
         $user = Auth::user();
@@ -181,22 +201,5 @@ class EmailAccountController extends Controller
             'result' => 'Email deleted successfully',
         ], 200) : null;
     }
-
-    public function fetch(Request $request)
-    {
-        $user = Auth::user();
-
-        if ($user->cannot('Email view') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
-        }
-
-        $delete = $this->service->fetch($request);
-
-        return $delete ? response()->json([
-            'success' => true,
-            'reload' => true,
-            'title' => 'Done',
-            'result' => 'Emails list updated successfully',
-        ], 200) : null;
-    }
+    
 }
