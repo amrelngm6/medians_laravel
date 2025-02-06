@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="flex items-center  flex-end  flex-none">
                                     <div class="">{{$messagesPaginate['from']}} - {{$messagesPaginate['to']}} of {{$messagesPaginate['total']}}</div>
-                                    <a class="{{$messagesPaginate['prev_page_url'] ? '' : 'disabled text-muted'}}  ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{$messagesPaginate['prev_page_url']}}">
+                                    <a class="{{$messagesPaginate['prev_page_url'] ? '' : 'disabled text-muted'}}  ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{$messagesPaginate['prev_page_url']}}&folder={{$folder->id ?? ''}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left"
