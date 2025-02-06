@@ -205,7 +205,6 @@
                 </div>
                 <!-- MAIN CONTENT AREA ENDS -->
             </div>
-            @include('includes.modals.mail-modal')
 @endsection
 
 
