@@ -1,6 +1,6 @@
 <div class=" w-full py-2">
                                 <div class="flex w-full gap-4">
-                                    <small class="w-full">Timesheet</small>
+                                    <small class="w-full">Reminder</small>
                                     <a style="line-height:5px; " rel="popover" data-toggle="popover"
                                         data-placement="top" data-trigger="hover"
                                         data-content="Reminders of spent time for this task"
@@ -12,9 +12,7 @@
                                 </div>
                                 
                                 <a rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                    data-content="End current Timesheet for this task" 
-                                    data-confirm="End Timesheet ?"
-                                    data-confirm-text="Are you sure you want to end this active Timesheet for this Task ?"
+                                    data-content="Set new Reminder for this task" 
                                     href="{{route('Reminder.createForModel', ['model_id'=>$model->id() ?? '0', 'model_type' => get_class($model)])}}?_token={{csrf_token()}}"
                                     id="task-reminder"
                                     class="open-modal btn btn-primary btn-sm">
