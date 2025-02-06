@@ -197,7 +197,7 @@ jQuery(function($) {
             e.preventDefault();
             let element = jQuery(this).data('element');
             let url = jQuery(this).attr('href');
-            MediansSettings.loadAjax(url, element)
+            loadAjax(url, element)
         });
                
                
@@ -209,16 +209,6 @@ jQuery(function($) {
             )
         });
                
-    }
-
-    
-    
-    MediansSettings.loadAjax = async function(url, element) {
-        
-        let res = await fetch(url);
-        res.text().then(data=> {
-            jQuery(element).html(data)
-        })
     }
 
 
@@ -3057,11 +3047,17 @@ jQuery(function($) {
         }, 100);
 
     });
-    
-
-    
-
 });
+
+async function loadAjax (url, element) {
+        
+    let res = await fetch(url);
+    res.text().then(data=> {
+        jQuery(element).html(data)
+    })
+}
+
+
 
 function calcTotal() {
     let itemTotal = 0;
