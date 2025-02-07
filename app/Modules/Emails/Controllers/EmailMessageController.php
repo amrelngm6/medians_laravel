@@ -33,7 +33,7 @@ class EmailMessageController extends Controller
 
         try {
             
-            $account = $this->service->findAccount($accountId);
+            $account = $this->accountService->findAccount($accountId);
             $priorities = $this->service->priorities();
 
             return view('emails::compose', compact('account','priorities', 'user'));
