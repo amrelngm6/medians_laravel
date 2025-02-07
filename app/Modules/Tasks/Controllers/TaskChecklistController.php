@@ -132,10 +132,10 @@ class TaskChecklistController extends Controller
 
         $projectName = $task->model->name ?? 'CRM';
         $platform = $task->model->field('platform')->value ?? 'Laravel';
-        $response_length = $task->model->field('ai_tasks_length')->value ?? 'long';
+        $response_length = $task->model->field('ai_tasks_length')->value ?? 'short';
         $maxItems = $task->model->field('ai_task_checklist_count')->value ?? '10';
 
-        $message = " ( $task->description ) this is my task description for project ({$projectName}) {$platform}, could you give me json list to complete it. Please make the response valid json , and two keys title and description";
+        $message = " ( $task->description ) this is my task description for project ({$projectName}) {$platform}, give me json list to complete it. make the response valid json , and two keys title and description";
         $message .= $response_length == 'short' ? ", and as short as possible" : "";
         $message .= ", with max {$maxItems} items only" ;
         // could you give me json list for my task with title (Build Email System Module with morph model and user) for my CRM in laravel. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible
