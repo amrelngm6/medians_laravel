@@ -75,10 +75,10 @@ class EmailMessageService
 
             $move = $mailMessage->move($folderName);
             
-            $update = $message->update(['folder'=>$folderName]);
+            $update = $message->update(['folder_name'=>$folderName]);
 
             return $message;
-            
+
         } catch (\Throwable $th) {
             throw $th;
         }
