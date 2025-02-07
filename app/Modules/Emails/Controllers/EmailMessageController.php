@@ -92,7 +92,6 @@ class EmailMessageController extends Controller
 
         try {
                 
-            
             $folder = $this->service->findFolderById($folderId);
             
             $account = $this->accountService->findAccount($folder->account_id);
@@ -103,8 +102,7 @@ class EmailMessageController extends Controller
 
             return $move ? response()->json([
                 'success' => true,
-                'reload' => false,
-                'no_reset' => true,
+                'redirect' => route('EmailAccount.show', $account->id),
                 'title' => 'Done',
                 'result' => 'Updated',
             ], 200) : null;

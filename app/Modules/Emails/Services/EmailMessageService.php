@@ -65,15 +65,23 @@ class EmailMessageService
 
     public function moveMessage($folderName, $id)
     {
-        $message = EmailMessage::findOrFail($id);
+        try {
+                
+            $message = EmailMessage::findOrFail($id);
 
-        $currentFolder = $this->client->getFolder($message->folder_name);
-        // print_r(json_decode($move->query()->since(now()->subDays(100))->limit(10)->get()));
-        // $folders = $this->client->getFolders();
-        $mailMessage = $currentFolder->query()->getMessageByUid($message->message_uid);
-        $move = $mailMessage->move($folderName);
-        print_r($move);
-        // $update = $message->update(['folder'=>$folderName]);
+            $currentFolder = $this->client->getFolder($message->folder_name);
+            
+            $mailMessage = $currentFolder->query()->getMessageByUid($message->message_uid);
+
+            $move = $mailMessage->move($folderName);
+            
+            $update = $message->update(['folder'=>$folderName]);
+
+            return $message;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
 
     }
 
