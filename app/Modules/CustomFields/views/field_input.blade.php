@@ -1,6 +1,6 @@
 
     <!--begin::Input group-->
-    <div class="form-group w-full select-placeholder">
+    <div class="form-group w-full py-2">
         <div class="d-flex flex-stack w-full">
             <div class="fw-semibold me-5 w-full">
                 
@@ -12,7 +12,7 @@
                 <div class="fs-7 text-muted">{!! $field->help_text !!}</div>
             </div>
             <div class="d-flex align-items-center w-full">
-                <div class="d-flex flex-column  fv-row w-full">
+                <div class="d-flex flex-column  fv-row w-full select-placeholder ">
                     
     @if ($field->type == 'checkbox')
     <div class="form-group w-full flex">
