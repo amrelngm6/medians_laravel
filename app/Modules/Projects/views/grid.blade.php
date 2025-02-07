@@ -65,7 +65,7 @@
                                             Edit</a>
                                         <a class="dropdown-item" href="{{route('Projects.settings', $project->project_id)}}" ><i class="fe fe-edit me-2"></i>
                                             Settings</a>
-                                        <a class="dropdown-item delete-item" data-path="{{route('Projects.delete', $project->project_id)}}" href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                        <a class="dropdown-item delete-item" data-path="{{route('Projects.destroy', $project->project_id)}}" href="javascript:;"><i class="fe fe-trash me-2"></i>
                                             Delete</a>
                                     </div>
                                 </div>
