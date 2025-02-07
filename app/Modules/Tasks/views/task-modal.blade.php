@@ -435,4 +435,6 @@ jQuery(document).ready(function() {
     });
 })
 </script>
+@include('components.text-select-speech')
+
 @yield('search-scripts')

@@ -15,11 +15,8 @@
 
     <script>
         const popover = document.getElementById("text-popover");
-
-        document.addEventListener("selectionchange", (event) => {
-            setTimeout(function () {
-                handleEvent(event)
-            }, 500)
+        jQuery(document).on("selectionchange", (event) => {
+            setTimeout(handleEvent, 500)
         });
 
         function handleEvent() {
