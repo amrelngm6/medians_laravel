@@ -74,14 +74,14 @@ class EmailAccountService
 
     
 
-    public function fetchMessages($folderName, $account, $days = 10)
+    public function fetchMessages($folderName, $account, $days = 10, $limit = 25)
     {
         $user = Auth::user();
         
         $savedMessages = [];
 
         $folder = $this->client->getFolder($folderName ?? 'INBOX');
-        $messages = $folder->query()->since(now()->subDays($days))->get();
+        $messages = $folder->query()->since(now()->subDays($days))->limit($limit)->get();
 
         foreach ($messages as $message) {
             $data = [];

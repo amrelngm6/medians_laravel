@@ -161,7 +161,6 @@ class EmailMessageController extends Controller
             return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
         
         } catch (\Throwable $th) {
-            //throw $th;
             
             return response()->json([
                 'success' => false,
