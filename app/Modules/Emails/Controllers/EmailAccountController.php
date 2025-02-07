@@ -310,8 +310,6 @@ class EmailAccountController extends Controller
             ], 200) : null;
             
         } catch (\Throwable $th) {
-            //throw $th;
-            
             return response()->json([
                 'success' => false,
                 'error' => $th->getMessage(),
@@ -323,42 +321,61 @@ class EmailAccountController extends Controller
 
     public function destroy($accountId)
     {
-        $user = Auth::user();
+        try 
+        {
+            $user = Auth::user();
 
-        if ($user->cannot('Email delete') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
+            if ($user->cannot('Email delete') && Auth::guardName() != 'superadmin') {
+                abort(401, 'Unauthorized');
+            }
+
+            $delete = $this->service->deleteEmail($accountId);
+
+            return $delete ? response()->json([
+                'success' => true,
+                'reload' => true,
+                'title' => 'Done',
+                'result' => 'Email deleted successfully',
+            ], 200) : null;
+                
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
         }
-
-        $delete = $this->service->deleteEmail($accountId);
-
-        return $delete ? response()->json([
-            'success' => true,
-            'reload' => true,
-            'title' => 'Done',
-            'result' => 'Email deleted successfully',
-        ], 200) : null;
     }
 
 
 
     public function deleteFolder(Request $request, $folderId, $accountId)
     {
-        $user = Auth::user();
+        try {
 
-        if ($user->cannot('EmailAccount edit') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
+        
+            $user = Auth::user();
+
+            if ($user->cannot('EmailAccount edit') && Auth::guardName() != 'superadmin') {
+                abort(401, 'Unauthorized');
+            }
+    
+            $account = $this->service->findaccount($accountId);
+    
+            $delete = $this->service->connect($account)->deleteFolder($folderId);
+    
+            return $delete ? response()->json([
+                'success' => true,
+                'reload' => true,
+                'title' => 'Done',
+                'result' => 'Email deleted successfully',
+            ], 200) : null;
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
         }
-
-        $account = $this->service->findaccount($accountId);
-
-        $delete = $this->service->connect($account)->deleteFolder($folderId);
-
-        return $delete ? response()->json([
-            'success' => true,
-            'reload' => true,
-            'title' => 'Done',
-            'result' => 'Email deleted successfully',
-        ], 200) : null;
     }
 
 

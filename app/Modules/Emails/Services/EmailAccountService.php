@@ -192,7 +192,7 @@ class EmailAccountService
             return  $remoteFolder->delete();
             
         } catch (\Throwable $th) {
-            $folder->delete();
+            // $folder->delete();
             throw $th;
         }
     }
