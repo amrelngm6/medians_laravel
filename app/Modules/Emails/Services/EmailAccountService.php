@@ -97,7 +97,7 @@ class EmailAccountService
             $data['account_id'] = $account->id;
             $data['time'] =  $message->date;
             $data['message_id'] =  $message->message_id;
-            $data['message_number'] =  $message->getMessageNo();
+            $data['message_uid'] =  $message->getUid();
             $data['message_text'] =  $message->getTextBody();
             $data['message_html'] =  $message->getHTMLBody();
             $data['cc'] =  $message->getCc();
