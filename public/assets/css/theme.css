@@ -10271,6 +10271,7 @@ ul.nav-line-tabs {
     border-radius: 5px;
     display: none;
     z-index: 1000;
+    transition: all ease-in-out 0.5s;
 }
 
 .text-popover button {

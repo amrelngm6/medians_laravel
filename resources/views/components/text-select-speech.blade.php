@@ -1,10 +1,13 @@
 
     <div id="text-popover" class="text-popover">
-        <button id="translateBtn">Translate</button>
-        <button id="speechBtn">Speech</button>
+        <!-- <button id="translateBtn">Translate</button> -->
+        <div class=" flex">
+            <button id="speechBtn">Speech</button>
+            <select id="voices-select" class="form-control form-control-solid py-2 px-4"></select>
+
+        </div>
     </div>
     <form class="flex gap-2 pt-4 ajax-form hidden" action="{{route('HuggFace.translate')}}" id="translate_text_form">
-        <select id="voices-select"></select>
         @csrf
         <input name="model" value="Helsinki-NLP/opus-mt-en-ar">
         <textarea class="hidden" name="message" id="selected_text_content"></textarea>
@@ -12,8 +15,6 @@
 
     <script>
         const popover = document.getElementById("text-popover");
-        const translateBtn = document.getElementById("translateBtn");
-        const speechBtn = document.getElementById("speechBtn");
 
         document.addEventListener("selectionchange", (event) => {
             setTimeout(function () {
@@ -24,8 +25,6 @@
         function handleEvent() {
             const selection = window.getSelection();
             const selectedText = selection.toString().trim();
-
-
             if (selectedText.length > 0) {
                 const range = selection.getRangeAt(0);
                 const rect = range.getBoundingClientRect();
@@ -39,15 +38,17 @@
             }
         }
 
+        const speechBtn = document.getElementById("speechBtn");
         speechBtn.addEventListener("click", function () {
             const selection = window.getSelection();
             const selectedText = selection.toString().trim();
             window.getSelection().toString().trim() ? speak(selectedText) : ''
         });
 
-        translateBtn.addEventListener("click", function () {
-            window.getSelection().toString().trim() ? sendData('#translate_text_form') : ''
-        });
+        // const translateBtn = document.getElementById("translateBtn");
+        // translateBtn.addEventListener("click", function () {
+        //     window.getSelection().toString().trim() ? sendData('#translate_text_form') : ''
+        // });
 
         document.addEventListener("click", function (event) {
             if (!popover.contains(event.target)) {
@@ -96,7 +97,7 @@
                     return +1;
                 }
             });
-            const selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
+            let selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
             voiceSelect.innerHTML = "";
 
             for (let i = 0; i < voices.length; i++) {
@@ -105,9 +106,10 @@
 
                 if (voices[i].default) {
                     option.textContent += " -- DEFAULT";
+                    option.setAttribute("selected", true);
+                    selectedIndex = i
                 }
 
-                option.setAttribute("data-lang", voices[i].lang);
                 option.setAttribute("data-name", voices[i].name);
                 voiceSelect.appendChild(option);
             }
@@ -137,8 +139,9 @@
                     console.error("SpeechSynthesisUtterance.onerror");
                 };
 
-                // const selectedOption =  voiceSelect.selectedOptions[0].getAttribute("data-name");
-                const selectedOption = "Google UK English Female";
+                voiceSelect.value
+                const selectedOption =  voiceSelect.selectedOptions[0].getAttribute("data-name");
+                // const selectedOption = "Google UK English Female";
 
                 for (let i = 0; i < voices.length; i++) {
                     console.log(voices[i])

@@ -28,6 +28,7 @@
     </script>
     
     @include('components.text-select-speech')
+    @include('components.speech-recognise')
 
 
     <div id="modals"></div>

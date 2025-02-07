@@ -13,13 +13,8 @@
                             </a>
                         </li>
                         <li class="topnav-item item1">
-                            <a href="#" class="new-link w-text">Front-pages
-                                <span class="badge bg-primary ml-5">soon</span>
-                            </a>
-                        </li>
-                        <li class="topnav-item  item2">
-                            <a href="{{route(App::getLocale() . '.ui_widgets')}}" class="nav-link w-text">
-                                <i class="fa fa-gift mr-10"></i>Widgets
+                            <a href="#!" onClick="(function(){testSpeech();})()" class="new-link w-text">Voice commands
+                                <span class="badge bg-primary ml-5 pt-1"><i class='bx bxs-microphone-alt' ></i> Start</span>
                             </a>
                         </li>
 
