@@ -341,5 +341,25 @@ class EmailAccountController extends Controller
 
 
 
+    public function deleteFolder(Request $request, $folderId)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount edit') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $delete = $this->service->deleteFolder($accountId);
+
+        return $delete ? response()->json([
+            'success' => true,
+            'reload' => true,
+            'title' => 'Done',
+            'result' => 'Email deleted successfully',
+        ], 200) : null;
+    }
+
+
+
     
 }

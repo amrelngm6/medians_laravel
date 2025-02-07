@@ -8,7 +8,7 @@
                                             class="cursor-pointer block py-2 px-1 border-0">
                                             <i class='bx bx-chevron-down fs-3'></i>
                                         </button>
-                                        <div class="show-on-hover position-absolute z-[9999]  hidden  translate-y-1"
+                                        <div class="show-on-hover position-absolute z-[9999]  hidden "
                                             data-state="leave">
                                             <div
                                                 class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-32 text-slate-800 dark:text-slate-300">

@@ -179,6 +179,17 @@ class EmailAccountService
         return $email->delete();
     }
 
+    public function deleteFolder($id)
+    {
+        $folder = $this->findFolder($id, $this->account);
+
+        $remoteFolder = $this->client->getFolder($folder->name);
+        
+        $remoteFolder->delete();
+        
+        return $folder->delete();
+    }
+
     /**
      * Store custom fileds for 
      * Email Account Settings

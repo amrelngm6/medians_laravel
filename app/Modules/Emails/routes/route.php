@@ -18,6 +18,7 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::post('{id}/update', [EmailAccountController::class, 'update'])->name('EmailAccount.update');
     Route::post('{id}/updateSetting', [EmailAccountController::class, 'updateSetting'])->name('EmailAccount.updateSetting');
     Route::delete('{id}/delete', [EmailAccountController::class, 'destroy'])->name('EmailAccount.delete');
+    Route::delete('{id}/deleteFolder', [EmailAccountController::class, 'deleteFolder'])->name('EmailAccount.deleteFolder');
 });
 
 Route::prefix('email_messages')->middleware(['web', 'auth:staff,superadmin'])->group(function () {

@@ -41,23 +41,26 @@
                     <div class="col-sm-12 col-md-3">
                         <!-- BEGIN: Inbox Menu -->
                         <div class="card  ">
-                            <div class="card-body  ">
-                                <a href="{{route('EmailMessage.compose', $account->id)}}" data-modal="#new-mail-modal" class="open-modal w-full btn btn-primary transition duration-200  shadow-md cursor-pointer "><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="edit" class="lucide lucide-edit stroke-1.5 mr-2 h-4 w-4"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+                            <div class="card-body px-0">
+                                <a href="{{route('EmailMessage.compose', $account->id)}}" data-modal="#new-mail-modal" class="open-modal mx-auto w-64 btn btn-primary transition duration-200  shadow-md cursor-pointer "><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="edit" class="lucide lucide-edit stroke-1.5 mr-2 h-4 w-4"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
                                     Compose</a>
                                 <div class="mt-6 border-t border-white/10 pt-6 dark:border-darkmode-400 ">
                                     @foreach ($folders as $folder)
-                                    <a class="{{$folder->id == request()->get('folder') ? 'text-danger' : 'text-dark-blue'}} text-hover-info mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 "
-                                        href="{{route('EmailAccount.show', $account->id)}}?folder={{$folder->id}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" data-lucide="star"
-                                            class="lucide lucide-star stroke-1.5 mr-2 h-4 w-4">
-                                            <polygon
-                                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                            </polygon>
-                                        </svg>
-                                        {{$folder->name}} ({{$folder->messages_count}})
-                                    </a>
+                                    <div class="w-full flex gap-2">
+                                        <i class="bx bx-start"></i>
+                                        <a class="{{$folder->id == request()->get('folder') ? 'text-danger' : 'text-dark-blue'}} w-full text-hover-info mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 "
+                                            href="{{route('EmailAccount.show', $account->id)}}?folder={{$folder->id}}">
+                                            {{$folder->name}} ({{$folder->messages_count}})</a>
+                                        <div class="dropdown show-child relative mt-2">
+                                            <i class='bx bx-dots-vertical-rounded fs-3 px-2' ></i>
+                                            <div class="show-on-hover position-absolute z-[9999]  hidden ">
+                                                <div
+                                                    class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-auto right-0 text-slate-800 dark:text-slate-300">
+                                                    <a class="dropdown-item delete-item fs-4 p-2" href="#!" data-path="{{route('EmailAccount.deleteFolder', $folder->id)}}"><i class='bx bx-trash' ></i> Delete folder</a> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
 
                                 </div>
