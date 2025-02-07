@@ -169,12 +169,19 @@ class EmailAccountController extends Controller
 
     public function show(Request $request, $accountId)
     {
-        $account = $this->service->findAccount($accountId);
-        $folder = $this->service->findFolder($request->folder ?? 0);
-        $folders = $this->service->accountFolders($account);
-        $priorities = $this->service->priorities();
+        try {
+            
+            $account = $this->service->findAccount($accountId);
+            $folder = $this->service->findFolder($request->folder ?? 0);
+            $folders = $this->service->accountFolders($account);
+            $priorities = $this->service->priorities();
 
-        return view('emails::list', compact('account', 'folders', 'priorities'));
+            return view('emails::list', compact('account', 'folders', 'priorities'));
+            
+        } catch (\Throwable $th) {
+            return redirect('EmailAccount');
+            //throw $th;
+        }
     }
     
 
