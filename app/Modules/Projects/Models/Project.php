@@ -24,6 +24,15 @@ class Project extends Model
 
     protected $fillable = ['business_id', 'name', 'description', 'client_id', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status_id', 'created_by'];
 
+    
+    public $appends = ['field'];
+    
+    public function getFieldAttribute()
+    {
+        return $this->fields->pluck('value', 'code');
+    }
+    
+
     /**
      * Project related Tasks as Morph
      */
