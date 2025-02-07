@@ -52,7 +52,7 @@
                                             href="{{route('EmailAccount.show', $account->id)}}?folder={{$folder->id}}">
                                             {{$folder->name}} ({{$folder->messages_count}})</a>
                                         <div class="dropdown show-child relative mt-2">
-                                            <i class='bx bx-dots-vertical-rounded fs-3 px-2' ></i>
+                                            <i class='bx bx-dots-vertical-rounded fs-3 pt-3 px-2' ></i>
                                             <div class="show-on-hover position-absolute z-[9999]  hidden ">
                                                 <div
                                                     class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-auto right-0 text-slate-800 dark:text-slate-300">
