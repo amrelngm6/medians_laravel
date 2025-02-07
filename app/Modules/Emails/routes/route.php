@@ -9,7 +9,6 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::get('/index', [EmailAccountController::class, 'index'])->name('EmailAccounts');
     Route::get('/{account}/filter', [EmailAccountController::class, 'filter'])->name('EmailAccount.filter');
     Route::get('/{account}/fetch', [EmailAccountController::class, 'fetch'])->name('EmailAccount.fetch');
-    Route::get('/{account}/compose', [EmailAccountController::class, 'compose'])->name('EmailAccount.compose');
     Route::get('create', [EmailAccountController::class, 'create'])->name('EmailAccount.create');
     Route::get('{id}/show', [EmailAccountController::class, 'show'])->name('EmailAccount.show');
     Route::get('{id}/edit', [EmailAccountController::class, 'edit'])->name('EmailAccount.edit');
@@ -22,6 +21,7 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
 });
 
 Route::prefix('email_messages')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
+    Route::get('/{account}/compose', [EmailMessageController::class, 'compose'])->name('EmailMessage.compose');
     Route::post('/{account}/send_mail', [EmailMessageController::class, 'send_mail'])->name('EmailMessage.send_mail');
     Route::get('{account_id}/show/{msg_id}', [EmailMessageController::class, 'showMessage'])->name('EmailMessage.show');
     Route::post('{id}/move/{folder_id}', [EmailMessageController::class, 'moveMessage'])->name('EmailMessage.move');
