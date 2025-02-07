@@ -3,7 +3,7 @@
                                 <div
                                     class="w-full flex items-center border-t border-slate-200/60 sm:mx-0  sm:border-0 ">
                                     <label class="form-check form-check-custom form-check-solid"> <input  class="form-check-input " type="checkbox" /> </label>
-                                    <div data-tw-placement="bottom-start" class="dropdown show-child relative ml-4">
+                                    <div data-tw-placement="bottom-start" class="dropdown show-child relative ml-4 hidden">
                                         <button data-tw-toggle="dropdown" aria-expanded="false"
                                             class="cursor-pointer block py-2 px-1 border-0">
                                             <i class='bx bx-chevron-down fs-3'></i>
@@ -19,16 +19,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="ml-5 flex py-2 px-1 items-center justify-center" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" data-lucide="more-horizontal"
-                                            class="lucide lucide-more-horizontal stroke-1.5 h-6 w-6">
-                                            <circle cx="12" cy="12" r="1"></circle>
-                                            <circle cx="19" cy="12" r="1"></circle>
-                                            <circle cx="5" cy="12" r="1"></circle>
-                                        </svg>
-                                    </a>
+                                    
+                                    <div class="btn-group mb-1" 
+                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        data-content="Create new folder">
+                                        <a class="dropdown-item open-modal fs-3 p-2 font-semibold textprimary" href="{{route('EmailAccount.createFolder', $account->id)}}?_token={{csrf_token()}}"><i class="bx bx-folder p-2"></i></a> 
+                                    </div>
                                 </div>
                                 <div class="flex items-center  flex-end  flex-none ">
                                     <div class="">{{$messagesPaginate['from']}} - {{$messagesPaginate['to']}} of {{$messagesPaginate['total']}}</div>
