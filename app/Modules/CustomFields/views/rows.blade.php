@@ -9,7 +9,11 @@
                                                 <span class="badge bg-primary badge-sm">{{$field->name}}</span>
                                             </td>
                                             <td >{{$field->type}} </td>
-                                            <td >{{basename($field->model)}} </td>
+                                            
+                                            <td><span  rel="popover" data-toggle="popover" data-placement="left" data-trigger="hover"
+                                                    data-title="{{class_basename($field->model)}}"
+                                                    data-content="Related to {{$field->model->name ??  $field->model->name ?? class_basename($field->model)}}" >{{ $field->model->name ?? class_basename($field->model) }}</span>
+                                            </td>
                                             <td >{{$field->sort}} </td>
                                             <td >{{$field->default_value}} </td>
                                             <td class=" action">
@@ -43,3 +47,8 @@
                                             </td>
                                         </tr>
                                         @endforeach
+                                        
+<script>
+MediansSettings.tooltipsPopovers();
+MediansSettings.dataTablesInit();
+</script>
