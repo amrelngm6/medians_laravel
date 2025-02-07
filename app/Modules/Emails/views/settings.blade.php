@@ -51,6 +51,22 @@
                     </div>
                     <!--end::Input group-->
 
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label class="fs-6  required">Load limit from Server </label>
+                                <div class="fs-7 text-muted">Set the max emails to load from server  <br />(ex: 10 ) loads last 10 emails based on the selected days above </div>
+                            </div>
+                            <div class="d-flex align-items-center w-full">
+                                <div class="d-flex flex-column  fv-row w-full">
+                                    <input placeholder="Load since x days" name="fields[fetch_limit]" value="{{$account->field('fetch_limit')->first()->value ?? 0}}" type="number" min="1" max="100" required class="form-control form-control-solid" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+
 
                     <!--begin::Actions-->
                     <div class="text-center pt-10">

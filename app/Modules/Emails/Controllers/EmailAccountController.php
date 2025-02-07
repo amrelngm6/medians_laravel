@@ -74,8 +74,10 @@ class EmailAccountController extends Controller
         try {
 
             $account = $this->service->findAccount($accountId);
+            $days = $account->field('since_days')->first()->value ?? 7 ;
+            $limit = $account->field('fetch_limit')->first()->value ?? 20 ;
             $folder = $this->service->findFolder($request->get('folder') ?? ($account->folder->id ?? 0), $account);
-            $saveMessages = $this->service->connect($account)->fetchMessages($folder->name, $account, $request->days ?? 10);
+            $saveMessages = $this->service->connect($account)->fetchMessages($folder->name, $account, $days, $limit);
 
             return $this->filter($request, $accountId);
 
