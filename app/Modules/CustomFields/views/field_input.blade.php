@@ -43,7 +43,7 @@
         class="{{$field->class}} py-2 select-bootstrap">
         @if ($field->options)
             @foreach (explode(',', str_replace(' ','', $field->options)) as $option)
-            <option value="{{$option}}" {{ in_array($option, explode(',', $currentVal ?? $field->default_value)) ? 'selected' : ''}} >{{$option}}</option>
+            <option value="{{$option}}" {{ (in_array($option, explode(',', $currentVal ?? $field->default_value)) || $option == ($currentVal ?? $field->default_value)) ? 'selected' : ''}} >{{$option}}</option>
             @endforeach
         @endif
     </select>
