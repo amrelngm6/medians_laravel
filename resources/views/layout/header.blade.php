@@ -13,7 +13,7 @@
                             </a>
                         </li>
                         <li class="topnav-item item1">
-                            <a href="#!" onClick="(function(){testSpeech();})()" class="new-link w-text">Voice commands
+                            <a href="#!" class="new-link w-text">Voice commands
                                 <span class="badge bg-primary ml-5 pt-1"><i class='bx bxs-microphone-alt' ></i> Start</span>
                             </a>
                         </li>
