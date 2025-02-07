@@ -132,6 +132,7 @@ class HuggFaceService
 
             // Handle errors
             $formatedResponse = $this->formatResponse($response, $text);
+            $result = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', (is_array($formatedResponse) || is_object($formatedResponse)) ? json_encode($formatedResponse) : $formatedResponse);
             
             $update = $save->update([
                 'reply' => $result
@@ -150,6 +151,7 @@ class HuggFaceService
     
     public function translateText(string $text, $model = '')
     {
+
         $save = $this->saveRecord($text, $model);
 
         try {
