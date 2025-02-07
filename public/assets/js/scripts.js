@@ -181,8 +181,8 @@ jQuery(function($) {
         });
         
         jQuery(document).on('click', '.ajax-link', function (e) {
-            e.preventDefault();
             jQuery('#main-loader').removeClass('hidden')    
+            e.preventDefault();
         
             let id = jQuery(this).attr('id');
             let data = jQuery(this).data('params');
