@@ -2,6 +2,9 @@
    
 
     <script>
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
     function testSpeech() {
         var recognition = new SpeechRecognition();
