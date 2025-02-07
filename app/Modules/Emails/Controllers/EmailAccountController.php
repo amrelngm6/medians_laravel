@@ -396,7 +396,9 @@ class EmailAccountController extends Controller
 
             $emailAccount = $this->service->connect($account)->createFolder(array_merge($request->only('name'), $creator));
 
-            return $emailAccount ? response()->json([
+            $fetchFolders = $this->service->connect($account)->fetch();
+
+            return $fetchFolders ? response()->json([
                 'success' => true,
                 'title' => 'Done',
                 'reload' => true,
