@@ -15,10 +15,7 @@
 
     <script>
         const popover = document.getElementById("text-popover");
-        jQuery(document).on("selectionchange", (event) => {
-            setTimeout(handleEvent, 500)
-        });
-
+        MediansSettings.text2speech() 
         function handleEvent() {
             const selection = window.getSelection();
             const selectedText = selection.toString().trim();

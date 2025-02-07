@@ -2981,7 +2981,9 @@ jQuery(function($) {
      * Handle Text 2 Speech
      */
     MediansSettings.text2speech = function() {
-        
+        jQuery(document).on("selectionchange", (event) => {
+            setTimeout(handleEvent, 500)
+        });
     }
 
 
