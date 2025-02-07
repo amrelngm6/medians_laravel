@@ -200,7 +200,6 @@ jQuery(function($) {
             } else {
                 submitLink(path, data);
             }
-            jQuery('#main-loader').addClass('hidden')    
 
         });
                
