@@ -103,7 +103,9 @@
                                         </div>
                                     </div>
                                     <div class="clearfix mb-3">
-                                        <div class="btn-group mb-1">
+                                        <div class="btn-group mb-1" 
+                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                            data-content="Delete message forever">
                                             <button type="button" data-path="{{route('EmailMessage.delete', $message->id)}}" class="delete-item btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
                                         </div>
                                         <div class="btn-group mb-1">
