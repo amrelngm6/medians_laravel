@@ -172,7 +172,7 @@ class EmailAccountController extends Controller
         try {
             
             $account = $this->service->findAccount($accountId);
-            $folder = $this->service->findFolder($request->get('folder') ?? 0);
+            $folder = $this->service->findFolder($request->get('folder') ?? 0, $account);
             $folders = $this->service->accountFolders($account);
             $priorities = $this->service->priorities();
 
