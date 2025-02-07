@@ -82,18 +82,19 @@
                         <!--begin::Section-->
                         <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                             <!--begin:Author-->
-                            <div class="flex-grow-1 me-2">
+                            <div class="flex-grow-1 me-2 flex gap-2">
+                                @if (strpos($account->email, 'gmail.com'))
+                                <i class="bx bxl-gmail text-xl fs-1 mt-1"></i> 
+                                @elseif (strpos($account->email, 'yahoo.com'))
+                                <i class='bx bxl-yahoo text-xl fs-1 mt-1' ></i>
+                                @else
+                                <i class='bx bx-mail-send text-xl fs-1 mt-1' ></i>
+                                @endif
                                 <a href="{{route('EmailAccount.show', $account->id)}}?folder={{$account->folder->id ?? 0}}"
-                                    class="text-gray-800 text-hover-primary fs-5 pb-2 fw-bold"> 
-                                    @if (strpos($account->email, 'gmail.com'))
-                                    <i class="bx bxl-gmail"></i> 
-                                    @elseif (strpos($account->email, 'yahoo.com'))
-                                    <i class='bx bxl-yahoo' ></i>
-                                    @else
-                                    <i class='bx bx-mail-send' ></i>
-                                    @endif
-                                    {{$account->email}}</a>
-                                <span class="text-muted fw-semibold d-block fs-7">{{$account->imap_host}}.</span>
+                                    class="text-gray-800 text-hover-primary fs-5 pb-2 fw-bold "> 
+                                    <span class="p-1">{{$account->email}}</span>
+                                    <span class="text-muted fw-semibold d-block fs-7">{{$account->imap_host}}.</span>
+                                </a>
                             </div>
                             <!--end:Author-->
 
