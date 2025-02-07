@@ -38,6 +38,7 @@ abstract class Controller
     {
         return response()->json([
             'success' => true,
+            'no_reset' => true,
             'redirect' => $redirect,
             'reload' => $reload,
             'title' => $title,
