@@ -187,9 +187,15 @@ class EmailAccountService
 
             $remoteFolder = $this->client->getFolder($folder->name);
 
-            $delete = $folder->delete();
+            try {
+                
+                $delete = $folder->delete();
+                return  $remoteFolder->delete();
 
-            return  $remoteFolder->delete();
+            } catch (\Throwable $th) {
+                return 1;
+            }
+
             
         } catch (\Throwable $th) {
             // $folder->delete();
