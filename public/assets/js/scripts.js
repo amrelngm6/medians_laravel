@@ -2708,6 +2708,7 @@ jQuery(function($) {
                         }
                     });
                 }
+                jQuery('#main-loader').addClass('hidden')    
 
               });
         });
