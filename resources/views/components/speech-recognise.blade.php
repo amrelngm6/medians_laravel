@@ -1,7 +1,7 @@
 
    
 
-    <script>
+<script>
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
@@ -16,6 +16,7 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
         recognition.onresult = function(event) {
             var speechResult = event.results[0][0].transcript.toLowerCase();
+            console.log(speechResult)
         }
 
         recognition.onspeechend = function() {
