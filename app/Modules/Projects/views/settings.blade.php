@@ -225,7 +225,7 @@ $tabsList = [
                 </div>
 
                 @if (!empty($custom_fields))
-                <div class="card w-full step-container" id="form-content-3">
+                <div class="card w-full step-container" id="form-content-2">
                     <div class="card-body">
                         <div class="mb-2 text-start">
                             <h3 class="mb-3">Custom Fields</h3>
