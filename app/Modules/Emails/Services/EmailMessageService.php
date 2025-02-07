@@ -67,9 +67,10 @@ class EmailMessageService
     {
         $message = EmailMessage::findOrFail($id);
 
-        // $move = $this->client->getFolder($message->folder_name);
+        $folder = $this->client->getFolder($folderName);
         // print_r(json_decode($move->query()->since(now()->subDays(100))->limit(10)->get()));
         // $folders = $this->client->getFolders();
+        print_r($folder->query()->getMessage($message->message_id));
 
         // print_r($this->client->);
         // $update = $message->update(['folder'=>$folderName]);
