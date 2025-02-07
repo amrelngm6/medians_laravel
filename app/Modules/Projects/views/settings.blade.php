@@ -238,7 +238,7 @@ $tabsList = [
                         </div>
                         <div class="w-full ">
                             @foreach ($custom_fields as $field)
-                            <?php $currentVal = $project->field[$field->name] ?? ''; ?>
+                            @php $currentVal = $project->field[$field->name] ?? ''; @endphp
                             @include('custom_field::field_input')
                             @endforeach
                         </div>
