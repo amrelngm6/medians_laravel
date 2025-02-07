@@ -102,6 +102,92 @@ $tabsList = [
                                 <!--end::Input group-->
                             </div>
 
+                                    
+                            <!--begin::Input group-->
+                            <div class="mb-15 fv-row ">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Label-->
+                                    <div class="fw-semibold me-5">
+                                        <label class="fs-6">Payment type</label>
+
+                                        <div class="fs-7 text-muted">Check if the project is paid or informative only</div>
+                                    </div>
+                                    <!--end::Label-->
+
+                                    <!--begin::Checkboxes-->
+                                    <div class="d-flex align-items-center">
+                                        <!--begin::Checkbox-->
+                                        <label onClick="jQuery('#totalCost').removeClass('hidden')"  class="form-check form-check-custom form-check-solid me-10">
+                                            <input class="form-check-input h-20px w-20px" type="radio"
+                                                name="is_paid" value="0" @if ($project->is_paid == 0) checked @endif  />
+
+                                            <span class="form-check-label fw-semibold">
+                                                Paid
+                                            </span>
+                                        </label>
+                                        <!--end::Checkbox-->
+                                        <!--begin::Checkbox-->
+                                        <label onClick="jQuery('#totalCost').addClass('hidden')" class="form-check form-check-custom form-check-solid">
+                                            <input class="form-check-input h-20px w-20px" type="radio"
+                                                name="is_paid" value="1" @if ($project->is_paid == 1) checked @endif />
+
+                                            <span class="form-check-label fw-semibold">
+                                                Unpaid
+                                            </span>
+                                        </label>
+                                        <!--end::Checkbox-->
+                                    </div>
+                                    <!--end::Checkboxes-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="w-full  @if ($project->total_cost < 1) hidden @endif " id="totalCost">
+                                <div class="d-flex flex-column mb-8 fv-row " >
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="required">Total Cost</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input class="form-control form-control-solid" placeholder="Project cost"
+                                            name="total_cost"  value="{{$project->total_cost}}" />
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+
+                            
+                            <!--begin::Input group-->
+                            <div class="mb-15 fv-row">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Label-->
+                                    <div class="fw-semibold me-5">
+                                        <label class="fs-6">Status</label>
+
+                                        <div class="fs-7 text-muted">If disabled the project and tasks will be restricted for team</div>
+                                    </div>
+                                    <!--end::Label-->
+
+                                    <!--begin::Checkboxes-->
+                                    <div class="d-flex align-items-center">
+                                        <!--begin::Checkbox-->
+                                        <div class="select-placeholder form-group w-full">
+                                            <!-- <label for="assigned" class="control-label">Assigned To</label> -->
+                                            <select id="status_id" name="status_id"
+                                                class="select-bootstrap form-control form-control-solid ">
+                                                <option value=""></option>
+                                                @foreach ($statusList as $status)
+                                                <option value="{{$status->status_id}}" @if ($project->status_id == $status->status_id) selected @endif >
+                                                    {{$status->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
