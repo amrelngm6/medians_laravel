@@ -26,7 +26,7 @@
     <div class="card">
         <div class="card-body">
 
-            <div class="table-responsive" data-pattern="priority-columns">
+            <div class="table-responsive pb-10" data-pattern="priority-columns">
                 <table id="tech-companies-1"
                     class="table datatable table-small-font no-mb table-bordered table-striped">
                     <thead>
