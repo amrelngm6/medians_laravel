@@ -22,31 +22,6 @@ class EmailMessageController extends Controller
         $this->accountService = $accountService;
     }
 
-    public function filter(Request $request, $accountId)
-    {
-        $user = Auth::user();
-
-        if ($user->cannot('EmailAccount view') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
-        }
-
-        try {
-            
-            $account = $this->accountService->findAccount($accountId);
-            $folder = $this->accountService->findFolder($request->get('folder') ?? $account->folder->id, $account);
-            $messagesPaginate = $this->service->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1)->toArray();
-            $messages = $this->service->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1);
-            $priorities = $this->service->priorities();
-
-            return view('emails::row', compact('messages', 'folder', 'messagesPaginate', 'account','priorities', 'user'));
-            
-        } catch (\Throwable $th) {
-            
-            return $th->getMessage();
-        }
-
-    }
-
 
     public function compose(Request $request, $accountId)
     {
@@ -156,7 +131,7 @@ class EmailMessageController extends Controller
         
         try {
             
-                    $account = $this->accountService->findAccount($accountId);
+            $account = $this->accountService->findAccount($accountId);
             
             return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
         
