@@ -129,7 +129,7 @@ class TaskChecklistController extends Controller
         $user = Auth::user();
         
         $task = $this->taskService->find($task_id); 
-
+        echo json_encode($task->model);
         $projectName = $task->model->name ?? 'CRM';
         $platform = $task->model->field['platform']->value ?? 'Laravel';
         $response_length = $task->model->field['ai_tasks_length']->value ?? 'long';
