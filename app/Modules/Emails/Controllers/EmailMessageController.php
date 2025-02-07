@@ -153,10 +153,10 @@ class EmailMessageController extends Controller
         if ($user->cannot('EmailAccount create') && Auth::guardName() != 'superadmin') {
             abort(401, 'Unauthorized');
         }
-
-        $account = $this->accountService->findAccount($accountId);
-
+        
         try {
+            
+                    $account = $this->accountService->findAccount($accountId);
             
             return $this->service->sendMail($request->only('subject', 'message_text', 'email'), $account);
         
