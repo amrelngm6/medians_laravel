@@ -181,13 +181,20 @@ class EmailAccountService
 
     public function deleteFolder($id)
     {
-        $folder = $this->findFolder($id, $this->account);
+        try {
+            
+            $folder = $this->findFolder($id, $this->account);
 
-        $remoteFolder = $this->client->getFolder($folder->name);
-        
-        $remoteFolder->delete();
-        
-        return $folder->delete();
+            $remoteFolder = $this->client->getFolder($folder->name);
+
+            $delete = $folder->delete();
+
+            return  $remoteFolder->delete();
+            
+        } catch (\Throwable $th) {
+            $folder->delete();
+            throw $th;
+        }
     }
 
     /**
