@@ -90,7 +90,7 @@
                                     @elseif (strpos($account->email, 'yahoo.com'))
                                     <i class='bx bxl-yahoo' ></i>
                                     @else
-                                    <i class='bx-mail-send' ></i>
+                                    <i class='bx bx-mail-send' ></i>
                                     @endif
                                     {{$account->email}}</a>
                                 <span class="text-muted fw-semibold d-block fs-7">{{$account->imap_host}}.</span>
