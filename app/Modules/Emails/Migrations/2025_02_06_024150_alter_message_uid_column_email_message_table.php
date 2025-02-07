@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('email_messages', function (Blueprint $table) {
-            $table->string('message_number')->nullable()->after('message_id'); // Add the column
+            $table->string('message_uid')->nullable()->after('message_id'); // Add the column
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('email_messages', function (Blueprint $table) {
-            $table->dropColumn('message_number');   // Remove the column
+            $table->dropColumn('message_uid');   // Remove the column
         });
     }
 };
