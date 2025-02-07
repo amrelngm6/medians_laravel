@@ -114,6 +114,40 @@ class HuggFaceService
 
     }
     
+    public function generateTasks(string $text, $model = '')
+    {
+       
+        $save = $this->saveRecord($text, $model);
+
+        try {
+                
+            $response = $this->client->post("models/$model", [
+                'json' => ['inputs' => $text  , 
+                        'options' => [
+                            'use_cache' => true,
+                            'wait_for_model' => true, // Wait if the model is loading
+                        ]],
+                
+            ]);
+
+            // Handle errors
+            $formatedResponse = $this->formatResponse($response, $text);
+            
+            $update = $save->update([
+                'reply' => $result
+            ]);
+                
+            return $result;
+            
+        } catch (\Throwable $th) {
+            $update = $save->update([
+                'reply' => $response->getBody()->getContents()
+            ]);
+            return $th->getMessage();
+        }
+
+    }
+    
     public function translateText(string $text, $model = '')
     {
         $save = $this->saveRecord($text, $model);

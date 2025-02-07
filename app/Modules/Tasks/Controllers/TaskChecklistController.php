@@ -141,10 +141,11 @@ class TaskChecklistController extends Controller
         // could you give me json list for my task with title (Build Email System Module with morph model and user) for my CRM in laravel. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible
 
         $nlpService = new HuggFaceService;
-        $response = $nlpService->generateText($message, $request->model);
+        $response = $nlpService->generateTasks($message, $request->model);
 
-        if (!is_array($response))
+        if (!is_array($response)) {
             $response = json_decode($response, true); 
+        }
 
         if (is_array($response)) {
             $taskList = [];
