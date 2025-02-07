@@ -26,7 +26,7 @@ class EmailMessage extends Model
      */
     public function folder()
     {
-        return $this->hasOne(EmailFolder::class, 'account_id', 'account_id');
+        return $this->hasOne(EmailFolder::class, 'name', 'folder_name');
     }
 
     /**

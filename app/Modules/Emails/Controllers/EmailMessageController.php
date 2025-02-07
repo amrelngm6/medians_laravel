@@ -79,11 +79,7 @@ class EmailMessageController extends Controller
         $message = $this->service->findMessage($msg_id, $account);
         $folder = $message->with(['folder'=> function($q) use ($account) {
             return $q->where('account_id', $account->id);
-        }])->first();
-
-        print_r($message->with(['folder'=> function($q) use ($accountId) {
-            return $q->where('account_id', $accountId);
-        }])->first()->folder);
+        }])->find($message->id)->folder;
 
         return view('emails::mail-details', compact('message', 'account', 'folder', 'folders', 'priorities'));
     }
