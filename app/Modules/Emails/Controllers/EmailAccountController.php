@@ -341,7 +341,7 @@ class EmailAccountController extends Controller
 
 
 
-    public function deleteFolder(Request $request, $accountId, $folderId)
+    public function deleteFolder(Request $request, $folderId, $accountId)
     {
         $user = Auth::user();
 
