@@ -107,7 +107,7 @@ class HuggFaceService
             
         } catch (\Throwable $th) {
             $update = $save->update([
-                'reply' => $response->getBody()->getContents()
+                'reply' => $th->getMessage()
             ]);
             return $th->getMessage();
         }
