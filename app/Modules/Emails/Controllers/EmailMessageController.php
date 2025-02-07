@@ -53,7 +53,7 @@ class EmailMessageController extends Controller
         $priorities = $this->accountService->priorities();
         $message = $this->service->findMessage($msg_id, $account);
         $folder = $message->with(['folder'=> function($q) use ($account) {
-            return $q->where('account_id', $account->id);
+            return $q;
         }])->find($message->id)->folder;
 
         return view('emails::mail-details', compact('message', 'account', 'folder', 'folders', 'priorities'));
@@ -108,13 +108,15 @@ class EmailMessageController extends Controller
 
             $message = $this->service->findById($id);
 
+            $folder = $message->folder;
+
             $account = $this->accountService->findAccount($message->account_id);
 
             $delete = $this->service->connect($account)->deleteEmailMessage($id);
 
             return $delete ? response()->json([
                 'success' => true,
-                'redirect' => route('EmailAccount.show', $account->id),
+                'redirect' => route('EmailAccount.show', $account->id).'?folder='.$folder->id,
                 'title' => 'Done',
                 'result' => 'Email deleted successfully',
             ], 200) : null;
