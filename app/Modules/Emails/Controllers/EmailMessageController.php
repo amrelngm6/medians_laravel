@@ -105,7 +105,7 @@ class EmailMessageController extends Controller
 
             return $move ? response()->json([
                 'success' => true,
-                'redirect' => true,
+                'reload' => true,
                 'title' => 'Done',
                 'result' => 'Updated',
             ], 200) : null;
