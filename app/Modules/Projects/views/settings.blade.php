@@ -190,7 +190,7 @@ $tabsList = [
                                 </div>
                                 <div class="d-flex align-items-center w-full">
                                     <div class="d-flex flex-column  fv-row w-full">
-                                        <select class="form-control form-control-solid" placeholder="Task checlist length" name="field[ai_task_checklist_count]">
+                                        <select class="form-control form-control-solid" placeholder="Task checlist length" name="field[ai_tasks_length]">
                                             <option value="short" selected>Short</option>
                                             <option value="long">Long</option>
                                         </select>
@@ -210,7 +210,7 @@ $tabsList = [
                                 </div>
                                 <div class="d-flex align-items-center w-full">
                                     <div class="d-flex flex-column  fv-row w-full">
-                                        <input placeholder="Task Checklist limit" name="fields[fetch_limit]" value=""
+                                        <input placeholder="Task Checklist limit" name="fields[ai_task_checklist_count]" value=""
                                             type="number" min="1" max="100" required
                                             class="form-control form-control-solid" />
                                     </div>
