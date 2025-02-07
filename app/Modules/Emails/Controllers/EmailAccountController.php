@@ -179,7 +179,7 @@ class EmailAccountController extends Controller
             return view('emails::list', compact('account', 'folders', 'priorities'));
             
         } catch (\Throwable $th) {
-            return redirect('EmailAccount');
+            return redirect(route('EmailAccount'));
             //throw $th;
         }
     }
