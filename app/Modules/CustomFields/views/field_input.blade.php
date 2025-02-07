@@ -44,7 +44,7 @@
         @if ($field->options)
             @foreach (explode(',', str_replace(' ','', $field->options)) as $option)
             @php $filteredOption = trim(preg_replace('/\s\s+/', '', $option)); @endphp
-            <option value="{{$filteredOption}}" {{ (in_array($filteredOptionfilteredOption, explode(',', $filteredVal ?? $field->default_value)) || $filteredOption == ($filteredVal ?? $field->default_value)) ? 'selected' : ''}} >{{$filteredOption}}</option>
+            <option value="{{$filteredOption}}" {{ (in_array($filteredOption, explode(',', $filteredVal ?? $field->default_value)) || $filteredOption == ($filteredVal ?? $field->default_value)) ? 'selected' : ''}} >{{$filteredOption}}</option>
             @endforeach
         @endif
     </select>
