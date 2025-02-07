@@ -59,7 +59,6 @@
 
                                 <!--begin:Toolbar-->
                                 <div class="d-flex flex-stack">
-
                                     <!--begin::Send-->
                                     <a href="javascript:;" class="btn btn-primary " onClick="(function(){fetchData()})()">Send</a>
                                     <!--end::Send-->
