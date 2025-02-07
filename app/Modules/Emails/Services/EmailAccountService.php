@@ -167,7 +167,9 @@ class EmailAccountService
     {
         $folder = EmailFolder::create($data);
 
-        
+        $newFolder = $this->client->createFolder($data['name']);
+
+        return $folder;
     }
 
     public function updateEmailAccount($id, array $data)
