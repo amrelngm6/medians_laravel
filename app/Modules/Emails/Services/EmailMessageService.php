@@ -70,7 +70,7 @@ class EmailMessageService
         $folder = $this->client->getFolder($folderName);
         // print_r(json_decode($move->query()->since(now()->subDays(100))->limit(10)->get()));
         // $folders = $this->client->getFolders();
-        print_r($folder->query()->getMessage($message->message_uid));
+        print_r($this->client->query()->getMessage($message->message_uid));
 
         // print_r($this->client->);
         // $update = $message->update(['folder'=>$folderName]);
