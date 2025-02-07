@@ -13,11 +13,10 @@ Route::prefix('projects')->middleware(['web', 'auth:staff'])->group(function () 
     Route::post('{id}', [ProjectController::class, 'update'])->name('Projects.update');
     Route::delete('{id}', [ProjectController::class, 'destroy'])->name('Projects.destroy');
 
-    // Route::prefix('{projectId}/tasks')->group(function () {
-    //     Route::get('/', [TaskController::class, 'index'])->name('project_tasks');
-    //     Route::post('/', [TaskController::class, 'store']);
-    //     Route::get('{id}', [TaskController::class, 'show']);
-    //     Route::put('{id}', [TaskController::class, 'update']);
-    //     Route::delete('{id}', [TaskController::class, 'destroy']);
-    // });
+
+    /**
+     * Setting page
+     */
+    Route::get('/{id}/settings', [ProjectController::class, 'settings'])->name('Projects.settings');
+    
 });

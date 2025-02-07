@@ -82,6 +82,22 @@ class ProjectController extends Controller
         return view('projects::edit-project-modal', compact('clients','project','statusList'));
     }
 
+    /**
+     * Project settings page
+     */
+    public function settings(Request $request, $id)
+    {
+        $project = $this->projectService->find($id);
+
+        $statusList = $this->projectService->loadStatusList();
+
+        $projectTabs = $this->loadModuleTabs($this->tabsPrefix);
+
+        $clients = $this->projectService->clients();
+
+        return view('projects::settings', compact('clients','project','statusList','projectTabs'));
+    }
+
     public function show(Request $request, $id)
     {
         $project = $this->projectService->find($id);

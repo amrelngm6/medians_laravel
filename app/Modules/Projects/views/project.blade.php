@@ -133,6 +133,11 @@
                             href="{{route('Projects.show', $project->project_id)}}">
                             Overview </a>
                     </li>
+                    <li class="nav-item mt-2">
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5"
+                            href="{{route('Projects.settings', $project->project_id)}}">
+                            Settings </a>
+                    </li>
                     <!--end::Nav item-->
                     
                     <!--end::Nav item-->
@@ -163,6 +168,9 @@
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+
+<script src="{{asset('assets/js/ResizeSensor.js')}}"></script>
+<script src="{{asset('assets/js/sticky-sidebar.js')}}"></script>
 
 <script src="{{asset('assets/plugins/chartjs-chart/Chart.min.js')}}"></script>
 <script src="{{asset('assets/js/chart-chartjs.js')}}"></script>

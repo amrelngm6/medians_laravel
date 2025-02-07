@@ -193,9 +193,9 @@
                     
 
                     <div class="text-end">
-                        <button type="reset" id="modal_new_target_cancel" class="btn btn-light me-3">
-                            Cancel
-                        </button>
+                        <a href="{{route('CustomField')}}" class="btn btn-light me-3">
+                            Back
+                        </a>
 
                         <button type="submit" id="modal_new_target_submit" class="btn btn-primary">
                             <span class="indicator-label">
