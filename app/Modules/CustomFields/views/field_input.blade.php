@@ -41,6 +41,7 @@
     @elseif (in_array($field->type, ['select', 'multiselect']) )
     <select {{$field->is_required ? 'required' : ''}} {{$field->is_disabled ? 'disabled' : ''}} name="custom_field[{{$field->name}}]{{($field->type == 'multiselect') ? '[]' : ''}}" id="field-{{$field->name}}" {{($field->type == 'multiselect') ? 'multiple' :''}}
         class="{{$field->class}} py-2 select-bootstrap">
+        @php $currentVal = trim(preg_replace('/\s\s+/', ' ', $currentVal)); @endphp
         @if ($field->options)
             @foreach (explode(',', str_replace(' ','', $field->options)) as $option)
             <option value="{{$option}}" {{ (in_array($option, explode(',', $currentVal ?? $field->default_value)) || $option == ($currentVal ?? $field->default_value)) ? 'selected' : ''}} >{{$option}}</option>
