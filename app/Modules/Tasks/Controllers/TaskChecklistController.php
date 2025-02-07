@@ -131,10 +131,10 @@ class TaskChecklistController extends Controller
         $task = $this->taskService->find($task_id); 
 
         $projectName = $task->model->name ?? 'CRM';
-        $platform = $task->model->field['platform']->value ?? 'Laravel';
-        $response_length = $task->model->field['ai_tasks_length']->value ?? 'long';
-        $maxItems = $task->model->field['ai_task_checklist_count']->value ?? '10';
-        $model = $task->model->field['model']->value ?? $request->model;
+        $platform = $task->model->field['platform'] ?? 'Laravel';
+        $response_length = $task->model->field['ai_tasks_length'] ?? 'long';
+        $maxItems = $task->model->field['ai_task_checklist_count'] ?? '10';
+        $model = $task->model->field['model'] ?? $request->model;
 
         $message = " ( $task->description ) this is my task description for project ({$projectName}) {$platform}, give me json list to complete it. make the response valid json , and two keys title and description";
         $message .= $response_length == 'short' ? ", and as short as possible" : "";
