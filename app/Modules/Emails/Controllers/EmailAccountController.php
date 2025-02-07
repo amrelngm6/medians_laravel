@@ -176,7 +176,7 @@ class EmailAccountController extends Controller
             $folders = $this->service->accountFolders($account);
             $priorities = $this->service->priorities();
 
-            return view('emails::list', compact('account', 'folders', 'priorities'));
+            return view('emails::list', compact('account', 'folder', 'folders', 'priorities'));
             
         } catch (\Throwable $th) {
             return redirect(route('EmailAccount'));
