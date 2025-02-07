@@ -167,7 +167,7 @@ class HuggFaceService
             
         } catch (\Throwable $th) {
             $update = $save->update([
-                'reply' => json_encode($response->getBody()->getContents())
+                'reply' => $th->getMessage()
             ]);
             return $th->getMessage();
         }
