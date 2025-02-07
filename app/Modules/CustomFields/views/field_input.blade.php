@@ -2,7 +2,7 @@
 <div class="form-group w-full select-placeholder">
     <label for="field-{{$field->name}}" class="{{$field->is_required ? 'required' : ''}}  control-label"
         rel="popover" data-trigger="hover"
-        data-content="Check this option if this field is Disabled and readonly "
+        data-content="{{$field->help_text}}"
         >{{$field->title}} {!! $field->help_text ? '<i class="bx bx-help-circle"></i>' : '' !!}
     </label>
     @if ($field->type == 'checkbox')
