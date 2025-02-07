@@ -212,6 +212,8 @@ jQuery(function($) {
                
         jQuery(document).on('click', '.ajax-load', async function (e) {
             e.preventDefault();
+            jQuery('#main-loader').removeClass('hidden')    
+
             let element = jQuery(this).data('element');
             let url = jQuery(this).attr('href');
             loadAjax(url, element)
@@ -3073,7 +3075,6 @@ async function loadAjax (url, element) {
         jQuery('#main-loader').addClass('hidden')    
         jQuery(element).html(data)
     })
-    jQuery('#main-loader').addClass('hidden')    
 }
 
 
