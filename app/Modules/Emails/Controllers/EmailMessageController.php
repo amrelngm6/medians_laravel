@@ -48,15 +48,20 @@ class EmailMessageController extends Controller
 
     public function showMessage(Request $request, $accountId, $msg_id)
     {
-        $account = $this->accountService->findAccount($accountId);
-        $folders = $this->accountService->accountFolders($account);
-        $priorities = $this->accountService->priorities();
-        $message = $this->service->findMessage($msg_id, $account);
-        $folder = $message->with(['folder'=> function($q) use ($account) {
-            return $q;
-        }])->find($message->id)->folder;
+        try {
+            
+            $account = $this->accountService->findAccount($accountId);
+            $folders = $this->accountService->accountFolders($account);
+            $priorities = $this->accountService->priorities();
+            $message = $this->service->findMessage($msg_id, $account);
+            $folder = $message->with(['folder'=> function($q) use ($account) {
+                return $q;
+            }])->find($message->id)->folder;
 
-        return view('emails::mail-details', compact('message', 'account', 'folder', 'folders', 'priorities'));
+            return view('emails::mail-details', compact('message', 'account', 'folder', 'folders', 'priorities'));
+        } catch (\Throwable $th) {
+            return redirect(route('EmailAccount'));
+        }
     }
 
 
