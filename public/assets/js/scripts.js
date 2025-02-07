@@ -2674,6 +2674,7 @@ jQuery(function($) {
     MediansSettings.sweetalert = function() {
 
         jQuery(document).on('click', '.delete-item', function(a){
+            jQuery('#main-loader').removeClass('hidden')    
             a.preventDefault()
             let path = jQuery(this).attr('data-path') + '?_token=' + jQuery('#csrf-input').val(); 
             let id = jQuery(this).attr('id');
@@ -2695,6 +2696,7 @@ jQuery(function($) {
                         processData: false,
                         success: function (data) {
                             // Update your UI with the new data
+                            jQuery('#main-loader').addClass('hidden')    
                             showFormTargetModal(id)
                             try {
                                 handleResponse(data, null)
