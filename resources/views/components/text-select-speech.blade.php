@@ -15,7 +15,7 @@
 
     <script>
         const popover = document.getElementById("text-popover");
-        MediansSettings.text2speech() 
+        MediansSettings.text2speechEvent() 
         function handleEvent() {
             const selection = window.getSelection();
             const selectedText = selection.toString().trim();

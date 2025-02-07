@@ -2977,16 +2977,6 @@ jQuery(function($) {
 
 
 
-    /**
-     * Handle Text 2 Speech
-     */
-    MediansSettings.text2speech = function() {
-        jQuery(document).on("selectionchange", (event) => {
-            setTimeout(handleEvent, 500)
-        });
-    }
-
-
 
     /******************************
      initialize respective scripts 
@@ -3089,6 +3079,18 @@ async function loadAjax (url, element) {
         jQuery(element).html(data)
     })
 }
+
+
+/**
+ * Handle Text 2 Speech
+ */
+function text2speechEvent() {
+    jQuery(document).on("selectionchange", (event) => {
+        setTimeout(handleEvent, 500)
+    });
+}
+
+
 
 
 
