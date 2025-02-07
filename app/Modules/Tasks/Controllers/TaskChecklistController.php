@@ -141,9 +141,6 @@ class TaskChecklistController extends Controller
         $message .= ", with max {$maxItems} items only" ;
         // could you give me json list for my task with title (Build Email System Module with morph model and user) for my CRM in laravel. Please make the response valid json  with 6 items only, and two keys title and description , and as short as possible
 
-        echo "$message";
-        echo json_encode($task->model);
-        return;
         $nlpService = new HuggFaceService;
         $response = $nlpService->generateTasks($message, $model);
 
