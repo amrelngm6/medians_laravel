@@ -165,14 +165,18 @@ class EmailAccountController extends Controller
             
             $account = $this->service->findAccount($accountId);
             $folder = $this->service->findFolder($request->get('folder') ?? 0, $account);
+
+            if (!$folder)
+                throw "Error Processing Request";
+                
+            
             $folders = $this->service->accountFolders($account);
             $priorities = $this->service->priorities();
 
             return view('emails::list', compact('account', 'folder', 'folders', 'priorities'));
             
         } catch (\Throwable $th) {
-            return redirect(route('EmailAccount'));
-            //throw $th;
+            return redirect(route('EmailAccount.show', $accountId).'?folder='.$account->folder->id);
         }
     }
     
