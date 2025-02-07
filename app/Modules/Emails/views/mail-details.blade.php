@@ -48,7 +48,7 @@
                                 <div class="mt-6 border-t border-white/10 pt-6 dark:border-darkmode-400 ">
                                     
                                     @foreach ($folders as $folderValue)
-                                    <a class="{{$folderValue->id == $folder->id ? 'text-danger' : 'text-dark-blue'}}  mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue"
+                                    <a class="{{$folderValue->id == $folder->id ? 'text-danger' : 'text-dark-blue'}}  mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 "
                                         href="{{route('EmailAccount.show', $account->id)}}?folder={{$folderValue->id}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
