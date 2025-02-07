@@ -106,7 +106,7 @@
                                         <div class="btn-group mb-1">
                                             <button type="button" class="btn btn-primary light px-3"><i class="fa fa-archive"></i></button>
                                             <button type="button" class="btn btn-primary light px-3"><i class="fa fa-exclamation-circle"></i></button>
-                                            <button type="button" class="btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
+                                            <button type="button" data-path="{{route('EmailMessage.delete', $message->id)}}" class="delete-item btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
                                         </div>
                                         <div class="btn-group mb-1">
                                             <div class="dropdown show-child relative ml-4">

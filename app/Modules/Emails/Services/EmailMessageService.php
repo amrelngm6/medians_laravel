@@ -90,6 +90,11 @@ class EmailMessageService
     {
         return EmailFolder::findOrFail($id);
     }
+    
+    public function findById($id)
+    {
+        return EmailMessage::findOrFail($id);
+    }
 
     
     public function updateEmailMessage($id, array $data)
