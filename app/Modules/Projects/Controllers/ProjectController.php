@@ -145,7 +145,7 @@ class ProjectController extends Controller
             }
 
             // Update the project
-            $project = $this->projectService->updateProject($id, $request->only('name', 'description', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status_id', 'client_id'));
+            $project = $this->projectService->updateProject($id, $request->only('name', 'description', 'is_paid', 'total_cost', 'start_date', 'deadline_date', 'finished_date', 'status_id', 'client_id', 'custom_field'));
 
             return $project ? $this->jsonResponse('Updated successfully', 'Done', true) : null;
         } catch (\Throwable $th) {
