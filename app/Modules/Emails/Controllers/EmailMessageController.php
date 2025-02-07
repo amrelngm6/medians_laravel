@@ -97,22 +97,33 @@ class EmailMessageController extends Controller
     }
 
 
-    public function destroy($accountId)
+    public function destroy(Request $request, $id, $accountId)
     {
-        $user = Auth::user();
+        try 
+        {
+            $user = Auth::user();
 
-        if ($user->cannot('Email delete') && Auth::guardName() != 'superadmin') {
-            abort(401, 'Unauthorized');
+            if ($user->cannot('Email delete') && Auth::guardName() != 'superadmin') {
+                abort(401, 'Unauthorized');
+            }
+
+            $account = $this->accountService->findAccount($accountId);
+
+            $delete = $this->service->connect($account)->deleteEmailMessage($id);
+
+            return $delete ? response()->json([
+                'success' => true,
+                'reload' => true,
+                'title' => 'Done',
+                'result' => 'Email deleted successfully',
+            ], 200) : null;
+                
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
         }
-
-        $delete = $this->service->deleteEmail($accountId);
-
-        return $delete ? response()->json([
-            'success' => true,
-            'reload' => true,
-            'title' => 'Done',
-            'result' => 'Email deleted successfully',
-        ], 200) : null;
     }
 
 

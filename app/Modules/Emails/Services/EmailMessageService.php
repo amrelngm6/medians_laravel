@@ -104,10 +104,23 @@ class EmailMessageService
 
     public function deleteEmailMessage($id)
     {
-        $email = $this->find($id);
-        $delete = $email->delete();
+        try 
+        {
+            $message = EmailMessage::forAccount($this->account)->findOrFail($id);
 
-        return $email;
+            $currentFolder = $this->client->getFolder($message->folder_name);
+            
+            $mailMessage = $currentFolder->query()->getMessageByUid($message->message_uid);
+            
+            $delete = $mailMessage->delete();
+
+            $delete = $message->delete();
+
+            return $delete;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     

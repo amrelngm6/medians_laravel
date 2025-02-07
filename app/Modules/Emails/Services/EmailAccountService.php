@@ -195,7 +195,6 @@ class EmailAccountService
             } catch (\Throwable $th) {
                 return 1;
             }
-
             
         } catch (\Throwable $th) {
             // $folder->delete();
