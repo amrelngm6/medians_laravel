@@ -127,23 +127,30 @@ var MediansSettings = window.MediansSettings || {};
         jQuery('#main-loader').removeClass('hidden')    
         
         // path = path + '?_token=' + jQuery('#csrf-input').val(); 
+        try {
 
-        $.ajax({
-            url: path,
-            type: 'POST',
-            dataType: 'JSON',
-            contentType: 'application/json',
-            data: JSON.stringify(data), // Your data to send
-            processData: false,
-            success: function (data) {
-                
-                // Update your UI with the new data
-                handleResponse(data, null)
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching data:', error);
-            }
-        });
+            $.ajax({
+                url: path,
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(data), // Your data to send
+                processData: false,
+                success: function (data) {
+                    
+                    // Update your UI with the new data
+                    handleResponse(data, null)
+                },
+                error: function (xhr, status, error) {
+                    jQuery('#main-loader').addClass('hidden')    
+                    console.error('Error fetching data:', error);
+                }
+            });
+        } catch(e) {
+            jQuery('#main-loader').addClass('hidden')    
+
+        }
+
     }
     
     

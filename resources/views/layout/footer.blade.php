@@ -1,5 +1,5 @@
 <!-- Footer Section starts-->
-<div id="main-loader" class="hidden">
+<div id="main-loader" class="">
 <img src="/load.gif" class="bottom-0 fixed left-0 right-0 text-center z-[9999] mx-auto w-300px" />
 </div>
 <!-- SIDE CHAT START-->
