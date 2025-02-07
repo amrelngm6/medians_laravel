@@ -151,6 +151,8 @@ class HuggFaceService
     
     public function translateText(string $text, $model = '')
     {
+        if (!$text)
+            return;
 
         $save = $this->saveRecord($text, $model);
 
@@ -171,7 +173,7 @@ class HuggFaceService
             $update = $save->update([
                 'reply' => $th->getMessage()
             ]);
-            return $th->getMessage();
+            throw $th;
         }
 
         $update = $save->update([

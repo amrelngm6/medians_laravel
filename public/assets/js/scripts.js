@@ -2977,6 +2977,14 @@ jQuery(function($) {
 
 
 
+    /**
+     * Handle Text 2 Speech
+     */
+    MediansSettings.text2speech = function() {
+        
+    }
+
+
 
     /******************************
      initialize respective scripts 

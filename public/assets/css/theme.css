@@ -10260,3 +10260,28 @@ ul.nav-line-tabs {
     overflow-y: hidden;
     width: 100%;
 }
+
+
+.text-popover {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
+
+.text-popover button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.text-popover button:hover {
+    background-color: #0056b3;
+}
