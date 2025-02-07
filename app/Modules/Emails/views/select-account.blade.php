@@ -90,8 +90,8 @@
                             <!--end:Author-->
 
                             <!--begin:Action-->
-                            <a href="/metronic8/demo1/pages/user-profile/overview.html"
-                                class="btn btn-sm btn-light fs-8 fw-bold">Follow</a>
+                            <a href="{{route('EmailAccount.show', $account->id)}}?folder={{$account->folder->id ?? 0}}"
+                                class="btn btn-sm btn-danger fs-6 fw-bold">Check Email</a>
                             <!--end:Action-->
                         </div>
                         <!--end::Section-->

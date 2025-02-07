@@ -32,7 +32,6 @@
                                         <i class='bx bxs-user-detail fs-2'></i>
                                     </a>
                                     
-                                    
                                     <a class="ml-5 flex py-2 px-1 items-center justify-center open-modal"  href="{{route('EmailAccount.settings', $account->id)}}"
                                         rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                         data-content="Email account Settings">
