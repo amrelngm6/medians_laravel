@@ -1,18 +1,22 @@
 @extends('projects::project')
 @php
 $tabsList = [
-[
-'title' => 'Details',
-'text' => 'Basic Project settings',
-],
-[
-'title' => 'Client',
-'text' => 'Manage related client ',
-],
-[
-'title' => 'AI Options',
-'text' => 'Configure the AI models and features',
-]
+    [
+        'title' => 'Details',
+        'text' => 'Basic Project settings',
+    ],
+    [
+        'title' => 'Client',
+        'text' => 'Manage related client ',
+    ],
+    [
+        'title' => 'AI Options',
+        'text' => 'Configure the AI models and features',
+    ],
+    [
+        'title' => 'Custom fields',
+        'text' => 'Custom fields for the projects',
+    ]
 ];
 @endphp
 @section('project-content')
@@ -190,7 +194,8 @@ $tabsList = [
                                 </div>
                                 <div class="d-flex align-items-center w-full">
                                     <div class="d-flex flex-column  fv-row w-full">
-                                        <select class="form-control form-control-solid" placeholder="Task checlist length" name="field[ai_tasks_length]">
+                                        <select class="form-control form-control-solid"
+                                            placeholder="Task checlist length" name="field[ai_tasks_length]">
                                             <option value="short" selected>Short</option>
                                             <option value="long">Long</option>
                                         </select>
@@ -210,8 +215,8 @@ $tabsList = [
                                 </div>
                                 <div class="d-flex align-items-center w-full">
                                     <div class="d-flex flex-column  fv-row w-full">
-                                        <input placeholder="Task Checklist limit" name="fields[ai_task_checklist_count]" value=""
-                                            type="number" min="1" max="100" required
+                                        <input placeholder="Task Checklist limit" name="fields[ai_task_checklist_count]"
+                                            value="" type="number" min="1" max="100" required
                                             class="form-control form-control-solid" />
                                     </div>
                                 </div>
@@ -223,7 +228,7 @@ $tabsList = [
                     </div>
                 </div>
                 @if (!empty($custom_fields))
-                <div class="card w-full step-container" id="fields-form">
+                <div class="card w-full step-container" id="form-content-3">
                     <div class="card-body">
                         <div class="mb-2 text-start">
                             <h3 class="mb-3">Custom Fields</h3>
