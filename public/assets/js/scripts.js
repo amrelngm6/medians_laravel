@@ -6,6 +6,8 @@ var MediansSettings = window.MediansSettings || {};
          Window Based Layout
      --------------------------------*/
      function handleResponse(res, form) {
+        jQuery('#main-loader').addClass('hidden')    
+
         if (!res)
             return;
         
@@ -57,6 +59,8 @@ var MediansSettings = window.MediansSettings || {};
         if (!form)
             return null;
     
+        jQuery('#main-loader').removeClass('hidden')    
+    
     
         // Get the form data as a FormData object
         const formData = new FormData(form);
@@ -68,6 +72,8 @@ var MediansSettings = window.MediansSettings || {};
     
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
+                jQuery('#main-loader').addClass('hidden')    
+
                 // Handle the successful response 
                 showFormTargetModal(formId)
                 if ( xhr.status === 200) {
@@ -118,6 +124,7 @@ var MediansSettings = window.MediansSettings || {};
     
     // Submit Ajax request
     function submitLink(path, data) {
+        jQuery('#main-loader').removeClass('hidden')    
         
         // path = path + '?_token=' + jQuery('#csrf-input').val(); 
 
@@ -129,6 +136,7 @@ var MediansSettings = window.MediansSettings || {};
             data: JSON.stringify(data), // Your data to send
             processData: false,
             success: function (data) {
+                
                 // Update your UI with the new data
                 handleResponse(data, null)
             },
@@ -158,6 +166,7 @@ jQuery(function($) {
         });
         
         jQuery(document).on('submit', '.ajax-form', function (e) {
+            jQuery('#main-loader').removeClass('hidden')    
             e.preventDefault();
             let element = jQuery(this).data('element'); 
             let append = jQuery(this).data('append');
@@ -166,6 +175,7 @@ jQuery(function($) {
         
         jQuery(document).on('click', '.ajax-link', function (e) {
             e.preventDefault();
+            jQuery('#main-loader').removeClass('hidden')    
         
             let id = jQuery(this).attr('id');
             let data = jQuery(this).data('params');
@@ -190,6 +200,7 @@ jQuery(function($) {
             } else {
                 submitLink(path, data);
             }
+            jQuery('#main-loader').addClass('hidden')    
 
         });
                
@@ -3050,11 +3061,13 @@ jQuery(function($) {
 });
 
 async function loadAjax (url, element) {
-        
+    jQuery('#main-loader').removeClass('hidden')    
     let res = await fetch(url);
     res.text().then(data=> {
+        jQuery('#main-loader').addClass('hidden')    
         jQuery(element).html(data)
     })
+    jQuery('#main-loader').addClass('hidden')    
 }
 
 
