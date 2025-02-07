@@ -341,7 +341,7 @@ class EmailAccountController extends Controller
 
 
 
-    public function deleteFolder(Request $request, $folderId)
+    public function deleteFolder(Request $request, $accountId, $folderId)
     {
         $user = Auth::user();
 
@@ -349,7 +349,9 @@ class EmailAccountController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $delete = $this->service->deleteFolder($accountId);
+        $account = $this->service->findaccount($accountId);
+
+        $delete = $this->service->connect($account)->deleteFolder($folderId);
 
         return $delete ? response()->json([
             'success' => true,

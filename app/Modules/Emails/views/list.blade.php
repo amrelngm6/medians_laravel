@@ -56,7 +56,7 @@
                                             <div class="show-on-hover position-absolute z-[9999]  hidden ">
                                                 <div
                                                     class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-auto right-0 text-slate-800 dark:text-slate-300">
-                                                    <a class="dropdown-item delete-item fs-4 p-2" href="#!" data-path="{{route('EmailAccount.deleteFolder', $folder->id)}}"><i class='bx bx-trash' ></i> Delete folder</a> 
+                                                    <a class="dropdown-item delete-item fs-4 p-2" href="#!" data-path="{{route('EmailAccount.deleteFolder', ['folder'=>$folder->account_id, 'id'=>$folder->id])}}"><i class='bx bx-trash' ></i> Delete folder</a> 
                                                 </div>
                                             </div>
                                         </div>
