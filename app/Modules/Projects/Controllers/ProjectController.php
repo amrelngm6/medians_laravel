@@ -95,7 +95,9 @@ class ProjectController extends Controller
 
         $clients = $this->projectService->clients();
 
-        return view('projects::settings', compact('clients','project','statusList','projectTabs'));
+        $custom_fields = $this->projectService->loadModelFields();
+        
+        return view('projects::settings', compact('clients','project','statusList','projectTabs', 'custom_fields'));
     }
 
     public function show(Request $request, $id)

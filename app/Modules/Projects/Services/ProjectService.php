@@ -3,6 +3,7 @@
 namespace App\Modules\Projects\Services;
 
 use App\Modules\Projects\Models\Project;
+use App\Modules\CustomFields\Models\CustomField;
 use App\Modules\Core\Models\Status;
 use App\Models\Auth;
 use App\Modules\Customers\Services\ClientService;
@@ -57,5 +58,11 @@ class ProjectService
     {
         // Find the Role
         return Project::with('client')->findOrFail($id);
+    }
+
+    
+    public function loadModelFields()
+    {
+        return CustomField::where('business_id', Auth::user()->business_id ?? 0)->where('model', Project::class)->get();
     }
 }
