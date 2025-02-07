@@ -1,10 +1,19 @@
 
-<div class="form-group w-full select-placeholder">
-    <label for="field-{{$field->name}}" class="{{$field->is_required ? 'required' : ''}}  control-label"
-        rel="popover" data-trigger="hover"
-        data-content="{{$field->help_text}}"
-        >{{$field->title}} {!! $field->help_text ? '<i class="bx bx-help-circle"></i>' : '' !!}
-    </label>
+    <!--begin::Input group-->
+    <div class="form-group w-full select-placeholder">
+        <div class="d-flex flex-stack w-full">
+            <div class="fw-semibold me-5 w-full">
+                
+                <label for="field-{{$field->name}}" class="{{$field->is_required ? 'required' : ''}}  control-label"
+                    rel="popover" data-trigger="hover"
+                    data-content="{{$field->help_text}}"
+                    >{{$field->title}} {!! $field->help_text ? '<i class="bx bx-help-circle"></i>' : '' !!}
+                </label>
+                <div class="fs-7 text-muted">Select related client of this project</div>
+            </div>
+            <div class="d-flex align-items-center w-full">
+                <div class="d-flex flex-column  fv-row w-full">
+                    
     @if ($field->type == 'checkbox')
     <div class="form-group w-full flex">
         @if ($field->options)
@@ -57,4 +66,8 @@
         {{$field->is_required ? 'required' : ''}}
         class=" {{$field->class}}">
     @endif
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Input group-->
