@@ -104,8 +104,6 @@
                                     </div>
                                     <div class="clearfix mb-3">
                                         <div class="btn-group mb-1">
-                                            <button type="button" class="btn btn-primary light px-3"><i class="fa fa-archive"></i></button>
-                                            <button type="button" class="btn btn-primary light px-3"><i class="fa fa-exclamation-circle"></i></button>
                                             <button type="button" data-path="{{route('EmailMessage.delete', $message->id)}}" class="delete-item btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
                                         </div>
                                         <div class="btn-group mb-1">
@@ -123,24 +121,6 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group mb-1">
-                                            <button type="button" class="btn btn-primary light  px-3" >
-                                                <i class="fa fa-tag"></i>  <b class="caret m-l-5"></b>
-                                            </button>
-                                            <div class="dropdown-menu"> 
-                                                <a class="dropdown-item" href="javascript: void(0);">Updates</a> 
-                                                <a class="dropdown-item" href="javascript: void(0);">Social</a> 
-                                                <a class="dropdown-item" href="javascript: void(0);">Promotions</a>
-                                                <a class="dropdown-item" href="javascript: void(0);">Forums</a>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group mb-1">
-                                            <button type="button" class="btn btn-primary light " >More <span class="caret m-l-5"></span>
-                                            </button>
-                                            <div class="dropdown-menu"> <a class="dropdown-item" href="javascript: void(0);">Mark as Unread</a> <a class="dropdown-item" href="javascript: void(0);">Add to Tasks</a>
-                                                <a class="dropdown-item" href="javascript: void(0);">Add Star</a> <a class="dropdown-item" href="javascript: void(0);">Mute</a>
                                             </div>
                                         </div>
                                     </div>

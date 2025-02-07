@@ -179,6 +179,7 @@ class EmailAccountService
         return $email->delete();
     }
 
+    
     public function deleteFolder($id)
     {
         try {
