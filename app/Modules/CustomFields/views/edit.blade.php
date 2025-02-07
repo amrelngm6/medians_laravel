@@ -157,11 +157,11 @@
                                 class="form-control form-control-solid " value="{{$field->name}}">
                         </div>
                         
-                        <div class="form-group w-full"><label for="name" class="control-label"
+                        <div class="form-group w-full"><label for="help_text" class="control-label"
                             rel="popover" data-trigger="hover"
                             data-content="Add help text tooltip for the field"
                             >Help text <i class="bx bx-help-circle"></i> Optional </label>
-                            <input type="text" placeholder="Field Help texp" class=" form-control form-control-solid  " id="name" name="help_text"
+                            <input type="text" placeholder="Field Help texp" class=" form-control form-control-solid  " id="help_text" name="help_text"
                                 class="form-control form-control-solid " value="{{$field->help_text}}">
                         </div>
                         
