@@ -17,7 +17,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="modal_new_email_form" class="form ajax-form" action="{{route('EmailAccount.send_mail', $account->id)}}">
+                <form id="modal_new_email_form" class="form ajax-form" action="{{route('EmailMessage.send_mail', $account->id)}}">
                     @csrf
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">

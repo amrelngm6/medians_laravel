@@ -15,7 +15,6 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::get('{id}/edit', [EmailAccountController::class, 'edit'])->name('EmailAccount.edit');
     Route::get('{id}/settings', [EmailAccountController::class, 'settings'])->name('EmailAccount.settings');
     Route::post('/{account}/fetchFolders', [EmailAccountController::class, 'fetchFolders'])->name('EmailAccount.fetchFolders');
-    Route::post('/{account}/send_mail', [EmailAccountController::class, 'send_mail'])->name('EmailAccount.send_mail');
     Route::post('/store', [EmailAccountController::class, 'store'])->name('EmailAccount.store');
     Route::post('{id}/update', [EmailAccountController::class, 'update'])->name('EmailAccount.update');
     Route::post('{id}/updateSetting', [EmailAccountController::class, 'updateSetting'])->name('EmailAccount.updateSetting');
@@ -23,6 +22,7 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
 });
 
 Route::prefix('email_messages')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
+    Route::post('/{account}/send_mail', [EmailMessageController::class, 'send_mail'])->name('EmailMessage.send_mail');
     Route::get('{account_id}/show/{msg_id}', [EmailMessageController::class, 'showMessage'])->name('EmailMessage.show');
     Route::post('{id}/move/{folder_id}', [EmailMessageController::class, 'moveMessage'])->name('EmailMessage.move');
 });

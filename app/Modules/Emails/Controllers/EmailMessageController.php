@@ -168,13 +168,6 @@ class EmailMessageController extends Controller
                 'error' => $th->getMessage(),
             ], 402);
         }
-
-        // // Send Email
-        // Mail::raw('This is a test email.', function ($message) use ($smtp, $request) {
-        //     $message->to($request->email)
-        //             ->subject('Test Email')
-        //             ->from($smtp->mail_from_address, $smtp->mail_from_name);
-        // });
     }
     
 }
