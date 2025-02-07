@@ -81,6 +81,8 @@ class EmailMessageController extends Controller
             return $q->where('account_id', $account->id);
         }])->find($message->id)->folder;
 
+        print_r($folder);
+
         return view('emails::mail-details', compact('message', 'account', 'folder', 'folders', 'priorities'));
     }
 
