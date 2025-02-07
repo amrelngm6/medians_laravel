@@ -84,7 +84,7 @@
                             <!--begin:Author-->
                             <div class="flex-grow-1 me-2">
                                 <a href="{{route('EmailAccount.show', $account->id)}}?folder={{$account->folder->id ?? 0}}"
-                                    class="text-gray-800 text-hover-primary fs-5 pb-2 fw-bold"> <i class="bx {{ strpos('gmail.com', $account->email) ? '' : 'bxl-gmail'}}"></i> {{$account->email}}</a>
+                                    class="text-gray-800 text-hover-primary fs-5 pb-2 fw-bold"> <i class="bx {{ strpos('gmail.com', $account->email) ? 'bxl-gmail' : 'bx-mail-send'}}"></i> {{$account->email}}</a>
                                 <span class="text-muted fw-semibold d-block fs-7">{{$account->imap_host}}.</span>
                             </div>
                             <!--end:Author-->
