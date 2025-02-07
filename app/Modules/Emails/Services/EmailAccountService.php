@@ -163,6 +163,13 @@ class EmailAccountService
         return EmailAccount::create($data);
     }
 
+    public function createFolder(array $data)
+    {
+        $folder = EmailFolder::create($data);
+
+        
+    }
+
     public function updateEmailAccount($id, array $data)
     {
         $email = $this->find($id);

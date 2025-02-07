@@ -103,14 +103,10 @@
                                         </div>
                                     </div>
                                     <div class="clearfix mb-3">
-                                        <div class="btn-group mb-1" 
-                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                            data-content="Delete message forever">
-                                            <button type="button" data-path="{{route('EmailMessage.delete', $message->id)}}" class="delete-item btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
-                                        </div>
                                         <div class="btn-group mb-1">
                                             <div class="dropdown show-child relative ml-4"
                                                 rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                                data-title="Folders"
                                                 data-content="Move to another Folder">
                                                 <button type="button" class="btn btn-primary light  px-3" >
                                                     <i class="fa fa-folder"></i> <b class="caret m-l-5"></b>
@@ -118,6 +114,7 @@
                                                 <div class="show-on-hover position-absolute z-[9999]  hidden ">
                                                     <div
                                                         class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-auto right-0 text-slate-800 dark:text-slate-300">
+                                                        <a class="dropdown-item open-modal fs-4 p-2 font-semibold textprimary" href="{{route('EmailAccount.createFolder', $account->id)}}?_token={{csrf_token()}}">Create folder</a> 
                                                         @foreach ($folders as $folderValue)
                                                         @if ($folderValue->id != $folder->id )
                                                         <a class="dropdown-item ajax-link fs-4 p-2" href="{{route('EmailMessage.move', ['id'=>$message->id, 'folder_id'=>$folderValue->id])}}?_token={{csrf_token()}}">{{$folderValue->name}}</a> 
@@ -126,6 +123,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        
+                                        <div class="btn-group mb-1" 
+                                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                            data-content="Delete message forever">
+                                            <button type="button" data-path="{{route('EmailMessage.delete', $message->id)}}" class="delete-item btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </div>
                                 </div>

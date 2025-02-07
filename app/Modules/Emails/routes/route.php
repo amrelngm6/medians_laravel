@@ -13,6 +13,8 @@ Route::prefix('email_accounts')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::get('{id}/show', [EmailAccountController::class, 'show'])->name('EmailAccount.show');
     Route::get('{id}/edit', [EmailAccountController::class, 'edit'])->name('EmailAccount.edit');
     Route::get('{id}/settings', [EmailAccountController::class, 'settings'])->name('EmailAccount.settings');
+    Route::get('{account}/createFolder', [EmailAccountController::class, 'createFolder'])->name('EmailAccount.createFolder');
+    Route::post('/{account}/storeFolder', [EmailAccountController::class, 'storeFolder'])->name('EmailAccount.storeFolder');
     Route::post('/{account}/fetchFolders', [EmailAccountController::class, 'fetchFolders'])->name('EmailAccount.fetchFolders');
     Route::post('/store', [EmailAccountController::class, 'store'])->name('EmailAccount.store');
     Route::post('{id}/update', [EmailAccountController::class, 'update'])->name('EmailAccount.update');

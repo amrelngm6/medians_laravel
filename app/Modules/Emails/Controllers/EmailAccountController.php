@@ -117,6 +117,19 @@ class EmailAccountController extends Controller
         return view('emails::create', compact('user'));
     }
 
+    public function createFolder(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $account = $this->service->findAccount($id);
+        
+        return view('emails::create-folder', compact('user', 'account'));
+    }
+
     public function edit(Request $request, $id)
     {
         $user = Auth::user();
@@ -344,6 +357,62 @@ class EmailAccountController extends Controller
                 'error' => $th->getMessage(),
             ], 402);
         }
+    }
+
+
+
+    /**
+     * Create new folder
+     */
+    public function storeFolder(Request $request, $id)
+    {
+        try 
+        {
+            $user = Auth::user();
+
+            if ($user->cannot('EmailAccount create') && Auth::guardName() != 'superadmin') {
+                abort(401, 'Unauthorized');
+            }
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $account = $this->service->findAccount($id);
+
+            $creator = [
+                'business_id' => $user->business_id ?? 0,
+                'account_id' => $id,
+                'email' => $account->email,
+            ];
+
+            $emailAccount = $this->service->connect($account)->createFolder(array_merge($request->only('name'), $creator));
+
+            return $emailAccount ? response()->json([
+                'success' => true,
+                'title' => 'Done',
+                'reload' => true,
+                'result' => 'Created',
+            ], 200) : null;
+
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+            
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
+        }
+
     }
 
 
