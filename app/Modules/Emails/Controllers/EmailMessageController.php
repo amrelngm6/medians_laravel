@@ -154,7 +154,7 @@ class EmailMessageController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $account = $this->service->findAccount($accountId);
+        $account = $this->accountService->findAccount($accountId);
 
         try {
             
