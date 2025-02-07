@@ -434,7 +434,6 @@ jQuery(document).ready(function() {
         },
     });
 
-    MediansSettings.text2speech()
 })
 </script>
 
