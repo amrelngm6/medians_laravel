@@ -79,5 +79,4 @@
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-@include('components.text-select-speech')
 @endsection

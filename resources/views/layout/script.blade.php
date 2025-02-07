@@ -26,6 +26,8 @@
             MediansSettings.handleNotification( '{{route('Reminder.subscribe')}}', '{{ env('VAPID_PUBLIC_KEY') }}', '{{ csrf_token() }}');
         }, 2000);
     </script>
+    
+    @include('components.text-select-speech')
 
 
     <div id="modals"></div>

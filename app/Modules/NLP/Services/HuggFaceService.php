@@ -151,9 +151,6 @@ class HuggFaceService
     
     public function translateText(string $text, $model = '')
     {
-        if (!$text)
-            return;
-
         $save = $this->saveRecord($text, $model);
 
         try {

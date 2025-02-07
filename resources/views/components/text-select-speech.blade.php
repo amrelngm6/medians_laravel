@@ -3,17 +3,17 @@
         <button id="translateBtn">Translate</button>
         <button id="speechBtn">Speech</button>
     </div>
-    <select id="voices-select"></select>
-    <form class="flex gap-2 pt-4 ajax-form hidden" action="{{route('HuggFace.translate')}}" id="wp_chat_messenger_form">
+    <form class="flex gap-2 pt-4 ajax-form hidden" action="{{route('HuggFace.translate')}}" id="translate_text_form">
+        <select id="voices-select"></select>
+        @csrf
         <input name="model" value="Helsinki-NLP/opus-mt-en-ar">
-        <textarea class="hidden" name="message" id="selected-text-content"></textarea>
+        <textarea class="hidden" name="message" id="selected_text_content"></textarea>
     </form>
 
     <script>
         const popover = document.getElementById("text-popover");
         const translateBtn = document.getElementById("translateBtn");
         const speechBtn = document.getElementById("speechBtn");
-        const selectedTextContent = document.getElementById("selected-text-content");
 
         document.addEventListener("selectionchange", (event) => {
             setTimeout(function () {
@@ -25,13 +25,15 @@
             const selection = window.getSelection();
             const selectedText = selection.toString().trim();
 
-            selectedTextContent.value = selectedText
+
             if (selectedText.length > 0) {
                 const range = selection.getRangeAt(0);
                 const rect = range.getBoundingClientRect();
                 popover.style.top = `${rect.top + window.scrollY - 40}px`;
                 popover.style.left = `${rect.left + window.scrollX}px`;
                 popover.style.display = "block";
+                jQuery('#selected_text_content').val(selectedText)
+
             } else {
                 popover.style.display = "none";
             }
@@ -44,7 +46,7 @@
         });
 
         translateBtn.addEventListener("click", function () {
-            window.getSelection().toString().trim() ? sendData('#wp_chat_messenger_form') : ''
+            window.getSelection().toString().trim() ? sendData('#translate_text_form') : ''
         });
 
         document.addEventListener("click", function (event) {
@@ -63,7 +65,7 @@
                     // Set the FormData instance as the request body
                     body: formData,
                 });
-                console.log(await response.json());
+                alert(await response.text());
             } catch (e) {
                 console.error(e);
             }
