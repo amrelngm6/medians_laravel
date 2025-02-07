@@ -21,6 +21,13 @@ class EmailMessage extends Model
         return $this->morphTo();
     }
 
+    /**
+     * Load related email account
+     */
+    public function folder()
+    {
+        return $this->hasOne(EmailFolder::class, 'name', 'folder_name');
+    }
 
     /**
      * Get size of uploads by file type

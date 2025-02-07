@@ -47,9 +47,9 @@
                                     Compose</a>
                                 <div class="mt-6 border-t border-white/10 pt-6 dark:border-darkmode-400 ">
                                     
-                                    @foreach ($folders as $folder)
-                                    <a class="{{$folder->name == $message->folder_name ? 'text-danger' : 'text-dark-blue'}}  mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue"
-                                        href="{{route('EmailAccount.show', $account->id)}}?folder={{$folder->id}}">
+                                    @foreach ($folders as $folderValue)
+                                    <a class="{{$folderValue->id == $folder->id ? 'text-danger' : 'text-dark-blue'}}  mt-2 flex gap-4 items-center rounded-md px-3 py-2 fs-4 text-dark-blue"
+                                        href="{{route('EmailAccount.show', $account->id)}}?folder={{$folderValue->id}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="star"
@@ -58,7 +58,7 @@
                                                 points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
                                             </polygon>
                                         </svg>
-                                        {{$folder->name}} ({{$folder->messages_count}})
+                                        {{$folderValue->name}} ({{$folderValue->messages_count}})
                                     </a>
                                     @endforeach
                                 </div>
@@ -116,9 +116,9 @@
                                                 <div class="show-on-hover position-absolute z-[9999]  hidden ">
                                                     <div
                                                         class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-auto right-0 text-slate-800 dark:text-slate-300">
-                                                        @foreach ($folders as $folder)
-                                                        @if ($folder->name != $message->folder_name)
-                                                        <a class="dropdown-item ajax-link fs-4 p-2" href="{{route('EmailMessage.move', ['id'=>$message->id, 'folder_id'=>$folder->id])}}?_token={{csrf_token()}}">{{$folder->name}}</a> 
+                                                        @foreach ($folders as $folderValue)
+                                                        @if ($folderValue->id != $folder->id )
+                                                        <a class="dropdown-item ajax-link fs-4 p-2" href="{{route('EmailMessage.move', ['id'=>$message->id, 'folder_id'=>$folderValue->id])}}?_token={{csrf_token()}}">{{$folderValue->name}}</a> 
                                                         @endif
                                                         @endforeach
                                                     </div>
