@@ -161,7 +161,7 @@
                             </div>
 
                             <div class="form-group w-full"><label for="placeholder" class="control-label">Placeholder</label>
-                                <input type="text" placeholder="Input Placeholder" class=" form-control form-control-solid  " id="placeholder" name="placeholder"
+                                <input type="text" placeholder="Input Placeholder" class=" form-control form-control-solid  " id="placeholder" required name="placeholder"
                                     class="form-control form-control-solid ">
                             </div>
                         </div>
