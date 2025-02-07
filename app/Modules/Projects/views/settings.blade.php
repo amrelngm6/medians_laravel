@@ -10,10 +10,6 @@ $tabsList = [
         'text' => 'Manage related client ',
     ],
     [
-        'title' => 'AI Options',
-        'text' => 'Configure the AI models and features',
-    ],
-    [
         'title' => 'Custom fields',
         'text' => 'Custom fields for the projects',
     ]
@@ -142,91 +138,6 @@ $tabsList = [
                     </div>
                 </div>
 
-
-                <div class="card w-full step-container" id="form-content-2">
-
-                    <div class="card-body">
-
-                        <div class="mb-2 text-start">
-                            <h3 class="mb-3">AI Features</h3>
-                            <div class="text-muted fw-semibold fs-5">
-                                <p class="fw-semibold">Information about the AI features for this project</p>.
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="w-full">
-
-                            </div>
-                        </div>
-
-                        <!--begin::Input group-->
-                        <div class="mb-15 fv-row">
-                            <div class="d-flex flex-stack w-full">
-                                <div class="fw-semibold me-5 w-full">
-                                    <label for="assigned" class="control-label">Model</label>
-                                    <div class="fs-7 text-muted">Select one of the available AI Models</div>
-                                </div>
-                                <div class="d-flex align-items-center w-full">
-                                    <div class="d-flex flex-column  fv-row w-full">
-                                        <select class="form-control form-control-solid" name="model">
-                                            <option value="Qwen/Qwen2.5-Coder-32B-Instruct">
-                                                Qwen/Qwen2.5-Coder-32B-Instruct</option>
-                                            <option value="suriya7/MaxMini-Instruct-248M">suriya7/MaxMini-Instruct-248M
-                                            </option>
-                                            <option value="philschmid/instruct-igel-001">philschmid/instruct-igel-001
-                                            </option>
-                                            <option value="google/gemma-2-2b-it" selected>google/gemma-2-2b-it</option>
-                                            <option value="deepset/roberta-base-squad2">deepset/roberta-base-squad2
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Input group-->
-
-                        <!--begin::Input group-->
-                        <div class="mb-15 fv-row">
-                            <div class="d-flex flex-stack w-full">
-                                <div class="fw-semibold me-5 w-full">
-                                    <label for="assigned" class="control-label">Task checlist length</label>
-                                    <div class="fs-7 text-muted">Select length of text of the tasks to generate</div>
-                                </div>
-                                <div class="d-flex align-items-center w-full">
-                                    <div class="d-flex flex-column  fv-row w-full">
-                                        <select class="form-control form-control-solid"
-                                            placeholder="Task checlist length" name="field[ai_tasks_length]">
-                                            <option value="short" selected>Short</option>
-                                            <option value="long">Long</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Input group-->
-
-                        <!--begin::Input group-->
-                        <div class="mb-15 fv-row">
-                            <div class="d-flex flex-stack w-full">
-                                <div class="fw-semibold me-5 w-full">
-                                    <label class="fs-6  required">Limit task checklist to load </label>
-                                    <div class="fs-7 text-muted">Set the limit of the <b class="text-danger"> AI
-                                            Generated</b> checklist for each Task <br /></div>
-                                </div>
-                                <div class="d-flex align-items-center w-full">
-                                    <div class="d-flex flex-column  fv-row w-full">
-                                        <input placeholder="Task Checklist limit" name="fields[ai_task_checklist_count]"
-                                            value="" type="number" min="1" max="100" required
-                                            class="form-control form-control-solid" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Input group-->
-
-
-                    </div>
-                </div>
                 @if (!empty($custom_fields))
                 <div class="card w-full step-container" id="form-content-3">
                     <div class="card-body">
