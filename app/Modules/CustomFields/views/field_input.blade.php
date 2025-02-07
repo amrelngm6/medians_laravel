@@ -9,7 +9,7 @@
                     data-content="{{$field->help_text}}"
                     >{{$field->title}} {!! $field->help_text ? '<i class="bx bx-help-circle"></i>' : '' !!}
                 </label>
-                <div class="fs-7 text-muted">Select related client of this project</div>
+                <div class="fs-7 text-muted">{!! $field->help_text !!}</div>
             </div>
             <div class="d-flex align-items-center w-full">
                 <div class="d-flex flex-column  fv-row w-full">
