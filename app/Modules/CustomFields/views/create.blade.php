@@ -172,7 +172,7 @@
                             data-content="Add help text tooltip for the field"
                             >Help text <i class="bx bx-help-circle"></i> Optional </label>
                             <input type="text" placeholder="Field Help texp" class=" form-control form-control-solid  " id="name" name="help_text"
-                                class="form-control form-control-solid " value="{{$field->help_text}}">
+                                class="form-control form-control-solid " value="">
                         </div>
                         
                         <div class="w-full" id="field-options" style="display:none">
