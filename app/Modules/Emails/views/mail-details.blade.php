@@ -109,7 +109,9 @@
                                             <button type="button" data-path="{{route('EmailMessage.delete', $message->id)}}" class="delete-item btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
                                         </div>
                                         <div class="btn-group mb-1">
-                                            <div class="dropdown show-child relative ml-4">
+                                            <div class="dropdown show-child relative ml-4"
+                                                rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                                data-content="Move to another Folder">
                                                 <button type="button" class="btn btn-primary light  px-3" >
                                                     <i class="fa fa-folder"></i> <b class="caret m-l-5"></b>
                                                 </button>
