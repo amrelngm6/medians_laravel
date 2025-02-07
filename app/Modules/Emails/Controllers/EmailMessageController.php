@@ -102,7 +102,7 @@ class EmailMessageController extends Controller
 
             return $move ? response()->json([
                 'success' => true,
-                'redirect' => route('EmailAccount.show', $account->id),
+                'redirect' => true,
                 'title' => 'Done',
                 'result' => 'Updated',
             ], 200) : null;

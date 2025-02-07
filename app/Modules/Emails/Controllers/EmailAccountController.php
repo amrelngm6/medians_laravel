@@ -170,6 +170,7 @@ class EmailAccountController extends Controller
     public function show(Request $request, $accountId)
     {
         $account = $this->service->findAccount($accountId);
+        $folder = $this->service->findFolder($request->folder ?? 0);
         $folders = $this->service->accountFolders($account);
         $priorities = $this->service->priorities();
 
