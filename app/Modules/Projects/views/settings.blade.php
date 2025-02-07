@@ -230,7 +230,7 @@ $tabsList = [
                         <div class="mb-2 text-start">
                             <h3 class="mb-3">Custom Fields</h3>
                             <div class="text-muted fw-semibold fs-5">
-                                <p class="fw-semibold">Custom Fields related to the Project</p>.
+                                <p class="fw-semibold">Data Fields related to the Project</p>. Manage <a href="{{route('CustomField')}}">Custom Fields</a> 
                             </div>
                         </div>
                         <div class="w-full ">

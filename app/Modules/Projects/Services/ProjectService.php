@@ -81,7 +81,7 @@ class ProjectService
      */
     public function loadStatusList()
     {
-        return Status::default([Auth::user()->business_id, '0'])->where('model', Project::class)->get();
+        return Status::default([Auth::user()->business_id, '0'])->where('model', Project::class)->get()->unique('status_id');
     }
     
     /**
