@@ -107,16 +107,17 @@ class EmailMessageController extends Controller
             }
 
             $message = $this->service->findById($id);
-
-            $folder = $message->folder;
-
+            $folder = $message->with(['folder'=> function($q) use ($account) {
+                return $q->where('account_id', $account->id);
+            }])->find($message->id)->folder;
+    
             $account = $this->accountService->findAccount($message->account_id);
 
             $delete = $this->service->connect($account)->deleteEmailMessage($id);
 
             return $delete ? response()->json([
                 'success' => true,
-                'redirect' => route('EmailAccount.show', $account->id).'?folder='.$folder->id,
+                'redirect' => route('EmailAccount.show', $account->id).'?folder='.$message->folder->id,
                 'title' => 'Done',
                 'result' => 'Email deleted successfully',
             ], 200) : null;
