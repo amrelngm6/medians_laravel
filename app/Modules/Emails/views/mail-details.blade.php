@@ -22,7 +22,10 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">Email Accounts</a>
+                                    <a href="{{route('EmailAccount')}}">Email Accounts</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('EmailAccount.show', $account->id)}}">{{$account->email}}</a>
                                 </li>
                                 <li class="active">
                                     <strong>Message detail</strong>
@@ -91,7 +94,7 @@
                                 
                             </div>
                             <div class="card-body py-5">
-                                <div class="media d-sm-flex d-block justify-content-between">
+                                <div class=" d-sm-flex d-block justify-content-between">
                                     <div class="mb-3 flex">
                                         <img class="w-50px h-50px rounded-circle" alt="image" src="/data/profile/avatar-3.png">
                                         <div class=" mx-4">
@@ -106,18 +109,24 @@
                                             <button type="button" class="btn btn-primary light px-3"><i class="fa fa-trash"></i></button>
                                         </div>
                                         <div class="btn-group mb-1">
-                                            <button type="button" class="btn btn-primary light  px-3" data-bs-toggle="dropdown">
-                                                <i class="fa fa-folder"></i> <b class="caret m-l-5"></b>
-                                            </button>
-                                            <div class="dropdown-menu"> 
-                                                <a class="dropdown-item" href="javascript: void(0);">Social</a> 
-                                                <a class="dropdown-item" href="javascript: void(0);">Promotions</a> 
-                                                <a class="dropdown-item" href="javascript: void(0);">Updates</a>
-                                                <a class="dropdown-item" href="javascript: void(0);">Forums</a>
+                                            <div class="dropdown show-child relative ml-4">
+                                                <button type="button" class="btn btn-primary light  px-3" >
+                                                    <i class="fa fa-folder"></i> <b class="caret m-l-5"></b>
+                                                </button>
+                                                <div class="show-on-hover position-absolute z-[9999]  hidden ">
+                                                    <div
+                                                        class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-auto right-0 text-slate-800 dark:text-slate-300">
+                                                        @foreach ($folders as $folder)
+                                                        @if ($folder->name != $message->folder_name)
+                                                        <a class="dropdown-item ajax-link fs-4 p-2" href="{{route('EmailMessage.move', ['id'=>$message->id, 'folder_id'=>$folder->id])}}?_token={{csrf_token()}}">{{$folder->name}}</a> 
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="btn-group mb-1">
-                                            <button type="button" class="btn btn-primary light  px-3" data-bs-toggle="dropdown">
+                                            <button type="button" class="btn btn-primary light  px-3" >
                                                 <i class="fa fa-tag"></i>  <b class="caret m-l-5"></b>
                                             </button>
                                             <div class="dropdown-menu"> 
@@ -128,7 +137,7 @@
                                             </div>
                                         </div>
                                         <div class="btn-group mb-1">
-                                            <button type="button" class="btn btn-primary light " data-bs-toggle="dropdown">More <span class="caret m-l-5"></span>
+                                            <button type="button" class="btn btn-primary light " >More <span class="caret m-l-5"></span>
                                             </button>
                                             <div class="dropdown-menu"> <a class="dropdown-item" href="javascript: void(0);">Mark as Unread</a> <a class="dropdown-item" href="javascript: void(0);">Add to Tasks</a>
                                                 <a class="dropdown-item" href="javascript: void(0);">Add Star</a> <a class="dropdown-item" href="javascript: void(0);">Mute</a>

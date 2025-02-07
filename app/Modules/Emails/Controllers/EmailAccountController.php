@@ -5,6 +5,7 @@ namespace App\Modules\Emails\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Modules\Emails\Services\EmailAccountService;
+use App\Modules\Emails\Services\EmailMessageService;
 use App\Modules\Emails\Events\EmailFormRendering;
 use App\Http\Controllers\Controller;
 use App\Models\Auth;
@@ -46,9 +47,11 @@ class EmailAccountController extends Controller
             
             $account = $this->service->findAccount($accountId);
             $folder = $this->service->findFolder($request->get('folder') ?? $account->folder->id, $account);
-            $messagesPaginate = $this->service->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1)->toArray();
-            $messages = $this->service->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1);
             $priorities = $this->service->priorities();
+
+            $messageService = new EmailMessageService();
+            $messages = $messageService->accountMessages($account, $folder->name ?? null, 20, $request->page ?? 1);
+            $messagesPaginate = $messages->toArray();
 
             return view('emails::row', compact('messages', 'folder', 'messagesPaginate', 'account','priorities', 'user'));
             
@@ -174,15 +177,6 @@ class EmailAccountController extends Controller
     }
     
 
-    public function showMessage(Request $request, $accountId, $msg_id)
-    {
-        $account = $this->service->findAccount($accountId);
-        $folders = $this->service->accountFolders($account);
-        $message = $this->service->findMessage($msg_id, $account);
-        $priorities = $this->service->priorities();
-
-        return view('emails::mail-details', compact('message', 'account', 'folders', 'priorities'));
-    }
 
 
     public function store(Request $request)

@@ -93,10 +93,11 @@ class EmailAccountService
             $data['subject'] =  substr($message->subject, 0, 190);
             $data['sender_name'] =  $message->from;
             $data['sender_email'] =  $message->getFrom()[0]->mail;
-            $data['size'] = $message->size;
+            $data['size'] = $message->size; 
             $data['account_id'] = $account->id;
             $data['time'] =  $message->date;
             $data['message_id'] =  $message->message_id;
+            $data['message_number'] =  $message->getMessageNo();
             $data['message_text'] =  $message->getTextBody();
             $data['message_html'] =  $message->getHTMLBody();
             $data['cc'] =  $message->getCc();
@@ -114,22 +115,6 @@ class EmailAccountService
         $user = Auth::user();
         
         return EmailAccount::forUser($user)->findOrFail($id);
-    }
-
-    public function accountMessages($account, $folderName = null, $limit = 50, $offset = 0)
-    {
-        $items = EmailMessage::forAccount($account);
-
-        if ($folderName) {
-            $items->where('folder_name', $folderName);
-        }
-
-        return $items->orderBy('time', 'DESC')->paginate($limit);
-    }
-
-    public function findMessage($id, $account)
-    {
-        return EmailMessage::forAccount($account)->findOrFail($id);
     }
 
     public function findFolder($id, $account)
@@ -222,55 +207,4 @@ class EmailAccountService
         return $created;
     }
 
-    /**
-     * Send email using account configuration
-     */
-    public function sendMail($data, $account)
-    {
-        $user = Auth::user();
-        
-        // Calculate size in bytes
-        // Convert bytes to KB
-        $emailSizeKB = round(mb_strlen($data['message_text'], '8bit') , 2);
-        
-        $data['sender_email'] = $account->email;
-        $data['sender_name'] = $account->email;
-        $data['account_id'] = $account->id;
-        $data['delivery_date'] =  date('d, M d, Y - H:i:s');
-        $data['folder_name'] =  'CRM';
-        $data['cc'] =  '';
-        $data['reply_to'] =  '';
-        $data['size'] = $emailSizeKB;
-        $data['time'] =  date('Y-m-d H:i:s');
-        $data['message_id'] =  rand(999,999999).$account->emaail;
-        $data['message_html'] =  $data['message_text'];
-        $data['model_id'] =  $user->id();
-        $data['model_type'] =  get_class($user);
-        $data['business_id'] =  $user->business_id ?? 0;
-        
-        $message = EmailMessage::firstOrCreate($data);
-
-        // Set mail configuration dynamically
-        Config::set('mail.mailers.smtp', [
-            'transport' => 'smtp',
-            'host' => $account->imap_host,
-            'port' => '465',
-            'encryption' => 'ssl',
-            'username' => $account->imap_username,
-            'password' => $account->imap_password,
-            'timeout' => null,
-            'auth_mode' => null,
-        ]);
-
-        Config::set('mail.from.address', $account->email);
-        Config::set('mail.from.name', $account->email);
-
-        try {
-            // return Mail::to($message->email)->send(new OTPEmail($user, $message->su));
-            return  Mail::to($message->email)->send(new SendMail($message)) ? true : false;
-            
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
 }

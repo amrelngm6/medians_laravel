@@ -22,7 +22,7 @@
                                     <a href="/"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li>
-                                    <a href="#">APPs</a>
+                                    <a href="{{route('EmailAccount')}}">Email Accounts</a>
                                 </li>
                                 <li class="active">
                                     <strong>{{$account->email}}</strong>

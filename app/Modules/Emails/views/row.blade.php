@@ -5,13 +5,8 @@
                                     <label class="form-check form-check-custom form-check-solid"> <input  class="form-check-input " type="checkbox" /> </label>
                                     <div data-tw-placement="bottom-start" class="dropdown show-child relative ml-4">
                                         <button data-tw-toggle="dropdown" aria-expanded="false"
-                                            class="cursor-pointer block py-2 px-1 border-0"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                data-lucide="chevron-down" class="lucide lucide-chevron-down ">
-                                                <path d="m6 9 6 6 6-6"></path>
-                                            </svg>
+                                            class="cursor-pointer block py-2 px-1 border-0">
+                                            <i class='bx bx-chevron-down fs-3'></i>
                                         </button>
                                         <div class="show-on-hover position-absolute z-[9999]  hidden  translate-y-1"
                                             data-state="leave">
@@ -21,14 +16,6 @@
                                                     class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">All</a>
                                                 <a
                                                     class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">None</a>
-                                                <a
-                                                    class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">Read</a>
-                                                <a
-                                                    class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">Unread</a>
-                                                <a
-                                                    class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">Starred</a>
-                                                <a
-                                                    class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">Unstarred</a>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +104,7 @@
                                                     {{$message->sender_name}}
                                                 </div>
                                             </div>
-                                            <a href="{{route('EmailAccount.showMessage', ['id'=>$account->id, 'msg_id'=>$message->id])}}" class="w-64 text-truncate sm:w-auto">
+                                            <a href="{{route('EmailMessage.show', ['account_id'=>$account->id, 'msg_id'=>$message->id])}}" class="w-64 text-truncate sm:w-auto">
                                                 <span class="ml-3 text-truncate font-medium">
                                                     {{$message->subject}}
                                                 </span>
