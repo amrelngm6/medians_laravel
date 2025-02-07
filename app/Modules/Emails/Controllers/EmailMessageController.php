@@ -114,7 +114,7 @@ class EmailMessageController extends Controller
 
             return $delete ? response()->json([
                 'success' => true,
-                'reload' => true,
+                'redirect' => route('EmailAccount.show', $account->id),
                 'title' => 'Done',
                 'result' => 'Email deleted successfully',
             ], 200) : null;
