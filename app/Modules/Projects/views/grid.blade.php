@@ -63,11 +63,9 @@
                                         <a class="dropdown-item open-modal" href="{{route('Projects.edit', $project->project_id)}}" data-modal="#edit-project-modal"
                                         ><i class="fe fe-edit me-2"></i>
                                             Edit</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="fe fe-share me-2"></i>
-                                            Share</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="fe fe-download me-2"></i>
-                                            Clone</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="fe fe-trash me-2"></i>
+                                        <a class="dropdown-item" href="{{route('Projects.settings', $project->project_id)}}" ><i class="fe fe-edit me-2"></i>
+                                            Settings</a>
+                                        <a class="dropdown-item delete-item" data-path="{{route('Projects.delete', $project->project_id)}}" href="javascript:;"><i class="fe fe-trash me-2"></i>
                                             Delete</a>
                                     </div>
                                 </div>
