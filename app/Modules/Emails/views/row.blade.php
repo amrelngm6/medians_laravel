@@ -25,6 +25,26 @@
                                         data-content="Create new folder">
                                         <a class="dropdown-item open-modal fs-3 p-2 font-semibold textprimary" href="{{route('EmailAccount.createFolder', $account->id)}}?_token={{csrf_token()}}"><i class="bx bx-folder p-2"></i></a> 
                                     </div>
+                                    
+                                    <a class="ml-5 flex py-1 px-1 items-center justify-center open-modal"  href="{{route('EmailAccount.edit', $account->id)}}"
+                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        data-content="IMAP server info">
+                                        <i class='bx bxs-user-detail fs-2'></i>
+                                    </a>
+                                    
+                                    
+                                    <a class="ml-5 flex py-2 px-1 items-center justify-center open-modal"  href="{{route('EmailAccount.settings', $account->id)}}"
+                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        data-content="Email account Settings">
+                                        <i class='bx bx-cog fs-2'></i>
+                                    </a>
+                                    
+                                    <a class="ml-5 flex py-1 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{route('EmailAccount.fetch', $account->id)}}?folder={{$folder->id ?? 0}}"
+                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
+                                        data-title="Load emails"
+                                        data-content="Fetch emails from Remote Server">
+                                        <i class='bx bx-refresh fs-1'></i>
+                                    </a>
                                 </div>
                                 <div class="flex items-center  flex-end  flex-none ">
                                     <div class="">{{$messagesPaginate['from']}} - {{$messagesPaginate['to']}} of {{$messagesPaginate['total']}}</div>
@@ -42,30 +62,6 @@
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right"
                                             class="lucide lucide-chevron-right stroke-1.5 h-6 w-6">
                                             <path d="m9 18 6-6-6-6"></path>
-                                        </svg>
-                                    </a>
-                                    
-                                    <a class="ml-5 flex py-2 px-1 items-center justify-center open-modal"  href="{{route('EmailAccount.settings', $account->id)}}"
-                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="Email account Settings">
-                                        <i class='bx bx-cog fs-2'></i>
-                                    </a>
-                                    
-                                    <a class="ml-5 flex py-2 px-1 items-center justify-center open-modal"  href="{{route('EmailAccount.edit', $account->id)}}"
-                                        rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-                                        data-content="IMAP server info">
-                                        <i class='bx bxs-user-detail fs-2'></i>
-                                    </a>
-                                    
-                                    <a class="ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{route('EmailAccount.fetch', $account->id)}}?folder={{$folder->id ?? 0}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw"
-                                            class="lucide lucide-refresh-cw stroke-1.5 h-6 w-6">
-                                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                                            <path d="M21 3v5h-5"></path>
-                                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                                            <path d="M8 16H3v5"></path>
                                         </svg>
                                     </a>
                                 </div>
