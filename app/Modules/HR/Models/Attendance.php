@@ -2,6 +2,7 @@
 
 namespace App\Modules\HR\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Priorities\Models\Priority;
 use App\Modules\Core\Models\ModelField;
@@ -36,6 +37,19 @@ class Attendance extends Model
     {
         return $this->morphTo();
     }
+
+    
+
+    /**
+     * Load User Attendance
+     */
+    public function month_list($month)
+    {
+        return $this->forUser($this->user)->whereDate('check_in', '>=', date('Y-m-d', strtotime($month)))->select('check_in',  DB::raw('DATE(check_in) AS date'))->get()->groupBy('date')->unique('id');
+
+    }
+
+    
 
     /**
      * Scope for Business

@@ -13,6 +13,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($attendanceList as $staffAttendance)
+                                        {{ print_r($staffAttendance->month_list(date("Y-m-01"))->toArray()) }}
                                         <tr class="*:px-3.5 *:py-2.5 *:border-y *:border-slate-200 *:dark:border-zink-500">
                                             <td class="ps-3 fw-bold">{{$staffAttendance->user->name ?? ''}}</td>
                                             @foreach (range(0, $days) as $day)
