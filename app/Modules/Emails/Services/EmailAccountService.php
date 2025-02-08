@@ -81,6 +81,10 @@ class EmailAccountService
         $savedMessages = [];
 
         $folder = $this->client->getFolder($folderName ?? 'INBOX');
+
+        if (!$folder)
+            throw "Folder not found at Email Server";
+        
         $messages = $folder->query()->since(now()->subDays($days))->limit($limit)->get();
 
         foreach ($messages as $message) {
