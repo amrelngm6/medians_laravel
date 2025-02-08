@@ -58,24 +58,10 @@ class MenuController extends Controller
         return $menu ? response()->json([
             'success' => true,
             'title' => 'Done',
-            // 'reload' => true,
+            'reload' => true,
             'result' => 'Menu updated successfully',
         ], 200) : null;
 
     }
 
-    public function show($id)
-    {
-        // Display a single Menu
-    }
-
-    public function update($id)
-    {
-        // Update the specified Menu
-    }
-
-    public function destroy($id)
-    {
-        // Delete the specified Menu
-    }
 }

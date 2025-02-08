@@ -208,15 +208,27 @@
                     <!--end::Heading-->
 
                     <!--begin::Input group-->
+                    <div class="flex-column mb-8 fv-row " id="has-children">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Parent Name title</span>
+                        </label>
+                        <!--end::Label-->
+                        <input class="form-control form-control-solid" id="active-menu-parent-name" placeholder="Parent menu name" value="" name="parent_title" />
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Title</span>
+                            <span class="required">Menu Title</span>
                         </label>
                         <!--end::Label-->
                         <input class="form-control form-control-solid" id="active-menu-val" placeholder="Menu title" value="" name="name" />
                     </div>
                     <!--end::Input group-->
+
 
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-8 fv-row">
@@ -282,14 +294,18 @@ menuEditor.onClickEdit((event) => {
     activeMenuItem = event.item
     jQuery('#active-menu-name').text(event.item.getDataset().route_name)
     jQuery('#active-menu-route').val(event.item.getDataset().route_name)
+    jQuery('#active-menu-parent-name').val(event.item.getDataset().parent_title)
     jQuery('#active-menu-val').val(event.item.getDataset().text)
     jQuery('#active-menu-icon').val(event.item.getDataset().icon)
     jQuery('#edit-Business-modal').addClass('show')
+    console.log(activeMenuItem)
+    activeMenuItem.collection.items.length ? jQuery('#has-children').show() : jQuery('#has-children').hide()
     menuEditor.edit(activeMenuItem)
 });
 
 jQuery('#updateMenuItem').on('click', function() {
     let route_name = jQuery('#active-menu-route').val()
+    let parent_title = jQuery('#active-menu-parent-name').val()
     let name = jQuery('#active-menu-val').val()
     let icon = jQuery('#active-menu-icon').val()
 
@@ -297,6 +313,7 @@ jQuery('#updateMenuItem').on('click', function() {
     if (activeMenuItem) {
         activeMenuItem.name = name
         activeMenuItem.route_name = route_name
+        activeMenuItem.parent_title = parent_title
         activeMenuItem.icon = icon
         menuEditor.update(menuItem(activeMenuItem)); // Update the menu editor with the new structure
     }
@@ -313,6 +330,7 @@ try {
         let model = {
             name: element.name,
             route_name: element.route_name,
+            parent_title: element.children ? element.parent_title : '',
             children: element.children ?? []
         }
         lst.push(menuItem(model));
@@ -332,6 +350,7 @@ function menuItem(model) {
         text: model.name, // required
         href: model.route_name ?? model.name, // required
         route_name: model.route_name ?? model.name, // required
+        parent_title: model.parent_title ?? model.name, // required
         icon:  (model.icon ?? 'lock'), // required
         tooltip: model.name, // required
         children: model.children ?? []

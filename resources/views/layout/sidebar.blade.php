@@ -24,7 +24,7 @@
                 @if (Route::has($menuItem->route_name) )
                 <a href="{{count($menuItem->children) ? 'javascript:;' : route($menuItem->route_name) }}">
                     <i class="fs-2 img bx {{$menuItem->icon ?? 'lock'}}"> </i>
-                    <span class="title">{{$menuItem->name}}</span>
+                    <span class="title">{{ count($menuItem->children) && $menuItem->parent_title ? $menuItem->parent_title : $menuItem->name}}</span>
                     @if (count($menuItem->children)) <span class="arrow "></span> @endif
                 </a>
                 @endif

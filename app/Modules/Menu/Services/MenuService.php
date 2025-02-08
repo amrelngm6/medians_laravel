@@ -31,8 +31,9 @@ class MenuService
                     'route_name' => $value->route_name ?? ($value->href ?? $value->text),
                     'icon' => $value->icon ?? null,
                     'parent_id' => 0,
+                    'parent_title' => ($value->children && isset($value->parent_title)) ? $value->parent_title : null,
                     'role_id' => $roleId,
-                    'sort' => $key
+                    'sort' => $key,
                 ]);
 
                 if ($value->children)

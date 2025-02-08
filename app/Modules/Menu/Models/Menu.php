@@ -11,7 +11,7 @@ class Menu extends Model
     
     protected $table = 'menu';
 
-    protected $fillable = ['business_id', 'name', 'route_name', 'icon', 'sort', 'parent_id', 'role_id'];
+    protected $fillable = ['business_id', 'name', 'route_name', 'icon', 'sort', 'parent_id', 'parent_title', 'role_id'];
 
     public $appends = ['text', 'href'];
 
