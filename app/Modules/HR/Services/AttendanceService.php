@@ -42,10 +42,12 @@ class AttendanceService
         }
 
         if ($request->has('month')) {
-            $attendance->whereDate('check_in', '>=', $request->month.'-01');
-            $attendance->whereDate('check_out', '<', $request->month.'-31');
+            $days = cal_days_in_month(CAL_GREGORIAN, date("m"), date("Y"));
+            $attendance->whereDate('check_in', '>=', date('Y-m-01', strtotime($request->month)));
+            $attendance->whereDate('check_in', '<', date('Y-m-'.$days, strtotime($request->month)));
         }
 
+        echo $attendance->toSql();
         return $attendance->with('user')->get();
     }
 
