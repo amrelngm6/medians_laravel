@@ -15,8 +15,6 @@ class LeaveServiceProvider extends ServiceProvider
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
-        // Load attendance views
-        $this->loadViewsFrom(__DIR__ . '/../views/attendance', 'attendance');
 
         // Load leaves views
         $this->loadViewsFrom(__DIR__ . '/../views/leaves', 'leaves');

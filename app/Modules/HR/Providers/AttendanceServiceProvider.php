@@ -18,9 +18,6 @@ class AttendanceServiceProvider extends ServiceProvider
         // Load attendance views
         $this->loadViewsFrom(__DIR__ . '/../views/attendance', 'attendance');
 
-        // Load leaves views
-        $this->loadViewsFrom(__DIR__ . '/../views/leaves', 'leaves');
-
     }
 
     public function register()
