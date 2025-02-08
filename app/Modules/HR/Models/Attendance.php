@@ -14,7 +14,11 @@ class Attendance extends Model
 
     protected $fillable = ['business_id', 'user_type', 'user_id', 'check_in', 'check_out', 'hours_duration',  'ip', 'platform', 'notes'];
 
-
+    
+    public function getDateAttribute()
+    {
+        return $this->check_in ? date('Y-m-d', strtotime($this->check_in)) : null;
+    }
     
     /**
      * Load related fields as Morph

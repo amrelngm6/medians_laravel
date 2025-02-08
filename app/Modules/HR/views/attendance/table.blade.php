@@ -95,11 +95,11 @@
                 <!-- MAIN CONTENT AREA STARTS -->
                 <div class="col-xs-12 ">
                     <section class="card ">
-                        <form action="{{route('Goal.filter')}}" id="filter-form" class="card-header ajax-form">
+                        <form action="{{route('Attendance.filter')}}" data-element="attendance-list" id="filter-form" class="card-header ajax-form">
                             @csrf
                             <div class="card-title w-full gap-4">
                                 <div class="d-flex align-items-center position-relative my-1">
-                                    <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="goals" class="filter-on-change datepicker form-control form-control-solid  w-200px" />
+                                    <input type="month" name="month" id="filter-date" data-form="filter-form" data-element="attendance-list" class="filter-on-change  form-control form-control-solid py-2 w-200px" />
                                 </div>
                                 
                                 <div class="d-flex align-items-center position-relative my-1">
@@ -116,36 +116,9 @@
 
                         <div class="card-body">
                             <!--end grid-->
-                            <div class="overflow-x-auto">
-                                <table class="w-full whitespace-nowrap table table-striped">
-                                    <thead
-                                        class="text-center bg-slate-100 text-slate-500 dark:text-zink-200 dark:bg-zink-600">
-                                        <tr
-                                            class="bg-white *:px-3.5 *:py-2.5 *:font-semibold *:border-b *:border-slate-200 *:dark:border-zink-500">
-                                            <th class="min-w-125px">Employee Name</th>
-                                            @php $days = cal_days_in_month(CAL_GREGORIAN, date("m"), date("Y")); @endphp
-                                            @foreach (range(0, $days) as $day)
-                                            <th class="{{date('d') == ($day ) ? 'active' : ''}}">{{$day}}</th>
-                                            @endforeach
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="*:px-3.5 *:py-2.5 *:border-y *:border-slate-200 *:dark:border-zink-500">
-                                            <td class="ps-3 fw-bold">Adam Smith</td>
-                                            @foreach (range(0, $days) as $day)
-                                            <td><i class="bx bx-check text-success fs-4"></i></td>
-                                            @endforeach
-                                        </tr>
-                                        <tr class="*:px-3.5 *:py-2.5 *:border-y *:border-slate-200 *:dark:border-zink-500">
-                                            <td class="ps-3 fw-bold">Adam Smith</td>
-                                            @foreach (range(0, $days) as $day)
-                                            <td><i class="bx bx-check text-success fs-4"></i></td>
-                                            @endforeach
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div class="overflow-x-auto" id="attendance-list"></div>
                         </div>
+
                     </div>
                 </div>
 
@@ -161,5 +134,17 @@
 
 <script src="{{asset('assets/plugins/chartjs-chart/Chart.min.js')}}"></script>
 <script src="{{asset('assets/js/chart-chartjs.js')}}"></script>
+
+<script>
+jQuery(document).ready(function(){
+    
+    jQuery('#filter-date,.filter-on-change').on('change', function (ev, picker) {
+        submitForm('filter-form', 'attendance-list');
+    }) 
+    jQuery('#filter-date').val('{{date('Y-m')}}')
+    jQuery('#filter-date').trigger('change');
+
+})
+</script>
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection
