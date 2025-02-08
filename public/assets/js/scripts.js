@@ -3085,8 +3085,10 @@ async function loadAjax (url, element) {
  * Handle Text 2 Speech
  */
 function text2speechEvent() {
-    jQuery(document).on("selectionchange", (event) => {
-        setTimeout(handleEvent, 500)
+    jQuery(document).on("click", "[data-speech-target]", (event) => {
+
+        testSpeech('#' + jQuery(event.target).attr('data-speech-target'), '#'+ jQuery(event.target).attr('id'));
+        console.log('#' + jQuery(event.target).attr('data-speech-target'), '#'+ jQuery(event.target).attr('id'));
     });
 }
 
