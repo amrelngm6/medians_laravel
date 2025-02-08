@@ -90,7 +90,6 @@
 
                 </div>
                 <div class="clearfix"></div>
-
                             
                 <!-- MAIN CONTENT AREA STARTS -->
                 <div class="col-xs-12 ">
@@ -116,6 +115,7 @@
 
                         <div class="card-body">
                             <!--end grid-->
+                            
                             <div class="overflow-x-auto" id="attendance-list"></div>
                         </div>
 

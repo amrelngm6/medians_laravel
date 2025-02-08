@@ -84,14 +84,11 @@ var MediansSettings = window.MediansSettings || {};
                     } catch (error) {
                         try {
                             
-                            if (append) {
-                                element.innerHTML += xhr.responseText;
-                            } else if (xhr.responseText) {
-                                element.innerHTML = xhr.responseText;
-                            }
-                        } catch (error) {
+                            append 
+                            ? jQuery(element).append(xhr.responseText)
+                            : jQuery(element).html(xhr.responseText)
 
-                        }
+                        } catch (error) { }
                     }
                     
                     if (jQuery('#'+formId).hasClass('reload-ajax'))
@@ -106,13 +103,13 @@ var MediansSettings = window.MediansSettings || {};
                 } else {
                     try {
                         if (append) {
-                            element.appendChild(xhr.responseText)
+                            jQuery(element).html(xhr.responseText)
                         } else if (xhr.responseText) {
                             let res = JSON.parse(xhr.responseText);
                             handleResponse(res, form)
                         }
                     } catch (error) {   
-                        element.innerHTML = xhr.responseText;
+                        jQuery(element).html(xhr.responseText)
                     }
                 }
             }
