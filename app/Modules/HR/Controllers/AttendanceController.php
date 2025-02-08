@@ -38,7 +38,7 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
-        $attendanceList = $this->service->query($request);
+        $attendanceList = $this->service->query($request)->groupBy('user')->unique('user_id');
 
         $model = $this->service->model;
 
