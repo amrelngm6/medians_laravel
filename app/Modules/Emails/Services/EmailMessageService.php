@@ -99,7 +99,7 @@ class EmailMessageService
     
     public function updateEmailMessage($id, array $data)
     {
-        $email = $this->find($id);
+        $email = $this->findById($id);
         $email->update($data);
 
 

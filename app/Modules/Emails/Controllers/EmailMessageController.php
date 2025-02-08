@@ -120,12 +120,7 @@ class EmailMessageController extends Controller
 
             $update = $this->service->updateEmailMessage($message->id, array_merge($request->only('favourite', 'read')));
 
-            return $update ? response()->json([
-                'success' => true,
-                'no_reset' => true,
-                'title' => 'Done',
-                'result' => 'Updated',
-            ], 200) : null;
+            return null;
             
         } catch (\Throwable $th) {
             return response()->json([
