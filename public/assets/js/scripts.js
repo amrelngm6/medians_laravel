@@ -61,7 +61,6 @@ var MediansSettings = window.MediansSettings || {};
     
         jQuery('#main-loader').removeClass('hidden')    
     
-    
         // Get the form data as a FormData object
         const formData = new FormData(form);
 
@@ -3088,6 +3087,10 @@ async function loadAjax (url, element) {
 function text2speechEvent() {
     jQuery(document).on("click", "[data-speech-target]", (event) => {
         testSpeech('#' + jQuery(event.target).attr('data-speech-target'), '#'+ jQuery(event.target).attr('id'));
+    });
+    
+    jQuery(document).on("selectionchange", (event) => {
+        setTimeout(handleEvent, 500)
     });
 }
 
