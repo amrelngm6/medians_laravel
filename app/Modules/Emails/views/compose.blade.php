@@ -58,11 +58,12 @@
                     <!--end::Input group-->
 
                     <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8">
+                    <div class="d-flex flex-column mb-8 show-child relative">
                         <label class="fs-6 fw-semibold mb-2">Message</label>
 
                         <textarea class="form-control form-control-solid" rows="3" name="message_text"
-                            placeholder="Type Message Details"></textarea>
+                            placeholder="Type Message Details" id="search-name" ></textarea>
+                            <i data-speech-target="search-name" id="mic-icon" class='hidden absolute bottom-0 right-4 cursor-pointer p-2 fs-1 show-on-hover bx bxs-microphone-alt'></i>
                     </div>
                     <!--end::Input group-->
 
