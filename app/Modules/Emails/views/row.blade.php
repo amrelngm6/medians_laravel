@@ -89,7 +89,7 @@
                 </div>
                 <a href="{{route('EmailMessage.show', ['account_id'=>$account->id, 'msg_id'=>$message->id])}}"
                     class="w-64 text-truncate sm:w-auto">
-                    <span class="ml-3 text-truncate font-medium text-{{!$message->read ? 'danger' : 'muted'">
+                    <span class="ml-3 text-truncate font-medium text-{{!$message->read ? 'danger' : 'muted'}}">
                         {{$message->subject}}
                     </span>
                     <span class="text-muted">
