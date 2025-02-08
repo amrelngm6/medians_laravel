@@ -2693,6 +2693,7 @@ jQuery(function($) {
                 confirmButtonText: "Delete",
                 icon: "error"
               }).then(e=> {
+
                 if (e.isConfirmed) {
                     
                     $.ajax({
@@ -2711,11 +2712,11 @@ jQuery(function($) {
                             }
                         },
                         error: function (xhr, status, error) {
+                            jQuery('#main-loader').addClass('hidden')    
                             handleResponse(xhr.responseJSON, null)
                         }
                     });
                 }
-                jQuery('#main-loader').addClass('hidden')    
 
               });
         });
