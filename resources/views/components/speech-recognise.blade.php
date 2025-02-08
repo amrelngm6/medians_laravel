@@ -19,7 +19,7 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
         recognition.onresult = function(event) {
             var speechResult = event.results[0][0].transcript.toLowerCase();
             jQuery(elementId).val(speechResult)
-            jQuery(elementId).data('form') ? submitForm(jQuery(elementId).data('form'), jQuery(elementId).data('element')) : ''
+            jQuery(elementId).first().trigger("change")
             jQuery(micIcon).toggleClass('text-danger')
         }
 

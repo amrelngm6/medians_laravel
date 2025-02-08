@@ -70,4 +70,6 @@
         @endforeach
     </tbody>
 </table>
-<script> MediansSettings.tooltipsPopovers(); MediansSettings.dataTablesInit(); </script>
+<script>
+    MediansSettings.tooltipsPopovers(); MediansSettings.dataTablesInit();
+</script>

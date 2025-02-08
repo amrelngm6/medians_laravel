@@ -1848,7 +1848,8 @@ jQuery(function($) {
 
         if (jQuery('.datatable').length)
         {
-            jQuery("table.datatable").dataTable({
+            
+            jQuery("table.datatable:not(.dataTable)").dataTable({
                 responsive: true,
                 aLengthMenu: [
                     [10, 25, 50, 100, -1],
@@ -3086,9 +3087,7 @@ async function loadAjax (url, element) {
  */
 function text2speechEvent() {
     jQuery(document).on("click", "[data-speech-target]", (event) => {
-
         testSpeech('#' + jQuery(event.target).attr('data-speech-target'), '#'+ jQuery(event.target).attr('id'));
-        console.log('#' + jQuery(event.target).attr('data-speech-target'), '#'+ jQuery(event.target).attr('id'));
     });
 }
 
