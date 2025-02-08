@@ -7,7 +7,7 @@
                                             <th class="min-w-125px"> <span  rel="popover" data-toggle="popover" data-trigger="hover"
                                     data-title="{{'$reminder->name'}}"
                                     data-content="{{'$reminder->description'}}"> Employee Name</span></th>
-                                            @php $days = cal_days_in_month(CAL_GREGORIAN, date("m"), date("Y")); @endphp
+                                            @php $days = cal_days_in_month(CAL_GREGORIAN, date("m", strtotime($month)), date("Y", strtotime($month))); @endphp
                                             @foreach (range(0, $days) as $day)
                                             <th class="{{date('d') == ($day ) ? 'active' : ''}}">{{$day}}</th>
                                             @endforeach
@@ -19,7 +19,7 @@
                                             <td class="ps-3 fw-bold" >{{$staffAttendance->user->name ?? ''}}</td>
                                             
                                             @php 
-                                                $monthAttendance = $staffAttendance->month_list(date("Y-m"), $staffAttendance->user)->toArray();
+                                                $monthAttendance = $staffAttendance->month_list($month, $staffAttendance->user)->toArray();
                                                 $userAttendance = call_user_func_array('array_merge', array_values($monthAttendance)); 
                                                 $dates = array_column($userAttendance, 'date'); 
                                             @endphp

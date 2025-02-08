@@ -42,7 +42,9 @@ class AttendanceController extends Controller
 
         $model = $this->service->model;
 
-        return view('attendance::rows', compact('attendanceList', 'model', 'user'));
+        $month = date("Y-m", strtotime($request->month));
+
+        return view('attendance::rows', compact('attendanceList', 'model', 'user', 'month'));
     }
 
     
