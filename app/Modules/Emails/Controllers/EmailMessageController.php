@@ -58,6 +58,8 @@ class EmailMessageController extends Controller
                 return $q;
             }])->find($message->id)->folder;
 
+            $message->update(['read'=>1]);
+
             return view('emails::mail-details', compact('message', 'account', 'folder', 'folders', 'priorities'));
         } catch (\Throwable $th) {
             return redirect(route('EmailAccount'));
@@ -92,6 +94,40 @@ class EmailMessageController extends Controller
             
         } catch (\Throwable $th) {
             
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage(),
+            ], 402);
+        }
+
+    }
+
+
+    
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('EmailAccount edit') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+
+            $message = $this->service->findById($id);
+                
+            $account = $this->service->findAccount($message->account_id);
+
+            $update = $this->service->updateEmailMessage($message->id, array_merge($request->only('favourite', 'read')));
+
+            return $update ? response()->json([
+                'success' => true,
+                'no_reset' => true,
+                'title' => 'Done',
+                'result' => 'Updated',
+            ], 200) : null;
+            
+        } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'error' => $th->getMessage(),

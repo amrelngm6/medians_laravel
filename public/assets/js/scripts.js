@@ -2660,9 +2660,16 @@ jQuery(function($) {
             let itemElement = jQuery(this).data('element');
             jQuery(itemElement).remove()
         });
+        
         jQuery(document).on('click', '.remove-parent', function(){
             let itemElement = jQuery(this).parent();
             jQuery(itemElement).remove()
+        });
+
+        jQuery(document).on('click', '.switch-view', function(){
+            jQuery(this).toggleClass('hidden')
+            let itemSwitch = jQuery(this).data('switch');
+            jQuery('#'+itemSwitch).toggleClass('hidden')
         });
     };
 
