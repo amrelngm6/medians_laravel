@@ -182,7 +182,7 @@ class EmailAccountService
         $email = $this->find($id);
         $email->update($data);
 
-        $fields = $data['fields'] ? $this->storeCustomFields($data['fields']) : null;
+        $fields = isset($data['fields']) ? $this->storeCustomFields($data['fields']) : null;
 
         return $email;
     }
