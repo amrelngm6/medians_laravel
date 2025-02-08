@@ -1,7 +1,7 @@
 
-                            <div class="flex  border-b border-slate-200/60 p-5 text-slate-500 ">
+                            <div class="flex  border-b  border-t border-slate-200/60 p-5 text-slate-500 ">
                                 <div
-                                    class="w-full flex items-center border-t border-slate-200/60 sm:mx-0  sm:border-0 ">
+                                    class="w-full flex items-center sm:mx-0 ">
                                     <label class="form-check form-check-custom form-check-solid"> <input  class="form-check-input " type="checkbox" /> </label>
                                     <div data-tw-placement="bottom-start" class="dropdown show-child relative ml-4 hidden">
                                         <button data-tw-toggle="dropdown" aria-expanded="false"
@@ -23,7 +23,7 @@
                                     <div class="btn-group mb-1" 
                                         rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
                                         data-content="Create new folder">
-                                        <a class="dropdown-item open-modal fs-3 p-2 font-semibold textprimary" href="{{route('EmailAccount.createFolder', $account->id)}}?_token={{csrf_token()}}"><i class="bx bx-folder p-2"></i></a> 
+                                        <a class="dropdown-item open-modal fs-3 ps-4 font-semibold textprimary" href="{{route('EmailAccount.createFolder', $account->id)}}?_token={{csrf_token()}}"><i class="bx bx-folder p-2 text-danger"></i></a> 
                                     </div>
                                     
                                     <a class="ml-5 flex py-1 px-1 items-center justify-center open-modal"  href="{{route('EmailAccount.edit', $account->id)}}"
@@ -45,9 +45,9 @@
                                         <i class='bx bx-refresh fs-1'></i>
                                     </a>
                                 </div>
-                                <div class="flex items-center  flex-end  flex-none ">
+                                <div class="flex items-center  flex-end  flex-none pb-2 fs-5">
                                     <div class="">{{$messagesPaginate['from']}} - {{$messagesPaginate['to']}} of {{$messagesPaginate['total']}}</div>
-                                    <a class="{{$messagesPaginate['prev_page_url'] ? '' : 'disabled text-muted'}}  ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{$messagesPaginate['prev_page_url']}}&folder={{$folder->id ?? ''}}">
+                                    <a class="{{$messagesPaginate['prev_page_url'] ? '' : 'disabled text-muted'}}  ml-5 flex px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{$messagesPaginate['prev_page_url']}}&folder={{$folder->id ?? ''}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left"
@@ -55,7 +55,7 @@
                                             <path d="m15 18-6-6 6-6"></path>
                                         </svg>
                                     </a>
-                                    <a class="{{$messagesPaginate['next_page_url'] ? '' : 'disabled text-muted'}} ml-5 flex py-2 px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{$messagesPaginate['next_page_url']}}&folder={{$folder->id ?? ''}}">
+                                    <a class="{{$messagesPaginate['next_page_url'] ? '' : 'disabled text-muted'}} ml-5 flex px-1 items-center justify-center ajax-load" data-element="#messages-list" href="{{$messagesPaginate['next_page_url']}}&folder={{$folder->id ?? ''}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right"
