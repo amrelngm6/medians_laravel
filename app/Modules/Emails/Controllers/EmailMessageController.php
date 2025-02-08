@@ -116,7 +116,7 @@ class EmailMessageController extends Controller
 
             $message = $this->service->findById($id);
                 
-            $account = $this->service->findAccount($message->account_id);
+            $account = $this->accountService->findAccount($message->account_id);
 
             $update = $this->service->updateEmailMessage($message->id, array_merge($request->only('favourite', 'read')));
 

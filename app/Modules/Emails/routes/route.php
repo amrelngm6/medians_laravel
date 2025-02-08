@@ -28,5 +28,6 @@ Route::prefix('email_messages')->middleware(['web', 'auth:staff,superadmin'])->g
     Route::post('/{account}/send_mail', [EmailMessageController::class, 'send_mail'])->name('EmailMessage.send_mail');
     Route::get('{account_id}/show/{msg_id}', [EmailMessageController::class, 'showMessage'])->name('EmailMessage.show');
     Route::post('{id}/move/{folder_id}', [EmailMessageController::class, 'moveMessage'])->name('EmailMessage.move');
+    Route::post('{id}/update', [EmailMessageController::class, 'update'])->name('EmailMessage.update');
     Route::delete('{id}/deleteMsg', [EmailMessageController::class, 'destroy'])->name('EmailMessage.delete');
 });
