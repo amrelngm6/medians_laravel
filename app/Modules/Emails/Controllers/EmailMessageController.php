@@ -143,8 +143,8 @@ class EmailMessageController extends Controller
             }
 
             $message = $this->service->findById($id);
-            $folder = $message->with(['folder'=> function($q) use ($account) {
-                return $q->where('account_id', $account->id);
+            $folder = $message->with(['folder'=> function($q) use ($message) {
+                return $q->where('account_id', $message->id);
             }])->find($message->id)->folder;
     
             $account = $this->accountService->findAccount($message->account_id);

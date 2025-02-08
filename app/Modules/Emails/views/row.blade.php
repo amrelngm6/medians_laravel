@@ -17,14 +17,7 @@
             </div>
         </div>
 
-        <div class="btn-group mb-1" rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
-            data-content="Create new folder">
-            <a class="dropdown-item open-modal fs-3 ps-4 font-semibold textprimary"
-                href="{{route('EmailAccount.createFolder', $account->id)}}?_token={{csrf_token()}}"><i
-                    class="bx bx-folder p-2 text-danger"></i></a>
-        </div>
-
-        <a class="ml-5 flex py-1 px-1 items-center justify-center open-modal"
+        <a class="ml-20 flex py-1 px-1 items-center justify-center open-modal"
             href="{{route('EmailAccount.edit', $account->id)}}" rel="popover" data-toggle="popover" data-placement="top"
             data-trigger="hover" data-content="IMAP server info">
             <i class='bx bxs-user-detail fs-2'></i>
