@@ -22,11 +22,16 @@
                                             @endphp
                                             @foreach (range(0, $days) as $day)
                                             @php $dayDate = date('Y-m-d', strtotime(date('Y-m-'.$day))); @endphp
-                                            <td class="fs-1">@if (in_array($dayDate, $dates)) <i rel="popover"
+                                            <td class="fs-1">
+                                                @if (in_array($dayDate, $dates)) <i rel="popover"
                                                 data-trigger="hover"data-toggle="popover" data-title="{{$dayDate}}"
-                                                data-placement="top" data-content="<p> Check-in time: <b>{{'$'}}</b> </p>" class="bx bx-check text-danger fs-1"></i>@else <i class='bx bx-x'></i> @endif</td>
+                                                data-placement="top" data-content="<p> Check-in time: <b>{{'$'}}</b> </p>" class="bx bx-check text-danger fs-1"></i>@else <i class='bx bx-x'></i> @endif
+                                            </td>
                                             @endforeach
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+<script>
+MediansSettings.tooltipsPopovers();
+</script>
