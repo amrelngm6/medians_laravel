@@ -83,7 +83,7 @@ class EmailAccountService
         $folder = $this->client->getFolder($folderName ?? 'INBOX');
 
         if (!$folder)
-            throw new \Throwable("Folder not found at Email Server");
+            throw new \Exception("Folder not found at Email Server");
         
         $messages = $folder->query()->since(now()->subDays($days))->limit($limit)->get();
 
