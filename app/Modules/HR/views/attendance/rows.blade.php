@@ -15,8 +15,9 @@
                                         @foreach ($attendanceList as $staffAttendance)
                                         <tr class="*:px-3.5 *:py-2.5 *:border-y *:border-slate-200 *:dark:border-zink-500">
                                             <td class="ps-3 fw-bold">{{$staffAttendance->user->name ?? ''}}</td>
+                                            
                                             @php 
-                                                $userAttendance = call_user_func_array('array_merge', array_values($staffAttendance->month_list(date("Y-m"))->toArray())); 
+                                                $userAttendance = call_user_func_array('array_merge', array_values($staffAttendance->month_list(date("Y-m"), $staffAttendance->user)->toArray())); 
                                                 $dates = array_column($userAttendance, 'date'); 
                                             @endphp
                                             @foreach (range(0, $days) as $day)
