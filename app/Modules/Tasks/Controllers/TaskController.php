@@ -21,9 +21,10 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-
+        $user = Auth::user();
         $statusList = $this->service->loadStatusList();   
-        return view('tasks::list', compact('statusList'));
+        $types = $this->service->model->forBusiness($user->business_id)->get()->select('model_type')->unique('model_type');
+        return view('tasks::list', compact('statusList', 'types'));
     }
 
     

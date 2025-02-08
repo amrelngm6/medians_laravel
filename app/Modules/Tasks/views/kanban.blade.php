@@ -28,20 +28,17 @@
                         </div>  
                         
                         <div class="d-flex align-items-center position-relative my-1">
-                            
-
-                        <div class="select-placeholder w-full" 
-                            rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by related Model" >
-                        
-                            <!-- <label for="assigned" class="control-label">Assigned To</label> -->
-                            <select id="model_type" name="model_type" placeholder="Model"
-                                class="filter-on-change select-bootstrap border border-gray-300 form-control form-control-solid ">
-                                <option value=""></option>
-                                @foreach ($types as $type)
-                                <option value="{{$type['model_type']}}" >{{class_basename(new $type['model_type'])}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                            <div class="select-placeholder w-full" 
+                                rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter by related Model" >
+                                <!-- <label for="assigned" class="control-label">Assigned To</label> -->
+                                <select id="model_type" name="model_type" placeholder="Model"
+                                    class="filter-on-change select-bootstrap border border-gray-300 form-control form-control-solid ">
+                                    <option value=""></option>
+                                    @foreach ($types as $type)
+                                    <option value="{{$type['model_type']}}" >{{class_basename(new $type['model_type'])}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         
                         
