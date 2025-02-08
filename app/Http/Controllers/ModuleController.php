@@ -53,7 +53,6 @@ class ModuleController extends Controller
     /**
      * Install Module from ZIP File
      * Extract at Modules folder
-     * 
      */
     public function install(Request $request)
     {
@@ -90,7 +89,6 @@ class ModuleController extends Controller
 
             $moduleConfig = json_decode(File::get($moduleConfigPath), true);
 
-
             // Move module to app/Modules
             $moduleName = $moduleConfig[0]['name']; // Assuming the ZIP contains a single module directory
             $moduleDir = str_replace("App\\Modules\\", '', basename($moduleConfig[0]['path'])); // Assuming the ZIP contains a single module directory
@@ -107,9 +105,8 @@ class ModuleController extends Controller
                 File::deleteDirectory($extractPath. '/' . $moduleDir);
             }
 
-            foreach ($moduleConfig as $key => $value) {
-                
-                
+            foreach ($moduleConfig as $key => $value) 
+            {
                 // Add to database
                 $module = Module::firstOrCreate([
                     'name' => $value['name'],
@@ -124,9 +121,8 @@ class ModuleController extends Controller
                 $handleModule = $this->handleUpdate($module);
             }
 
-
-
             return response()->json(['success'=>1, 'result' => 'Module installed successfully.']);
+
         } catch (\Throwable $th) {
             return response()->json(['success'=> 0, 'error'=>$th->getMessage()]);
         }
@@ -137,7 +133,7 @@ class ModuleController extends Controller
      */
     private function handleRoles($path)
     {
-        $configFileFullPath =  str_replace([': ', "\\"],[':', '/'], env('APP_ENV') == 'local' ? app_path($path."\\Config\\roles.php") :  app_path($path. '/Config/roles.php'));
+        $configFileFullPath =  str_replace([': ', "\\"],[':', '/'], env('APP_ENV') != 'local' ? app_path($path."\\Config\\roles.php") :  app_path($path. '/Config/roles.php'));
 
         if (File::exists($configFileFullPath)) {
 
