@@ -64,7 +64,7 @@
                                 data-placement="top" data-content="Set the Check-out time"
                                 data-title="Check out" data-trigger="hover" data-html="true">Check-out Date <i
                                     class="bx bx-help-circle"></i></label>
-                            <input type="datetime-local" class=" form-control form-control-solid  " min="{{date('Y-m-d H:i')}}"
+                            <input type="datetime-local" class=" form-control form-control-solid  " 
                                 id="check_out" name="check_out"  value="{{date('Y-m-d H:i')}}" >
                         </div>
                     </div>
