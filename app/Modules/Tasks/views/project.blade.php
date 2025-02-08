@@ -14,9 +14,10 @@
                     @csrf
                     <div class="card-title gap-6">
                         
-                        <div class="d-flex align-items-center position-relative my-1" 
+                        <div class="d-flex align-items-center position-relative my-1 show-child" 
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Search for tasks by name" >
-                            <input type="text" class="filter-on-change form-control form-control-solid w-150px " placeholder="Search in Tasks" name="name">
+                            <input type="text" class="filter-on-change form-control form-control-solid w-150px " placeholder="Search in Tasks" name="name" id="search-name" data-element="tasks-container" data-form="filter-form">
+                            <i data-speech-target="search-name" id="mic-icon" class='hidden absolute top-2 right-0 cursor-pointer p-2 fs-1 show-on-hover bx bxs-microphone-alt'></i>
                         </div>
                         <div class="d-flex align-items-center position-relative my-1"
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter tasks by Due date" >
