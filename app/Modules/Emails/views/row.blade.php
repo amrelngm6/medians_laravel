@@ -75,10 +75,10 @@
                 <div class="mr-5 flex w-72 flex-none items-center">
                     <label class="form-check form-check-custom form-check-solid"> <input class="form-check-input "
                             type="checkbox" /> </label>
-                    <a data-switch="add-star{{$message->id}}" id="remove-star{{$message->id}}" href="{{route('EmailMessage.update', $message->id)}}?_token={{csrf_token()}}&favourite=1" class="{{$message->read ? 'hidden' : ''}} ajax-link switch-view ml-4  pt-1 px-1 flex-none items-center justify-center text-slate-400" href="#">
+                    <a data-switch="add-star{{$message->id}}" id="remove-star{{$message->id}}" href="{{route('EmailMessage.update', $message->id)}}?_token={{csrf_token()}}&favourite=1" class="{{$message->favourite ? 'hidden' : ''}} ajax-link switch-view ml-4  pt-1 px-1 flex-none items-center justify-center text-slate-400" href="#">
                         <i class='bx bx-star fs-3'></i>
                     </a>
-                    <a data-switch="remove-star{{$message->id}}" id="add-star{{$message->id}}" href="{{route('EmailMessage.update', $message->id)}}?_token={{csrf_token()}}&favourite=0" class="{{!$message->read ? 'hidden' : ''}} switch-view  ml-4  pt-1 px-1 flex-none items-center justify-center text-slate-400" href="#">
+                    <a data-switch="remove-star{{$message->id}}" id="add-star{{$message->id}}" href="{{route('EmailMessage.update', $message->id)}}?_token={{csrf_token()}}&favourite=0" class="{{!$message->favourite ? 'hidden' : ''}} switch-view  ml-4  pt-1 px-1 flex-none items-center justify-center text-slate-400" href="#">
                         <i class='bx bxs-star text-danger fs-3'></i>
                     </a>
                     <div class="ml-3 text-truncate font-medium" rel="popover" data-toggle="popover" data-placement="top"
