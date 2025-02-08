@@ -18,4 +18,10 @@ class AttendanceService
         $this->model = $model;
     }
 
+    
+    public function createAttendance(array $data)
+    {
+        return Attendance::create($data);
+    }
+    
 }

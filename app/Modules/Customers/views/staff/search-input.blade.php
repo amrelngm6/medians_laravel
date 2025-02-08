@@ -1,7 +1,7 @@
 @php $rand = rand(1, 9) @endphp
 <div class="select-placeholder w-full" rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover"
     data-content="Filter by Staff Name">
-
+    <input type="hidden" name="user_type" value="{{get_class(Auth::user())}}" />
     <!-- <label for="assigned" class="control-label">Assigned To</label> -->
     <select id="name-filter{{$rand}}" name="{{$selectedInputName ?? 'staff_id'}}" placeholder="A"
         data-live-search="true"
@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
                 preserveSelected: false, // Preserve selected items
                 liveSearch: true // Enable live search
             });
-    }, 2000);
+    }, 10);
 })
 </script>
 @endsection

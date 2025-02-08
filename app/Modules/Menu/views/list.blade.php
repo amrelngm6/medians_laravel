@@ -80,10 +80,14 @@
                             <!--begin::Body-->
                             <div class="card-body card-body d-flex justify-content-between flex-column pt-3">
                             @php     
-                            $menuNames = $Menu->pluck('route_name')->toArray()
+                            $menuNames = $Menu->pluck('route_name')->toArray();
+                            // $subMenuNames = array_column(array_filter($Menu->pluck('children')->select('name')->toArray()), 'route_name');
+                            $subMenuNames = call_user_func_array('array_merge', array_map(function($a) {
+                                return array_column($a, 'route_name');
+                            }, array_values(array_filter($Menu->pluck('children')->toArray()))));
                             @endphp
                                 @foreach ($modules as $module)
-                                @if (!in_array($module->route_name, $menuNames))
+                                @if (!in_array($module->route_name, $menuNames) && !in_array($module->route_name, $subMenuNames ) )
                                 <!--begin::Item-->
                                 <div class="d-flex flex-stack py-2" id="module-{{$module->id}}"
                                     onClick="(function(){ jQuery('#module-{{$module->id}}').remove(); return addMenuItem({{ json_encode($module)}}); })();">
