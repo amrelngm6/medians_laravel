@@ -6,7 +6,9 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-    function testSpeech(elementId, formId = null) {
+    function testSpeech(elementId, micIcon = null) {
+        jQuery(micIcon).toggleClass('text-danger')
+
         var recognition = new SpeechRecognition();
         // recognition.lang = 'en-US';
         recognition.interimResults = false;
@@ -18,6 +20,7 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
             var speechResult = event.results[0][0].transcript.toLowerCase();
             jQuery(elementId).val(speechResult)
             jQuery(elementId).data('form') ? submitForm(jQuery(elementId).data('form'), jQuery(elementId).data('element')) : ''
+            jQuery(micIcon).toggleClass('text-danger')
         }
 
         recognition.onspeechend = function() {

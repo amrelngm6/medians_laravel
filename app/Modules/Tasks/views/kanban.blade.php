@@ -17,14 +17,14 @@
                                 
                         <div class="d-flex align-items-center position-relative my-1 show-child" 
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Search for tasks by name" >
-                            <input type="text" class="filter-on-change form-control form-control-solid w-150px " placeholder="Search in Tasks" name="name" id="search-name" data-element="invoices" data-form="filter-form">
-                            <i onClick="(function(){testSpeech('#search-name');})()"  class='hidden absolute top-2 right-0 cursor-pointer p-2 fs-1 show-on-hover bx bxs-microphone-alt'></i>
+                            <input type="text" class="filter-on-change form-control form-control-solid w-150px " placeholder="Search in Tasks" name="name" id="search-name" data-element="tasks-container" data-form="filter-form">
+                            <i onClick="(function(){testSpeech('#search-name', '#mic-icon');})()" id="mic-icon" class='hidden absolute top-2 right-0 cursor-pointer p-2 fs-1 show-on-hover bx bxs-microphone-alt'></i>
                         </div>
                         
                         
                         <div class="d-flex align-items-center position-relative my-1"
                             rel="popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Filter tasks by Due date" >
-                            <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-form" data-element="invoices" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
+                            <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-form" data-element="tasks-container" class="filter-on-change datepicker form-control form-control-solid py-1 w-200px" />
                         </div>  
                         
                         <div class="d-flex align-items-center position-relative my-1">

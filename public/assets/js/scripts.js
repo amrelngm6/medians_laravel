@@ -55,7 +55,7 @@ var MediansSettings = window.MediansSettings || {};
         // Get the form and submit button elements
         const form = document.getElementById(formId);
         const element = document.getElementById(elementId);
-    
+        
         if (!form)
             return null;
     
