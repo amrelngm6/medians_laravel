@@ -24,7 +24,7 @@
                                                 $dates = array_column($userAttendance, 'date'); 
                                             @endphp
                                             @foreach (range(0, $days) as $day)
-                                            @php $dayDate = date('Y-m-d', strtotime(date('Y-m-'.$day))); @endphp
+                                            @php $dayDate = date('Y-m-d', strtotime(date('Y-m-'.$day, strtotime($month)))); @endphp
                                             <td class="fs-1">
                                                 @if (in_array($dayDate, $dates)) <span rel="popover" data-toggle="popover" data-trigger="hover" data-html="1"
                                                     data-title="{{$dayDate}}"
