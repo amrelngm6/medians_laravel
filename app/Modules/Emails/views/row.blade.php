@@ -74,15 +74,18 @@
                     <a data-switch="remove-star{{$message->id}}" id="add-star{{$message->id}}" href="{{route('EmailMessage.update', $message->id)}}?_token={{csrf_token()}}&favourite=0" class="{{!$message->favourite ? 'hidden' : ''}} ajax-link switch-view ml-4  pt-1 px-1 flex-none items-center justify-center text-slate-400" href="#">
                         <i class='bx bxs-star text-danger fs-3'></i>
                     </a>
+
                     <div class="ml-3 text-truncate font-medium" rel="popover" data-toggle="popover" data-placement="top"
                         data-trigger="hover" data-title="{{$message->sender_name}}"
                         data-content="From: {{$message->sender_email ?? ''}}">
-                        {{$message->sender_name}}
+                        <a class="text-primary" href="{{route('EmailMessage.show', ['account_id'=>$account->id, 'msg_id'=>$message->id])}}">
+                            {{$message->sender_name}}
+                        </a>
                     </div>
                 </div>
                 <a href="{{route('EmailMessage.show', ['account_id'=>$account->id, 'msg_id'=>$message->id])}}"
                     class="w-64 text-truncate sm:w-auto">
-                    <span class="ml-3 text-truncate font-medium text-{{!$message->read ? 'danger' : 'muted'}}">
+                    <span class="ml-3 text-truncate fw-bold text-{{!$message->read ? 'danger' : 'muted'}}">
                         {{$message->subject}}
                     </span>
                     <span class="text-muted">
