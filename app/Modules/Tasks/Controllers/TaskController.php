@@ -21,12 +21,6 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-        // List tasks
-        switch ($request->get('view')) {
-            case 'kanban':
-                return view('tasks::kanban');
-                break;
-        }
 
         $statusList = $this->service->loadStatusList();   
         return view('tasks::list', compact('statusList'));
@@ -35,7 +29,7 @@ class TaskController extends Controller
     
     public function filter(Request $request)
     {
-        $tasks = $this->service->query($request)->orderBy('task_id', 'DESC')->get();   
+        $tasks = $this->service->query($request, null, $request->model_type)->orderBy('task_id', 'DESC')->get();   
 
         return view('tasks::rows', compact('tasks'));
     }
@@ -51,14 +45,16 @@ class TaskController extends Controller
 
     public function kanban(Request $request)
     {
+        $user = Auth::user();
         $statusList = $this->service->loadStatusList();   
-        return view('tasks::kanban', compact('statusList'));
+        $types = $this->service->model->forBusiness($user->business_id)->get()->select('model_type')->unique('model_type');
+        return view('tasks::kanban', compact('statusList', 'types'));
     }
     
     public function filterKanban(Request $request)
     {
         
-        $tasks = $this->service->query($request)->orderBy('sort')->get();
+        $tasks = $this->service->query($request, null, $request->model_type)->orderBy('sort')->get();
 
         $statusList = $this->service->loadStatusList();
 

@@ -16,7 +16,7 @@ class TaskService
 
     public function __construct()
     {
-        $this->model = Task::class;
+        $this->model = new Task;
     }
 
     public function createTask(array $data)
@@ -105,9 +105,14 @@ class TaskService
         $query = Task::forBusiness(Auth::user()->business_id ?? null)
                  ->with('team','checklist', 'model');
 
-        if (!empty($modelId) && !empty($modelType))
+        if (!empty($modelType))
         {
-            $query->where('model_id', $modelId) ->where('model_type', $modelType);
+            $query->where('model_type', $modelType);
+        }
+
+        if (!empty($modelId) )
+        {
+            $query->where('model_id', $modelId);
         }
 
         if (!empty($request->name))
