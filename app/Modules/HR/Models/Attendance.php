@@ -54,7 +54,7 @@ class Attendance extends Model
      */
     public function month_list($month, $user)
     {
-        return $this->forUser($user)->whereDate('check_in', '>=', date('Y-m-d', strtotime($month)))->select('check_in','check_out',  DB::raw('DATE(check_in) AS date'))->get()->groupBy('date');
+        return $this->forUser($user)->whereDate('check_in', '>=', date('Y-m-d', strtotime($month)))->select('check_in','shift_id','check_out',  DB::raw('DATE(check_in) AS date'))->get()->groupBy('date');
 
     }
 
