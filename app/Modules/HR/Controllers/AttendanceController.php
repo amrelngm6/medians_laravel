@@ -142,7 +142,7 @@ class AttendanceController extends Controller
             // Create and save the Attendance
             $attendance = $this->service->createAttendance( array_merge($userData, $request->only('shift_id', 'check_in')) );
             
-            return $attendance ? $this->jsonResponse('Created successfully') : null;
+            return $attendance ? $this->jsonResponse('Lets get things done', 'Nice day', true) : null;
             
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage(), 'Validation Error');
