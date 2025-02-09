@@ -12,6 +12,8 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Modules\Core\Models\Status;
 use App\Modules\Core\Models\Business;
 use App\Modules\Core\Models\LocationInfo;
+use App\Modules\Core\Models\ModelField;
+use App\Modules\Tasks\Models\Task;
 use App\Modules\Customers\Models\Customer;
 use App\Modules\Packages\Models\Package;
 use App\Modules\Packages\Models\PackageSubscription;
@@ -88,13 +90,15 @@ class Staff extends Authenticatable
         return $this->staff_id;
     }
 
+    
 
-    public function customers()
+
+    public function custom_field($code)
     {
-        return $this->morphMany(ModelMember::class, 'user')->with('model')->where('model_type', Customer::class);
+        return $this->morphOne(ModelField::class, 'user')->where('code', $code);
     }
     
-    
+
     /**
      * Staff tasks
      */

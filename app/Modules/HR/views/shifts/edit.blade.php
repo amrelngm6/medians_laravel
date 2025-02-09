@@ -1,7 +1,7 @@
 
 <div class="modal fade show active" id="new-shift-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-700px">
+    <div class="modal-dialog modal-dialog-centered mw-800px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -24,7 +24,7 @@
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Add Shift </h1>
+                        <h1 class="mb-3">Edit Shift </h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
@@ -48,7 +48,6 @@
                                 <div class=" w-full">
                                     <div class="fw-semibold me-5 w-full">
                                         <label for="assigned" class="control-label">Shift name</label>
-                                        <div class="fs-7 text-muted">Name of the Shift</div>
                                     </div>
                                     <div class="d-flex align-items-center w-full">
                                         <input class="form-control form-control-solid" placeholder="Shift name "
@@ -74,6 +73,40 @@
                                     <input type="time" class=" form-control form-control-solid  " 
                                         id="end_time" name="end_time"  value="{{$shift->end_time}}" >
                                 </div>
+                            </div>
+                        </div>
+                        <div class="w-full ">
+                                <div class="mh-300px scroll-y me-n7 pe-7">
+                                @foreach ($staffList as $staffMember)
+                                <div class="d-flex flex-stack py-4 border-bottom border-gray-300 border-bottom-dashed" data-select2-id="select2-data-119-vleb">
+                                    <!--begin::Details-->
+                                    <div class="d-flex align-items-center">
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-35px symbol-circle">
+                                            <img alt="Pic" src="/{{$staffMember->picture ?? ''}}">
+                                        </div>
+                                        <!--end::Avatar-->
+
+                                        <!--begin::Details-->
+                                        <div class="ms-5">
+                                            <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{$staffMember->name}}</a>
+
+                                            <div class="fw-semibold text-muted">{{$staffMember->email}}</div>
+                                        </div>
+                                        <!--end::Details-->
+                                    </div>
+                                    <!--end::Details-->
+
+                                    <!--begin::Access menu-->
+                                    <div class="ms-2 w-100px" data-select2-id="select2-data-118-lv09">
+                                        <select class="form-select form-select-solid form-select-sm select2-hidden-accessible" data-control="select2" data-dropdown-parent="#kt_modal_invite_friends" data-hide-search="true" data-select2-id="select2-data-15-r9fa" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                            <option value="1" @if ($staffMember->custom_field('shift_id')) selected @endif >Yes</option>
+                                            <option value="0" @if ($staffMember->custom_field('shift_id')) selected @endif >No</option>
+                                        </select>
+                                    </div>
+                                    <!--end::Access menu-->
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

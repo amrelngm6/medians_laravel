@@ -28,6 +28,14 @@ class ShiftService
         return $shift->with('user')->get();
     }
 
+    public function find($id)
+    {
+        $business_id = Auth::user()->business_id ?? 0;
+        $shift = Shift::forBusiness($business_id);
+
+        return $shift->findOrFail($id);
+    }
+
 
     
     public function createShift(array $data)
@@ -41,6 +49,7 @@ class ShiftService
         $shift = Shift::findOrFail($id);
         return $shift->update($data);
     }
+
 
     public function deleteShift($id)
     {

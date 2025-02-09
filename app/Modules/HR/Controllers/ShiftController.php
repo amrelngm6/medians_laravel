@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth;
 
 use App\Modules\HR\Services\ShiftService;
+use App\Modules\Customers\Services\StaffService;
 
 class ShiftController extends Controller
 {
@@ -69,10 +70,13 @@ class ShiftController extends Controller
         if ($user->cannot('Shift edit') && Auth::guardName() != 'admin') {
             abort(401, 'Unauthorized');
         }
-        
+
+        $staffService = new StaffService;
+        $staffList = $staffService->loadStaff();
+
         $shift = $this->service->find($id);
 
-        return view('shifts::edit', compact( 'user', 'shift'));
+        return view('shifts::edit', compact( 'user', 'shift', 'staffList'));
     }
 
     /**
