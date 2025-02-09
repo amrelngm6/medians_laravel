@@ -163,7 +163,7 @@ class ShiftController extends Controller
         return $source ? response()->json([
             'success' => true,
             'title' => 'Done',
-            'reload' => true,
+            'no_reset' => true,
             'result' => 'Updated successfully',
         ], 200) : null;
     }
