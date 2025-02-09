@@ -76,9 +76,9 @@
                             </div>
                         </div>
                         <div class="w-full ">
-                                <div class="mh-300px scroll-y me-n7 pe-7">
+                            <div class="mh-300px scroll-y me-n7 pe-7">
                                 @foreach ($staffList as $staffMember)
-                                <div class="d-flex flex-stack py-4 border-bottom border-gray-300 border-bottom-dashed" data-select2-id="select2-data-119-vleb">
+                                <div class="d-flex flex-stack py-4 border-bottom border-gray-300 border-bottom-dashed">
                                     <!--begin::Details-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Avatar-->
@@ -98,11 +98,16 @@
                                     <!--end::Details-->
 
                                     <!--begin::Access menu-->
-                                    <div class="ms-2 w-100px" data-select2-id="select2-data-118-lv09">
-                                        <select class="form-select form-select-solid form-select-sm select2-hidden-accessible" data-control="select2" data-dropdown-parent="#kt_modal_invite_friends" data-hide-search="true" data-select2-id="select2-data-15-r9fa" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                                            <option value="1" @if ($staffMember->custom_field('shift_id')) selected @endif >Yes</option>
-                                            <option value="0" @if ($staffMember->custom_field('shift_id')) selected @endif >No</option>
-                                        </select>
+                                    <div class="ms-2 w-100px" >
+                                        
+                                        <!--begin::Switch-->
+                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                            <input class="form-check-input w-30px h-20px" type="checkbox" name="staff_id[]" value="{{$staffMember->id}}" {{$staffMember->custom_field('shift_id') ? '' : 'checked'}} />
+                                            <span class="form-check-label fw-semibold text-muted">
+                                            Join
+                                            </span>
+                                        </label>
+                                        <!--end::Switch-->
                                     </div>
                                     <!--end::Access menu-->
                                 </div>
