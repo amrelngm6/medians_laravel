@@ -57,7 +57,7 @@ class AttendanceService
             $attendance->whereDate('check_in', '<', date('Y-m-'.$days, strtotime($request->month)));
         }
 
-        return $attendance->with('user')->get();
+        return $attendance->with('user', 'shift')->get();
     }
 
 }

@@ -33,33 +33,53 @@
     <div class="clearfix"></div>
     <!-- STATS AREA STARTS -->
 
-    
+
 
     <div class="clearfix"></div>
 
     <!-- MAIN CONTENT AREA STARTS -->
     <div class="col-xs-12 ">
         <section class="card ">
-            <form action="{{route('Shift.filter')}}" id="filter-form" class="card-header ajax-form">
-                @csrf
-                <div class="card-title w-full gap-4">
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <input value="{{date('01-01-Y')}} - {{date('m-d-Y')}}" type="text" name="date" id="filter-date" data-form="filter-date" data-element="shifts" class="filter-on-change datepicker form-control form-control-solid  w-200px" />
-                    </div>
-                    
-                    <div class="flex flex-equal flex-end">
-                        <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Shift.create')}}" data-modal="#new-shift-modal">
+            <div class="card-title w-full gap-4">
+                <div class="flex flex-equal flex-end">
+                    <span class="fs-2 w-full"> Shifts management </span>
+                    <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Shift.create')}}"
+                        data-modal="#new-shift-modal">
                         New Shift </a>
-                    </div>
                 </div>
-            </form>
-            <div class="card-body" id="shifts">
-                <div class="w-full">
+            </div>
+            <div class="card-body px-2" id="shifts">
+                <table id="example" class="text-start display datatable table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-start">#</th>
+                            <th class="text-start">Name</th>
+                            <th class="text-start">Start</th>
+                            <th class="text-start">End</th>
+                            <th class="text-start">Days</th>
+                            <th class="text-start">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows-shifts">
+                        @foreach ($shifts as $shift)
+                        <tr>
+                            <td>{{ $shift->id }}</td>
+                            <td>{{ $shift->name }}</td>
+                            <td>{{date('H:i a', strtotime($shift->start_time)) }}</td>
+                            <td>{{date('H:i a', strtotime($shift->end_time)) }}</td>
+                            <td>{{"1" }}</td>
+                            <td>
+                                <div
+                                    class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+                                    <a href="javascript:;" data-path="{{route('Shift.delete', $shift->id)}}"
+                                        class="delete-item "><i class='bx bx-trash fs-4'></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
 
-                    <div class="card-body">
-                        <div class="table" id="datatable-content" data-pattern="priority-columns"></div>
-                    </div>                    
-                </div>
+                    </tbody>
+                </table>
             </div>
         </section>
     </div>

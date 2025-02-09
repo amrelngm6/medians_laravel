@@ -27,7 +27,9 @@ class ShiftController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        return view('shifts::list', compact('user'));
+        $shifts = $this->service->query($request);
+
+        return view('shifts::list', compact('user', 'shifts'));
     }
 
     /**
@@ -37,7 +39,6 @@ class ShiftController extends Controller
     {
         $user = Auth::user();
 
-        $shifts = $this->service->query($request);
 
         $model = $this->service->model;
 

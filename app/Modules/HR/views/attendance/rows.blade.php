@@ -26,7 +26,9 @@
                                             @foreach (range(0, $days) as $day)
                                             @php $dayDate = date('Y-m-d', strtotime(date('Y-m-'.$day, strtotime($month)))); @endphp
                                             <td class="fs-1">
-                                                @if (in_array($dayDate, $dates)) <span rel="popover" data-toggle="popover" data-trigger="hover" data-html="1"
+                                                @if ( isset($staffAttendance->shift->{strtolower(date('l', strtotime($dayDate)))}) )
+                                                01
+                                                @elseif (in_array($dayDate, $dates)) <span rel="popover" data-toggle="popover" data-trigger="hover" data-html="1"
                                                     data-title="{{date('(l) d m, Y', strtotime($dayDate))}}"
                                                     data-content="Check-in: <b>{{isset($monthAttendance[$dayDate][0]['check_in']) ? date('H:i a', strtotime($monthAttendance[$dayDate][0]['check_in'])) : ''}}</b> <br /> Check-out: <b>{{isset($monthAttendance[$dayDate][0]['check_out']) ? date('H:i a', strtotime($monthAttendance[$dayDate][0]['check_out'])) : ''}}</b>"> <i class="bx bx-check text-danger "></i></span>
                                                 @elseif ($dayDate > date('Y-m-d'))

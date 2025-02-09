@@ -22,6 +22,15 @@ class Attendance extends Model
     }
     
     /**
+     * Load related Shift
+     */
+    public function shift()
+    {
+        return $this->hasOne(Shift::class, 'id', 'shift_id');
+    }
+    
+    
+    /**
      * Load related fields as Morph
      */
     public function fields()
