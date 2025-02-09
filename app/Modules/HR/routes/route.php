@@ -12,7 +12,7 @@ Route::prefix('attendance')->middleware(['web', 'auth:staff,superadmin'])->group
     Route::post('/check_in', [AttendanceController::class, 'check_in'])->name('Attendance.check_in');
     Route::post('/{id}/check_out', [AttendanceController::class, 'check_out'])->name('Attendance.check_out');
     Route::post('/{id}/update', [AttendanceController::class, 'update'])->name('Attendance.update');
-    Route::post('/{id}/destroy', [AttendanceController::class, 'destroy'])->name('Attendance.destroy');
+    Route::delete('/{id}/destroy', [AttendanceController::class, 'destroy'])->name('Attendance.destroy');
 });
 
 
@@ -28,6 +28,6 @@ Route::prefix('shifts')->middleware(['web', 'auth:staff,superadmin'])->group(fun
     Route::post('/filter', [ShiftController::class, 'filter'])->name('Shift.filter');
     Route::post('/store', [ShiftController::class, 'store'])->name('Shift.store');
     Route::post('/{id}/update', [ShiftController::class, 'update'])->name('Shift.update');
-    Route::post('/{id}/destroy', [ShiftController::class, 'destroy'])->name('Shift.delete');
+    Route::delete('/{id}/destroy', [ShiftController::class, 'destroy'])->name('Shift.delete');
 
 });
