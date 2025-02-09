@@ -4,7 +4,7 @@
     <form action="{{route('Attendance.check_in')}}" class="ajax-form " id="attendance-form">
         @csrf
         <input type="hidden" name="check_in" value="{{date('Y-m-d H:i:s')}}">
-        <input type="hidden" name="shift_id" value="{{$user->custom_field('shift_id')->where('value', $shift->id)->first()->value ?? 0}}">
+        <input type="hidden" name="shift_id" value="{{$user->custom_field('shift_id')->first()->value ?? 0}}">
 
         <button rel="popover" data-toggle="popover" data-placement="bottom" data-trigger="hover"
             data-content="Start Attendance for this task" type="submit" id="modal_new_target_submit"
