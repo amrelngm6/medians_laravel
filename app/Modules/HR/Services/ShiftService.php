@@ -49,8 +49,9 @@ class ShiftService
         $shift = Shift::findOrFail($id);
         $update =  $shift->update($data);
 
-        if (!empty($data['staff']))
+        if (!empty($data['staff'])) {
             $this->handleStaff($data['staff'], $id);
+        }
         
         return $shift;
     }
@@ -82,7 +83,7 @@ class ShiftService
 
             }
             
-            return true;
+            return $shiftRecord ??  false;
 
         } catch (\Throwable $th) {
             throw $th;
