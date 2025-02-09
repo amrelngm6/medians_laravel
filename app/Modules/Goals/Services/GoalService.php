@@ -23,9 +23,6 @@ class GoalService
     public function createGoal(array $data)
     {
         $goal = Goal::create($data);
-
-
-
         return $save;
     }
 

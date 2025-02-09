@@ -19,6 +19,96 @@ class ShiftController extends Controller
     }
 
 
+    public function index(Request $request)
+    {
+        $user = Auth::user();
 
+        if ($user->cannot('Shift view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        return view('shifts::list', compact('user'));
+    }
+
+    /**
+     * Filter data and return datatable
+     */
+    public function filter(Request $request)
+    {
+        $user = Auth::user();
+
+        $shifts = $this->service->query($request);
+
+        $model = $this->service->model;
+
+        return view('shifts::rows', compact('shifts', 'model'));
+    }
+
+
+    /**
+     * Create Shift Modal
+     */
+    public function create(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Shift create')) {
+            abort(401, 'Unauthorized');
+        }
+
+
+        return view('shifts::create', compact('user'));
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Shift edit') && Auth::guardName() != 'admin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $modules = $this->service->modules();
+
+        $shift = $this->service->find($id);
+
+        return view('shifts::edit', compact('modules', 'user', 'shift'));
+    }
+
+    public function store(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Shift create') && Auth::guardName() != 'admin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'start_time' => 'required|string',
+            'end_time' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $info = [
+            'business_id'=> $user->business_id ?? 0,
+        ];
+
+        $source = $this->service->createShift(array_merge($request->only('name', 'start_time', 'end_time','saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'), $info));  
+
+        return $source ? response()->json([
+            'success' => true,
+            'title' => 'Done',
+            'reload' => true,
+            'result' => 'Created',
+        ], 200) : null;
+    }
     
 }

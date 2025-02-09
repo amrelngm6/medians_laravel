@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Modules\HR\Controllers\AttendanceController;
+use App\Modules\HR\Controllers\ShiftController;
 
 Route::prefix('attendance')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
     Route::get('/', [AttendanceController::class, 'index'])->name('Attendance');
@@ -15,4 +16,14 @@ Route::prefix('attendance')->middleware(['web', 'auth:staff,superadmin'])->group
 
 Route::prefix('leaves')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
     Route::get('/', [AttendanceController::class, 'index'])->name('Leave');
+});
+
+Route::prefix('shifts')->middleware(['web', 'auth:staff,superadmin'])->group(function () {
+
+    Route::get('/', [ShiftController::class, 'index'])->name('Shift');
+    Route::get('/create', [ShiftController::class, 'create'])->name('Shift.create');
+    Route::post('/filter', [ShiftController::class, 'filter'])->name('Shift.filter');
+    Route::post('/store', [ShiftController::class, 'store'])->name('Shift.store');
+    Route::post('/{id}/destroy', [ShiftController::class, 'destroy'])->name('Shift.delete');
+
 });
