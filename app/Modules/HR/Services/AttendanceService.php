@@ -60,4 +60,14 @@ class AttendanceService
         return $attendance->with('user', 'shift')->get();
     }
 
+
+    /**
+     * Check current user acctive attendance
+     */
+    public static function getUserActiveAttendance()
+    {
+        $user = Auth::user();
+        
+        return Attendance::forUser($user)->where('check_out', null)->first();
+    }
 }

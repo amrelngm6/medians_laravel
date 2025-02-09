@@ -16,6 +16,7 @@
 
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
     @yield('script')
+    @yield('header-script')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
     <!-- CORE TEMPLATE JS - START -->

@@ -1,4 +1,7 @@
-<?php $user = auth()->user(); ?>
+@php 
+$user = auth()->user(); 
+$Modules = \App\Models\Module::get(); 
+@endphp
 
         <div class='page-topbar'>
             <div class='logo-area'>
@@ -12,12 +15,10 @@
                                 <i class="fa fa-bars"></i>
                             </a>
                         </li>
-                        <li class="topnav-item item1">
-                            <a href="#!" class="new-link w-text">Voice commands
-                                <span class="badge bg-primary ml-5 pt-1"><i class='bx bxs-microphone-alt' ></i> Start</span>
-                            </a>
-                        </li>
+                        <li class="sidebar-toggle-wrap">
 
+                        @include('attendance::check-in-out')
+                        </li>
 
                         <li class="hidden-sm hidden-xs searchform show-child">
 
@@ -379,3 +380,6 @@
             </div>
 
         </div>
+@section('header-script')
+@yield('attendance-script')
+@endsection

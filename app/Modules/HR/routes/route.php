@@ -9,6 +9,7 @@ Route::prefix('attendance')->middleware(['web', 'auth:staff,superadmin'])->group
     Route::get('/create', [AttendanceController::class, 'create'])->name('Attendance.create');
     Route::post('/filter', [AttendanceController::class, 'filter'])->name('Attendance.filter');
     Route::post('/store', [AttendanceController::class, 'store'])->name('Attendance.store');
+    Route::post('/{id}/end', [AttendanceController::class, 'end'])->name('Attendance.end');
     Route::post('/{id}/update', [AttendanceController::class, 'update'])->name('Attendance.update');
     Route::post('/{id}/destroy', [AttendanceController::class, 'destroy'])->name('Attendance.destroy');
 });
@@ -24,6 +25,7 @@ Route::prefix('shifts')->middleware(['web', 'auth:staff,superadmin'])->group(fun
     Route::get('/create', [ShiftController::class, 'create'])->name('Shift.create');
     Route::post('/filter', [ShiftController::class, 'filter'])->name('Shift.filter');
     Route::post('/store', [ShiftController::class, 'store'])->name('Shift.store');
+    Route::post('/{id}/update', [ShiftController::class, 'update'])->name('Shift.update');
     Route::post('/{id}/destroy', [ShiftController::class, 'destroy'])->name('Shift.delete');
 
 });

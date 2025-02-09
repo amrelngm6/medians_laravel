@@ -91,6 +91,7 @@ class AttendanceController extends Controller
                 'check_in' => 'required|date',
                 'check_out' => 'date',
                 'staff_id' => 'required|integer',
+                'shift_id' => 'required|integer',
             ]);
 
             if ($validator->fails()) {
@@ -102,13 +103,49 @@ class AttendanceController extends Controller
             $userData = [ 'user_id'=>$request->staff_id, 'business_id'=>$user->business_id ?? 0, 'platform' => 'web', 'ip' => $this->get_client_ip()];
 
             // Create and save the Attendance
-            $attendance = $this->service->createAttendance( array_merge($userData, $request->only('check_in', 'check_out', 'user_id', 'user_type')) );
+            $attendance = $this->service->createAttendance( array_merge($userData, $request->only('shift_id', 'check_in', 'check_out', 'user_id', 'user_type')) );
             
             return $attendance ? $this->jsonResponse('Created successfully') : null;
             
         } catch (\Throwable $th) {
             return $this->hasError($th->getMessage(), 'Validation Error');
             
+        }
+    }
+
+    /**
+     * Finish shift attendance
+     */
+    public function end(Request $request, $id)
+    {
+
+        $user = Auth::user();
+
+        if ($user->cannot('Attendance create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+            // Validate incoming request data
+            $validator = Validator::make($request->all(), [
+                'check_out' => 'date',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->hasError($validator->errors(), 'Validation Error');
+            }
+            
+            // Handle User who created it
+            $user = Auth::user();
+            $userData = [ 'user_id'=>$request->staff_id, 'business_id'=>$user->business_id ?? 0];
+
+            // Create and save the Attendance
+            $attendance = $this->service->updateAttendance( array_merge($userData, $request->only('check_out', 'notes')) );
+            
+            return $attendance ? $this->jsonResponse('Thanks for your work') : null;
+            
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage(), 'Validation Error');
         }
     }
 
