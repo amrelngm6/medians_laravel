@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('ip')->nullable();
             $table->string('platform')->nullable();
             $table->string('notes')->nullable();
+            $table->integer('shift_id')->default(0);
             $table->integer('business_id')->default(0);
             $table->timestamps();
         });
