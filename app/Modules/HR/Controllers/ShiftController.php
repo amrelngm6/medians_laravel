@@ -32,6 +32,7 @@ class ShiftController extends Controller
         return view('shifts::list', compact('user', 'shifts'));
     }
 
+
     /**
      * Filter data and return datatable
      */
@@ -68,12 +69,26 @@ class ShiftController extends Controller
         if ($user->cannot('Shift edit') && Auth::guardName() != 'admin') {
             abort(401, 'Unauthorized');
         }
+        
+        $shift = $this->service->find($id);
 
-        $modules = $this->service->modules();
+        return view('shifts::edit', compact( 'user', 'shift'));
+    }
+
+    /**
+     * Manage staff
+     */
+    public function show(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Shift edit') && Auth::guardName() != 'admin') {
+            abort(401, 'Unauthorized');
+        }
 
         $shift = $this->service->find($id);
 
-        return view('shifts::edit', compact('modules', 'user', 'shift'));
+        return view('shifts::edit', compact( 'user', 'shift'));
     }
 
     public function store(Request $request)

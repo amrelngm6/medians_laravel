@@ -24,6 +24,7 @@ Route::prefix('shifts')->middleware(['web', 'auth:staff,superadmin'])->group(fun
 
     Route::get('/', [ShiftController::class, 'index'])->name('Shift');
     Route::get('/create', [ShiftController::class, 'create'])->name('Shift.create');
+    Route::get('/{id}/edit', [ShiftController::class, 'edit'])->name('Shift.edit');
     Route::post('/filter', [ShiftController::class, 'filter'])->name('Shift.filter');
     Route::post('/store', [ShiftController::class, 'store'])->name('Shift.store');
     Route::post('/{id}/update', [ShiftController::class, 'update'])->name('Shift.update');
