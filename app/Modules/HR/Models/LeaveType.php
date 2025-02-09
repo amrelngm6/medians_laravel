@@ -25,15 +25,6 @@ class LeaveType extends Model
     
 
     /**
-     * Load related category as Morph
-     */
-    public function user()
-    {
-        return $this->morphTo();
-    }
-
-
-    /**
      * Scope for Business
      */
     public function scopeForBusiness($query, $businessId)
@@ -41,14 +32,5 @@ class LeaveType extends Model
         return $query->where('business_id', $businessId);
     }
     
-    /**
-     * Scope for User
-     */
-    public function scopeForUser($query, $user)
-    {
-        return $query
-        ->where('user_id', $user->id())
-        ->where('user_type', get_class($user));
-    }
 
 }

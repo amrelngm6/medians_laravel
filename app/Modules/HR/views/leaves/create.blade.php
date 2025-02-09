@@ -24,12 +24,12 @@
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Add Shift </h1>
+                        <h1 class="mb-3">Add Leave Type </h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Manage your Staff time Shifts.
+                            Manage your Staff Leave types with limits.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -39,11 +39,11 @@
                     <div class="mb-15 fv-row">
                         <div class="d-flex flex-stack w-full">
                             <div class="fw-semibold me-5 w-full">
-                                <label for="assigned" class="control-label">Shift name</label>
-                                <div class="fs-7 text-muted">Name of the Shift</div>
+                                <label for="assigned" class="control-label">Type name</label>
+                                <div class="fs-7 text-muted">Name of the allowed Leave Type</div>
                             </div>
                             <div class="d-flex align-items-center w-full">
-                                <input class="form-control form-control-solid" placeholder="Shift name "
+                                <input class="form-control form-control-solid" placeholder="Leave type name "
                                     name="name" />
                             </div>
                         </div>
@@ -53,20 +53,20 @@
 
                     <div class="w-full flex gap-10">
 
-                        <div class="form-group w-full"><label for="start_time" class="control-label" rel="popover"
-                        data-trigger="hover"data-toggle="popover" data-title="Attendance"
-                                data-placement="top" data-content="Attendance Start time">Start time <i
+                        <div class="form-group w-full"><label for="month_limit" class="control-label" rel="popover"
+                            data-trigger="hover" data-toggle="popover" data-title="Month limit"
+                                data-content="Limit to use this type within a Month">Month limit <i
                                 class="bx bx-help-circle"></i></label>
-                            <input type="time" class=" form-control form-control-solid  " id="start_time" name="start_time"
-                                value="{{date('H:00')}}">
+                            <input type="number" class=" form-control form-control-solid  " id="month_limit" name="month_limit"
+                                >
                         </div>
-                        <div class="form-group w-full"><label for="end_time" class="control-label" rel="popover"
-                                data-animate=" animated fadeIn " data-container="body" data-toggle="popover"
-                                data-placement="top" data-content="End time of the Shift"
-                                data-title="Leave time" data-trigger="hover" data-html="true">Leave time <i
+                        <div class="form-group w-full"><label for="annual_limit" class="control-label" rel="popover"
+                                data-animate=" animated fadeIn " data-toggle="popover"
+                                data-placement="" data-content="Limit to apply for this type within a Year"
+                                data-title="Annual limit" data-trigger="hover" data-html="true">Annual limit <i
                                     class="bx bx-help-circle"></i></label>
-                            <input type="time" class=" form-control form-control-solid  " 
-                                id="end_time" name="end_time"  value="{{date('H:00', strtotime('+7 Hour'))}}" >
+                            <input type="number" class=" form-control form-control-solid  " 
+                                id="annual_limit" name="annual_limit"  >
                         </div>
                     </div>
                     

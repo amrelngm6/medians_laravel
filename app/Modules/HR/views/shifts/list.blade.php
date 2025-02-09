@@ -54,7 +54,6 @@
                             <th class="text-start">Name</th>
                             <th class="text-start">Start</th>
                             <th class="text-start">End</th>
-                            <th class="text-start">Days</th>
                             <th class="text-start">Actions</th>
                         </tr>
                     </thead>
@@ -65,7 +64,6 @@
                             <td>{{ $shift->name }}</td>
                             <td>{{date('H:i a', strtotime($shift->start_time)) }}</td>
                             <td>{{date('H:i a', strtotime($shift->end_time)) }}</td>
-                            <td>{{"1" }}</td>
                             <td>
                                 <div
                                     class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
