@@ -168,4 +168,27 @@ class ShiftController extends Controller
         ], 200) : null;
     }
     
+
+    
+    
+    public function destroy($id)
+    {
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Shift delete') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+            return $this->service->deleteShift($id) 
+                ? $this->jsonResponse('Deleted successfully') 
+                : $this->hasError('Failed to destroy') ;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage()) ;
+        }
+
+    }
+
 }
