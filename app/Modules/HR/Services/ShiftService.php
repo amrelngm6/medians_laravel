@@ -77,7 +77,7 @@ class ShiftService
                     'model_id' => $value,
                     'code' => 'shift_id',
                     'field_id' => '0',
-                    'value' => 1,
+                    'value' => $id,
                     'business_id' => $user->business_id
                 ]);
 
