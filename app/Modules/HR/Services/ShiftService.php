@@ -47,7 +47,12 @@ class ShiftService
     public function updateShift($id, array $data)
     {
         $shift = Shift::findOrFail($id);
-        return $shift->update($data);
+        $update =  $shift->update($data);
+
+        if (!empty($data['staff']))
+            $this->handleStaff($data['staff'], $id);
+        
+        return $shift;
     }
 
 
@@ -55,6 +60,33 @@ class ShiftService
     {
         $shift = Shift::findOrFail($id);
         return $shift->delete();
+    }
+
+
+    public function handleStaff($data, $id)
+    {
+        try {
+                
+            $user = Auth::user();
+            $delete = ModelField::code('shift_id')->whereNotIn('model_id', $data)->delete();
+            foreach ($data as $key => $value) 
+            {
+                $shiftRecord = ModelField::firstOrCreate([
+                    'model_type' => get_class($user),
+                    'model_id' => $user->{$user->getKeyName()},
+                    'code' => 'shift_id',
+                    'field_id' => '0',
+                    'value' => 1,
+                    'business_id' => $user->business_id
+                ]);
+
+            }
+            
+            return true;
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
 

@@ -18,7 +18,7 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                         
-                <form action="{{route('Shift.store')}}" class="w-full ajax-form card-body " id="shift-form" >
+                <form action="{{route('Shift.update', $shift->id)}}" class="w-full ajax-form card-body " id="shift-form" >
                     @csrf
 
                     <!--begin::Heading-->
@@ -102,7 +102,7 @@
                                         
                                         <!--begin::Switch-->
                                         <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <input class="form-check-input w-30px h-20px" type="checkbox" name="staff_id[]" value="{{$staffMember->id}}" {{$staffMember->custom_field('shift_id') ? '' : 'checked'}} />
+                                            <input class="form-check-input w-30px h-20px" type="checkbox" name="staff[]" value="{{$staffMember->id}}" {{isset($staffMember->custom_field('shift_id')->where('value', $shift->id)->first()->value)  ? 'checked' : ''}} />
                                             <span class="form-check-label fw-semibold text-muted">
                                             Join
                                             </span>
@@ -129,7 +129,7 @@
                                 <!--begin::Checkbox-->
                                 <label class="form-check form-check-custom form-check-solid me-4">
                                     <input class="form-check-input h-20px w-20px me-1" type="checkbox"
-                                        name="{{$dayName}}" value="1" />
+                                        name="{{$dayName}}" value="1" {{empty($shift->{$dayName}) ? '' : 'checked'}}  />
                                         {{ucfirst($dayName)}}
                                 </label>
                                 <!--end::Checkbox-->

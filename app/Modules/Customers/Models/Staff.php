@@ -95,7 +95,7 @@ class Staff extends Authenticatable
 
     public function custom_field($code)
     {
-        return $this->morphOne(ModelField::class, 'user')->where('code', $code);
+        return $this->morphOne(ModelField::class, 'model')->where('code', $code);
     }
     
 

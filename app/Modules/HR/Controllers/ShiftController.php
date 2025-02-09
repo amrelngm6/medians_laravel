@@ -131,4 +131,41 @@ class ShiftController extends Controller
         ], 200) : null;
     }
     
+    
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Shift edit') && Auth::guardName() != 'admin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'start_time' => 'required|string',
+            'end_time' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $info = [
+            'business_id'=> $user->business_id ?? 0,
+        ];
+
+        $source = $this->service->updateShift($id, array_merge($request->only('name', 'start_time', 'end_time','saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'staff'), $info));  
+
+        return $source ? response()->json([
+            'success' => true,
+            'title' => 'Done',
+            'reload' => true,
+            'result' => 'Updated successfully',
+        ], 200) : null;
+    }
+    
 }
