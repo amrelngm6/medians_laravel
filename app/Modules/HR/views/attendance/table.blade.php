@@ -97,12 +97,9 @@
                         <form action="{{route('Attendance.filter')}}" data-element="attendance-list" id="filter-form" class="card-header ajax-form">
                             @csrf
                             <div class="card-title w-full gap-4">
-                                <div class="d-flex align-items-center position-relative my-1">
+                                <div class="d-flex align-items-center position-relative my-1" rel="popover" data-toggle="popover" data-trigger="hover" data-html="1"
+                                        data-content="Filter by <b>Month</b>">
                                     <input type="month" name="month" id="filter-date" data-form="filter-form" data-element="attendance-list" class="filter-on-change  form-control form-control-solid py-2 w-200px" />
-                                </div>
-                                
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    @include('status.status-field-inline')
                                 </div>
                                 
                                 <div class="flex flex-equal flex-end">
