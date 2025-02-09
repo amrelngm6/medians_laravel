@@ -28,6 +28,7 @@ class ShiftService
         return $shift->with('user')->get();
     }
 
+
     
     public function createShift(array $data)
     {

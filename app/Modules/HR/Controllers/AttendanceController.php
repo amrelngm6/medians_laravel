@@ -56,7 +56,9 @@ class AttendanceController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        return view('attendance::create', compact('user'));
+        $shifts = $this->service->loadShifts($request);
+
+        return view('attendance::create', compact('user', 'shifts'));
     }
 
     public function edit(Request $request, $id)

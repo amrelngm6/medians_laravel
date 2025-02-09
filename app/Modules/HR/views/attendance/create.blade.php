@@ -39,11 +39,34 @@
                     <div class="mb-15 fv-row">
                         <div class="d-flex flex-stack w-full">
                             <div class="fw-semibold me-5 w-full">
-                                <label for="assigned" class="control-label">Select User</label>
+                                <label for="assigned" class="control-label">Staff Member</label>
                                 <div class="fs-7 text-muted">Select related User of this attendance record</div>
                             </div>
                             <div class="d-flex align-items-center w-full">
                                 @include('staff::search-input')
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+
+
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label for="assigned" class="control-label">Work Shift</label>
+                                <div class="fs-7 text-muted">Select related Shift of this attendance</div>
+                            </div>
+                            <div class="d-flex align-items-center w-full">
+                                <div class="select-placeholder w-full" >
+                                    <select name="shift_id" placeholder="A"
+                                        data-live-search="true"
+                                        class="select-bootstrap border border-gray-300 form-control form-control-solid ">
+                                        @foreach ($shifts as $shift)
+                                        <option value="{{$shift->id}}">{{$shift->name}}</option>
+                                        @endforeach 
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>

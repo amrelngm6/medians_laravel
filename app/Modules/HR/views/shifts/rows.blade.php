@@ -6,7 +6,6 @@
             <th class="text-start">Start</th>
             <th class="text-start">End</th>
             <th class="text-start">Days</th>
-            <th class="text-start">Status</th>
             <th class="text-start">Actions</th>
         </tr>
     </thead>

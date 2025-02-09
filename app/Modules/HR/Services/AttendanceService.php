@@ -5,6 +5,7 @@ namespace App\Modules\HR\Services;
 use App\Modules\Core\Models\ModelField;
 use App\Modules\CustomFields\Models\CustomField;
 use App\Modules\HR\Models\Attendance;
+use App\Modules\HR\Models\Shift;
 
 use App\Models\Auth;
 
@@ -16,6 +17,15 @@ class AttendanceService
     public function __construct(Attendance $model)    
     {
         $this->model = $model;
+    }
+
+    
+    public function loadShifts($request)
+    {
+        $business_id = Auth::user()->business_id ?? 0;
+        $shift = Shift::forBusiness($business_id);
+
+        return $shift->get();
     }
 
     
