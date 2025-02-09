@@ -128,6 +128,7 @@
 
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+@include('assets.datatable-scripts')
 
 
 

@@ -1852,6 +1852,14 @@ jQuery(function($) {
                     [10, 25, 50, 100, "All"]
                 ]
             });
+            
+            jQuery("table.dataTable").dataTable({
+                responsive: false,
+                aLengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, "All"]
+                ]
+            });
         }
 
     };
