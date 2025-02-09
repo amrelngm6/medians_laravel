@@ -69,7 +69,7 @@ class ShiftService
         try {
                 
             $user = Auth::user();
-            $delete = ModelField::code('shift_id')->whereNotIn('model_id', $data)->delete();
+            $delete = ModelField::code('shift_id')->where('value', '!=', $id)->whereNotIn('model_id', $data)->delete();
             foreach ($data as $key => $value) 
             {
                 $shiftRecord = ModelField::firstOrCreate([
