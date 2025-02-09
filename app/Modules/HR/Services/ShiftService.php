@@ -74,7 +74,7 @@ class ShiftService
             {
                 $shiftRecord = ModelField::firstOrCreate([
                     'model_type' => get_class($user),
-                    'model_id' => $user->{$user->getKeyName()},
+                    'model_id' => $value,
                     'code' => 'shift_id',
                     'field_id' => '0',
                     'value' => 1,
