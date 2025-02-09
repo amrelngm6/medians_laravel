@@ -89,7 +89,6 @@ class AttendanceController extends Controller
             // Validate incoming request data
             $validator = Validator::make($request->all(), [
                 'check_in' => 'required|date',
-                'check_out' => 'date',
                 'staff_id' => 'required|integer',
                 'shift_id' => 'required|integer',
             ]);
