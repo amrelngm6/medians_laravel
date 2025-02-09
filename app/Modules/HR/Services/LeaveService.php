@@ -30,16 +30,31 @@ class LeaveService
     }
 
     
+
+    public function find($id)
+    {
+        $business_id = Auth::user()->business_id ?? 0;
+        return Leave::forBusiness($business_id)->findOrFail($id);
+    }
+    
     public function createLeave(array $data)
     {
         return Leave::create($data);
     }
     
-    public function updateLeave($id, array $data, $user)
+    public function updateLeave($id, array $data)
     {
         $item = Leave::forUser($user)->findOrFail($id);
         return $item->update($data);
     }
+    
+    public function deleteLeave($id)
+    {
+        $leavetype = $this->find($id);
+        return $leavetype->delete();
+    }
+
+
 
     public function query($request)
     {
@@ -87,4 +102,50 @@ class LeaveService
         
         return Leave::forUser($user)->where('check_out', null)->first();
     }
+
+
+
+
+
+
+
+
+    
+    /**
+     * Find Leave Type 
+     */
+    public function findLeaveType($id)
+    {
+        $business_id = Auth::user()->business_id ?? 0;
+        return LeaveType::forBusiness($business_id)->findOrFail($id);
+    }
+    
+    /**
+     * Create Leave Type 
+     */
+    public function createLeaveType(array $data)
+    {
+        return LeaveType::create($data);
+    }
+    
+    /**
+     * Update Leave Type 
+     */
+    public function updateLeaveType($id, array $data)
+    {
+        $leavetype = $this->findLeaveType($id);
+        return $item->update($data);
+    }
+
+    /**
+     * Delete Leave Type 
+     */
+    public function deleteLeaveType($id)
+    {
+        $leavetype = $this->findLeaveType($id);
+        return $leavetype->delete();
+    }
+
+
+    
 }

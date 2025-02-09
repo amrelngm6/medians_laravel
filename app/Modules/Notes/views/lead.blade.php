@@ -40,7 +40,7 @@
             </label>
             @endforeach
 
-            <form action="{{route('Note.store')}}" class="w-full ajax-form" id="note-form">
+            <form action="{{route('Note.store')}}" class="w-full ajax-form fs-5" id="note-form">
                 @csrf
                 <input type="hidden" name="model_id" value="{{$lead->lead_id}}" />
                 <input type="hidden" name="model_type" value="{{get_class($lead)}}" />

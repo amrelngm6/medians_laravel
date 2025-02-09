@@ -54,8 +54,8 @@
                         <tr>
                             <th class="text-start">#</th>
                             <th class="text-start">Name</th>
-                            <th class="text-start">Start</th>
-                            <th class="text-start">End</th>
+                            <th class="text-start">Month limit</th>
+                            <th class="text-start">Annual limit</th>
                             <th class="text-start">Actions</th>
                         </tr>
                     </thead>
@@ -64,6 +64,8 @@
                         <tr>
                             <td>{{ $leave_type->id }}</td>
                             <td>{{ $leave_type->name }}</td>
+                            <td>{{ $leave_type->month_limit }}</td>
+                            <td>{{ $leave_type->annual_limit }}</td>
                             <td>
                                 <div
                                     class=" gap-4 me-2 mt-1.5 inline-flex items-center rounded bg-primary-100  py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">

@@ -1,13 +1,13 @@
 
-<div class="modal fade show active" id="new-shift-modal" tabindex="-1" >
+<div class="modal fade show active" id="new-leave_type-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-800px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="cursor-pointer text-danger close-modal" data-modal="#new-shift-modal">
+                <div class="cursor-pointer text-danger close-modal" data-modal="#new-leave_type-modal">
                     <i class='bx bx-message-square-x fs-2qx'></i>
                 </div>
                 <!--end::Close-->
@@ -18,18 +18,18 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                         
-                <form action="{{route('Shift.update', $shift->id)}}" class="w-full ajax-form card-body " id="shift-form" >
+                <form action="{{route('LeaveType.update', $leave_type->id)}}" class="w-full ajax-form fs-5 card-body " id="leave_type-form" >
                     @csrf
 
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Edit Shift </h1>
+                        <h1 class="mb-3">Edit Leave Type </h1>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="text-muted fw-semibold fs-5">
-                            Manage your Staff time Shifts.
+                            Manage your Staff Leave Types.
                         </div>
                         <!--end::Description-->
                     </div>
@@ -40,104 +40,49 @@
                     
                     
 
-
-                    <div class="w-full flex gap-10 mb-10">
-                        <div class="w-full ">
-                            <!--begin::Input group-->
-                            <div class="mb-15 fv-row">
-                                <div class=" w-full">
-                                    <div class="fw-semibold me-5 w-full">
-                                        <label for="assigned" class="control-label">Shift name</label>
-                                    </div>
-                                    <div class="d-flex align-items-center w-full">
-                                        <input class="form-control form-control-solid" placeholder="Shift name "
-                                            name="name" value="{{$shift->name}}" />
-                                    </div>
-                                </div>
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label for="assigned" class="control-label">Type name</label>
+                                <div class="fs-7 text-muted">Name of the allowed Leave Type</div>
                             </div>
-                            <!--end::Input group-->
-
-                            <div class="w-full flex gap-10">
-                                <div class="form-group w-full"><label for="start_time" class="control-label" rel="popover"
-                                data-trigger="hover"data-toggle="popover" data-title="Attendance"
-                                        data-placement="top" data-content="Attendance Start time">Start time <i
-                                        class="bx bx-help-circle"></i></label>
-                                    <input type="time" class=" form-control form-control-solid  " id="start_time" name="start_time"
-                                        value="{{$shift->start_time}}">
-                                </div>
-                                <div class="form-group w-full"><label for="end_time" class="control-label" rel="popover"
-                                        data-animate=" animated fadeIn " data-container="body" data-toggle="popover"
-                                        data-placement="top" data-content="End time of the Shift"
-                                        data-title="Leave time" data-trigger="hover" data-html="true">Leave time <i
-                                            class="bx bx-help-circle"></i></label>
-                                    <input type="time" class=" form-control form-control-solid  " 
-                                        id="end_time" name="end_time"  value="{{$shift->end_time}}" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full ">
-                            <div class="mh-300px scroll-y me-n7 pe-7">
-                                @foreach ($staffList as $staffMember)
-                                <div class="d-flex flex-stack py-4 border-bottom border-gray-300 border-bottom-dashed">
-                                    <!--begin::Details-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Avatar-->
-                                        <div class="symbol symbol-35px symbol-circle">
-                                            <img alt="Pic" src="/{{$staffMember->picture ?? ''}}">
-                                        </div>
-                                        <!--end::Avatar-->
-
-                                        <!--begin::Details-->
-                                        <div class="ms-5">
-                                            <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{$staffMember->name}}</a>
-
-                                            <div class="fw-semibold text-muted">{{$staffMember->email}}</div>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                    <!--end::Details-->
-
-                                    <!--begin::Access menu-->
-                                    <div class="ms-2 w-100px" >
-                                        
-                                        <!--begin::Switch-->
-                                        <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <input class="form-check-input w-30px h-20px" type="checkbox" name="staff[]" value="{{$staffMember->id}}" {{isset($staffMember->custom_field('shift_id')->where('value', $shift->id)->first()->value)  ? 'checked' : ''}} />
-                                            <span class="form-check-label fw-semibold text-muted">
-                                            Join
-                                            </span>
-                                        </label>
-                                        <!--end::Switch-->
-                                    </div>
-                                    <!--end::Access menu-->
-                                </div>
-                                @endforeach
+                            <div class="d-flex align-items-center w-full">
+                                <input class="form-control form-control-solid" placeholder="Leave type name "
+                                    name="name" value="{{$leave_type->name}}" />
                             </div>
                         </div>
                     </div>
-                        
-                    <div class="w-full flex gap-10 mb-10">
+                    <!--end::Input group-->
 
-                        <div class="form-group w-full"><label class="control-label" rel="popover"
-                            data-trigger="hover"data-toggle="popover" data-title="Working days"
-                            data-placement="top" data-content="Working days for attendance">Working days <i
-                            class="bx bx-help-circle"></i></label>
-                            
-                            <!--begin::Checkboxes-->
-                            <div class="d-flex align-items-center pt-6">
-                                @foreach (['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $dayName )
-                                <!--begin::Checkbox-->
-                                <label class="form-check form-check-custom form-check-solid me-4">
-                                    <input class="form-check-input h-20px w-20px me-1" type="checkbox"
-                                        name="{{$dayName}}" value="1" {{empty($shift->{$dayName}) ? '' : 'checked'}}  />
-                                        {{ucfirst($dayName)}}
-                                </label>
-                                <!--end::Checkbox-->
-                                @endforeach
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label for="assigned" class="control-label">Month limit</label>
+                                <div class="fs-7 text-muted">Limit to apply for this type within a Month</div>
                             </div>
-                            <!--end::Checkboxes-->
+                            <div class="d-flex align-items-center w-full">
+                                <input value="{{$leave_type->month_limit}}" type="number" class=" form-control form-control-solid  " id="month_limit" name="month_limit">
+                            </div>
                         </div>
                     </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label for="assigned" class="control-label">Annual limit</label>
+                                <div class="fs-7 text-muted">Limit to apply for this type within a Year</div>
+                            </div>
+                            <div class="d-flex align-items-center w-full">
+                                <input value="{{$leave_type->annual_limit}}"  type="number" class=" form-control form-control-solid  "  id="annual_limit" name="annual_limit"  >
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+
                     
                     <!--begin::Actions-->
                     <div class="text-center">

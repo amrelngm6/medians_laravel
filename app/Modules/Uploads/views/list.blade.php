@@ -126,7 +126,7 @@
                     <div class="w-full card">
                         <div class="card-header ">
                             <div class="card-title w-full flex ">
-                                <form action="{{route('Uploads.filter')}}" id="filter-form" data-element="files-list" class="w-full ajax-form flex gap-10">
+                                <form action="{{route('Uploads.filter')}}" id="filter-form" data-element="files-list" class="w-full ajax-form fs-5 flex gap-10">
                                     @csrf
                                     <div class="d-flex align-items-center position-relative my-1">
                                         <input type="text" placeholder="Find File by name" name="name" id="filter-name"  class="filter-on-change  form-control form-control-solid  w-200px" />

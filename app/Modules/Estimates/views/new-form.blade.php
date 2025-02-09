@@ -1,5 +1,5 @@
 
-                <form action="{{route('Estimate.store')}}" class="w-full ajax-form card-body " id="estimate-form">
+                <form action="{{route('Estimate.store')}}" class="w-full ajax-form fs-5 card-body " id="estimate-form">
                     @csrf
                     <input type="hidden" name="model_id" value="{{$user->id()}}" />
                     <input type="hidden" name="model_type" value="{{get_class($user)}}" />

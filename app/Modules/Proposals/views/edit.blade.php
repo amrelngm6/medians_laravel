@@ -38,7 +38,7 @@
     <div class="col-lg-12">
         <div class="card w-full">
 
-                <form action="{{route('Proposal.update', $proposal->id)}}" class="w-full ajax-form card-body " data-append="true"
+                <form action="{{route('Proposal.update', $proposal->id)}}" class="w-full ajax-form fs-5 card-body " data-append="true"
                         data-element="variants-container" id="edit-proposal-form">
                         @csrf
 

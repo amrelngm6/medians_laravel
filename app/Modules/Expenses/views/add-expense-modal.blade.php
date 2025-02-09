@@ -30,7 +30,7 @@
                 </div>
                 <!--end::Heading-->
 
-                <form action="{{route('Expense.store')}}" class="w-full ajax-form card-body " id="Expense-form">
+                <form action="{{route('Expense.store')}}" class="w-full ajax-form fs-5 card-body " id="Expense-form">
                     @csrf
                     <div class="w-full flex gap-10">
                        

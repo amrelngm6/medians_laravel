@@ -18,7 +18,7 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                         
-                <form action="{{route('Shift.store')}}" class="w-full ajax-form card-body " id="shift-form" >
+                <form action="{{route('Shift.store')}}" class="w-full ajax-form fs-5 card-body " id="shift-form" >
                     @csrf
 
                     <!--begin::Heading-->

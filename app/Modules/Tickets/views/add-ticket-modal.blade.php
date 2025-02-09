@@ -30,7 +30,7 @@
                 </div>
                 <!--end::Heading-->
 
-                <form action="{{route('Ticket.store')}}" class="w-full ajax-form card-body " id="Ticket-form">
+                <form action="{{route('Ticket.store')}}" class="w-full ajax-form fs-5 card-body " id="Ticket-form">
                     @csrf
                     <input type="hidden" name="model_id" value="{{$model_id ?? ''}}" />
                     <input type="hidden" name="model_type" value="{{get_class($clients->first()) ?? ''}}" >

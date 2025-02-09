@@ -57,12 +57,107 @@ class LeaveTypeController extends Controller
             abort(401, 'Unauthorized');
         }
 
-        $staffService = new StaffService;
-        $staffList = $staffService->loadStaff();
+        $leave_type = $this->service->findLeaveType($id);
 
-        $leave_type = $this->service->find($id);
-
-        return view('leaves::edit', compact( 'user', 'leave_type', 'staffList'));
+        return view('leaves::edit', compact( 'user', 'leave_type'));
     }
+
+
+
+    
+
+    public function store(Request $request)
+    {
+
+        $user = Auth::user();
+
+        if ($user->cannot('Leave create') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try 
+        {
+            // Validate incoming request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'month_limit' => 'required|integer',
+                'annual_limit' => 'required|integer',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->hasError($validator->errors(), 'Validation Error');
+            }
+            
+            // Handle User who created it
+            $user = Auth::user();
+            $userData = [ 'business_id'=>$user->business_id ?? 0];
+
+            // Create and save the Attendance
+            $attendance = $this->service->createLeaveType( array_merge($userData, $request->only('month_limit', 'annual_limit', 'name')) );
+            
+            return $attendance ? $this->jsonResponse('Created successfully') : null;
+            
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage(), 'Validation Error');
+            
+        }
+    }
+
+    
+    
+
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Leave edit') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+            // Validate incoming request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'month_limit' => 'required|integer',
+                'annual_limit' => 'required|integer',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->hasError($validator->errors(), 'Validation Error');
+            }
+            
+
+            // Create and save the Attendance
+            $update = $this->service->updateLeaveType( $id, $request->only('month_limit', 'annual_limit', 'name')) ;
+            
+            return $update ? $this->jsonResponse('Updated successfully', 'Updated', true) : null;
+            
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage(), 'Validation Error');
+            
+        }
+    }
+
+    
+    public function destroy($id)
+    {
+        
+        $user = Auth::user();
+
+        if ($user->cannot('Leave delete') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        try {
+            return $this->service->deleteLeaveType($id) 
+                ? $this->jsonResponse('Deleted successfully') 
+                : $this->hasError('Failed to destroy') ;
+
+        } catch (\Throwable $th) {
+            return $this->hasError($th->getMessage()) ;
+        }
+
+    }
+
     
 }

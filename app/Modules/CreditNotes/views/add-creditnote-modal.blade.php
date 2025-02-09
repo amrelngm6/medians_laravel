@@ -30,7 +30,7 @@
                 </div>
                 <!--end::Heading-->
 
-                <form action="{{route('CreditNote.store')}}" class="w-full ajax-form card-body " id="CreditNote-form">
+                <form action="{{route('CreditNote.store')}}" class="w-full ajax-form fs-5 card-body " id="CreditNote-form">
                     @csrf
                     <input name="model_type" type="hidden" value="{{get_class($invoice) ?? ''}}" />
                     <input name="model_id" type="hidden" value="{{$invoice->id ?? ''}}" />

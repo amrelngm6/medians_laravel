@@ -32,7 +32,7 @@
                     </div>
                     <!--end::Heading-->
 
-                    <form action="{{route('CreditNote.item-row')}}" class="w-full ajax-form card-body " data-append="true"
+                    <form action="{{route('CreditNote.item-row')}}" class="w-full ajax-form fs-5 card-body " data-append="true"
                         data-element="variants-container" id="estimate-item-form">
                         @csrf
                         <!--begin::Checkbox-->

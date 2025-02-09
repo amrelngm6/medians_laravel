@@ -31,7 +31,7 @@
                     </div>
                     <!--end::Heading-->
 
-                    <form action="{{route('Milestone.store')}}" class="w-full ajax-form card-body " id="milestone-form">
+                    <form action="{{route('Milestone.store')}}" class="w-full ajax-form fs-5 card-body " id="milestone-form">
             @csrf
             <input type="hidden" name="model_id" value="{{$project->project_id}}" />
             <input type="hidden" name="model_type" value="{{get_class($project)}}" />

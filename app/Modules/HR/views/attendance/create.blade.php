@@ -18,7 +18,7 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                         
-                <form action="{{route('Attendance.store')}}" class="w-full ajax-form card-body " id="attendance-form" >
+                <form action="{{route('Attendance.store')}}" class="w-full ajax-form fs-5 card-body " id="attendance-form" >
                     @csrf
 
                     <!--begin::Heading-->

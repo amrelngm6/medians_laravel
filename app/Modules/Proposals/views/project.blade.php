@@ -16,7 +16,7 @@
         </div>
         <!--begin::Card header-->
 
-        <form action="{{route('Proposal.store')}}" class="w-full ajax-form card-body " id="proposal-form"
+        <form action="{{route('Proposal.store')}}" class="w-full ajax-form fs-5 card-body " id="proposal-form"
             style="display:none">
             @csrf
             <input type="hidden" name="model_id" value="{{$project->project_id}}" />

@@ -30,7 +30,7 @@
                 </div>
                 <!--end::Heading-->
 
-                <form action="{{route('Expense.store')}}" class="w-full ajax-form card-body " id="Expense-form">
+                <form action="{{route('Expense.store')}}" class="w-full ajax-form fs-5 card-body " id="Expense-form">
                     @csrf
                     <input type="hidden"  value="{{$user->id() ?? ''}}" name="staff_id" />
                     <input type="hidden"  value="{{$project->project_id ?? ''}}" name="model_id" />

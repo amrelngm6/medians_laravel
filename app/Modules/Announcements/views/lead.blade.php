@@ -62,7 +62,7 @@
             <!--end::Card title-->
         </div>
         <!--begin::Card header-->
-        <form action="{{route('Announcement.store')}}" class="w-full ajax-form card-body " id="announcement-form">
+        <form action="{{route('Announcement.store')}}" class="w-full ajax-form fs-5 card-body " id="announcement-form">
             @csrf
             <input type="hidden" name="model_id" value="{{$lead->lead_id}}" />
             <input type="hidden" name="model_type" value="{{get_class($lead)}}" />

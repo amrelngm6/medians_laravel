@@ -1,7 +1,7 @@
 
 <div class="modal fade show active" id="new-shift-modal" tabindex="-1" >
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-700px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -18,7 +18,7 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                         
-                <form action="{{route('Shift.store')}}" class="w-full ajax-form card-body " id="shift-form" >
+                <form action="{{route('LeaveType.store')}}" class="w-full ajax-form fs-5 card-body " id="shift-form" >
                     @csrf
 
                     <!--begin::Heading-->
@@ -50,51 +50,34 @@
                     </div>
                     <!--end::Input group-->
 
-
-                    <div class="w-full flex gap-10">
-
-                        <div class="form-group w-full"><label for="month_limit" class="control-label" rel="popover"
-                            data-trigger="hover" data-toggle="popover" data-title="Month limit"
-                                data-content="Limit to use this type within a Month">Month limit <i
-                                class="bx bx-help-circle"></i></label>
-                            <input type="number" class=" form-control form-control-solid  " id="month_limit" name="month_limit"
-                                >
-                        </div>
-                        <div class="form-group w-full"><label for="annual_limit" class="control-label" rel="popover"
-                                data-animate=" animated fadeIn " data-toggle="popover"
-                                data-placement="" data-content="Limit to apply for this type within a Year"
-                                data-title="Annual limit" data-trigger="hover" data-html="true">Annual limit <i
-                                    class="bx bx-help-circle"></i></label>
-                            <input type="number" class=" form-control form-control-solid  " 
-                                id="annual_limit" name="annual_limit"  >
-                        </div>
-                    </div>
-                    
-                    
-
-
-                    <div class="w-full flex gap-10 mb-10">
-
-                        <div class="form-group w-full"><label class="control-label" rel="popover"
-                            data-trigger="hover"data-toggle="popover" data-title="Working days"
-                            data-placement="top" data-content="Working days for attendance">Working days <i
-                            class="bx bx-help-circle"></i></label>
-                            
-                            <!--begin::Checkboxes-->
-                            <div class="d-flex align-items-center pt-6">
-                                @foreach (['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $dayName )
-                                <!--begin::Checkbox-->
-                                <label class="form-check form-check-custom form-check-solid me-4">
-                                    <input class="form-check-input h-20px w-20px me-1" type="checkbox"
-                                        name="{{$dayName}}" value="1" />
-                                        {{ucfirst($dayName)}}
-                                </label>
-                                <!--end::Checkbox-->
-                                @endforeach
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label for="assigned" class="control-label">Month limit</label>
+                                <div class="fs-7 text-muted">Limit to apply for this type within a Month</div>
                             </div>
-                            <!--end::Checkboxes-->
+                            <div class="d-flex align-items-center w-full">
+                                <input type="number" class=" form-control form-control-solid  " id="month_limit" name="month_limit">
+                            </div>
                         </div>
                     </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="mb-15 fv-row">
+                        <div class="d-flex flex-stack w-full">
+                            <div class="fw-semibold me-5 w-full">
+                                <label for="assigned" class="control-label">Annual limit</label>
+                                <div class="fs-7 text-muted">Limit to apply for this type within a Year</div>
+                            </div>
+                            <div class="d-flex align-items-center w-full">
+                                <input type="number" class=" form-control form-control-solid  "  id="annual_limit" name="annual_limit"  >
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+
                     
                     <!--begin::Actions-->
                     <div class="text-center">
