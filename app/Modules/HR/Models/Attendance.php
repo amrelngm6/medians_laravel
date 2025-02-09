@@ -13,7 +13,7 @@ class Attendance extends Model
     
     protected $table = 'hr_attendance';
 
-    protected $fillable = ['business_id', 'user_type', 'user_id', 'check_in', 'check_out', 'hours_duration',  'ip', 'platform', 'notes'];
+    protected $fillable = ['business_id', 'shift_id', 'user_type', 'user_id', 'check_in', 'check_out', 'hours_duration',  'ip', 'platform', 'notes'];
 
     
     public function getDateAttribute()
