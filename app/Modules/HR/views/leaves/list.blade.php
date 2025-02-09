@@ -10,7 +10,7 @@
 
             <div class="pull-left">
                 <!-- PAGE HEADING TAG - START -->
-                <h1 class="title">Shifts List</h1>
+                <h1 class="title">Sifts List</h1>
                 <!-- PAGE HEADING TAG - END -->
             </div>
 
@@ -35,6 +35,8 @@
 
 
 
+    <div class="clearfix"></div>
+
     <!-- MAIN CONTENT AREA STARTS -->
     <div class="col-xs-12 ">
         <section class="card ">
@@ -47,7 +49,7 @@
                 </div>
             </div>
             <div class="card-body px-2" id="shifts">
-                <table id="example" class="text-start datatable  table table-hover table-striped">
+                <table id="example" class="text-start display datatable table table-hover table-striped">
                     <thead>
                         <tr>
                             <th class="text-start">#</th>
@@ -58,7 +60,7 @@
                             <th class="text-start">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="rows-shifts">
                         @foreach ($shifts as $shift)
                         <tr>
                             <td>{{ $shift->id }}</td>

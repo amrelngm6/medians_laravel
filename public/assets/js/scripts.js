@@ -1853,13 +1853,19 @@ jQuery(function($) {
                 ]
             });
             
-            jQuery("table.dataTable").dataTable({
+        }
+
+        if (jQuery('.datatable-default').length)
+        {
+            
+            jQuery("table.datatable-default").dataTable({
                 responsive: false,
                 aLengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "All"]
                 ]
             });
+            
         }
 
     };

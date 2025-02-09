@@ -19,6 +19,18 @@ class LeaveTypeController extends Controller
     }
 
 
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->cannot('Leave view') && Auth::guardName() != 'superadmin') {
+            abort(401, 'Unauthorized');
+        }
+
+        $leaves = $this->service->query($request);
+
+        return view('leaves::categories', compact('user', 'leaves'));
+    }
 
     
 }

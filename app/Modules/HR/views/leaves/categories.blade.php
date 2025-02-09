@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title', 'Shits managment')
+@section('title', 'Leave Types')
 @section('css')
 @endsection
 @section('main-content')
@@ -10,7 +10,7 @@
 
             <div class="pull-left">
                 <!-- PAGE HEADING TAG - START -->
-                <h1 class="title">Shifts List</h1>
+                <h1 class="title">Leaves types List</h1>
                 <!-- PAGE HEADING TAG - END -->
             </div>
 
@@ -23,7 +23,7 @@
                         <a href="">HR</a>
                     </li>
                     <li class="active">
-                        <strong>Shifts management</strong>
+                        <strong>Leave Types</strong>
                     </li>
                 </ol>
             </div>
@@ -35,19 +35,21 @@
 
 
 
+    <div class="clearfix"></div>
+
     <!-- MAIN CONTENT AREA STARTS -->
     <div class="col-xs-12 ">
         <section class="card ">
             <div class="card-title w-full gap-4">
                 <div class="flex flex-equal flex-end">
-                    <span class="fs-2 w-full"> Shifts management </span>
+                    <span class="fs-2 w-full px-2"> Shifts management </span>
                     <a class="btn btn-md btn-primary me-2 open-modal" href="{{route('Shift.create')}}"
                         data-modal="#new-shift-modal">
                         New Shift </a>
                 </div>
             </div>
             <div class="card-body px-2" id="shifts">
-                <table id="example" class="text-start datatable  table table-hover table-striped">
+                <table id="example" class="text-start display datatable table table-hover table-striped">
                     <thead>
                         <tr>
                             <th class="text-start">#</th>
@@ -58,7 +60,7 @@
                             <th class="text-start">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="rows-shifts">
                         @foreach ($shifts as $shift)
                         <tr>
                             <td>{{ $shift->id }}</td>

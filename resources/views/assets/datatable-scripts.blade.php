@@ -10,7 +10,8 @@
     // function fetchData(startDate = '', endDate = '') {
     function fetchData() {
         const form = document.getElementById('filter-form');
-    
+        if (!jQuery('filter-form').length)
+            return;
         // Get the form data as a FormData object
         const formData = new FormData(form);
 

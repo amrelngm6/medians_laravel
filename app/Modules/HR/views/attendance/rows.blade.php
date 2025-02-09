@@ -1,5 +1,5 @@
 
-                                <table class="w-full dataTable datatable whitespace-nowrap table table-striped">
+                                <table class="w-full datatable-default whitespace-nowrap table table-striped">
                                     <thead
                                         class="text-center bg-slate-100 text-slate-500 dark:text-zink-200 dark:bg-zink-600">
                                         <tr
