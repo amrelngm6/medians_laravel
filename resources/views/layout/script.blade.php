@@ -3,6 +3,7 @@
     <!-- CORE JS FRAMEWORK - START -->
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.easing.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/plugins/pace/pace.min.js')}}"></script>
     <script src="{{asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>

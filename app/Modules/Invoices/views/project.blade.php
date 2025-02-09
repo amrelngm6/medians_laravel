@@ -86,7 +86,7 @@
         setInterval(calcTotal, 1000);
     })
 </script>
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+
     
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 @endsection

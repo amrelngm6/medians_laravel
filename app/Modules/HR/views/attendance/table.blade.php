@@ -130,7 +130,7 @@
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 
 
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+
 
 <script src="{{asset('assets/plugins/chartjs-chart/Chart.min.js')}}"></script>
 <script src="{{asset('assets/js/chart-chartjs.js')}}"></script>

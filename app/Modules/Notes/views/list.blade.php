@@ -67,7 +67,7 @@
 
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+
 <script src="{{asset('assets/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatables/js/dataTables.bootstrap.js')}}"></script>
 <script src="{{asset('assets/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>

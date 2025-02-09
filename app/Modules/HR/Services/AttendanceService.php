@@ -34,6 +34,11 @@ class AttendanceService
         return Attendance::create($data);
     }
     
+    public function updateAttendance($id, array $data, $user)
+    {
+        $item = Attendance::forUser($user)->findOrFail($id);
+        return $item->update($data);
+    }
 
     public function query($request)
     {

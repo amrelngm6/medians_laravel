@@ -87,7 +87,7 @@
 @section('script')
 
 <script src="{{asset('assets/plugins/jquery-ui/smoothness/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+
 <script>
 jQuery(document).ready(function(){
     

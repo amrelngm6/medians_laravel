@@ -133,7 +133,7 @@
 @section('script')
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 
-    <script src="{{asset('assets/plugins/sweetalert/sweetalert2-11.js')}}"></script>
+    
     
     
     <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>

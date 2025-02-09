@@ -139,8 +139,7 @@ var MediansSettings = window.MediansSettings || {};
                 },
                 error: function (xhr, status, error) {
                     jQuery('#main-loader').addClass('hidden')    
-                    console.error('Error fetching data:', error);
-                    handleResponse(JSON.parse(data), null)
+                    handleResponse(JSON.parse(xhr.responseText), null)
                 }
             });
         } catch(e) {
