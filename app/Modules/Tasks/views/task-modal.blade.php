@@ -85,7 +85,7 @@
                         <div class="w-full text-muted fw-semibold fs-5">
                             <a class="pt-2 open-modal text-primary"
                                 href="{{route('Task.edit_field',['id' => $task->task_id, 'field' => 'tasks::components.description'])}}">
-                                {!! $task->description !!}
+                                {!! nl2br($task->description) !!}
                             </a>
 
                             <hr />
